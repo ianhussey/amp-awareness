@@ -1,0 +1,57 @@
+---
+title: "Simulate data"
+author: "Jamie Cummins"
+date: "22 augustus 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+```{r}
+
+set.seed(42)
+
+# std_amp_effect <- c(rnorm(500,  mean = -.7, sd = .1),
+#                     rnorm(2000, mean = -.3, sd = .2),
+#                     rnorm(5000, mean = 0, sd = .2),
+#                     rnorm(2000, mean = .3, sd = .2),
+#                     rnorm(500,  mean = .7, sd = .1))
+
+# influence_rate <- c(rnorm(4500, mean = .7, sd = .1),
+#                     (rpois(6000, 1) * .1),
+#                     rnorm(4500, mean = .7, sd = .1))
+
+std_amp_effect <- c(rnorm(5000,  mean = -.7, sd = .2),
+                    rnorm(20000,  mean = 0, sd = .2),
+                    rnorm(5000,  mean = .7, sd = .2))
+
+group <- as.factor(c(rep(0, 15000), 
+                     rep(1, 15000)))
+
+influence_rate <- c(rnorm(5000,  mean = .75, sd = .15),
+                    rnorm(20000,  mean = .25, sd = .15),
+                    rnorm(5000,  mean = .75, sd = .15))
+
+df <- 
+  cbind.data.frame(group, influence_rate, std_amp_effect) %>%
+  mutate(std_amp_effect = ifelse(std_amp_effect > 1 | std_amp_effect < -1, NA, std_amp_effect),
+         influence_rate = ifelse(influence_rate > 1 | influence_rate < 0, NA, influence_rate)) %>%
+  na.omit
+
+ggplot(df, aes(influence_rate, std_amp_effect, color = group)) +
+  geom_point(alpha = 0.4) +
+  scale_colour_viridis_d(end = .6) +
+  theme_classic()
+
+write_csv(df, "simulated_data.csv")
+
+```
+
+
+
+

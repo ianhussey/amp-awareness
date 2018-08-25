@@ -1,0 +1,401 @@
+date,time,group,subject,build,blocknum,trialnum,blockcode,trialcode,pretrialpause,posttrialpause,windowcenter,trialduration,trialtimeout,blocktimeout,response,correct,latency,inwindow
+80918,17:27:01,320555493,743970945,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,somewhat democratic,1,5552,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,8907,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,4547,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,9999,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,5514,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,all,1,4588,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,5046,0
+80918,17:27:01,320555493,743970945,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,q,1,5046,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,somewhat democratic,1,7442,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,22643,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,18209,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,9194,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,8900,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,15305,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4063,0
+80918,11:59:55,39586963,347524095,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4063,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,a little democratic,1,6016,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,26167,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,9382,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,10844,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,6725,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,6951,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8951,0
+80918,09:25:12,288208,77268698,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,8951,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,4854,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,8360,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,I'm not sure or don't know why I responded the way I did,1,6120,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,6016,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,5159,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,6916,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,3789,0
+80918,12:36:00,173822310,408892577,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,3789,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4089,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,17116,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,12835,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,10945,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,6560,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,7329,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12352,0
+80918,12:43:54,975290723,210361004,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12352,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4565,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,16691,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,11858,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,4857,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,7784,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,4371,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5804,0
+80918,12:46:24,789152872,24223154,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,5804,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,4316,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,9311,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,8653,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,5142,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,5647,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,7120,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9978,0
+80918,12:46:35,598884680,833954947,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9978,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4764,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,20795,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,16203,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,6960,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,13765,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,14283,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10984,0
+80918,12:47:03,124658429,359728694,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,10984,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,a little democratic,1,3906,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,26211,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,I'm not sure or don't know why I responded the way I did,1,12480,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,6824,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,10497,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,5808,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10256,0
+80918,11:49:09,61413571,880653715,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10256,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,10887,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,21133,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,38581,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,10523,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,17293,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,10536,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9074,0
+80918,12:55:47,763841809,418702875,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9074,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,a little democratic,1,8572,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,25606,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,8291,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,9468,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,5030,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,5969,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4055,0
+80918,11:58:50,741409424,376635527,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4055,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,a little democratic,1,8736,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,47014,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,15883,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,10379,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,8718,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8009,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,18729,0
+80918,10:00:58,44712698,675918708,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,18729,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,somewhat democratic,1,7761,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,16277,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,12093,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,all,1,6206,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,all,1,6549,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,7079,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5235,0
+80918,13:02:38,783047680,956349113,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5235,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,4748,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,9578,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,5916,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,4465,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,10998,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,2795,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,37607,0
+80918,12:03:40,822976059,73938476,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,I think I was too influenced by the pictures rather than the symbols,1,37607,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,3931,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,18871,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,17664,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,7799,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,13506,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,5968,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,19128,0
+80918,12:04:09,667910883,72372970,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,19128,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4580,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,7319,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,8494,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,6462,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,20230,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,6384,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14297,0
+80918,13:05:23,60950759,37441758,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,14297,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,5704,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,6730,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,6850,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,5532,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,8871,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,6128,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4300,0
+80918,13:06:11,524045576,879040610,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4300,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,5130,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,32331,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,48848,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,27637,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,10530,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,6791,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,21665,0
+80918,12:10:30,767837566,414118202,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,21665,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,7537,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,24458,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were based on what I thought the researcher wanted me to say,1,25287,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,7961,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,all,1,10399,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,all,1,8990,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6040,0
+80918,04:25:12,459639878,204470556,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6040,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,10622,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,15200,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,24443,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,all,1,5672,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,10354,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,5578,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5584,0
+80918,13:14:37,726455798,612719567,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5584,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,somewhat democratic,1,8857,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,19302,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,13331,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,7689,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,17973,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,13171,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10300,0
+80918,13:14:38,989419638,257035865,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10300,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,4403,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,14277,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,14407,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,7057,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,15231,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,19243,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4132,0
+80918,10:16:08,782623127,861245923,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4132,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,3594,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,8549,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,6459,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,4795,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,3963,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8369,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2536,0
+80918,13:21:35,398881517,4793598,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2536,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,6146,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,22387,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,17089,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,8039,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,8206,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8739,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,17567,0
+80918,12:20:53,907233042,199138224,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,17567,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,neither/moderate,1,9769,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,24686,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,24900,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,18662,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,18599,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8210,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,22956,0
+80918,13:20:30,502145183,995276234,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,22956,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4132,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,17792,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,I'm not sure or don't know why I responded the way I did,1,10616,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,6673,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9840,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,7044,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,101601,0
+80918,13:20:23,841380207,99792694,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,"I have no idea if what I was doing was right. Pleasant vs. unpleasantness seemed pretty arbitrary, and all of the symbols look at least somewhat pleasant to me, and although I did not do any of the tasks with any set intention (/I tried to cooperate), my answers seemed almost arbitrary.",1,101601,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,4870,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,14128,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,15768,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,14616,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,15282,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,13404,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4921,0
+80918,10:22:23,533106182,207177671,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4921,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,somewhat democratic,1,9072,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,22763,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,12424,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,16091,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,24923,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6073,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5267,0
+80918,12:23:24,833516971,51723877,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5267,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4060,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,17262,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,I'm not sure or don't know why I responded the way I did,1,27336,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,6863,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,4990,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,6234,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8607,0
+80918,13:24:02,405836187,700535080,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,8607,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,5034,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,28092,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,24404,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,10675,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,28000,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,all,1,10568,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12891,0
+80918,13:28:39,654658603,229993324,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12891,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,5736,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,21422,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,15282,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,14282,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,7211,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,12383,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,175377,0
+80918,11:22:06,216392615,198956190,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,"I'm not sure the test was working as intended. The pictures flashed very quickly and then disappeared, and this was unexpected to me. The fastness of it made me think the test was broken, so I felt hurried and unsure if I was doing it properly. If this fast presentation was actually intentional, then I do think you can fairly use my data. ",1,175377,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,39531,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,14482,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,11238,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,6095,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,8747,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,7027,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11497,0
+80918,10:28:16,101318272,562792162,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,11497,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,a little democratic,1,7606,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,18853,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,10870,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,11903,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,7150,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6815,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4822,0
+80918,13:30:32,615046070,724129297,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4822,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,4670,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,22023,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,16631,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,6280,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,10436,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,11151,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12291,0
+80918,13:31:11,546600367,426487590,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12291,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,3459,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,6895,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,6847,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,6101,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,all,1,3580,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,all,1,4757,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,3913,0
+80918,12:32:42,366732243,803549838,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,3913,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,a little democratic,1,5361,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12073,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,6936,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,9430,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,5560,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,7931,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,29580,0
+80918,10:32:25,906056582,834227260,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,29580,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,a little democratic,1,6456,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,21652,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,12403,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,9192,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,8935,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,10749,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11565,0
+80918,12:33:52,26689582,838309898,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,11565,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,2514,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,2588,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,11165,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,4598,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,1866,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,1401,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6403,0
+80918,13:35:52,459367856,268653392,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6403,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,6100,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,16481,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,14440,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,6296,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,7405,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,8627,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6445,0
+80918,10:36:17,61592092,36800426,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6445,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,neither/moderate,1,3529,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,7163,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,5119,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,4278,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,3957,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,2147,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4112,0
+80918,13:36:58,416684168,387510502,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4112,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,7312,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,14276,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,13645,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,6401,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,9751,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,6584,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12239,0
+80918,10:36:44,881921318,14993216,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12239,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,4206,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,13016,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,7481,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,26528,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,8355,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,most,1,10926,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6212,0
+80918,07:36:36,654121503,73899742,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6212,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,a little democratic,1,4457,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,13794,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,10059,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,7600,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,3742,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6907,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,3844,0
+80918,13:38:23,481094527,942233025,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,3844,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,8113,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,13626,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,19138,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,all,1,40330,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,all,1,8640,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,all,1,9305,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8453,0
+80918,13:38:47,801153288,907215497,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8453,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,20047,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,10059,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,7478,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,6776,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,10887,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,9170,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14920,0
+80918,13:40:03,356596624,741795876,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,14920,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,somewhat democratic,1,9857,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,25101,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,20586,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,7869,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,11632,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,13018,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20955,0
+80918,13:40:09,910859564,50554708,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,20955,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,somewhat democratic,1,11736,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,24847,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,17173,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,9122,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6531,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,7932,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7137,0
+80918,10:40:59,852449859,855918927,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7137,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,6287,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,22344,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,115292,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,7365,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,8263,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,5982,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11321,0
+80918,13:41:47,548241995,317346405,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11321,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,1,end_of_study_questions_ufirst,politics,0,0,0,0,0,0,very democratic,1,11201,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,2,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,23378,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,3,end_of_study_questions_ufirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,20170,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,4,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,all,1,9777,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,5,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,all,1,7895,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,6,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,all,1,6170,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,18512,0
+80918,13:43:13,239847689,404330801,4.0.10.0,1,7,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,18512,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,1,end_of_study_questions_ifirst,politics,0,0,0,0,0,0,very democratic,1,3874,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,2,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,7413,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,3,end_of_study_questions_ifirst,demand,0,0,0,0,0,0,My responses were genuinely based on whether I was influenced or not,1,8930,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,4,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,3746,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,5,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,56322,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,6,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,4232,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2497,0
+80918,11:44:46,403520209,557894060,4.0.10.0,1,7,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2497,0

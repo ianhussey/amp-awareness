@@ -1,0 +1,191 @@
+---
+title: "Study 1"
+subtitle: "Processing"
+author: "Jamie Cummins & Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE, 
+                      cache = TRUE,
+                      echo = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+library(lme4)
+library(sjPlot)
+library(effects)
+library(DescTools)
+library(Rmisc)
+library(effsize)
+library(psych)
+
+# get data
+demographics_df    <- read.csv("raw/demographics.csv")
+intentional_AMP_df <- read.csv("raw/modified_intentionality_amp.csv")
+post_df            <- read.csv("raw/post-questions.csv")
+
+```
+
+- IAN: if you rename the raw files to remove the dates, these scripts become more reusable as you don't have to rework the file reads.
+
+```{r questions and demographics}
+
+# match Prolific IDs to subject numbers
+prolificid_df <- demographics_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode == "ProlificCode") %>%
+  dplyr::select(subject, response) 
+
+# Screen questions df for unique values, thus removing duplicates
+self_exclusion <- post_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  dplyr::select(subject, trialcode, response)
+
+# Join the above two dfs, filter for only the appropriate number of rows
+screen <- full_join(prolificid_df, self_exclusion, by="subject") %>%
+  group_by(subject) %>% 
+  filter(n() == 6) %>%
+  dplyr::rename(prolificid = response.x, 
+                response = response.y) %>%
+  mutate(response = as.character(response))
+
+# recode post_df responses, remove NAs
+questions <- post_df %>%
+  mutate(response = as.character(response)) %>%
+  mutate(response = ifelse(response == "none" | response == "Never", 1,
+                           ifelse(response == "a few" | response == "Very rarely", 2, 
+                                  ifelse(response == "less than half" | response == "Somewhat rarely", 3,
+                                         ifelse(response == "about half" | response == "Sometimes", 4,
+                                                ifelse(response == "more than half", 5, 
+                                                       ifelse(response == "most", 6,
+                                                              ifelse(response == "all", 7, response)))))))) %>%
+  na.omit
+
+# Take the above df, remove potential duplicates, and then spread
+screen_qs <- questions %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  select(subject, trialcode, response) %>%
+  group_by(subject) %>%
+  spread(trialcode, response) %>%
+  ungroup() %>% 
+  na.omit
+
+```
+
+- IAN: you need a script to remove prolific ids from the raw data before you post it online for GDPR compliance and ethicality. This can be separate or included in this script. I've included one i use for you to modify.
+
+```{r AMP data}
+
+# Manipulate df so that "influenced" refers to whether the trial response 
+# indicated the absence (0) or presence (1) of an influence of the prime
+# Also filters incomplete AMP data, and ensures that only participants 
+# who answers all of the post-questions are included
+int_AMP_cleaned <- intentional_AMP_df %>%
+  mutate(influenced = ifelse(trialcode == "intention_check" & correct == 1, 1, 0)) %>%
+  mutate(influenced = lead(influenced)) %>%
+  filter(trialcode == "prime_positive" | trialcode == "prime_negative") %>%
+  mutate(trialcode = ifelse(trialcode == "prime_positive", 1, 0)) %>%
+  group_by(subject) %>% 
+  filter(n() == 120) %>%
+  semi_join(., screen, by = "subject") %>%
+  semi_join(., screen_qs, by = "subject") %>%
+  dplyr::rename(prime_type = trialcode)
+
+```
+
+- IAN: some of these routines do a lot in one. maybe either add comments above lines/sections (e.g., exclude partial data), or break up into multiple routines for comprehensibility. 
+
+# Rescale variables
+
+IAN: I think i've confused two issues here and rescaling is not actually necessary.
+
+```{r rescaling}
+
+# int_AMP_rescaled <- int_AMP_cleaned %>%
+#   mutate(influenced = as.numeric(influenced) - .5,
+#          prime_type = as.numeric(prime_type) - .5)
+# 
+# int_AMP_influenced <- int_AMP_rescaled %>%
+#   filter(influenced == .5)
+# 
+# 
+# int_AMP_uninfluenced <- int_AMP_rescaled %>%
+#   filter(influenced == -.5)
+
+```
+
+# Subject-level data-frames 
+
+```{r subject-level dfs}
+
+# Creates an amp_effect column giving the AMP effect on the IA-AMP for each subject.
+int_joiner <- int_AMP_cleaned %>%
+  group_by(subject, prime_type) %>%
+  dplyr::summarize(amp_effect = mean(correct)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  dplyr::rename(false_prime = "0",
+                true_prime = "1") %>%
+  mutate(amp_effect = true_prime - false_prime)
+
+# Creates a full data-frame, with information for each subject on their responses 
+# to the post-questions, and their IA-AMP effect.
+full_subjects_df <- int_AMP_cleaned %>%
+  mutate(influenced = as.numeric(as.character(influenced))) %>%
+  group_by(subject) %>%
+  dplyr::summarize(influence_rate = mean(influenced)) %>%
+  ungroup() %>%
+  left_join(int_joiner, by = "subject") %>%
+  left_join(screen_qs, by = "subject") %>%
+  dplyr::rename(int_false_prime = false_prime, 
+                int_true_prime = true_prime, 
+                int_amp_effect = amp_effect) %>%
+  mutate(influence_rate = as.numeric(influence_rate),
+         influence_general = as.numeric(influence_general),
+         intentionality = as.numeric(intentionality),
+         unintentionality = as.numeric(unintentionality))
+
+age_and_gender <- demographics_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode != "ProlificCode") %>%
+  dplyr::select(subject, trialcode, response) %>%
+  spread(trialcode, response)
+
+demographs <- full_subjects_df %>%
+  left_join(age_and_gender, by = "subject")
+
+
+# # Removes the NAs in the full_subjects_df: basically just removes participants whose AMP effect
+# # for uninfluenced trials was NA (i.e., because they reported all trials as influenced).
+# screened_subjects_df <- full_subjects_df %>%
+#   na.omit()
+
+```
+
+- screened_subjects_df doesn't seem that useful? no point hiding that these subjects exist, just keep the nas? also creates confusion to have two highly similar data files - do simple exclusions like this in code
+- demographs.csv contains much more than demographics data, seems to duplicate subject_level.csv. join demographic info into both subject level and trial level data files and save to disk? then a naive reader can easily pick up the data folder
+
+# Write to disk
+
+```{r write-out}
+
+write_csv(full_subjects_df, "processed/subject_level.csv")
+write_csv(int_AMP_cleaned, "processed/intentional_AMP.csv")
+#write_csv(screened_subjects_df, "processed/na_omitted_subjects.csv")
+write_csv(demographs, "processed/demographs.csv")
+
+```

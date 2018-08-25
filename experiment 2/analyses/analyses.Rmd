@@ -1,0 +1,188 @@
+---
+title: "Study 2"
+subtitle: "Analyses"
+author: "Jamie Cummins & Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE, 
+                      cache = TRUE,
+                      echo = FALSE)
+
+```
+
+```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+
+# dependencies
+library(plyr)
+library(tidyverse)
+library(data.table)
+library(lme4)
+library(sjPlot)
+library(broom)
+library(kableExtra)
+
+# get data
+subject_level_df       <- read.csv("../data/processed/subject_level.csv")
+intentional_AMP_df     <- read.csv("../data/processed/intentional_AMP.csv")
+standard_AMP_df        <- read.csv("../data/processed/standard_AMP.csv")
+na_omitted_subjects_df <- read.csv("../data/processed/na_omitted_subjects.csv")
+demographs             <- read.csv("../data/processed/demographs.csv")
+```
+
+```{r age and gender}
+# Gender
+demographs %>%
+  dplyr::count(gender)
+
+# Age mean and SD
+demographs %>%
+  mutate(age = as.numeric(as.character(age))) %>%
+  summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age))
+```
+# Manipulation checks
+
+## M1: Demonstate an AMP effect on the standard AMP
+
+### Logistic mixed-effects model
+
+```{r}
+
+# fit model
+model_m1_int <- glmer(correct ~ prime_type + (1|subject), 
+                      family = binomial(link = "logit"),
+                      data = intentional_AMP_df)
+
+# plot
+sjp.glmer(model_m1_int, type = "pred", vars = c("correct"))
+
+# results table
+sjt.glmer(model_m1_int)
+
+```
+
+## M2: Demonstate an AMP effect on the modified IA-AMP
+
+### Logistic mixed-effects model
+
+```{r}
+
+# fit model
+model_m1_std <- glmer(correct ~ prime_type + (1|subject), 
+                      family = binomial(link = "logit"),
+                      data = standard_AMP_df)
+
+# plot
+sjp.glmer(model_m1_std, type = "pred", vars = c("correct"))
+
+# results table
+sjt.glmer(model_m1_std)
+
+```
+
+# Hypothesis tests
+
+## H1: influence moderates the IA-AMP effect (trial level)
+
+The effect of prime type on response in trials is moderated by the subset of trials where influenced is reported.
+
+Key effect: influence*prime_type interaction
+
+```{r}
+
+# model
+model_h1 <- glmer(correct ~ influenced * prime_type + (1|subject), 
+                  family = binomial(link = "logit"),
+                  data = intentional_AMP_df)
+
+# plot
+sjp.glmer(model_h1, type = "pred", vars = c("correct", "influenced"))
+
+# results table
+sjt.glmer(model_h1, digits.p = 20)
+
+```
+
+## H2: IA-AMP influence rate predicts IA-AMP effect (participant level)
+
+If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+That is: rate of influence in the IA-AMP should predict IA-AMP effect sizes.
+
+```{r}
+
+# model
+fit_h2 <- lm(int_amp_effect ~ influence_rate, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate, int_amp_effect)) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Experiment 2: Rate of influence and IA-AMP effect size", x = "Rate of influence", y = "IA-AMP effect size") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h2, show.std = TRUE, digits.p = 15)
+
+```
+
+## H3: IA-AMP influence rate predicts standard AMP effect
+
+If effects in the standard AMP, as well as the IA-AMP, are driven by participants who are more often influenced, then rate of influence in the IA-AMP should predict effect sizes in the standard AMP. 
+
+```{r}
+
+# model
+fit_h3 <- lm(std_amp_effect ~ influence_rate, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate, std_amp_effect)) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Experiment 2: Rate of influence and Standard AMP effect size", x = "Rate of influence", y = "Standard AMP effect size") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h3, show.std = TRUE, digits.p = 15)
+
+```
+
+## H4: Magnitude of 'unintentional' IA-AMP effect vs. standard AMP effect
+
+If intentional responding drives the AMP effect, then the effect size in the IA-AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
+
+```{r}
+na_omitted_subjects_df %>%
+  summarise("Mean: Standard AMP" = mean(std_amp_effect), "SD: Standard AMP" = sd(std_amp_effect))
+na_omitted_subjects_df %>%
+  summarise("Mean: Unintentional trials only" = mean(unint_amp_effect), "SD: Unintentional trials only" = sd(unint_amp_effect))
+
+
+t.test(na_omitted_subjects_df$std_amp_effect, na_omitted_subjects_df$unint_amp_effect, 
+       paired = TRUE) %>%
+  tidy() %>%
+  gather() %>%
+  kable()
+
+
+```
+
+
+
+
+
+
+

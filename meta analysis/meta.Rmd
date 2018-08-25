@@ -1,0 +1,86 @@
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+
+```
+
+```{r}
+
+library(tidyverse)
+library(metafor)
+library(timesavers)
+
+# get data
+combined_results <- read.csv("combined_results.csv")
+
+# reshape
+data_for_meta_analysis <- combined_results %>%
+  mutate(
+    # convert odds ratios to log odds
+    yi = log(OR),
+    # convert CIs to SEs
+    sei = (log(OR_ci_upr) - log(OR_ci_lwr)) / (2*1.96),
+    # convert SE to variance
+    vi = sei^2
+  )
+
+# fit Random Effects model 
+meta_fit <- rma(yi, vi,
+                data = data_for_meta_analysis,
+                slab = paste(Experiment))
+
+# make predictions converting to odds ratios
+predictions <-
+  predict(meta_fit, transf = exp, digits = 5) %>%
+  as.data.frame() %>%
+  gather() %>%
+  round_df(2) %>%
+  dplyr::rename(metric = key,
+         estimate = value) %>%
+  mutate(metric = recode(metric,
+                         "pred" = "Meta analysed OR",
+                         "ci.lb" = "95% CI lower",
+                         "ci.ub" = "95% CI upper",
+                         "cr.lb" = "95% CR lower",
+                         "cr.ub" = "95% CR upper"))
+
+# plot
+forest(meta_fit,
+       xlab = "Odds ratio",
+       addcred = TRUE,  # credibility intervals
+       atransf = exp)
+## add column headings to the plot
+text(-6.3, 6.8, "Participant", pos = 4)
+text( 8.4, 6.8, "Odds Ratio [95% CI]", pos = 2)
+
+# data.frame(
+#   k    = meta_fit$k,  # number of studies
+#   p    = ifelse(meta_fit$pval < 0.001, "< .001", as.character(round(meta_fit$pval, 3))),  # sig of meta effect
+#   tau2 = round(meta_fit$tau2, 2),  # total heterogeneity
+#   I2   = round(meta_fit$I2, 2),  # total heterogeneity / total variability
+#   H2   = round(meta_fit$H2, 2),  # total variability / sampling variability
+#   QE   = round(meta_fit$QE, 2),  # test of heterogeneity
+#   Q_df = meta_fit$k - 1,
+#   QE_p = ifelse(meta_fit$QEp < 0.001, "< .001", as.character(round(meta_fit$QEp, 3)))  # heterogeneity p value
+# ) %>%
+#   gather(metric, estimate)
+
+
+meta_effect <- paste0("Meta analysis: k = ", meta_fit$k, 
+                      ", OR = ", predictions$estimate[1],
+                      ", 95% CI [", predictions$estimate[2], ", ", predictions$estimate[3], "]",
+                      ", 95% CR [", predictions$estimate[4], ", ", predictions$estimate[5], "]")
+
+meta_heterogeneity <- paste0("Heterogeneity tests: Q(df = ", meta_fit$k - 1, ") = ", round(meta_fit$QE, 2), 
+                             ", p = ", ifelse(meta_fit$pval < 0.001, "< .001", as.character(round(meta_fit$pval, 3))),
+                             ", tau^2 = ", round(meta_fit$tau2, 2), 
+                             ", I^2 = ",   round(meta_fit$I2, 2),
+                             ", H^2 = ",   round(meta_fit$H2, 2))
+
+```
+
+`r meta_effect`
+
+`r meta_heterogeneity`

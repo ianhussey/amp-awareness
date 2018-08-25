@@ -1,0 +1,334 @@
+---
+title: "Study 1"
+subtitle: "Analyses"
+author: "Jamie Cummins & Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+need to examine distribution of bootstrapped ORs to decide if median or mean is more suitable.
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE, 
+                      cache = TRUE,
+                      echo = FALSE)
+
+```
+
+```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+
+# dependencies
+library(tidyverse)
+library(lme4)
+library(sjPlot)
+library(effects)
+library(DescTools)
+library(Rmisc)
+library(effsize)
+library(psych)
+library(broom)
+library(kableExtra)
+
+# IAN:
+# devtools::install_github("ianhussey/timesavers")  # for round_df()
+library(timesavers)
+
+# get data
+subject_level_df       <- read.csv("../data/processed/subject_level.csv")
+intentional_AMP_df     <- read.csv("../data/processed/intentional_AMP.csv")
+# na_omitted_subjects_df <- read.csv("../data/processed/na_omitted_subjects.csv")
+demographs             <- read.csv("../data/processed/demographs.csv")
+
+```
+
+- IAN: my habits have changed over time, i used to append _df to data frames where now I tend to use data in their name somewhere. try to be consistent or eventually you'll fuck yourself with an unintended name space collision, I've done this.
+
+```{r age and gender}
+
+# Gender
+demographs %>%
+  dplyr::count(gender)
+
+# Age mean and SD
+demographs %>%
+  mutate(age = as.numeric(as.character(age))) %>%
+  summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age)) %>%
+  round_df(2)
+
+```
+
+- IAN: added round_df(), which will round all numeric columns in a df for you. Do rounding via code when results will be reported, decreases chance you'll make a rounding error when reporting in manuscript. 
+
+# Manipulation checks
+
+## M1: Demonstate an AMP effect on the standard AMP
+
+### Logistic mixed-effects model
+
+```{r}
+
+# fit model
+model_m1_int <- glmer(correct ~ prime_type + (1 | subject), 
+                      family = binomial(link = "logit"),
+                      data = intentional_AMP_df)
+
+# plot
+sjp.glmer(model_m1_int, type = "pred", vars = c("correct"))
+
+# results table
+sjt.glmer(model_m1_int)
+
+
+
+
+## IAN: NEW CODE FROM HERE, TO BE PROPOGATED TO ALL OTHER MODELS
+
+# bootstrap OR and CIs for key parameters
+model_m1_int_boot <- bootMer(model_m1_int, 
+                             FUN = fixef,  # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+                             nsim = 1000,
+                             parallel = "multicore")
+
+model_m1_int_boot %>%
+  as.data.frame() %>%
+  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+# write to disk given long runtime
+save(model_m1_int_boot, file = "data/models/model_m1_int_boot.RData")
+load("data/models/model_m1_int_boot.RData")
+
+# model performance
+# add model predictions back to the original data frame
+intentional_AMP_df$m1_predicted_probability <- predict(model_m1_int, type = "response")
+
+# model performance: AUC
+## custom function to do this via exact test. PIM etc would estimate this far more quickly, but somewhat black boxes some assumptions.
+ruscios_A <- function(variable, group, data, value1 = 1, value2 = 0) {
+  # Ensure data is a data frame (e.g., not a tbl_data)
+  data <- as.data.frame(data)
+  # Select the observations for group 1
+  x <- data[data[[group]] == value1, variable]
+  # Select the observations for group 2
+  y <- data[data[[group]] == value2, variable]
+  # Matrix with difference between XY for all pairs (Guillaume Rousselet's suggestion)
+  m <- outer(x, y, FUN = "-")
+  # Convert to booleans; count ties as half true.
+  m <- ifelse(m == 0, 0.5, m > 0)
+  # Return proportion of TRUEs
+  ruscios_A <- round(mean(m), 3)
+  return(as.numeric(ruscios_A))
+}
+
+# ruscios_A_boot <- function(data, variable, group, value1 = 1, value2 = 0, B = 1000) {
+#   require(tidyverse)
+#   require(broom)
+#   ruscios_A_results <- data %>%
+#     ruscios_A(variable = variable,
+#               group = group,
+#               value1 = value1,
+#               value2 = value2,
+#               data = .)
+#   
+#   ruscios_A_boot_results <- data %>%
+#     broom::bootstrap(B) %>%
+#     do(broom::tidy(ruscios_A(variable = variable,
+#                              group = group,
+#                              value1 = value1,
+#                              value2 = value2,
+#                              data = .))) %>%
+#     ungroup() %>%
+#     dplyr::summarize(AUC_ci_lwr = round(quantile(x, 0.025, na.rm = TRUE), 3),
+#                      AUC_ci_upr = round(quantile(x, 0.975, na.rm = TRUE), 3)) %>%
+#     mutate(AUC_estimate = ruscios_A_results)
+#   
+#   return(ruscios_A_boot_results)
+# }
+
+m1_AUC_with_CIs <- ruscios_A(data = intentional_AMP_df, 
+                             variable = "m1_predicted_probability", 
+                             group = "correct")
+
+```
+
+Model performance: The probability that a randomly selected trial preceeded by a positive prime will be evaluated more positively than a randomly selected negative prime is `r m1_AUC_with_CIs`.
+
+
+- IAN: 
+  - solution to bootstrap ORs for lmer models here. The solution for lm models is on my logistic-regressin github, and is actually a little nicer as it doesn't black box how it does it. 
+  - Arguably more replicable to report the median bootstrapped OR rather than the original model ORs, but here we clash between actual data science and modal practices in psych. Consider reporting median boot ORs as well/instead.
+  - bootstraps for AUCs are eminently possible but my current implemention is very slow - estimated 8 hours runtime on my laptop. Haven't applied it for this reason 
+
+
+
+# Hypothesis tests
+
+## H1: influence moderates the IA-AMP effect (trial level)
+
+The effect of prime type on response in trials is moderated by the subset of trials where influenced is reported.
+
+Key effect: influence*prime_type interaction
+
+```{r}
+
+# model
+model_h1 <- glmer(correct ~ influenced * prime_type + (1 | subject), 
+                  family = binomial(link = "logit"),
+                  data = intentional_AMP_df)
+
+# plot
+sjp.glmer(model_h1, type = "pred", vars = c("correct", "influenced"))
+
+# results table
+sjt.glmer(model_h1, digits.p = 20)
+
+# bootstrap OR and CIs for key parameters
+model_h1_int_boot <- bootMer(model_h1_int, 
+                             FUN = fixef,  # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+                             nsim = 1000,
+                             parallel = "multicore")
+
+model_h1_int_boot %>%
+  as.data.frame() %>%
+  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+# write to disk given long runtime
+save(model_h1_int_boot, file = "data/models/model_h1_int_boot.RData")
+load("data/models/model_h1_int_boot.RData")
+
+
+# model performance
+# add model predictions back to the original data frame
+intentional_AMP_df$h1_predicted_probability <- predict(model_h1, type = "response")
+
+h1_AUC_with_CIs <- ruscios_A(data = intentional_AMP_df, 
+                             variable = "h1_predicted_probability", 
+                             group = "correct") 
+
+h1_AUC_with_CIs
+
+```
+
+- IAN: meaningfulness of AUC for interactive models needs thought. due to multiple IVs it doesn't tell you merely about probablility of XXX, but it does let you compare between models. E.g, M1 AUC = `r m1_AUC_with_CIs`, H1 AUC = `r h1_AUC_with_CIs`, therefore adding intentionality improves the model. CIs on the AUC would allow you to say that this improvement is "significant" or not, but is computationally intensive of course. Look for a more efficient (but accuracy and non parametric) implementation of AUC, or consider using PIM model on probabilities to estimate it with some semi parametric assumptions. This doesn't look much like psychology statistics of course, but it's good data science. Also bolsters our argument that adding intentionality makes for a better account of the data. Simple odds ratio test between the two models also possible: anova(model_h1, model_m1_int) shows significant difference and lower AIC/BIC values.
+
+### Plot predictions
+
+```{r fig.height=3, fig.width=5}
+
+model_h1_predicted_effects <- 
+  as.data.frame(effect("influenced:prime_type", model_h1))
+
+ggplot(data = model_h1_predicted_effects,
+       aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
+  geom_pointrange(aes(ymax = upper,
+                      ymin = lower)) +
+  geom_line() +
+  ylab("Mean rating") +
+  xlab("Prime type") +
+  scale_y_continuous(breaks = c(0, 0.25, 0.5, 0.75, 1)) +
+  scale_colour_viridis_c(direction = -1) +
+  theme_classic()
+
+ggplot(data = model_h1_predicted_effects,
+       aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
+  geom_smooth(alpha = 0.2, method = "lm", se = FALSE) +
+  ylab("Mean rating") +
+  xlab("Prime type") +
+  scale_y_continuous(breaks = c(0, 0.25, 0.5, 0.75, 1)) +
+  scale_colour_viridis_c(direction = -1) +
+  theme_classic()
+
+```
+
+- why are there multiple levels to prime type??
+
+
+  
+## H2: IA-AMP influence rate predicts IA-AMP effect (participant level)
+
+If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+That is: rate of influence in the IA-AMP should predict IA-AMP effect sizes.
+
+```{r}
+
+# model
+fit_h2 <- lm(int_amp_effect ~ influence_rate, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate, int_amp_effect)) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Experiment 1: Proportion of influenced trials and IA-AMP effect", 
+       x = "Proportion of influenced trials", 
+       y = "IA-AMP effect") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h2, show.std = TRUE, digits.p = 15)
+
+```
+
+- IAN: "rate of influence" changed to "Proportion of influenced trials". propogate to other analyses
+
+## H3: Correlation between online and offline measures of influence
+
+Investigate whether the online measure of influence (i.e., pressing the spacebar after trials) correlates with typically-used offline measures of influence (i.e., self-report following completion of the task regarding how frequently the participant felt that they were influenced).
+
+```{r}
+
+# model
+fit_h3 <- lm(influence_rate ~ influence_general, data = subject_level_df)
+
+# Plot
+ggplot(data = subject_level_df, aes(x = influence_general, y = influence_rate)) +
+  geom_jitter() +
+  geom_smooth(method = lm) +
+  geom_rug(position = "jitter") +
+  labs(x = "Offline influence (self report)", y = "Online influence (IA-AMP)") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h3, show.std = TRUE, digits.p = 15)
+
+```
+
+## H4: Contribution of offline and online measures in predicting AMP effect sizes
+
+Inquiring into whether the online measure of influence, the offline measure of influence, or both, predict AMP effect sizes.
+
+```{r}
+
+# model
+fit_h4 <- lm(int_amp_effect ~ influence_general + influence_rate, data = subject_level_df)
+
+# plot
+sjp.lm(fit_h4)
+
+# table
+sjt.lm(fit_h4, show.std = TRUE)
+
+```
+
+- IAN: maybe rework variables names to be more transparent so the results are clear, e.g. general vs rate as online vs offline
+
+
+
+
+

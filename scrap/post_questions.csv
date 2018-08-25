@@ -1,0 +1,958 @@
+date,time,group,subject,build,blocknum,trialnum,blockcode,trialcode,pretrialpause,posttrialpause,windowcenter,trialduration,trialtimeout,blocktimeout,response,correct,latency,inwindow
+071218,17:06:46,583897215,146376097,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,21469,0
+071218,17:06:46,583897215,146376097,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,7837,0
+071218,17:06:46,583897215,146376097,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,9677,0
+071218,17:06:46,583897215,146376097,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,7122,0
+071218,17:06:46,583897215,146376097,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,13276,0
+071218,17:06:46,583897215,146376097,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,13276,0
+071218,11:03:19,121340817,610671551,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,70125,0
+071218,11:03:19,121340817,610671551,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,11717,0
+071218,11:03:19,121340817,610671551,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,14762,0
+071218,11:03:19,121340817,610671551,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,10901,0
+071218,11:03:19,121340817,610671551,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20674,0
+071218,11:03:19,121340817,610671551,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,20674,0
+071218,12:08:39,454572017,333926469,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,8370,0
+071218,12:08:39,454572017,333926469,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,5509,0
+071218,12:08:39,454572017,333926469,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,3952,0
+071218,12:08:39,454572017,333926469,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,7558,0
+071218,12:08:39,454572017,333926469,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6148,0
+071218,12:08:39,454572017,333926469,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6148,0
+071218,17:08:31,385271324,947750185,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,20748,0
+071218,17:08:31,385271324,947750185,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,10217,0
+071218,17:08:31,385271324,947750185,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,13928,0
+071218,17:08:31,385271324,947750185,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,7281,0
+071218,17:08:31,385271324,947750185,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6633,0
+071218,17:08:31,385271324,947750185,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6633,0
+071218,12:08:18,180115522,663686450,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,none,1,56576,0
+071218,12:08:18,180115522,663686450,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,4453,0
+071218,12:08:18,180115522,663686450,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,7957,0
+071218,12:08:18,180115522,663686450,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,6810,0
+071218,12:08:18,180115522,663686450,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4125,0
+071218,12:08:18,180115522,663686450,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4125,0
+071218,17:11:33,567981381,978113407,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,13827,0
+071218,17:11:33,567981381,978113407,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,5517,0
+071218,17:11:33,567981381,978113407,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6634,0
+071218,17:11:33,567981381,978113407,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,8588,0
+071218,17:11:33,567981381,978113407,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8406,0
+071218,17:11:33,567981381,978113407,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8406,0
+071218,17:10:49,858791929,350559063,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,72978,0
+071218,17:10:49,858791929,350559063,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,11330,0
+071218,17:10:49,858791929,350559063,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,11441,0
+071218,17:10:49,858791929,350559063,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,8565,0
+071218,17:10:49,858791929,350559063,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6592,0
+071218,17:10:49,858791929,350559063,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6592,0
+071218,17:11:51,946213169,299902251,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,none,1,102757,0
+071218,17:11:51,946213169,299902251,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,8746,0
+071218,17:11:51,946213169,299902251,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6976,0
+071218,17:11:51,946213169,299902251,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,5864,0
+071218,17:11:51,946213169,299902251,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7208,0
+071218,17:11:51,946213169,299902251,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7208,0
+071218,12:14:38,666798885,178057064,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,9919,0
+071218,12:14:38,666798885,178057064,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,7158,0
+071218,12:14:38,666798885,178057064,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,7133,0
+071218,12:14:38,666798885,178057064,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,7008,0
+071218,12:14:38,666798885,178057064,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7393,0
+071218,12:14:38,666798885,178057064,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,7393,0
+071218,17:14:45,720965922,279160971,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,9784,0
+071218,17:14:45,720965922,279160971,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,6176,0
+071218,17:14:45,720965922,279160971,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,8651,0
+071218,17:14:45,720965922,279160971,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,10832,0
+071218,17:14:45,720965922,279160971,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4564,0
+071218,17:14:45,720965922,279160971,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4564,0
+071218,09:16:07,981820635,930039379,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,73891,0
+071218,09:16:07,981820635,930039379,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,9763,0
+071218,09:16:07,981820635,930039379,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,8948,0
+071218,09:16:07,981820635,930039379,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,12036,0
+071218,09:16:07,981820635,930039379,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10566,0
+071218,09:16:07,981820635,930039379,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10566,0
+071218,09:17:05,674201279,232396325,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,22385,0
+071218,09:17:05,674201279,232396325,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,6969,0
+071218,09:17:05,674201279,232396325,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,6253,0
+071218,09:17:05,674201279,232396325,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,23939,0
+071218,09:17:05,674201279,232396325,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9959,0
+071218,09:17:05,674201279,232396325,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9959,0
+071218,17:18:11,929315496,723749382,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,a few,1,9290,0
+071218,17:18:11,929315496,723749382,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,5873,0
+071218,17:18:11,929315496,723749382,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,10660,0
+071218,17:18:11,929315496,723749382,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,4911,0
+071218,17:18:11,929315496,723749382,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11775,0
+071218,17:18:11,929315496,723749382,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,11775,0
+071218,12:19:39,171372301,117743572,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,10104,0
+071218,12:19:39,171372301,117743572,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,8586,0
+071218,12:19:39,171372301,117743572,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,7868,0
+071218,12:19:39,171372301,117743572,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,6411,0
+071218,12:19:39,171372301,117743572,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5828,0
+071218,12:19:39,171372301,117743572,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,5828,0
+071218,09:18:57,161901279,367876828,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,63606,0
+071218,09:18:57,161901279,367876828,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,8871,0
+071218,09:18:57,161901279,367876828,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,5826,0
+071218,09:18:57,161901279,367876828,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,5186,0
+071218,09:18:57,161901279,367876828,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,3935,0
+071218,09:18:57,161901279,367876828,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,3935,0
+071218,17:18:53,867242980,813025343,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,70469,0
+071218,17:18:53,867242980,813025343,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,5583,0
+071218,17:18:53,867242980,813025343,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,10061,0
+071218,17:18:53,867242980,813025343,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,more than half,1,7826,0
+071218,17:18:53,867242980,813025343,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12575,0
+071218,17:18:53,867242980,813025343,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,12575,0
+071218,17:20:13,513402600,532616537,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,12699,0
+071218,17:20:13,513402600,532616537,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,5957,0
+071218,17:20:13,513402600,532616537,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,5766,0
+071218,17:20:13,513402600,532616537,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,more than half,1,7390,0
+071218,17:20:13,513402600,532616537,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9252,0
+071218,17:20:13,513402600,532616537,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9252,0
+071218,12:21:00,147901757,788990416,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12589,0
+071218,12:21:00,147901757,788990416,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,12330,0
+071218,12:21:00,147901757,788990416,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,all,1,8906,0
+071218,12:21:00,147901757,788990416,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,9461,0
+071218,12:21:00,147901757,788990416,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20825,0
+071218,12:21:00,147901757,788990416,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,20825,0
+071218,17:22:25,101821230,664300092,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,none,1,19846,0
+071218,17:22:25,101821230,664300092,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,5655,0
+071218,17:22:25,101821230,664300092,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,5922,0
+071218,17:22:25,101821230,664300092,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,4069,0
+071218,17:22:25,101821230,664300092,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2908,0
+071218,17:22:25,101821230,664300092,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2908,0
+071218,17:22:13,994884518,940387388,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,32636,0
+071218,17:22:13,994884518,940387388,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,11560,0
+071218,17:22:13,994884518,940387388,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,7586,0
+071218,17:22:13,994884518,940387388,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,11089,0
+071218,17:22:13,994884518,940387388,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,19451,0
+071218,17:22:13,994884518,940387388,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,19451,0
+071218,13:24:31,144448834,812337667,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,5387,0
+071218,13:24:31,144448834,812337667,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,4790,0
+071218,13:24:31,144448834,812337667,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,2968,0
+071218,13:24:31,144448834,812337667,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,more than half,1,4209,0
+071218,13:24:31,144448834,812337667,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5253,0
+071218,13:24:31,144448834,812337667,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5253,0
+071218,17:23:40,692271252,638642545,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,30007,0
+071218,17:23:40,692271252,638642545,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,6798,0
+071218,17:23:40,692271252,638642545,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,8006,0
+071218,17:23:40,692271252,638642545,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,7070,0
+071218,17:23:40,692271252,638642545,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4717,0
+071218,17:23:40,692271252,638642545,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4717,0
+071218,17:22:47,383589017,946067883,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,53570,0
+071218,17:22:47,383589017,946067883,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,10264,0
+071218,17:22:47,383589017,946067883,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,22921,0
+071218,17:22:47,383589017,946067883,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,more than half,1,7290,0
+071218,17:22:47,383589017,946067883,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,41512,0
+071218,17:22:47,383589017,946067883,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,41512,0
+071218,17:23:27,793430907,540518491,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,56728,0
+071218,17:23:27,793430907,540518491,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,9481,0
+071218,17:23:27,793430907,540518491,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,9302,0
+071218,17:23:27,793430907,540518491,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,5818,0
+071218,17:23:27,793430907,540518491,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11699,0
+071218,17:23:27,793430907,540518491,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11699,0
+071218,12:25:14,43018451,558262323,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,60987,0
+071218,12:25:14,43018451,558262323,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,5629,0
+071218,12:25:14,43018451,558262323,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,5279,0
+071218,12:25:14,43018451,558262323,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,5540,0
+071218,12:25:14,43018451,558262323,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11101,0
+071218,12:25:14,43018451,558262323,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11101,0
+071218,10:26:42,414818160,58343219,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,13753,0
+071218,10:26:42,414818160,58343219,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,6491,0
+071218,10:26:42,414818160,58343219,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,4808,0
+071218,10:26:42,414818160,58343219,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,4275,0
+071218,10:26:42,414818160,58343219,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,3022,0
+071218,10:26:42,414818160,58343219,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,3022,0
+071218,17:25:48,894680509,914788834,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,52745,0
+071218,17:25:48,894680509,914788834,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,7178,0
+071218,17:25:48,894680509,914788834,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,7947,0
+071218,17:25:48,894680509,914788834,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,12659,0
+071218,17:25:48,894680509,914788834,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,15671,0
+071218,17:25:48,894680509,914788834,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,15671,0
+071218,17:25:52,382881248,26406307,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,77141,0
+071218,17:25:52,382881248,26406307,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,7009,0
+071218,17:25:52,382881248,26406307,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,5860,0
+071218,17:25:52,382881248,26406307,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6008,0
+071218,17:25:52,382881248,26406307,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6580,0
+071218,17:25:52,382881248,26406307,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6580,0
+071218,17:27:09,859467744,913685378,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,13497,0
+071218,17:27:09,859467744,913685378,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,6627,0
+071218,17:27:09,859467744,913685378,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,9582,0
+071218,17:27:09,859467744,913685378,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,7428,0
+071218,17:27:09,859467744,913685378,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14758,0
+071218,17:27:09,859467744,913685378,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,14758,0
+071218,17:27:47,217793317,701662372,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,44138,0
+071218,17:27:47,217793317,701662372,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,5516,0
+071218,17:27:47,217793317,701662372,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,5124,0
+071218,17:27:47,217793317,701662372,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,7108,0
+071218,17:27:47,217793317,701662372,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,13530,0
+071218,17:27:47,217793317,701662372,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,13530,0
+071218,17:28:26,107099414,771002537,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,33919,0
+071218,17:28:26,107099414,771002537,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,4951,0
+071218,17:28:26,107099414,771002537,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,5305,0
+071218,17:28:26,107099414,771002537,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,5091,0
+071218,17:28:26,107099414,771002537,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,45799,0
+071218,17:28:26,107099414,771002537,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,I don't feel the player worked correctly. It flashed both images for around a tenth of a second so they appeared more like a brief flash rather than an intentional display. I assume this isn't how it was meant to work. ,1,45799,0
+071218,17:29:12,185748229,542521283,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,32233,0
+071218,17:29:12,185748229,542521283,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,7230,0
+071218,17:29:12,185748229,542521283,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6836,0
+071218,17:29:12,185748229,542521283,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,4460,0
+071218,17:29:12,185748229,542521283,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12021,0
+071218,17:29:12,185748229,542521283,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,12021,0
+071218,17:30:00,608582565,483064273,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,14613,0
+071218,17:30:00,608582565,483064273,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,6001,0
+071218,17:30:00,608582565,483064273,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,4967,0
+071218,17:30:00,608582565,483064273,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,6641,0
+071218,17:30:00,608582565,483064273,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5737,0
+071218,17:30:00,608582565,483064273,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5737,0
+071218,12:29:47,348884913,223366611,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,11002,0
+071218,12:29:47,348884913,223366611,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,5596,0
+071218,12:29:47,348884913,223366611,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,7244,0
+071218,12:29:47,348884913,223366611,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,6466,0
+071218,12:29:47,348884913,223366611,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4902,0
+071218,12:29:47,348884913,223366611,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4902,0
+071218,17:30:05,672295949,852060263,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,22343,0
+071218,17:30:05,672295949,852060263,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,12667,0
+071218,17:30:05,672295949,852060263,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,11290,0
+071218,17:30:05,672295949,852060263,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,12018,0
+071218,17:30:05,672295949,852060263,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6080,0
+071218,17:30:05,672295949,852060263,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6080,0
+071218,17:30:09,687015995,866780310,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,17453,0
+071218,17:30:09,687015995,866780310,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,7517,0
+071218,17:30:09,687015995,866780310,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,all,1,35569,0
+071218,17:30:09,687015995,866780310,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,12389,0
+071218,17:30:09,687015995,866780310,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9228,0
+071218,17:30:09,687015995,866780310,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,9228,0
+071218,12:30:24,387964086,262445782,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,29655,0
+071218,12:30:24,387964086,262445782,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,8251,0
+071218,12:30:24,387964086,262445782,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,24442,0
+071218,12:30:24,387964086,262445782,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,8081,0
+071218,12:30:24,387964086,262445782,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10431,0
+071218,12:30:24,387964086,262445782,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,10431,0
+071218,17:30:58,9095154,957902800,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,16806,0
+071218,17:30:58,9095154,957902800,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,Very rarely,1,6250,0
+071218,17:30:58,9095154,957902800,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,Never,1,6917,0
+071218,17:30:58,9095154,957902800,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,Very rarely,1,9063,0
+071218,17:30:58,9095154,957902800,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5800,0
+071218,17:30:58,9095154,957902800,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,5800,0
+071318,02:30:49,801769060,445294133,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,117801,0
+071318,02:30:49,801769060,445294133,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,10369,0
+071318,02:30:49,801769060,445294133,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6452,0
+071318,02:30:49,801769060,445294133,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,10382,0
+071318,02:30:49,801769060,445294133,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,18104,0
+071318,02:30:49,801769060,445294133,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,18104,0
+071218,12:38:09,226973181,94734650,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12597,0
+071218,12:38:09,226973181,94734650,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,3361,0
+071218,12:38:09,226973181,94734650,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,8483,0
+071218,12:38:09,226973181,94734650,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,2912,0
+071218,12:38:09,226973181,94734650,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2811,0
+071218,12:38:09,226973181,94734650,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2811,0
+071218,17:33:17,141991241,394903654,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,18224,0
+071218,17:33:17,141991241,394903654,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,10332,0
+071218,17:33:17,141991241,394903654,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,6957,0
+071218,17:33:17,141991241,394903654,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,9036,0
+071218,17:33:17,141991241,394903654,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2937,0
+071218,17:33:17,141991241,394903654,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2937,0
+071218,11:34:29,69400800,963962438,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12318,0
+071218,11:34:29,69400800,963962438,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,9623,0
+071218,11:34:29,69400800,963962438,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,5528,0
+071218,11:34:29,69400800,963962438,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,all,1,5364,0
+071218,11:34:29,69400800,963962438,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,13637,0
+071218,11:34:29,69400800,963962438,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,13637,0
+071218,12:36:11,489047305,899768245,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,11388,0
+071218,12:36:11,489047305,899768245,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,4498,0
+071218,12:36:11,489047305,899768245,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,5022,0
+071218,12:36:11,489047305,899768245,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,14212,0
+071218,12:36:11,489047305,899768245,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4468,0
+071218,12:36:11,489047305,899768245,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4468,0
+071218,10:36:28,994042380,861803864,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,11522,0
+071218,10:36:28,994042380,861803864,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,6754,0
+071218,10:36:28,994042380,861803864,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,6633,0
+071218,10:36:28,994042380,861803864,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,most,1,5334,0
+071218,10:36:28,994042380,861803864,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6494,0
+071218,10:36:28,994042380,861803864,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6494,0
+071218,17:35:51,414968725,204120402,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,105043,0
+071218,17:35:51,414968725,204120402,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,10292,0
+071218,17:35:51,414968725,204120402,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,10604,0
+071218,17:35:51,414968725,204120402,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,6578,0
+071218,17:35:51,414968725,204120402,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4895,0
+071218,17:35:51,414968725,204120402,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4895,0
+071218,12:37:45,330635914,429354031,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,40329,0
+071218,12:37:45,330635914,429354031,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,7361,0
+071218,12:37:45,330635914,429354031,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,16731,0
+071218,12:37:45,330635914,429354031,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,8592,0
+071218,12:37:45,330635914,429354031,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8028,0
+071218,12:37:45,330635914,429354031,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8028,0
+071218,17:39:07,242838992,117320685,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,77022,0
+071218,17:39:07,242838992,117320685,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,8122,0
+071218,17:39:07,242838992,117320685,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,19260,0
+071218,17:39:07,242838992,117320685,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,10366,0
+071218,17:39:07,242838992,117320685,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,108031,0
+071218,17:39:07,242838992,117320685,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,I found that the pictures flashed up so quickly that I wasn't always clear in my mind if I did find the Chinese symbol more or less attractive. I found I didn't have enough time to decide as I hadn't seen the image well enough. ,1,108031,0
+071218,12:39:05,873144905,661998462,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,9082,0
+071218,12:39:05,873144905,661998462,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,6639,0
+071218,12:39:05,873144905,661998462,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,5725,0
+071218,12:39:05,873144905,661998462,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,9071,0
+071218,12:39:05,873144905,661998462,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,52163,0
+071218,12:39:05,873144905,661998462,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,I could not get the software to function appropriately in response to my keystrokes.,1,52163,0
+071218,12:39:51,957378853,313555679,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,28126,0
+071218,12:39:51,957378853,313555679,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,12682,0
+071218,12:39:51,957378853,313555679,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,12307,0
+071218,12:39:51,957378853,313555679,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,8211,0
+071218,12:39:51,957378853,313555679,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10660,0
+071218,12:39:51,957378853,313555679,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10660,0
+071218,17:42:32,81148714,875173135,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,22265,0
+071218,17:42:32,81148714,875173135,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,6900,0
+071218,17:42:32,81148714,875173135,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,4849,0
+071218,17:42:32,81148714,875173135,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,3748,0
+071218,17:42:32,81148714,875173135,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,13849,0
+071218,17:42:32,81148714,875173135,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,13849,0
+071218,17:40:51,830194433,928614438,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,10907,0
+071218,17:40:51,830194433,928614438,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,6474,0
+071218,17:40:51,830194433,928614438,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,less than half,1,6242,0
+071218,17:40:51,830194433,928614438,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,11011,0
+071218,17:40:51,830194433,928614438,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,3733,0
+071218,17:40:51,830194433,928614438,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,3733,0
+071218,17:41:20,906369043,262843992,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,16253,0
+071218,17:41:20,906369043,262843992,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,5531,0
+071218,17:41:20,906369043,262843992,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,5687,0
+071218,17:41:20,906369043,262843992,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,5854,0
+071218,17:41:20,906369043,262843992,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,21154,0
+071218,17:41:20,906369043,262843992,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,21154,0
+071218,12:41:51,996701683,47894036,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,20908,0
+071218,12:41:51,996701683,47894036,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,11624,0
+071218,12:41:51,996701683,47894036,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,7518,0
+071218,12:41:51,996701683,47894036,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8208,0
+071218,12:41:51,996701683,47894036,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14151,0
+071218,12:41:51,996701683,47894036,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,14151,0
+071218,17:42:44,571674148,385189625,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,13742,0
+071218,17:42:44,571674148,385189625,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,4827,0
+071218,17:42:44,571674148,385189625,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,9826,0
+071218,17:42:44,571674148,385189625,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,10696,0
+071218,17:42:44,571674148,385189625,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14598,0
+071218,17:42:44,571674148,385189625,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,14598,0
+071218,17:43:09,140656213,327140720,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,14927,0
+071218,17:43:09,140656213,327140720,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,Very rarely,1,6617,0
+071218,17:43:09,140656213,327140720,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,Never,1,44077,0
+071218,17:43:09,140656213,327140720,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,Never,1,39596,0
+071218,17:43:09,140656213,327140720,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5405,0
+071218,17:43:09,140656213,327140720,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,5405,0
+071218,18:44:06,48990701,2671117,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,35175,0
+071218,18:44:06,48990701,2671117,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,9475,0
+071218,18:44:06,48990701,2671117,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,5671,0
+071218,18:44:06,48990701,2671117,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,15757,0
+071218,18:44:06,48990701,2671117,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,13041,0
+071218,18:44:06,48990701,2671117,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,13041,0
+071218,17:45:38,421197261,858718373,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,24019,0
+071218,17:45:38,421197261,858718373,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,5931,0
+071218,17:45:38,421197261,858718373,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,8002,0
+071218,17:45:38,421197261,858718373,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6660,0
+071218,17:45:38,421197261,858718373,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6861,0
+071218,17:45:38,421197261,858718373,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6861,0
+071218,17:45:00,823502536,545637406,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,15655,0
+071218,17:45:00,823502536,545637406,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,8508,0
+071218,17:45:00,823502536,545637406,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,7134,0
+071218,17:45:00,823502536,545637406,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,12255,0
+071218,17:45:00,823502536,545637406,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,92547,0
+071218,17:45:00,823502536,545637406,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,"I missed some of the images before the chinese characters, and so just entered a random response",1,92547,0
+071218,17:46:16,415998661,853519774,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,22231,0
+071218,17:46:16,415998661,853519774,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,14240,0
+071218,17:46:16,415998661,853519774,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,7513,0
+071218,17:46:16,415998661,853519774,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8074,0
+071218,17:46:16,415998661,853519774,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,23131,0
+071218,17:46:16,415998661,853519774,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,23131,0
+071218,17:46:51,196358035,75712481,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,23405,0
+071218,17:46:51,196358035,75712481,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,Never,1,9352,0
+071218,17:46:51,196358035,75712481,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,Very rarely,1,10745,0
+071218,17:46:51,196358035,75712481,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,Never,1,9270,0
+071218,17:46:51,196358035,75712481,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4665,0
+071218,17:46:51,196358035,75712481,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4665,0
+071218,17:48:20,58194634,854655436,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,14827,0
+071218,17:48:20,58194634,854655436,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,3825,0
+071218,17:48:20,58194634,854655436,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,3546,0
+071218,17:48:20,58194634,854655436,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,3823,0
+071218,17:48:20,58194634,854655436,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10110,0
+071218,17:48:20,58194634,854655436,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,10110,0
+071218,17:49:48,557971777,584800320,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,26663,0
+071218,17:49:48,557971777,584800320,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,8833,0
+071218,17:49:48,557971777,584800320,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,8774,0
+071218,17:49:48,557971777,584800320,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,15163,0
+071218,17:49:48,557971777,584800320,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,22278,0
+071218,17:49:48,557971777,584800320,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,22278,0
+071218,11:51:35,761856920,93379167,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,none,1,19268,0
+071218,11:51:35,761856920,93379167,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,5165,0
+071218,11:51:35,761856920,93379167,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,7791,0
+071218,11:51:35,761856920,93379167,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,7036,0
+071218,11:51:35,761856920,93379167,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7081,0
+071218,11:51:35,761856920,93379167,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7081,0
+071218,10:57:38,262749097,161885371,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,28036,0
+071218,10:57:38,262749097,161885371,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,5372,0
+071218,10:57:38,262749097,161885371,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,6557,0
+071218,10:57:38,262749097,161885371,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,6416,0
+071218,10:57:38,262749097,161885371,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5404,0
+071218,10:57:38,262749097,161885371,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5404,0
+071218,09:57:15,975149446,185997782,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,30168,0
+071218,09:57:15,975149446,185997782,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,7477,0
+071218,09:57:15,975149446,185997782,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,9865,0
+071218,09:57:15,975149446,185997782,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,15332,0
+071218,09:57:15,975149446,185997782,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,24543,0
+071218,09:57:15,975149446,185997782,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,24543,0
+071218,18:00:11,658242651,709744420,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,17015,0
+071218,18:00:11,658242651,709744420,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,9276,0
+071218,18:00:11,658242651,709744420,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,8094,0
+071218,18:00:11,658242651,709744420,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8135,0
+071218,18:00:11,658242651,709744420,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,15782,0
+071218,18:00:11,658242651,709744420,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,15782,0
+071218,12:59:58,771829425,892474971,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,84510,0
+071218,12:59:58,771829425,892474971,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,6754,0
+071218,12:59:58,771829425,892474971,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,10721,0
+071218,12:59:58,771829425,892474971,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,8876,0
+071218,12:59:58,771829425,892474971,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10938,0
+071218,12:59:58,771829425,892474971,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10938,0
+071218,18:04:11,463383243,57535045,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,28007,0
+071218,18:04:11,463383243,57535045,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,8016,0
+071218,18:04:11,463383243,57535045,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,7283,0
+071218,18:04:11,463383243,57535045,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,14527,0
+071218,18:04:11,463383243,57535045,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9905,0
+071218,18:04:11,463383243,57535045,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9905,0
+071218,16:51:51,387456815,572093872,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,21523,0
+071218,16:51:51,387456815,572093872,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,81557,0
+071218,16:51:51,387456815,572093872,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,less than half,1,4360574,0
+071218,16:51:51,387456815,572093872,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,30243,0
+071218,16:51:51,387456815,572093872,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,122216,0
+071218,16:51:51,387456815,572093872,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,122216,0
+071218,13:10:36,924525077,823370571,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,43117,0
+071218,13:10:36,924525077,823370571,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,4228,0
+071218,13:10:36,924525077,823370571,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,4664,0
+071218,13:10:36,924525077,823370571,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,2484,0
+071218,13:10:36,924525077,823370571,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,58325,0
+071218,13:10:36,924525077,823370571,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,"I don't know if this was intended (maybe it was), but I never felt like I had enough time to form an opinion of the Chinese characters or the images beforehand because I could barely tell what the images before were (the black-on-white made me vaguely able to recall the Chinese characters). The pixeled image that followed each character didn't help matters either.",1,58325,0
+071218,18:15:55,762920572,664202456,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,31639,0
+071218,18:15:55,762920572,664202456,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,11536,0
+071218,18:15:55,762920572,664202456,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,19603,0
+071218,18:15:55,762920572,664202456,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,14330,0
+071218,18:15:55,762920572,664202456,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,18644,0
+071218,18:15:55,762920572,664202456,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,18644,0
+071218,13:17:02,55870968,266719282,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,15130,0
+071218,13:17:02,55870968,266719282,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,11057,0
+071218,13:17:02,55870968,266719282,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9179,0
+071218,13:17:02,55870968,266719282,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,5770,0
+071218,13:17:02,55870968,266719282,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4953,0
+071218,13:17:02,55870968,266719282,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4953,0
+071218,18:16:11,153620103,642361916,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,69077,0
+071218,18:16:11,153620103,642361916,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,16393,0
+071218,18:16:11,153620103,642361916,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,18255,0
+071218,18:16:11,153620103,642361916,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,11939,0
+071218,18:16:11,153620103,642361916,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20971,0
+071218,18:16:11,153620103,642361916,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,20971,0
+071218,18:26:52,343713316,773925284,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,90730,0
+071218,18:26:52,343713316,773925284,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,7220,0
+071218,18:26:52,343713316,773925284,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,14538,0
+071218,18:26:52,343713316,773925284,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,6724,0
+071218,18:26:52,343713316,773925284,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9343,0
+071218,18:26:52,343713316,773925284,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,9343,0
+071218,13:28:47,20859812,451071792,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,34349,0
+071218,13:28:47,20859812,451071792,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,4821,0
+071218,13:28:47,20859812,451071792,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,6298,0
+071218,13:28:47,20859812,451071792,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,5260,0
+071218,13:28:47,20859812,451071792,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2766,0
+071218,13:28:47,20859812,451071792,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2766,0
+071218,10:28:27,471146881,808130772,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,38870,0
+071218,10:28:27,471146881,808130772,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,6784,0
+071218,10:28:27,471146881,808130772,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9078,0
+071218,10:28:27,471146881,808130772,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,13329,0
+071218,10:28:27,471146881,808130772,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,19887,0
+071218,10:28:27,471146881,808130772,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,19887,0
+071218,10:33:51,553994642,429065259,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,,1,1197,0
+071218,18:41:58,125567296,152984742,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,36161,0
+071218,18:41:58,125567296,152984742,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,4656,0
+071218,18:41:58,125567296,152984742,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,8585,0
+071218,18:41:58,125567296,152984742,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,5504,0
+071218,18:41:58,125567296,152984742,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,15927,0
+071218,18:41:58,125567296,152984742,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,15927,0
+071218,13:43:17,379194905,246956380,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,10488,0
+071218,13:43:17,379194905,246956380,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,6224,0
+071218,13:43:17,379194905,246956380,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9411,0
+071218,13:43:17,379194905,246956380,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,7801,0
+071218,13:43:17,379194905,246956380,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4463,0
+071218,13:43:17,379194905,246956380,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4463,0
+071218,21:05:07,387456815,572093872,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,10019,0
+071218,21:05:07,387456815,572093872,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,21779,0
+071218,21:05:07,387456815,572093872,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,17447,0
+071218,21:05:07,387456815,572093872,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,11196,0
+071218,21:05:07,387456815,572093872,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8886,0
+071218,21:05:07,387456815,572093872,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,8886,0
+071318,09:25:27,322767391,143003079,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,9129,0
+071318,09:25:27,322767391,143003079,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,9999,0
+071318,09:25:27,322767391,143003079,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,9528,0
+071318,09:25:27,322767391,143003079,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,5958,0
+071318,09:25:27,322767391,143003079,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10569,0
+071318,09:25:27,322767391,143003079,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10569,0
+071318,04:25:52,682513415,561569758,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,18955,0
+071318,04:25:52,682513415,561569758,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,11627,0
+071318,04:25:52,682513415,561569758,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,7873,0
+071318,04:25:52,682513415,561569758,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,15972,0
+071318,04:25:52,682513415,561569758,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4236,0
+071318,04:25:52,682513415,561569758,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4236,0
+071318,09:26:10,693500637,201733516,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,21325,0
+071318,09:26:10,693500637,201733516,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,6280,0
+071318,09:26:10,693500637,201733516,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,21475,0
+071318,09:26:10,693500637,201733516,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,12639,0
+071318,09:26:10,693500637,201733516,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7325,0
+071318,09:26:10,693500637,201733516,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,7325,0
+071318,09:28:38,211753514,774232367,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,10548,0
+071318,09:28:38,211753514,774232367,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,9472,0
+071318,09:28:38,211753514,774232367,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,7901,0
+071318,09:28:38,211753514,774232367,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,5183,0
+071318,09:28:38,211753514,774232367,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11790,0
+071318,09:28:38,211753514,774232367,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11790,0
+071318,04:38:37,324910183,145145870,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,28068,0
+071318,04:38:37,324910183,145145870,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,8624,0
+071318,04:38:37,324910183,145145870,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,6164,0
+071318,04:38:37,324910183,145145870,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,7738,0
+071318,04:38:37,324910183,145145870,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20403,0
+071318,04:38:37,324910183,145145870,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,20403,0
+071318,11:13:19,122269793,485464938,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,13782,0
+071318,11:13:19,122269793,485464938,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,10435,0
+071318,11:13:19,122269793,485464938,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,all,1,10015,0
+071318,11:13:19,122269793,485464938,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,most,1,3349,0
+071318,11:13:19,122269793,485464938,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12957,0
+071318,11:13:19,122269793,485464938,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12957,0
+071318,10:17:37,884149673,857321127,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,14048,0
+071318,10:17:37,884149673,857321127,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,6200,0
+071318,10:17:37,884149673,857321127,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,8353,0
+071318,10:17:37,884149673,857321127,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,13566,0
+071318,10:17:37,884149673,857321127,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,19930,0
+071318,10:17:37,884149673,857321127,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,19930,0
+071318,11:15:46,601663890,93431029,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,76323,0
+071318,11:15:46,601663890,93431029,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,10261,0
+071318,11:15:46,601663890,93431029,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,11521,0
+071318,11:15:46,601663890,93431029,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,15674,0
+071318,11:15:46,601663890,93431029,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9427,0
+071318,11:15:46,601663890,93431029,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9427,0
+071318,14:08:17,600709361,779884746,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12899,0
+071318,14:08:17,600709361,779884746,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,15100,0
+071318,14:08:17,600709361,779884746,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,less than half,1,6581,0
+071318,14:08:17,600709361,779884746,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,7371,0
+071318,14:08:17,600709361,779884746,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2297,0
+071318,14:08:17,600709361,779884746,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2297,0
+071318,14:08:54,803469143,599341053,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,15134,0
+071318,14:08:54,803469143,599341053,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,6092,0
+071318,14:08:54,803469143,599341053,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,5808,0
+071318,14:08:54,803469143,599341053,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,7210,0
+071318,14:08:54,803469143,599341053,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9226,0
+071318,14:08:54,803469143,599341053,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9226,0
+071318,14:09:28,658840024,759994530,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,17604,0
+071318,14:09:28,658840024,759994530,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,10513,0
+071318,14:09:28,658840024,759994530,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9553,0
+071318,14:09:28,658840024,759994530,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,5808,0
+071318,14:09:28,658840024,759994530,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14166,0
+071318,14:09:28,658840024,759994530,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,14166,0
+071318,15:08:30,957886621,984715165,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,73360,0
+071318,15:08:30,957886621,984715165,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,8677,0
+071318,15:08:30,957886621,984715165,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6645,0
+071318,15:08:30,957886621,984715165,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,10270,0
+071318,15:08:30,957886621,984715165,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,19521,0
+071318,15:08:30,957886621,984715165,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,19521,0
+071318,09:10:20,599176622,157371667,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,13333,0
+071318,09:10:20,599176622,157371667,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,6912,0
+071318,09:10:20,599176622,157371667,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,5775,0
+071318,09:10:20,599176622,157371667,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,3976,0
+071318,09:10:20,599176622,157371667,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4095,0
+071318,09:10:20,599176622,157371667,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4095,0
+071318,14:10:40,804193163,526328031,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,25720,0
+071318,14:10:40,804193163,526328031,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,7678,0
+071318,14:10:40,804193163,526328031,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,9592,0
+071318,14:10:40,804193163,526328031,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,7819,0
+071318,14:10:40,804193163,526328031,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8535,0
+071318,14:10:40,804193163,526328031,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8535,0
+071318,14:11:31,845612815,946767322,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12705,0
+071318,14:11:31,845612815,946767322,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,8746,0
+071318,14:11:31,845612815,946767322,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,5760,0
+071318,14:11:31,845612815,946767322,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,5670,0
+071318,14:11:31,845612815,946767322,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9043,0
+071318,14:11:31,845612815,946767322,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,9043,0
+071318,14:12:45,407951283,892409260,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,96324,0
+071318,14:12:45,407951283,892409260,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,8601,0
+071318,14:12:45,407951283,892409260,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,6687,0
+071318,14:12:45,407951283,892409260,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,13099,0
+071318,14:12:45,407951283,892409260,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8104,0
+071318,14:12:45,407951283,892409260,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,8104,0
+071318,09:14:39,765762048,97873212,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,9145,0
+071318,09:14:39,765762048,97873212,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,9244,0
+071318,09:14:39,765762048,97873212,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,6330,0
+071318,09:14:39,765762048,97873212,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,6279,0
+071318,09:14:39,765762048,97873212,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12741,0
+071318,09:14:39,765762048,97873212,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12741,0
+071318,14:19:23,553957922,349829824,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,9698,0
+071318,14:19:23,553957922,349829824,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,9147,0
+071318,14:19:23,553957922,349829824,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,3994,0
+071318,14:19:23,553957922,349829824,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,5719,0
+071318,14:19:23,553957922,349829824,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2693,0
+071318,14:19:23,553957922,349829824,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2693,0
+071318,14:21:16,542721708,960162870,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,27096,0
+071318,14:21:16,542721708,960162870,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,5204,0
+071318,14:21:16,542721708,960162870,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,11130,0
+071318,14:21:16,542721708,960162870,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,5820,0
+071318,14:21:16,542721708,960162870,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5418,0
+071318,14:21:16,542721708,960162870,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,5418,0
+071318,14:59:25,369640566,782065153,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,31380,0
+071318,14:59:25,369640566,782065153,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,8438,0
+071318,14:59:25,369640566,782065153,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,7926,0
+071318,14:59:25,369640566,782065153,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,9318,0
+071318,14:59:25,369640566,782065153,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12758,0
+071318,14:59:25,369640566,782065153,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,12758,0
+071218,15:28:01,94479736,148697371,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,28446,0
+071218,15:28:01,94479736,148697371,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,5740,0
+071218,15:28:01,94479736,148697371,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,7636,0
+071218,15:28:01,94479736,148697371,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,14191,0
+071218,15:28:01,94479736,148697371,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8059,0
+071218,15:28:01,94479736,148697371,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8059,0
+071218,15:31:11,697148441,493020342,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,16311,0
+071218,15:31:11,697148441,493020342,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,5185,0
+071218,15:31:11,697148441,493020342,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,4667,0
+071218,15:31:11,697148441,493020342,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,4519,0
+071218,15:31:11,697148441,493020342,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10741,0
+071218,15:31:11,697148441,493020342,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,10741,0
+071218,15:30:21,45790130,787416013,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,62134,0
+071218,15:30:21,45790130,787416013,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,12158,0
+071218,15:30:21,45790130,787416013,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,11860,0
+071218,15:30:21,45790130,787416013,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,8942,0
+071218,15:30:21,45790130,787416013,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6926,0
+071218,15:30:21,45790130,787416013,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6926,0
+071218,15:32:31,832467329,883659666,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,13171,0
+071218,15:32:31,832467329,883659666,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,4762,0
+071218,15:32:31,832467329,883659666,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,4911,0
+071218,15:32:31,832467329,883659666,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,4447,0
+071218,15:32:31,832467329,883659666,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11964,0
+071218,15:32:31,832467329,883659666,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,11964,0
+071218,15:34:08,558161958,46903798,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,27973,0
+071218,15:34:08,558161958,46903798,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,11150,0
+071218,15:34:08,558161958,46903798,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9983,0
+071218,15:34:08,558161958,46903798,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,8006,0
+071218,15:34:08,558161958,46903798,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,19399,0
+071218,15:34:08,558161958,46903798,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,19399,0
+071218,15:43:01,750647352,28512505,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,84705,0
+071218,15:43:01,750647352,28512505,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,21847,0
+071218,15:43:01,750647352,28512505,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,8674,0
+071218,15:43:01,750647352,28512505,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,14553,0
+071218,15:43:01,750647352,28512505,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11636,0
+071218,15:43:01,750647352,28512505,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11636,0
+071218,15:46:10,590826703,74695784,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,55739,0
+071218,15:46:10,590826703,74695784,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,7400,0
+071218,15:46:10,590826703,74695784,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,6491,0
+071218,15:46:10,590826703,74695784,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,7809,0
+071218,15:46:10,590826703,74695784,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,17779,0
+071218,15:46:10,590826703,74695784,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,17779,0
+071218,15:49:24,628784538,682413259,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,52812,0
+071218,15:49:24,628784538,682413259,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,10375,0
+071218,15:49:24,628784538,682413259,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,6758,0
+071218,15:49:24,628784538,682413259,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6626,0
+071218,15:49:24,628784538,682413259,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11722,0
+071218,15:49:24,628784538,682413259,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11722,0
+071218,10:52:11,117844292,606586116,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,78771,0
+071218,10:52:11,117844292,606586116,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,8406,0
+071218,10:52:11,117844292,606586116,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,7875,0
+071218,10:52:11,117844292,606586116,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,7702,0
+071218,10:52:11,117844292,606586116,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6575,0
+071218,10:52:11,117844292,606586116,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6575,0
+071218,15:56:43,131692243,488167179,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,14437,0
+071218,15:56:43,131692243,488167179,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,6027,0
+071218,15:56:43,131692243,488167179,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,6021,0
+071218,15:56:43,131692243,488167179,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,8067,0
+071218,15:56:43,131692243,488167179,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9382,0
+071218,15:56:43,131692243,488167179,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9382,0
+071218,09:56:46,130661988,560873965,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,52836,0
+071218,09:56:46,130661988,560873965,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,11047,0
+071218,09:56:46,130661988,560873965,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,9810,0
+071218,09:56:46,130661988,560873965,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,6344,0
+071218,09:56:46,130661988,560873965,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5622,0
+071218,09:56:46,130661988,560873965,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5622,0
+071218,16:59:46,196470792,938096670,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,16522,0
+071218,16:59:46,196470792,938096670,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,Sometimes,1,5925,0
+071218,16:59:46,196470792,938096670,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,Somewhat rarely,1,13504,0
+071218,16:59:46,196470792,938096670,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,Very rarely,1,8036,0
+071218,16:59:46,196470792,938096670,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,15278,0
+071218,16:59:46,196470792,938096670,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,15278,0
+071218,16:01:33,852726307,496840284,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,8518,0
+071218,16:01:33,852726307,496840284,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,5863,0
+071218,16:01:33,852726307,496840284,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,3524,0
+071218,16:01:33,852726307,496840284,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,3462,0
+071218,16:01:33,852726307,496840284,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9092,0
+071218,16:01:33,852726307,496840284,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,9092,0
+071218,11:04:37,90788605,423794130,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,50423,0
+071218,11:04:37,90788605,423794130,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,11389,0
+071218,11:04:37,90788605,423794130,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,11020,0
+071218,11:04:37,90788605,423794130,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,8684,0
+071218,11:04:37,90788605,423794130,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,13096,0
+071218,11:04:37,90788605,423794130,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,13096,0
+071218,16:07:19,307261225,407826805,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,9211,0
+071218,16:07:19,307261225,407826805,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,5389,0
+071218,16:07:19,307261225,407826805,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,4718,0
+071218,16:07:19,307261225,407826805,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,12170,0
+071218,16:07:19,307261225,407826805,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14011,0
+071218,16:07:19,307261225,407826805,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,14011,0
+071218,16:08:44,783468118,377619931,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,none,1,28381,0
+071218,16:08:44,783468118,377619931,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,13565,0
+071218,16:08:44,783468118,377619931,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,6657,0
+071218,16:08:44,783468118,377619931,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,4721,0
+071218,16:08:44,783468118,377619931,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8778,0
+071218,16:08:44,783468118,377619931,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8778,0
+071218,16:07:46,435053026,489270658,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,none,1,91945,0
+071218,16:07:46,435053026,489270658,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,7855,0
+071218,16:07:46,435053026,489270658,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,7990,0
+071218,16:07:46,435053026,489270658,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,none,1,21857,0
+071218,16:07:46,435053026,489270658,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,16252,0
+071218,16:07:46,435053026,489270658,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,16252,0
+071218,10:12:21,846694006,593781581,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,29229,0
+071218,10:12:21,846694006,593781581,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,5417,0
+071218,10:12:21,846694006,593781581,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,6210,0
+071218,10:12:21,846694006,593781581,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,5206,0
+071218,10:12:21,846694006,593781581,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,22205,0
+071218,10:12:21,846694006,593781581,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,"Got a phone call in the middle, completely missed 3 or 4 images",1,22205,0
+071218,16:13:08,526192182,624910305,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,64582,0
+071218,16:13:08,526192182,624910305,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,6542,0
+071218,16:13:08,526192182,624910305,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,7376,0
+071218,16:13:08,526192182,624910305,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,7354,0
+071218,16:13:08,526192182,624910305,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12302,0
+071218,16:13:08,526192182,624910305,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,12302,0
+071218,16:14:16,336116221,83203792,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,11004,0
+071218,16:14:16,336116221,83203792,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,6458,0
+071218,16:14:16,336116221,83203792,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,5581,0
+071218,16:14:16,336116221,83203792,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,5724,0
+071218,16:14:16,336116221,83203792,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,2869,0
+071218,16:14:16,336116221,83203792,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,2869,0
+071218,16:23:18,322117296,117989195,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,14482,0
+071218,16:23:18,322117296,117989195,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,11097,0
+071218,16:23:18,322117296,117989195,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,8766,0
+071218,16:23:18,322117296,117989195,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,7555,0
+071218,16:23:18,322117296,117989195,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,15878,0
+071218,16:23:18,322117296,117989195,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,15878,0
+071318,01:23:46,463061784,595598426,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,14154,0
+071318,01:23:46,463061784,595598426,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,10288,0
+071318,01:23:46,463061784,595598426,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,7848,0
+071318,01:23:46,463061784,595598426,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,7266,0
+071318,01:23:46,463061784,595598426,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,26104,0
+071318,01:23:46,463061784,595598426,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,26104,0
+071218,16:23:28,848463422,55027911,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,28131,0
+071218,16:23:28,848463422,55027911,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,7463,0
+071218,16:23:28,848463422,55027911,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,8428,0
+071218,16:23:28,848463422,55027911,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,7083,0
+071218,16:23:28,848463422,55027911,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,31087,0
+071218,16:23:28,848463422,55027911,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,31087,0
+071218,16:28:10,515248424,183137276,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,12304,0
+071218,16:28:10,515248424,183137276,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,8331,0
+071218,16:28:10,515248424,183137276,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,6478,0
+071218,16:28:10,515248424,183137276,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,5853,0
+071218,16:28:10,515248424,183137276,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12941,0
+071218,16:28:10,515248424,183137276,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12941,0
+071218,10:28:33,574210406,242688177,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,65906,0
+071218,10:28:33,574210406,242688177,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,9156,0
+071218,10:28:33,574210406,242688177,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,6259,0
+071218,10:28:33,574210406,242688177,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,5448,0
+071218,10:28:33,574210406,242688177,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10967,0
+071218,10:28:33,574210406,242688177,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10967,0
+071218,16:30:33,168571909,188996986,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,a few,1,13046,0
+071218,16:30:33,168571909,188996986,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,8423,0
+071218,16:30:33,168571909,188996986,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,8640,0
+071218,16:30:33,168571909,188996986,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,about half,1,6134,0
+071218,16:30:33,168571909,188996986,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4277,0
+071218,16:30:33,168571909,188996986,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,4277,0
+071218,16:30:03,703918719,293786693,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,41333,0
+071218,16:30:03,703918719,293786693,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,6795,0
+071218,16:30:03,703918719,293786693,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,11616,0
+071218,16:30:03,703918719,293786693,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,6822,0
+071218,16:30:03,703918719,293786693,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9660,0
+071218,16:30:03,703918719,293786693,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9660,0
+071218,11:30:20,830440203,651264817,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,73971,0
+071218,11:30:20,830440203,651264817,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,7042,0
+071218,11:30:20,830440203,651264817,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,6186,0
+071218,11:30:20,830440203,651264817,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,10800,0
+071218,11:30:20,830440203,651264817,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11280,0
+071218,11:30:20,830440203,651264817,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,11280,0
+071218,16:33:37,42263210,604742078,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,31278,0
+071218,16:33:37,42263210,604742078,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,none,1,7953,0
+071218,16:33:37,42263210,604742078,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,3859,0
+071218,16:33:37,42263210,604742078,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,6000,0
+071218,16:33:37,42263210,604742078,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7383,0
+071218,16:33:37,42263210,604742078,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,7383,0
+071218,13:04:20,202835742,386883880,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,49597,0
+071218,13:04:20,202835742,386883880,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,more than half,1,15407,0
+071218,13:04:20,202835742,386883880,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,less than half,1,12016,0
+071218,13:04:20,202835742,386883880,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,10108,0
+071218,13:04:20,202835742,386883880,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,38945,0
+071218,13:04:20,202835742,386883880,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,38945,0
+071218,11:37:01,182135475,904270315,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,less than half,1,11583,0
+071218,11:37:01,182135475,904270315,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,7997,0
+071218,11:37:01,182135475,904270315,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,7483,0
+071218,11:37:01,182135475,904270315,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,5702,0
+071218,11:37:01,182135475,904270315,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6016,0
+071218,11:37:01,182135475,904270315,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,6016,0
+071218,11:36:19,63669529,964951392,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,32828,0
+071218,11:36:19,63669529,964951392,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,4215,0
+071218,11:36:19,63669529,964951392,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,7782,0
+071218,11:36:19,63669529,964951392,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,most,1,4966,0
+071218,11:36:19,63669529,964951392,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,39805,0
+071218,11:36:19,63669529,964951392,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,"they went too fast, so i wasn't able to actually look at the chinese symbol, my mind only saw the first image first so it was hard for me to judge the symbol at all ",1,39805,0
+071218,16:39:57,984318860,235085710,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,8279,0
+071218,16:39:57,984318860,235085710,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,all,1,6701,0
+071218,16:39:57,984318860,235085710,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,8651,0
+071218,16:39:57,984318860,235085710,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,all,1,6286,0
+071218,16:39:57,984318860,235085710,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,6463,0
+071218,16:39:57,984318860,235085710,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,6463,0
+071218,16:41:26,923909836,282821167,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,15416,0
+071218,16:41:26,923909836,282821167,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,6834,0
+071218,16:41:26,923909836,282821167,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,10856,0
+071218,16:41:26,923909836,282821167,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,8615,0
+071218,16:41:26,923909836,282821167,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,31598,0
+071218,16:41:26,923909836,282821167,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,31598,0
+071218,10:42:58,902456789,492324762,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,27229,0
+071218,10:42:58,902456789,492324762,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,14659,0
+071218,10:42:58,902456789,492324762,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,none,1,9461,0
+071218,10:42:58,902456789,492324762,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,10846,0
+071218,10:42:58,902456789,492324762,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8713,0
+071218,10:42:58,902456789,492324762,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,8713,0
+071218,11:42:02,54877366,538746433,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,a few,1,13515,0
+071218,11:42:02,54877366,538746433,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,all,1,37833,0
+071218,11:42:02,54877366,538746433,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,10343,0
+071218,11:42:02,54877366,538746433,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,all,1,38866,0
+071218,11:42:02,54877366,538746433,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,127636,0
+071218,11:42:02,54877366,538746433,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,127636,0
+071218,10:46:29,983755299,467624381,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,27144,0
+071218,10:46:29,983755299,467624381,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,9069,0
+071218,10:46:29,983755299,467624381,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,11421,0
+071218,10:46:29,983755299,467624381,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,10652,0
+071218,10:46:29,983755299,467624381,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,5882,0
+071218,10:46:29,983755299,467624381,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,5882,0
+071218,16:47:50,818384788,917102915,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,more than half,1,14658,0
+071218,16:47:50,818384788,917102915,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,8832,0
+071218,16:47:50,818384788,917102915,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,5381,0
+071218,16:47:50,818384788,917102915,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,6086,0
+071218,16:47:50,818384788,917102915,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7039,0
+071218,16:47:50,818384788,917102915,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7039,0
+071218,11:47:21,835828023,550951876,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,9130,0
+071218,11:47:21,835828023,550951876,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,5896,0
+071218,11:47:21,835828023,550951876,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,about half,1,2474,0
+071218,11:47:21,835828023,550951876,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,a few,1,3874,0
+071218,11:47:21,835828023,550951876,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,55091,0
+071218,11:47:21,835828023,550951876,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,"The questions at the end did not appear, only the multiple choice answers did, so I wasn't sure what I was answering.",1,55091,0
+071218,11:49:55,61976408,115605122,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,,1,8316,0
+071218,16:49:25,847952058,727604649,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,none,1,28294,0
+071218,16:49:25,847952058,727604649,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,7943,0
+071218,16:49:25,847952058,727604649,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,6802,0
+071218,16:49:25,847952058,727604649,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,11913,0
+071218,16:49:25,847952058,727604649,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8253,0
+071218,16:49:25,847952058,727604649,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8253,0
+071218,16:48:51,891811249,169676400,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,29767,0
+071218,16:48:51,891811249,169676400,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,36374,0
+071218,16:48:51,891811249,169676400,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,19381,0
+071218,16:48:51,891811249,169676400,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,17951,0
+071218,16:48:51,891811249,169676400,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,22864,0
+071218,16:48:51,891811249,169676400,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,22864,0
+071218,16:49:17,905846531,4564664,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,,1,14626,0
+071218,16:52:30,824528212,109411715,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,35218,0
+071218,16:52:30,824528212,109411715,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,5966,0
+071218,16:52:30,824528212,109411715,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,8853,0
+071218,16:52:30,824528212,109411715,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,5842,0
+071218,16:52:30,824528212,109411715,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9808,0
+071218,16:52:30,824528212,109411715,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9808,0
+071218,16:53:14,492231266,519369227,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,23972,0
+071218,16:53:14,492231266,519369227,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,8488,0
+071218,16:53:14,492231266,519369227,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,none,1,11196,0
+071218,16:53:14,492231266,519369227,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,7246,0
+071218,16:53:14,492231266,519369227,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7978,0
+071218,16:53:14,492231266,519369227,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7978,0
+071218,10:53:08,16788438,117942941,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,15858,0
+071218,10:53:08,16788438,117942941,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,12252,0
+071218,10:53:08,16788438,117942941,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,8723,0
+071218,10:53:08,16788438,117942941,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,13032,0
+071218,10:53:08,16788438,117942941,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20297,0
+071218,10:53:08,16788438,117942941,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,20297,0
+071218,11:56:22,421127885,217588699,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,38187,0
+071218,11:56:22,421127885,217588699,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,none,1,8491,0
+071218,11:56:22,421127885,217588699,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,a few,1,9837,0
+071218,11:56:22,421127885,217588699,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6737,0
+071218,11:56:22,421127885,217588699,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7093,0
+071218,11:56:22,421127885,217588699,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7093,0
+071218,09:57:26,260395592,7483157,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,12958,0
+071218,09:57:26,260395592,7483157,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,4192,0
+071218,09:57:26,260395592,7483157,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,5006,0
+071218,09:57:26,260395592,7483157,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,less than half,1,4236,0
+071218,09:57:26,260395592,7483157,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8107,0
+071218,09:57:26,260395592,7483157,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,8107,0
+071218,11:57:40,247601558,63553405,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,53712,0
+071218,11:57:40,247601558,63553405,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,6888,0
+071218,11:57:40,247601558,63553405,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,8884,0
+071218,11:57:40,247601558,63553405,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,6859,0
+071218,11:57:40,247601558,63553405,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,10581,0
+071218,11:57:40,247601558,63553405,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,10581,0
+071218,16:58:56,718173514,943848000,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,less than half,1,15642,0
+071218,16:58:56,718173514,943848000,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,9414,0
+071218,16:58:56,718173514,943848000,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,9979,0
+071218,16:58:56,718173514,943848000,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,most,1,5698,0
+071218,16:58:56,718173514,943848000,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,20114,0
+071218,16:58:56,718173514,943848000,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,20114,0
+071218,11:59:06,278972691,153454388,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,more than half,1,43965,0
+071218,11:59:06,278972691,153454388,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,6207,0
+071218,11:59:06,278972691,153454388,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,7980,0
+071218,11:59:06,278972691,153454388,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,most,1,9530,0
+071218,11:59:06,278972691,153454388,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7870,0
+071218,11:59:06,278972691,153454388,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,7870,0
+071218,16:59:34,330730898,661377369,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,17873,0
+071218,16:59:34,330730898,661377369,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,most,1,11152,0
+071218,16:59:34,330730898,661377369,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,more than half,1,10214,0
+071218,16:59:34,330730898,661377369,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,7097,0
+071218,16:59:34,330730898,661377369,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,15533,0
+071218,16:59:34,330730898,661377369,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,15533,0
+071218,11:59:43,899137125,773928249,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,63155,0
+071218,11:59:43,899137125,773928249,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,less than half,1,7712,0
+071218,11:59:43,899137125,773928249,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,4924,0
+071218,11:59:43,899137125,773928249,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,about half,1,1816,0
+071218,11:59:43,899137125,773928249,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"No, exclude my data (please specify why):",1,38497,0
+071218,11:59:43,899137125,773928249,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,Im not 100% sure I understood the post questions and I feel as if my Data could misrepresent what you want from the particpants.,1,38497,0
+071218,17:00:39,925629406,132510654,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,most,1,22484,0
+071218,17:00:39,925629406,132510654,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,most,1,16188,0
+071218,17:00:39,925629406,132510654,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,more than half,1,7265,0
+071218,17:00:39,925629406,132510654,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,7683,0
+071218,17:00:39,925629406,132510654,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,11331,0
+071218,17:00:39,925629406,132510654,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,11331,0
+071218,17:01:45,381219479,433913745,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,8325,0
+071218,17:01:45,381219479,433913745,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,all,1,4461,0
+071218,17:01:45,381219479,433913745,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,5923,0
+071218,17:01:45,381219479,433913745,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,10257,0
+071218,17:01:45,381219479,433913745,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,14002,0
+071218,17:01:45,381219479,433913745,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,14002,0
+071218,17:02:11,920738427,795809044,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,all,1,20982,0
+071218,17:02:11,920738427,795809044,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,a few,1,8469,0
+071218,17:02:11,920738427,795809044,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,6621,0
+071218,17:02:11,920738427,795809044,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,8782,0
+071218,17:02:11,920738427,795809044,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,8491,0
+071218,17:02:11,920738427,795809044,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,8491,0
+071218,10:01:38,200237172,99082660,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,100747,0
+071218,10:01:38,200237172,99082660,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,about half,1,7620,0
+071218,10:01:38,200237172,99082660,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,most,1,14999,0
+071218,10:01:38,200237172,99082660,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,less than half,1,8471,0
+071218,10:01:38,200237172,99082660,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,12336,0
+071218,10:01:38,200237172,99082660,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,12336,0
+071218,12:03:46,113589497,602920235,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,about half,1,14013,0
+071218,12:03:46,113589497,602920235,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,10967,0
+071218,12:03:46,113589497,602920235,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,11521,0
+071218,12:03:46,113589497,602920235,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,7119,0
+071218,12:03:46,113589497,602920235,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,7671,0
+071218,12:03:46,113589497,602920235,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,7671,0
+071218,09:03:46,843963319,719033942,4.0.10.0,1,1,end_of_study_questions_ifirst,awareness,0,0,0,0,0,0,about half,1,40909,0
+071218,09:03:46,843963319,719033942,4.0.10.0,1,2,end_of_study_questions_ifirst,influence_general,0,0,0,0,0,0,less than half,1,10658,0
+071218,09:03:46,843963319,719033942,4.0.10.0,1,3,end_of_study_questions_ifirst,intentionality,0,0,0,0,0,0,a few,1,6487,0
+071218,09:03:46,843963319,719033942,4.0.10.0,1,4,end_of_study_questions_ifirst,unintentionality,0,0,0,0,0,0,more than half,1,14181,0
+071218,09:03:46,843963319,719033942,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9094,0
+071218,09:03:46,843963319,719033942,4.0.10.0,1,5,end_of_study_questions_ifirst,self_exclusion_1other,0,0,0,0,0,0,,1,9094,0
+071218,11:04:56,849050083,716811565,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,28699,0
+071218,11:04:56,849050083,716811565,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,a few,1,9981,0
+071218,11:04:56,849050083,716811565,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,less than half,1,6918,0
+071218,11:04:56,849050083,716811565,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,none,1,6880,0
+071218,11:04:56,849050083,716811565,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,16399,0
+071218,11:04:56,849050083,716811565,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,16399,0
+071218,12:05:06,394362642,261248365,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,most,1,27513,0
+071218,12:05:06,394362642,261248365,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,about half,1,6439,0
+071218,12:05:06,394362642,261248365,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,about half,1,6718,0
+071218,12:05:06,394362642,261248365,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,a few,1,16211,0
+071218,12:05:06,394362642,261248365,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,9976,0
+071218,12:05:06,394362642,261248365,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,9976,0
+071218,12:06:57,253549635,968375333,4.0.10.0,1,1,end_of_study_questions_ufirst,awareness,0,0,0,0,0,0,all,1,15269,0
+071218,12:06:57,253549635,968375333,4.0.10.0,1,2,end_of_study_questions_ufirst,influence_general,0,0,0,0,0,0,more than half,1,4697,0
+071218,12:06:57,253549635,968375333,4.0.10.0,1,3,end_of_study_questions_ufirst,unintentionality,0,0,0,0,0,0,most,1,4496,0
+071218,12:06:57,253549635,968375333,4.0.10.0,1,4,end_of_study_questions_ufirst,intentionality,0,0,0,0,0,0,most,1,7149,0
+071218,12:06:57,253549635,968375333,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1,0,0,0,0,0,0,"Yes, use my data",1,4546,0
+071218,12:06:57,253549635,968375333,4.0.10.0,1,5,end_of_study_questions_ufirst,self_exclusion_1other,0,0,0,0,0,0,,1,4546,0
