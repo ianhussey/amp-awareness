@@ -1,7 +1,7 @@
 ---
 title: "Study 2"
 subtitle: "Processing"
-author: "Jamie Cummins & Ian Hussey"
+author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -15,9 +15,7 @@ output:
 ```{r include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, 
-                      warning = FALSE, 
-                      cache = TRUE,
-                      echo = FALSE)
+                      warning = FALSE)
 
 ```
 
@@ -26,192 +24,168 @@ knitr::opts_chunk$set(message = FALSE,
 # dependencies
 library(tidyverse)
 
-
 # get data
-demographics_df    <- read.csv("raw/demographics_18_07_17.csv")
-intentional_AMP_df <- read.csv("raw/modified_intentionality_amp_18_07_17.csv")
-standard_AMP_df    <- read.csv("raw/standard_amp_18_07_17.csv")
-post_df            <- read.csv("raw/post-questions_18_07_17.csv")
+demographics_df <- read.csv("raw/demographics.csv")
+IA_AMP_df       <- read.csv("raw/modified_intentionality_amp.csv")
+AMP_df          <- read.csv("raw/standard_amp.csv")
+questions_df    <- read.csv("raw/post_questions.csv")
 
 ```
 
-```{r questions and demographics}
+# Demographics and self reports
 
-# match Prolific IDs to subject numbers
+```{r}
+
+# match Prolific IDs to subject numbers (for payment processing)
 prolificid_df <- demographics_df %>%
   distinct(subject, trialcode, .keep_all = TRUE) %>%
   filter(trialcode == "ProlificCode") %>%
   dplyr::select(subject, response) 
 
-# Screen questions df for unique values, thus removing duplicates
-self_exclusion <- post_df %>%
+demographics_data <- demographics_df %>%
   distinct(subject, trialcode, .keep_all = TRUE) %>%
-  dplyr::select(subject, trialcode, response)
+  filter(trialcode != "ProlificCode") %>%
+  select(subject, trialcode, response) %>%
+  spread(trialcode, response) %>%
+  mutate(subject = as.character(subject))
 
-# Join the above two dfs, filter for only the appropriate number of rows
-screen <- full_join(prolificid_df, self_exclusion, by="subject") %>%
-  group_by(subject) %>% 
-  filter(n() == 6) %>%
-  dplyr::rename(prolificid = response.x, 
-                response = response.y) %>%
-  mutate(response = as.character(response))
-
-# recode post_df responses, remove NAs
-questions <- post_df %>%
-  mutate(response = as.character(response)) %>%
-  mutate(response = ifelse(response == "none" | response == "Never", 1,
-                           ifelse(response == "a few" | response == "Very rarely", 2, 
-                                  ifelse(response == "less than half" | response == "Somewhat rarely", 3,
-                                         ifelse(response == "about half" | response == "Sometimes", 4,
-                                                ifelse(response == "more than half", 5, 
-                                                       ifelse(response == "most", 6,
-                                                              ifelse(response == "all", 7, response)))))))) %>%
-  na.omit
-# Take the above df, remove potential duplicates, and then spread
-screen_qs <- questions %>%
+self_report_data <- questions_df %>%
   distinct(subject, trialcode, .keep_all = TRUE) %>%
   select(subject, trialcode, response) %>%
   group_by(subject) %>%
   spread(trialcode, response) %>%
-  ungroup() %>% 
-  na.omit
+  ungroup %>% 
+  mutate(subject = as.character(subject))
 
 ```
 
-```{r AMP data}
+# AMP effects and influence rates
 
-# Manipulate df so that "influenced" refers to whether the trial response 
-# indicated the absence (0) or presence (1) of an influence of the prime
-# Also filters incomplete AMP data, and ensures that only participants 
-# who answers all of the post-questions are included
-int_AMP_cleaned <- intentional_AMP_df %>%
-  mutate(influenced = ifelse(trialcode == "intention_check" & correct == 1, 1, 0)) %>%
-  mutate(influenced = lead(influenced)) %>%
-  filter(trialcode == "prime_positive" | trialcode == "prime_negative") %>%
-  mutate(trialcode = ifelse(trialcode == "prime_positive", 1, 0)) %>%
+```{r}
+
+AMP_cleaned <- AMP_df %>%
+
+  # keep only test blocks and ratings trials
+  filter(blockcode == "test") %>%
+  
+  # mutate some vars
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+         subject = as.character(subject),
+         rating = as.numeric(as.character(correct))) %>%
+  
+  # exclude participants without the right number of AMP trials
   group_by(subject) %>% 
   filter(n() == 72) %>%
-  semi_join(., screen, by = "subject") %>%
-  semi_join(., screen_qs, by = "subject") %>%
-  dplyr::rename(prime_type = trialcode)
+  ungroup() %>%
+  select(subject, prime_type, rating) %>%
+  
+  # exclude those who didn't have the right number of trials on the screener
+  mutate(subject = as.character(subject))
 
-# Do basically the same as above (without leading) for the standard AMP
-standard_AMP_cleaned <- standard_AMP_df %>%
-  filter(trialcode == "prime_positive" | trialcode == "prime_negative") %>%
-  mutate(trialcode = ifelse(trialcode == "prime_positive", 1, 0)) %>%
+# score amp effect
+AMP_data <- AMP_cleaned %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, AMP_effect_positive_negative) 
+
+```
+
+# IA AMP effects and influence rates
+
+```{r}
+
+IA_AMP_cleaned <- IA_AMP_df %>%
+  
+  # reshape influence variable
+  mutate(influenced = as.numeric(as.character(lead(correct)))) %>%
+  
+  # keep only test blocks and ratings trials
+  filter(!str_detect(trialcode, "intention_check"),
+         blockcode == "test") %>%
+  
+  # mutate some vars
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+         subject = as.character(subject),
+         rating = as.numeric(as.character(correct))) %>%
+  
+  # exclude participants without the right number of AMP trials
   group_by(subject) %>% 
   filter(n() == 72) %>%
-  semi_join(., screen, by = "subject") %>%
-  semi_join(., screen_qs, by = "subject") %>%
-  semi_join(., int_AMP_cleaned, by = "subject") %>%
-  dplyr::rename(prime_type = trialcode)
+  ungroup() %>%
+  select(subject, prime_type, rating, influenced) %>%
+  
+  # exclude those who didn't have the right number of trials on the screener
+  mutate(subject = as.character(subject))
 
-```
-
-# Rescale variables
-
-```{r rescaling}
-
-int_AMP_rescaled <- int_AMP_cleaned %>%
-  mutate(influenced = as.numeric(influenced) - .5,
-         prime_type = as.numeric(prime_type) - .5)
-
-int_AMP_influenced <- int_AMP_rescaled %>%
-  filter(influenced == .5)
-
-int_AMP_uninfluenced <- int_AMP_rescaled %>%
-  filter(influenced == -.5)
-
-std_AMP_rescaled <- standard_AMP_cleaned %>%
-  mutate(prime_type = prime_type - .5)
-
-
-```
-
-# Subject-level data-frames 
-
-
-```{r subject-level dfs}
-
-# Creates an amp_effect column giving the AMP effect on the IA-AMP for each subject.
-int_joiner <- int_AMP_rescaled %>%
+# score amp effect
+IA_AMP_effect <- IA_AMP_cleaned %>%
   group_by(subject, prime_type) %>%
-  dplyr::summarize(amp_effect = mean(correct)) %>%
+  summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  dplyr::rename(false_prime = "-0.5",
-                true_prime = "0.5") %>%
-  mutate(amp_effect = true_prime - false_prime)
+  mutate(IA_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, IA_AMP_effect_positive_negative) 
 
-# Creates an amp_effect column giving the AMP effect on the standard AMP for each subject.
-std_joiner <- std_AMP_rescaled %>%
-  group_by(subject, prime_type) %>%
-  dplyr::summarize(amp_effect = mean(correct)) %>%
-  ungroup() %>%
-  spread(prime_type, amp_effect) %>%
-  dplyr::rename(false_prime = "-0.5",
-                true_prime = "0.5") %>%
-  mutate(std_amp_effect = true_prime - false_prime) %>%
-  dplyr::rename(std_true_prime = true_prime, 
-                std_false_prime = false_prime)
-
-# Creates an amp_effect column giving the AMP effect on the unintentional trials only
-# in the IA-AMP for each subject.
-unint_joiner <- int_AMP_rescaled %>%
-  filter(influenced == -.5) %>%
-  group_by(subject, prime_type) %>%
-  dplyr::summarize(amp_effect = mean(correct)) %>%
-  ungroup() %>%
-  spread(prime_type, amp_effect) %>%
-  dplyr::rename(unint_false_prime = "-0.5", 
-                unint_true_prime = "0.5") %>%
-  mutate(unint_amp_effect = unint_true_prime - unint_false_prime) 
-
-# Creates a full data-frame, with information for each subject on their responses 
-# to the post-questions, their standard AMP effect, IA-AMP effect, and their 
-# IA-AMP effect on uninfluenced trials only.
-full_subjects_df <- int_AMP_rescaled %>%
-  mutate(influenced = as.numeric(as.character(influenced))) %>%
+# score influence rates
+IA_AMP_influence_rate <- IA_AMP_cleaned %>%
   group_by(subject) %>%
-  dplyr::summarize(influence_rate = mean(influenced)) %>%
-  ungroup() %>%
-  left_join(int_joiner, by = "subject") %>%
-  left_join(screen_qs, by = "subject") %>%
-  dplyr::rename(int_false_prime = false_prime, 
-                int_true_prime = true_prime, 
-                int_amp_effect = amp_effect) %>%
-  mutate(influence_rate = as.numeric(influence_rate),
-         influence_general = as.numeric(influence_general),
-         intentionality = as.numeric(intentionality),
-         unintentionality = as.numeric(unintentionality)) %>%
-  left_join(std_joiner, by = "subject") %>%
-  left_join(unint_joiner, by = "subject")
+  summarize(influence_rate = round(mean(influenced), 2)) %>%
+  ungroup()
 
-age_and_gender <- demographics_df %>%
-  distinct(subject, trialcode, .keep_all = TRUE) %>%
-  filter(trialcode != "ProlificCode") %>%
-  dplyr::select(subject, trialcode, response) %>%
-  spread(trialcode, response)
+IA_AMP_data <- IA_AMP_effect %>%
+  full_join(IA_AMP_influence_rate, by = "subject")
 
-demographs <- full_subjects_df %>%
-  left_join(age_and_gender, by = "subject")
+```
 
+# Screen for complete data
 
-# Removes the NAs in the full_subjects_df: basically just removes participants whose AMP effect
-# for uninfluenced trials was NA (i.e., because they reported all trials as influenced).
-screened_subjects_df <- full_subjects_df %>%
-  na.omit()
+```{r}
+
+complete_demographics_data <- demographics_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_self_report_data <- self_report_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_AMP_data <- AMP_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_IA_AMP_data <- IA_AMP_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_data <- complete_demographics_data %>%
+  semi_join(complete_self_report_data, by = "subject") %>%
+  semi_join(complete_IA_AMP_data, by = "subject") %>%
+  semi_join(complete_AMP_data, by = "subject") %>%
+  mutate(complete_data = TRUE)
 
 ```
 
 # Write to disk
 
+```{r}
 
-```{r write-out}
+# combine
+processed_data <- demographics_data %>%
+  full_join(IA_AMP_data, by = "subject") %>%
+  full_join(self_report_data, by = "subject") %>%
+  full_join(complete_data, by = "subject") %>%
+  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data))
 
-write_csv(full_subjects_df, "processed/subject_level.csv")
-write_csv(int_AMP_rescaled, "processed/intentional_AMP.csv")
-write_csv(std_AMP_rescaled, "processed/standard_AMP.csv")
-write_csv(screened_subjects_df, "processed/na_omitted_subjects.csv")
-write_csv(demographs, "processed/demographs.csv")
+# long format AMP data
+trial_level_ia_amp_data <- processed_data %>%
+  right_join(IA_AMP_cleaned, by = "subject") %>%
+  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)
+
+# write to disk
+write_csv(processed_data, "processed/processed_data.csv")
+write_csv(trial_level_ia_amp_data, "processed/trial_level_ia_amp_positive_negative_data.csv")
+
 ```

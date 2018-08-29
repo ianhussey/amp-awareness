@@ -41,8 +41,8 @@ options(scipen = 999)
 options(knitr.table.format = "html")
 
 # get data
-input_data <- read.csv("../simulated_data/simulation_1_differences_in_AMP_effect_moderated_by_influence_rate.csv")
-#input_data <- read.csv("../simulated_data/simulation_2_differences_in_AMP_effect_not_moderated_by_influence_rate.csv")
+#input_data <- read.csv("../simulated_data/simulation_1_differences_in_AMP_effect_moderated_by_influence_rate.csv")
+input_data <- read.csv("../simulated_data/simulation_2_differences_in_AMP_effect_not_moderated_by_influence_rate.csv")
 #input_data <- read.csv("../simulated_data/simulation_3_no_differences_in_AMP_effect_not_moderated_by_influence_rate.csv")
 
 ```
@@ -133,7 +133,8 @@ p1 <-
 # Create an 'inverted' column which specifies the direction of the AMP effect (positive or negative), and also create an absolute AMP effect column
 temp_data <- input_data %>%
   mutate(inverted = ifelse(std_amp_effect < 0, TRUE, FALSE),
-         abs_std_amp_effect = abs(std_amp_effect))
+         abs_std_amp_effect = abs(std_amp_effect),
+         group = ifelse(inverted == TRUE, 1-group, group))
 
 # fit model to partial out influence from absolute amp effect
 model_2a <- lm(abs_std_amp_effect ~ influence_rate, 
@@ -147,9 +148,11 @@ data_with_residuals <- temp_data %>%
   mutate(std_amp_effect_minus_influence_rate = residuals_temp$.resid,
          std_amp_effect_minus_influence_rate_uninverted = ifelse(inverted == TRUE, 1 - std_amp_effect_minus_influence_rate, std_amp_effect_minus_influence_rate))
 
+
+
 # fit new prediction model
 model_2b <- glm(group ~ std_amp_effect_minus_influence_rate_uninverted, 
-                family = binomial(link="logit"), 
+                family = binomial(link = "logit"), 
                 data = data_with_residuals)
 
 
@@ -285,4 +288,18 @@ rownames(combined) <- NULL
 combined %>% kable()
 
 ```
+
+```{r}
+
+effsize::cohen.d(prob ~ group, data = predictions)
+
+effsize::cohen.d(prob ~ group, data = predictions2)
+
+```
+
+d estimate: 3.855786 (large)
+3.707579 4.003994 
+
+d estimate: 2.971411 
+2.844267 3.098555 
 

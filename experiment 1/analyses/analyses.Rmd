@@ -42,10 +42,8 @@ library(kableExtra)
 library(timesavers)
 
 # get data
-subject_level_df       <- read.csv("../data/processed/subject_level.csv")
-intentional_AMP_df     <- read.csv("../data/processed/intentional_AMP.csv")
-# na_omitted_subjects_df <- read.csv("../data/processed/na_omitted_subjects.csv")
-demographs             <- read.csv("../data/processed/demographs.csv")
+processed_data <- read.csv("../data/processed/processed_data.csv")
+trial_level_ia_amp_data <- read.csv("../data/processed/processed_data.csv")
 
 ```
 
@@ -185,7 +183,7 @@ Key effect: influence*prime_type interaction
 # model
 model_h1 <- glmer(correct ~ influenced * prime_type + (1 | subject), 
                   family = binomial(link = "logit"),
-                  data = intentional_AMP_df)
+                  data = trial_level_ia_amp_data)
 
 # plot
 sjp.glmer(model_h1, type = "pred", vars = c("correct", "influenced"))

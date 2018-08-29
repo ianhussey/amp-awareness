@@ -8,20 +8,318 @@ knitr::opts_chunk$set(echo = FALSE,
 
 ```{r}
 
+# dependencies
 library(tidyverse)
 library(metafor)
 library(timesavers)
+library(lme4)
+library(effects)
+library(pROC)
 
 # get data
-combined_results <- read.csv("combined_results.csv")
+## participant level
+exp_1 <- read.csv("../experiment 1/data/processed/processed_data.csv") %>%
+  mutate(experiment = 1, 
+         AMP_effect_positive_negative = NA,
+         AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump_influenced = NA,
+         IA_AMP_effect_obama_trump_not_influenced = NA,
+         IA_AMP_effect_positive_negative_influenced = NA,
+         IA_AMP_effect_positive_negative_not_influenced = NA,
+         party = NA,
+         politics = NA,
+         demand = NA,
+         demand_pn = NA,
+         demand_to = NA,
+         influence_general_pn = NA,
+         influence_general_to = NA,
+         intentionality_pn = NA,
+         intentionality_to = NA,
+         self_exclusion_1other = NA,
+         unintentionality_pn = NA,
+         unintentionality_to = NA,
+         influence_rate_obama_trump = NA,
+         influence_rate_positive_negative = NA)
 
-# reshape
+exp_2 <- read.csv("../experiment 2/data/processed/processed_data.csv") %>%
+  mutate(experiment = 2, 
+         AMP_effect_positive_negative = NA,
+         AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump_influenced = NA,
+         IA_AMP_effect_obama_trump_not_influenced = NA,
+         IA_AMP_effect_positive_negative_influenced = NA,
+         IA_AMP_effect_positive_negative_not_influenced = NA,
+         party = NA,
+         politics = NA,
+         demand = NA,
+         demand_pn = NA,
+         demand_to = NA,
+         influence_general_pn = NA,
+         influence_general_to = NA,
+         intentionality_pn = NA,
+         intentionality_to = NA,
+         self_exclusion_1other = NA,
+         unintentionality_pn = NA,
+         unintentionality_to = NA,
+         influence_rate_obama_trump = NA,
+         influence_rate_positive_negative = NA)
+
+exp_3 <- read.csv("../experiment 3/data/processed/processed_data.csv") %>%
+  mutate(experiment = 3, 
+         AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump_influenced = NA,
+         IA_AMP_effect_obama_trump_not_influenced = NA,
+         IA_AMP_effect_positive_negative_influenced = NA,
+         IA_AMP_effect_positive_negative_not_influenced = NA,
+         demand_pn = NA,
+         demand_to = NA,
+         influence_general_pn = NA,
+         influence_general_to = NA,
+         intentionality_pn = NA,
+         intentionality_to = NA,
+         self_exclusion_1other = NA,
+         unintentionality_pn = NA,
+         unintentionality_to = NA,
+         AMP_effect_positive_negative = NA,
+         influence_rate_obama_trump = NA,
+         influence_rate_positive_negative = NA)
+
+exp_4 <- read.csv("../experiment 4 pilot/data/processed/processed_data.csv") %>%
+  mutate(experiment = 4, 
+         unintentionality = NA,
+         intentionality = NA,
+         demand = NA,
+         influence_general = NA,
+         influence_rate = NA,
+         AMP_effect_obama_trump = NA,
+         AMP_effect_positive_negative = NA)
+
+combined_participant_level_data <- rbind(exp_1, exp_2, exp_3, exp_4) %>%
+  select(sort(names(.))) %>%
+  filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
+  mutate(influence_rate = ifelse(is.na(influence_rate), 
+                                 influence_rate_positive_negative, influence_rate)) %>%
+  mutate(unique_id = paste(experiment, subject, sep = "_")) %>%
+  select(unique_id, IA_AMP_effect_positive_negative, influence_rate, experiment)
+
+
+## trial level
+exp_1_trial_level <- read.csv("../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 1)
+
+exp_2_trial_level <- read.csv("../experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 2)
+
+exp_3_trial_level <- read.csv("../experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 3)
+
+exp_4_trial_level <- read.csv("../experiment 4 pilot/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 4)
+
+combined_trial_level_data <- rbind(exp_1_trial_level, 
+                                      exp_2_trial_level,
+                                      exp_3_trial_level,
+                                      exp_4_trial_level) %>%
+  filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
+  mutate(unique_id = paste(experiment, subject, sep = "_"),
+         prime_type = dplyr::recode(prime_type,
+                                    "prime_type_A" = "Positive",
+                                    "prime_type_B" = "Negative")) %>%
+  select(-subject)
+
+```
+
+# participant level analysis
+
+```{r}
+
+fit_meta <- lmer(IA_AMP_effect_positive_negative ~ influence_rate + (1 | experiment), 
+                 data = combined_participant_level_data)
+
+sjt.lmer(fit_meta, show.std = TRUE)
+
+```
+
+# Trial level analysis
+
+## rating ~ prime_type
+
+```{r}
+
+# model
+model_h1 <- glmer(rating ~ prime_type + (1 | unique_id) + (1 | experiment), 
+                  family = binomial(link = "logit"),
+                  data = combined_trial_level_data)
+
+# results table
+sjt.glmer(model_h1)
+
+# # bootstrap OR and CIs for key parameters
+# model_h1_int_boot <- bootMer(model_h1_int, 
+#                              FUN = fixef,  # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+#                              nsim = 1000,
+#                              parallel = "multicore")
+#
+# model_h1_int_boot %>%
+#   as.data.frame() %>%
+#   summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+#             prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+#             prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+#   round_df(2) %>%
+#   gather()
+# 
+# # write to disk given long runtime
+# save(model_h1_int_boot, file = "data/models/model_h1_int_boot.RData")
+# load("data/models/model_h1_int_boot.RData")
+
+# model performance
+combined_trial_level_data$predicted_probability_h1 <- predict(model_h1, type = "response")
+
+h1_auc <- auc(roc(rating ~ predicted_probability_h1, data = combined_trial_level_data))
+h1_auc
+
+# model_h1_predicted_effects <- 
+#   as.data.frame(effect("prime_type", model_h1)) %>%
+#   round_df(2)
+#
+# ggplot(data = model_h1_predicted_effects,
+#        aes(x = prime_type, y = fit)) +
+#   geom_point() +
+#   #geom_linerange(aes(ymin = lower, ymax = upper)) +
+#   ylab("Mean rating") +
+#   xlab("Prime type") +
+#   scale_colour_viridis_c(direction = -1) +
+#   theme_classic()
+
+```
+
+## rating ~ prime_type * influenced
+
+```{r}
+
+# model
+model_h2 <- glmer(rating ~ prime_type * influenced + (1 | unique_id) + (1 | experiment), 
+                  family = binomial(link = "logit"),
+                  data = combined_trial_level_data)
+
+# results table
+sjt.glmer(model_h2)
+
+# # bootstrap OR and CIs for key parameters
+# model_h2_int_boot <- bootMer(model_h2_int, 
+#                              FUN = fixef,  # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+#                              nsim = 1000,
+#                              parallel = "multicore")
+#
+# model_h2_int_boot %>%
+#   as.data.frame() %>%
+#   summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+#             prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+#             prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+#   round_df(2) %>%
+#   gather()
+# 
+# # write to disk given long runtime
+# save(model_h2_int_boot, file = "data/models/model_h2_int_boot.RData")
+# load("data/models/model_h2_int_boot.RData")
+
+# model performance
+combined_trial_level_data$predicted_probability_h2 <- predict(model_h2, type = "response")
+
+h2_auc <- auc(roc(rating ~ predicted_probability_h2, data = combined_trial_level_data))
+h2_auc
+
+model_h2_predicted_effects <- 
+  as.data.frame(effect("prime_type:influenced", model_h2)) %>%
+  round_df(2) %>%
+  mutate(prime_type = fct_relevel(prime_type, "Positive", "Negative"))
+
+ggplot(data = model_h2_predicted_effects,
+       aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
+  geom_line() +
+  ylab("Mean rating") +
+  xlab("Prime type") +
+  scale_y_continuous(breaks = c(0, 0.25, 0.5, 0.75, 1)) +
+  scale_colour_viridis_c(direction = -1) +
+  theme_classic()
+
+```
+
+# Full meta
+
+Needs work
+
+```{r}
+
+model_exp_1 <- combined_trial_level_data %>%
+  filter(experiment == 1) %>%
+  glmer(rating ~ prime_type * influenced + (1 | unique_id), 
+                  family = binomial(link = "logit"),
+                  data = .)
+
+model_exp_2 <- combined_trial_level_data %>%
+  filter(experiment == 2) %>%
+  glmer(rating ~ prime_type * influenced + (1 | unique_id), 
+                  family = binomial(link = "logit"),
+                  data = .)
+
+model_exp_3 <- combined_trial_level_data %>%
+  filter(experiment == 3) %>%
+  glmer(rating ~ prime_type * influenced + (1 | unique_id), 
+                  family = binomial(link = "logit"),
+                  data = .)
+
+model_exp_4 <- combined_trial_level_data %>%
+  filter(experiment == 4) %>%
+  glmer(rating ~ prime_type * influenced + (1 | unique_id), 
+                  family = binomial(link = "logit"),
+                  data = .)
+
+exp_1_temp <- coef(model_exp_1)
+exp_1_coef <- exp_1_temp$unique_id %>%
+  as.data.frame() %>%
+  select(-`(Intercept)`) %>%
+  distinct() %>%
+  mutate(exp = 1)
+
+exp_2_temp <- coef(model_exp_2)
+exp_2_coef <- exp_2_temp$unique_id %>%
+  as.data.frame() %>%
+  select(-`(Intercept)`) %>%
+  distinct() %>%
+  mutate(exp = 2)
+
+exp_3_temp <- coef(model_exp_3)
+exp_3_coef <- exp_3_temp$unique_id %>%
+  as.data.frame() %>%
+  select(-`(Intercept)`) %>%
+  distinct() %>%
+  mutate(exp = 3)
+
+exp_4_temp <- coef(model_exp_4)
+exp_4_coef <- exp_4_temp$unique_id %>%
+  as.data.frame() %>%
+  select(-`(Intercept)`) %>%
+  distinct() %>%
+  mutate(exp = 4)
+
+combined_results <- rbind(exp_1_coef,
+                          exp_2_coef,
+                          exp_3_coef,
+                          exp_4_coef) %>%
+  mutate(interaction_or = exp(`prime_typeNegative:influenced`)) %>%
+  select(exp, interaction_or)
+
+# reshape - requires models be bootstrapped prior to this
 data_for_meta_analysis <- combined_results %>%
   mutate(
     # convert odds ratios to log odds
-    yi = log(OR),
+    yi = log(interaction_or),
     # convert CIs to SEs
-    sei = (log(OR_ci_upr) - log(OR_ci_lwr)) / (2*1.96),
+    sei = (log(interaction_or_ci_upr) - log(interaction_or_ci_lwr)) / (2*1.96),
     # convert SE to variance
     vi = sei^2
   )
