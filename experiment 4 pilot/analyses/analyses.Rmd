@@ -317,8 +317,8 @@ AMP effects differ between the groups
 
 h5_fit_0 <- 
   analysis_data %>% 
-  select(AMP_effect_obama_trump, party) %>%
-  aov(AMP_effect_obama_trump ~ party, 
+  select(IA_AMP_effect_obama_trump, party) %>%
+  aov(IA_AMP_effect_obama_trump ~ party, 
       data = .)
 
 Anova(h5_fit, type = "III")
@@ -330,9 +330,9 @@ h5_plot_0 <- sjp.lm(h5_fit_0,
 
 h5_plot_0$data %>%
   as.data.frame() %>%
-  rename("AMP effect" = y,
+  rename("IA_AMP effect" = y,
          "Political party" = labels) %>%
-  ggplot(., aes(`Political party`, `AMP effect`)) +
+  ggplot(., aes(`Political party`, `IA_AMP effect`)) +
   geom_hline(yintercept = 0, linetype = "dotted") +
   geom_pointrange(aes(ymin = conf.low, ymax = conf.high),
                   position = position_dodge(width = 0.1)) +
@@ -350,12 +350,14 @@ Importantly, our hypothesis here refers to a reduction in the AMP effect's utili
 
 h5_fit <- 
   analysis_data %>% 
-  dplyr::select(AMP_effect_obama_trump_influenced, AMP_effect_obama_trump_not_influenced, party) %>%
-  gather(influence, AMP_effect, c(AMP_effect_obama_trump_influenced, 
-                                  AMP_effect_obama_trump_not_influenced)) %>%
+  dplyr::select(IA_AMP_effect_obama_trump_influenced, 
+                IA_AMP_effect_obama_trump_not_influenced, 
+                party) %>%
+  gather(influence, AMP_effect, c(IA_AMP_effect_obama_trump_influenced, 
+                                  IA_AMP_effect_obama_trump_not_influenced)) %>%
   dplyr::mutate(influence = dplyr::recode(influence,
-                                          "AMP_effect_obama_trump_not_influenced" = "Not influenced",
-                                          "AMP_effect_obama_trump_influenced" = "Influenced"),
+                                          "IA_AMP_effect_obama_trump_not_influenced" = "Not influenced",
+                                          "IA_AMP_effect_obama_trump_influenced" = "Influenced"),
                 influence = as.factor(influence),
                 influence = fct_relevel(influence, "Not influenced", "Influenced")) %>%
   aov(AMP_effect ~ party * influence, 
@@ -373,15 +375,15 @@ h5_plot <- sjp.int(h5_fit,
 h5_plot$data.list %>%
   as.data.frame() %>%
   mutate(Influence = dplyr::recode(x,
-                           "1" = "Influenced",
-                           "2" = "Not influenced"),
+                                   "1" = "Influenced",
+                                   "2" = "Not influenced"),
          Influence = as.factor(Influence),
          Influence = fct_relevel(Influence, 
-                                "Not influenced",
-                                "Influenced")) %>%
-  rename("AMP effect" = y,
+                                 "Not influenced",
+                                 "Influenced")) %>%
+  rename("IA_AMP effect" = y,
          "Political party" = grp) %>%
-  ggplot(., aes(Influence, `AMP effect`, color = `Political party`, shape = `Political party`)) +
+  ggplot(., aes(Influence, `IA_AMP effect`, color = `Political party`, shape = `Political party`)) +
   #geom_ribbon(aes(ymin = conf.low, ymax = conf.high), linetype = 0, alpha = 0.1) +
   geom_hline(yintercept = 0, linetype = "dotted") +
   geom_pointrange(aes(ymin = conf.low, ymax = conf.high),
@@ -390,7 +392,7 @@ h5_plot$data.list %>%
   theme_classic() +
   scale_colour_viridis_d(begin = .2, end = .6) +
   xlab("Awareness of influence of prime on target")
-  
+
 
 ```
 
@@ -402,7 +404,7 @@ To illustrate, we bootstrap Cohen's d values for the differences between the gro
 
 h5_obama_trump_non_influenced <- 
   analysis_data %>% 
-  select(AMP_effect_obama_trump_not_influenced, party) %>%
+  select(IA_AMP_effect_obama_trump_not_influenced, party) %>%
   na.omit() %>%
   # bootES is terrible and I hate it and the people who made it, especially since they supposedly had
   # usability by R novies in mind. 
@@ -412,7 +414,7 @@ h5_obama_trump_non_influenced <-
   # All bug testing done with effsize::cohens_d before refactoring to bootES.
   # You bastards.
   bootES(data = .,
-         data.col = "AMP_effect_obama_trump_not_influenced", 
+         data.col = "IA_AMP_effect_obama_trump_not_influenced", 
          group.col = "party",
          contrast = c("republican", "democrat"),  # levels must be quoted, function doesn't like numerics 
          effect.type = "cohens.d.sigma",  # cohens.d gives sample sd, adding sigma gives population sd
@@ -423,20 +425,20 @@ h5_obama_trump_non_influenced <-
 # summarize
 cohens_d_non_influenced <- 
   data.frame(cohens_d = h5_obama_trump_non_influenced$t0,
-           cohens_d_ci_lwr = h5_obama_trump_non_influenced$bounds[1],
-           cohens_d_ci_upr = h5_obama_trump_non_influenced$bounds[2]) %>%
+             cohens_d_ci_lwr = h5_obama_trump_non_influenced$bounds[1],
+             cohens_d_ci_upr = h5_obama_trump_non_influenced$bounds[2]) %>%
   round_df(2) %>%
   mutate(subset = "Non influenced")
-  
+
 
 # Influenced trials
 
 h5_obama_trump_influenced <- 
   analysis_data %>% 
-  select(AMP_effect_obama_trump_influenced, party) %>%
+  select(IA_AMP_effect_obama_trump_influenced, party) %>%
   na.omit() %>%
   bootES(data = .,
-         data.col = "AMP_effect_obama_trump_influenced", 
+         data.col = "IA_AMP_effect_obama_trump_influenced", 
          group.col = "party",
          contrast = c("republican", "democrat"),  # levels must be quoted, function doesn't like numerics 
          effect.type = "cohens.d.sigma",  # cohens.d gives sample sd, adding sigma gives population sd
@@ -447,8 +449,8 @@ h5_obama_trump_influenced <-
 # summarize
 cohens_d_influenced <- 
   data.frame(cohens_d = h5_obama_trump_influenced$t0,
-           cohens_d_ci_lwr = h5_obama_trump_influenced$bounds[1],
-           cohens_d_ci_upr = h5_obama_trump_influenced$bounds[2]) %>%
+             cohens_d_ci_lwr = h5_obama_trump_influenced$bounds[1],
+             cohens_d_ci_upr = h5_obama_trump_influenced$bounds[2]) %>%
   round_df(2) %>%
   mutate(subset = "Influenced")
 
@@ -463,24 +465,29 @@ rbind(cohens_d_non_influenced, cohens_d_influenced) %>%
 # alt logistic approach
 # weird results, but ive left it in so jamie can see.
 
-# h5_fit <- 
-#   analysis_data %>% 
-#   select(AMP_effect_obama_trump_influenced, AMP_effect_obama_trump_not_influenced, party) %>%
-#   gather(influence, AMP_effect, c(AMP_effect_obama_trump_influenced, 
-#                                   AMP_effect_obama_trump_not_influenced)) %>%
-#   mutate(party = recode(party,
-#                         "republican" = 0,
-#                         "democrat" = 1),
-#          influence = recode(influence,
-#                         "AMP_effect_obama_trump_not_influenced" = "not_influenced",
-#                         "AMP_effect_obama_trump_influenced" = "influenced"),
-#          influence = as.factor(influence)) %>%
-#   glm(party ~ AMP_effect * influence, 
-#       family = binomial(link = "logit"),
-#       data = .)
-# 
-# sjt.glm(h5_fit)
-# 
-# sjp.int(h5_fit, mdrt.values = "meansd")
+h5_fit <-
+  analysis_data %>%
+  select(IA_AMP_effect_obama_trump_influenced, IA_AMP_effect_obama_trump_not_influenced, party) %>%
+  gather(influence, IA_AMP_effect, c(IA_AMP_effect_obama_trump_influenced,
+                                     IA_AMP_effect_obama_trump_not_influenced)) %>%
+  mutate(party = dplyr::recode(party,
+                               "republican" = 0,
+                               "democrat" = 1),
+         influence = dplyr::recode(influence,
+                                   "AMP_effect_obama_trump_not_influenced" = "not_influenced",
+                                   "AMP_effect_obama_trump_influenced" = "influenced"),
+         influence = as.factor(influence)) %>%
+  glm(party ~ IA_AMP_effect * influence,
+      family = binomial(link = "logit"),
+      data = .)
+
+sjt.glm(h5_fit)
+
+sjp.int(h5_fit, mdrt.values = "quart")
+
+sjp.int(h5_fit, mdrt.values = "meansd")
+
+sjp.int(h5_fit, mdrt.values = "minmax")
+
 
 ```
