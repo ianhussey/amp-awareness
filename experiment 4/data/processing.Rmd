@@ -1,0 +1,254 @@
+---
+title: "Study 4"
+subtitle: "Processing"
+author: "Jamie Cummins & Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE, 
+                      cache = TRUE,
+                      echo = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+
+# get data
+demographics_df    <- read.csv("raw/demographics_18_10_11.csv")
+AMP_df             <- read.csv("raw/modified_intentionality_amp_18_10_11.csv")
+questions_df       <- read.csv("raw/post-questions_18_10_11.csv")
+
+politics_AMP_df    <- AMP_df  %>%
+  mutate(influenced = ifelse(trialcode == "intention_check" & correct == 1, 1, 0)) %>%
+  mutate(influenced = lead(influenced)) %>% 
+  filter(trialcode == "prime_obama" | trialcode == "prime_trump")
+
+normed_AMP_df    <- AMP_df %>%  
+  mutate(influenced = ifelse(trialcode == "intention_check" & correct == 1, 1, 0)) %>%
+  mutate(influenced = lead(influenced)) %>% 
+  filter(trialcode == "prime_positive" | trialcode == "prime_negative")
+```
+
+```{r questions and demographics}
+
+# match Prolific IDs to subject numbers (for payment processing)
+prolificid_df <- demographics_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode == "ProlificCode") %>%
+  dplyr::select(subject, response) 
+
+# Screen questions df for unique values, thus removing duplicates
+self_exclusion <- questions_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  dplyr::select(subject, trialcode, response)
+
+# Join the above two dfs, filter for only the appropriate number of rows
+screen <- full_join(prolificid_df, self_exclusion, by= "subject") %>%
+  dplyr::rename(prolificid = response.x, 
+                response = response.y) %>%
+  filter(response != "No, exclude my data (please specify why):") %>%
+  group_by(subject) %>%
+  filter(n() == 12) %>% 
+  ungroup %>%
+  mutate(response = as.character(response),
+         subject = as.character(subject))
+
+# Take the questions_df, remove potential duplicates, and then spread
+screen_qs <- questions_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  select(subject, trialcode, response) %>%
+  group_by(subject) %>%
+  spread(trialcode, response) %>%
+  ungroup %>% 
+  na.omit %>%
+  mutate(subject = as.character(subject))
+
+```
+
+```{r AMP data}
+
+# Manipulate intentional AMP df so that "influenced" refers to whether the trial response 
+# indicated the absence (0) or presence (1) of an influence of the prime
+# Also filters incomplete AMP data, and ensures that only participants 
+# who answers all of the post-questions are included
+politics_AMP_cleaned <- politics_AMP_df %>%
+  mutate(trialcode = ifelse(trialcode == "prime_obama", 1, 0),
+         subject = as.character(subject)) %>%
+  group_by(subject) %>% 
+  filter(n() == 72) %>%
+  semi_join(screen, by = "subject") %>%
+  dplyr::rename(prime_type = trialcode) %>%
+  ungroup
+
+# Do same for normed stimuli
+normed_AMP_cleaned <- normed_AMP_df %>%
+  mutate(trialcode = ifelse(trialcode == "prime_positive", 1, 0)) %>%
+  mutate(subject = as.character(subject)) %>%
+  group_by(subject) %>% 
+  filter(n() == 72) %>%
+  semi_join(screen, by = "subject") %>%
+  semi_join(politics_AMP_cleaned, by = "subject") %>%
+  dplyr::rename(prime_type = trialcode) %>%
+  ungroup %>%
+  na.omit
+
+```
+
+# Subject-level data-frames 
+
+
+```{r subject-level dfs}
+
+# Creates an amp_effect column giving the AMP effect on the politics AMP for each subject.
+pol_joiner <- politics_AMP_cleaned %>%
+  group_by(subject, prime_type) %>%
+  mutate(correct = as.numeric(as.character(correct))) %>%
+  dplyr::summarize(amp_effect = mean(correct)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  dplyr::rename(trump_prime = "0",
+                obama_prime = "1") %>%
+  mutate(pol_amp_effect = obama_prime - trump_prime,
+         subject = as.character(subject)) 
+
+pol_influence_rate <- politics_AMP_cleaned %>%
+  mutate(influenced = as.numeric(as.character(influenced))) %>% 
+  group_by(subject) %>%
+  dplyr::summarize(influence_rate_pol = mean(influenced)) %>%
+  ungroup %>%
+  mutate(subject = as.character(subject))
+
+# Creates an amp_effect column giving the AMP effect on the standard AMP for each subject.
+norm_joiner <- normed_AMP_cleaned %>%
+  group_by(subject, prime_type) %>%
+  mutate(correct = as.numeric(as.character(correct))) %>%
+  dplyr::summarize(amp_effect = mean(correct)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  dplyr::rename(negative_prime = "0",
+                positive_prime = "1") %>%
+  mutate(normed_amp_effect = positive_prime - negative_prime,
+         subject = as.character(subject))
+
+norm_influence_rate <- normed_AMP_cleaned %>%
+  mutate(influenced = as.numeric(as.character(influenced))) %>% 
+  group_by(subject) %>%
+  dplyr::summarize(influence_rate_norm = mean(influenced)) %>%
+  ungroup %>%
+  mutate(subject = as.character(subject))
+
+# Creates a full data-frame, with information for each subject on their responses 
+# to the post-questions, their standard AMP effect, and their politics AMP effect.
+full_subjects_df <- pol_joiner %>%
+  left_join(norm_joiner, by = "subject") %>%
+  left_join(screen_qs, by = "subject") %>%
+  left_join(pol_influence_rate, by = "subject") %>%
+  left_join(norm_influence_rate, by = "subject") %>%
+  mutate(party = ifelse(politics == "a little republican" | 
+                        politics == "somewhat republican" |
+                        politics == "very republican", 0, 
+                 ifelse(politics == "neither/moderate", NA, 1))) %>%
+  na.omit 
+```
+
+```{r}
+# Add columns
+politics_AMP_cleaner <- politics_AMP_cleaned %>%
+  semi_join(full_subjects_df, by = "subject")
+
+normed_AMP_cleaner <- normed_AMP_cleaned %>%
+  semi_join(full_subjects_df, by = "subject")
+
+```
+
+```{r}
+# Create dfs for republicans and democrats
+republicans_df <- politics_AMP_cleaner %>%
+  left_join(full_subjects_df, by = "subject") %>%
+  filter(party == 0)
+
+democrats_df <- politics_AMP_cleaner %>%
+  left_join(full_subjects_df, by = "subject") %>%
+  filter(party == 1)
+
+age_and_gender <- demographics_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode != "ProlificCode") %>%
+  dplyr::select(subject, trialcode, response) %>%
+  spread(trialcode, response) %>%
+  mutate(subject = as.character(subject))
+
+demographs <- full_subjects_df %>%
+  left_join(age_and_gender, by = "subject")
+
+```
+
+# Compute influenced-only vs. uninfluenced-only AMP effects
+
+```{r}
+influenced_pol_AMP_effect <- politics_AMP_cleaned %>%
+  filter(influenced == 1) %>%
+  mutate(correct = as.numeric(as.character(correct))) %>%
+  group_by(subject, prime_type) %>%
+  dplyr::summarize(prop_cor = mean(correct)) %>%
+  ungroup() %>%
+  spread(prime_type, prop_cor) %>%
+  mutate(`0` = coalesce(`0`, 0),
+         `1` = coalesce(`1`, 0)) %>%
+  dplyr::rename(trump_prime = "0",
+                obama_prime = "1") %>%
+  mutate(inf_pol_amp_effect = obama_prime - trump_prime,
+         subject = as.integer(as.character(subject))) %>%
+  select(subject, inf_pol_amp_effect) %>%
+  mutate(inf_pol_amp_effect = coalesce(inf_pol_amp_effect, 0)) %>%
+  mutate(subject = as.character(subject))
+
+uninfluenced_pol_AMP_effect <- politics_AMP_cleaned %>%
+  filter(influenced == 0) %>%
+  mutate(correct = as.numeric(as.character(correct))) %>%
+  group_by(subject, prime_type) %>%
+  dplyr::summarize(prop_cor = mean(correct)) %>%
+  ungroup() %>%
+  spread(prime_type, prop_cor) %>%
+  mutate(`0` = coalesce(`0`, 0),
+         `1` = coalesce(`1`, 0)) %>%
+  dplyr::rename(trump_prime = "0",
+                obama_prime = "1") %>%
+  mutate(uninf_pol_amp_effect = obama_prime - trump_prime,
+         subject = as.integer(as.character(subject))) %>%
+  select(subject, uninf_pol_amp_effect) %>%
+  mutate(subject = as.character(subject))
+```
+
+
+```{r}
+final_full_subjects_df <- full_subjects_df %>%
+  left_join(influenced_pol_AMP_effect, by = "subject") %>%
+  left_join(uninfluenced_pol_AMP_effect, by = "subject") 
+```
+
+# Write to disk
+
+
+```{r write-out}
+
+write_csv(final_full_subjects_df, "processed/subject_level.csv")
+write_csv(politics_AMP_cleaner, "processed/politics_AMP.csv")
+write_csv(normed_AMP_cleaner, "processed/normed_AMP.csv")
+write_csv(demographs, "processed/demographs.csv")
+write_csv(republicans_df, "processed/republicans.csv")
+write_csv(democrats_df, "processed/democrats.csv")
+```

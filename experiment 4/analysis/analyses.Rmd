@@ -1,0 +1,288 @@
+---
+title: "Study 4"
+subtitle: "Analyses"
+author: "Jamie Cummins & Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE, 
+                      cache = TRUE,
+                      echo = FALSE)
+
+```
+
+```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+
+# dependencies
+library(tidyverse)
+library(lme4)
+library(sjPlot)
+library(effects)
+library(DescTools)
+library(Rmisc)
+library(broom)
+library(kableExtra)
+
+# get data
+subject_level_df       <- read.csv("../data/processed/subject_level.csv")
+politics_AMP_df        <- read.csv("../data/processed/politics_AMP.csv")
+normed_AMP_df          <- read.csv("../data/processed/normed_AMP.csv")
+demographs             <- read.csv("../data/processed/demographs.csv")
+republicans_df         <- read.csv("../data/processed/republicans.csv")
+democrats_df           <- read.csv("../data/processed/democrats.csv")
+```
+
+# Gender and age descriptive statistics
+
+```{r age and gender}
+# Gender
+demographs %>%
+  dplyr::count(gender)
+
+subject_level_df %>%
+  dplyr::count(party)
+
+# Age mean and SD
+demographs %>%
+  mutate(age = as.numeric(as.character(age))) %>%
+  dplyr::summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age))
+```
+# Manipulation checks
+
+## M1: Demonstate an AMP effect for the standard AMP
+
+### Logistic mixed-effects model
+
+```{r}
+
+# fit model
+model_m1_normed <- glmer(correct ~ prime_type + (1|subject), 
+                      family = binomial(link = "logit"),
+                      data = normed_AMP_df)
+
+# plot
+sjp.glmer(model_m1_normed, type = "pred", vars = c("prime_type"))
+
+# results table
+sjt.glmer(model_m1_normed)
+
+```
+
+## M2: Demonstate an AMP effect on the modified IA-AMP
+
+### Logistic mixed-effects model
+
+```{r}
+# Create separate dfs for democrats and republicans
+dem_df <- democrats_df %>%
+  mutate(party = 1) 
+rep_df <- republicans_df %>%
+  mutate(party = 2) 
+
+full_df <- dem_df %>%
+  rbind.data.frame(rep_df)
+
+
+# fit model
+model_m1_pol_d <- glmer(correct ~ prime_type * party + (1|subject), 
+                      family = binomial(link = "logit"),
+                      data = full_df)
+
+# plot
+sjp.glmer(model_m1_pol_d, type = "pred", vars = c("prime_type", "party"))
+
+# results table
+sjt.glmer(model_m1_pol_d)
+
+```
+
+
+# Hypothesis tests
+
+## H1: influence moderates the IA-AMP effect (trial level)
+
+For both IA-AMPs, the effect of prime type on response in trials is moderated by the subset of trials where influenced is reported.
+
+Key effect: influenced*prime_type interaction
+
+### Normed AMP 
+
+```{r}
+# model
+model_h1_normed <- glmer(correct ~ influenced * prime_type + (1|subject), 
+                  family = binomial(link = "logit"),
+                  data = normed_AMP_df)
+
+# plot
+sjp.glmer(model_h1_normed, type = "pred", vars = c("prime_type", "influenced"))
+
+# results table
+sjt.glmer(model_h1_normed, digits.p = 20)
+
+```
+
+### Politics AMP 
+
+
+```{r}
+# model
+model_h1_pol <- glmer(correct ~ influenced * prime_type * party + (1|subject), 
+                  family = binomial(link = "logit"),
+                  data = full_df)
+
+# plot
+sjp.glmer(model_h1_pol, type = "pred", vars = c("prime_type", "influenced", "party"))
+
+# results table
+sjt.glmer(model_h1_pol, digits.p = 20)
+
+```
+
+## H2: IA-AMP influence rate predicts IA-AMP effect (participant level)
+
+If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+That is: rate of influence in each IA-AMP should predict that IA-AMP's effect size.
+
+### Politics AMP
+
+```{r}
+
+# model
+fit_h2_pol <- lm(abs(pol_amp_effect) ~ influence_rate_pol, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate_pol, abs(pol_amp_effect))) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence and (absolute) IA-AMP effect size", x = "Rate of influence: Politics", y = "Politics AMP effect size") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h2_pol, show.std = TRUE, digits.p = 15)
+
+```
+
+### Normed AMP
+
+```{r}
+
+# model
+fit_h2_norm <- lm(normed_amp_effect ~ influence_rate_norm, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate_norm, normed_amp_effect)) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence and (absolute) IA-AMP effect size", x = "Rate of influence: Normed", y = "Normed AMP effect size") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h2_norm, show.std = TRUE, digits.p = 15)
+
+```
+
+
+
+
+## H3: One influence rate predicts the other AMP effect
+
+If effects in the AMP in general are driven by participants who are more often influenced, and this tendency to be influenced is consistent across AMPs which vary in domain content, then rate of influence in one AMP should predict effect sizes in the other AMP, and this should be the case in both directions.
+
+### Normed influence, politics AMP
+
+```{r}
+
+# model
+fit_h2_np <- lm(abs(pol_amp_effect) ~ influence_rate_norm, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate_norm, abs(pol_amp_effect))) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence and (absolute) IA-AMP effect size", x = "Rate of influence: Normed", y = "Normed AMP effect size") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h2_np, show.std = TRUE, digits.p = 15)
+
+```
+
+### Politics influence, normed AMP
+
+```{r}
+
+# model
+fit_h2_pn <- lm(normed_amp_effect ~ influence_rate_pol, 
+             data = subject_level_df)
+
+# plot
+ggplot(subject_level_df, aes(influence_rate_pol, normed_amp_effect)) + 
+  geom_point() +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence and (absolute) IA-AMP effect size", x = "Rate of influence: Politics", y = "Normed AMP effect size") +
+  theme_classic()
+
+# table
+sjt.lm(fit_h2_pn, show.std = TRUE, digits.p = 15)
+
+```
+
+## H4: Correlation between influence rates
+
+If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
+
+```{r}
+
+# Correlation 
+cor.test(subject_level_df$influence_rate_pol, subject_level_df$influence_rate_norm,
+         paired = TRUE)
+
+# Plot
+ggplot(subject_level_df, aes(influence_rate_pol, influence_rate_norm)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(x = "Influence rate: Political AMP", y = "Influence rate: Normed AMP") +
+  theme_classic()
+```
+## H5: Parsing group membership
+
+### Group membership predicting influenced AMP effect
+```{r}
+t.test(inf_pol_amp_effect ~ party,
+             family = binomial,
+             data = subject_level_df)
+
+# Cohen's d
+effsize::cohen.d(inf_pol_amp_effect ~ party,
+             family = binomial,
+             data = subject_level_df)
+```
+
+### Group membership predicting uninfluenced AMP effect
+```{r}
+t.test(uninf_pol_amp_effect ~ party,
+             family = binomial,
+             data = subject_level_df)
+
+# cohen's d
+effsize::cohen.d(uninf_pol_amp_effect ~ party,
+             family = binomial,
+             data = subject_level_df)
+```

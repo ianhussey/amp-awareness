@@ -119,6 +119,9 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
+.html-widget {
+  margin-bottom: 20px;
+}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -260,7 +263,7 @@ div.tocify {
 <h1 class="title toc-ignore">Study 2</h1>
 <h3 class="subtitle"><em>Processing</em></h3>
 <h4 class="author"><em>Ian Hussey &amp; Jamie Cummins</em></h4>
-<h4 class="date"><em>30 August, 2018</em></h4>
+<h4 class="date"><em>16 October, 2018</em></h4>
 
 </div>
 
@@ -288,13 +291,54 @@ demographics_data &lt;-<span class="st"> </span>demographics_df <span class="op"
 <span class="st">  </span><span class="kw">spread</span>(trialcode, response) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">subject =</span> <span class="kw">as.character</span>(subject))
 
+
+allowed_response_options &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;none&quot;</span>, <span class="st">&quot;a few&quot;</span>, <span class="st">&quot;less than half&quot;</span>, <span class="st">&quot;about half&quot;</span>, <span class="st">&quot;more than half&quot;</span>, <span class="st">&quot;most&quot;</span>, <span class="st">&quot;all&quot;</span>)
+
 self_report_data &lt;-<span class="st"> </span>questions_df <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">distinct</span>(subject, trialcode, <span class="dt">.keep_all =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(subject, trialcode, response) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(subject) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(trialcode, response) <span class="op">%&gt;%</span>
 <span class="st">  </span>ungroup <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">subject =</span> <span class="kw">as.character</span>(subject))</code></pre></div>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">subject =</span> <span class="kw">as.character</span>(subject)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co"># some pilot data that used alternative reponse options made it into the data. exclude this.</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">awareness =</span> <span class="kw">ifelse</span>(<span class="op">!</span>(influence_general <span class="op">%in%</span><span class="st"> </span>allowed_response_options), <span class="ot">NA</span>, <span class="kw">as.character</span>(awareness)),
+         <span class="dt">influence_general =</span> <span class="kw">ifelse</span>(<span class="op">!</span>(influence_general <span class="op">%in%</span><span class="st"> </span>allowed_response_options), <span class="ot">NA</span>, <span class="kw">as.character</span>(influence_general)),
+         <span class="dt">intentionality    =</span> <span class="kw">ifelse</span>(<span class="op">!</span>(intentionality <span class="op">%in%</span><span class="st"> </span>allowed_response_options), <span class="ot">NA</span>, <span class="kw">as.character</span>(intentionality)),
+         <span class="dt">unintentionality  =</span> <span class="kw">ifelse</span>(<span class="op">!</span>(unintentionality <span class="op">%in%</span><span class="st"> </span>allowed_response_options), <span class="ot">NA</span>, <span class="kw">as.character</span>(unintentionality)),
+         <span class="co"># recode likert from string to integer</span>
+         <span class="dt">awareness =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(<span class="kw">as.character</span>(awareness),
+                                   <span class="st">`</span><span class="dt">none</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">1</span>,
+                                   <span class="st">`</span><span class="dt">a few</span><span class="st">`</span>          =<span class="st"> </span><span class="dv">2</span>,
+                                   <span class="st">`</span><span class="dt">less than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">3</span>,
+                                   <span class="st">`</span><span class="dt">about half</span><span class="st">`</span>     =<span class="st"> </span><span class="dv">4</span>,
+                                   <span class="st">`</span><span class="dt">more than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">5</span>,
+                                   <span class="st">`</span><span class="dt">most</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">6</span>,
+                                   <span class="st">`</span><span class="dt">all</span><span class="st">`</span>            =<span class="st"> </span><span class="dv">7</span>),
+         <span class="dt">influence_general =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(<span class="kw">as.character</span>(influence_general),
+                                           <span class="st">`</span><span class="dt">none</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">1</span>,
+                                           <span class="st">`</span><span class="dt">a few</span><span class="st">`</span>          =<span class="st"> </span><span class="dv">2</span>,
+                                           <span class="st">`</span><span class="dt">less than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">3</span>,
+                                           <span class="st">`</span><span class="dt">about half</span><span class="st">`</span>     =<span class="st"> </span><span class="dv">4</span>,
+                                           <span class="st">`</span><span class="dt">more than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">5</span>,
+                                           <span class="st">`</span><span class="dt">most</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">6</span>,
+                                           <span class="st">`</span><span class="dt">all</span><span class="st">`</span>            =<span class="st"> </span><span class="dv">7</span>),
+         <span class="dt">intentionality =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(<span class="kw">as.character</span>(intentionality),
+                                        <span class="st">`</span><span class="dt">none</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">1</span>,
+                                        <span class="st">`</span><span class="dt">a few</span><span class="st">`</span>          =<span class="st"> </span><span class="dv">2</span>,
+                                        <span class="st">`</span><span class="dt">less than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">3</span>,
+                                        <span class="st">`</span><span class="dt">about half</span><span class="st">`</span>     =<span class="st"> </span><span class="dv">4</span>,
+                                        <span class="st">`</span><span class="dt">more than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">5</span>,
+                                        <span class="st">`</span><span class="dt">most</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">6</span>,
+                                        <span class="st">`</span><span class="dt">all</span><span class="st">`</span>            =<span class="st"> </span><span class="dv">7</span>),
+         <span class="dt">unintentionality =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(<span class="kw">as.character</span>(unintentionality),
+                                          <span class="st">`</span><span class="dt">none</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">1</span>,
+                                          <span class="st">`</span><span class="dt">a few</span><span class="st">`</span>          =<span class="st"> </span><span class="dv">2</span>,
+                                          <span class="st">`</span><span class="dt">less than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">3</span>,
+                                          <span class="st">`</span><span class="dt">about half</span><span class="st">`</span>     =<span class="st"> </span><span class="dv">4</span>,
+                                          <span class="st">`</span><span class="dt">more than half</span><span class="st">`</span> =<span class="st"> </span><span class="dv">5</span>,
+                                          <span class="st">`</span><span class="dt">most</span><span class="st">`</span>           =<span class="st"> </span><span class="dv">6</span>,
+                                          <span class="st">`</span><span class="dt">all</span><span class="st">`</span>            =<span class="st"> </span><span class="dv">7</span>))</code></pre></div>
 </div>
 <div id="amp-effects-and-influence-rates" class="section level1">
 <h1>AMP effects and influence rates</h1>
@@ -360,6 +404,16 @@ IA_AMP_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_effect_positive_negative) 
 
+<span class="co"># score amp effect</span>
+IA_AMP_uninfluenced_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(influenced <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(subject, prime_type) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">amp_effect =</span> <span class="kw">mean</span>(rating)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_uninfluenced_effect_positive_negative) 
+
 <span class="co"># score influence rates</span>
 IA_AMP_influence_rate &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">group_by</span>(subject) <span class="op">%&gt;%</span>
@@ -367,6 +421,7 @@ IA_AMP_influence_rate &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="
 <span class="st">  </span><span class="kw">ungroup</span>()
 
 IA_AMP_data &lt;-<span class="st"> </span>IA_AMP_effect <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(IA_AMP_uninfluenced_effect, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(IA_AMP_influence_rate, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>)</code></pre></div>
 </div>
 <div id="screen-for-complete-data" class="section level1">
@@ -397,18 +452,25 @@ complete_data &lt;-<span class="st"> </span>complete_demographics_data <span cla
 <h1>Write to disk</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># combine</span>
 processed_data &lt;-<span class="st"> </span>demographics_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">full_join</span>(AMP_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(IA_AMP_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(self_report_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">full_join</span>(complete_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">complete_data =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(complete_data), <span class="ot">FALSE</span>, complete_data))
 
 <span class="co"># long format AMP data</span>
+trial_level_amp_data &lt;-<span class="st"> </span>processed_data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">right_join</span>(AMP_cleaned, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(subject, prime_type, rating, self_exclusion_<span class="dv">1</span>, complete_data)
+
+<span class="co"># long format IA AMP data</span>
 trial_level_ia_amp_data &lt;-<span class="st"> </span>processed_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">right_join</span>(IA_AMP_cleaned, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(subject, prime_type, rating, influenced, self_exclusion_<span class="dv">1</span>, complete_data)
 
 <span class="co"># write to disk</span>
 <span class="kw">write_csv</span>(processed_data, <span class="st">&quot;processed/processed_data.csv&quot;</span>)
+<span class="kw">write_csv</span>(trial_level_amp_data, <span class="st">&quot;processed/trial_level_amp_positive_negative_data.csv&quot;</span>)
 <span class="kw">write_csv</span>(trial_level_ia_amp_data, <span class="st">&quot;processed/trial_level_ia_amp_positive_negative_data.csv&quot;</span>)</code></pre></div>
 </div>
 
