@@ -1,7 +1,7 @@
 ---
 title: "Study 2"
 subtitle: "Analyses"
-author: "Jamie Cummins & Ian Hussey"
+author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -48,6 +48,7 @@ library(broom)
 library(kableExtra)
 # devtools::install_github("ianhussey/timesavers")  
 library(timesavers)  # for round_df()
+library(plotrix)
 
 # functions
 ## Logistic model performance: probability of superiority
@@ -390,7 +391,7 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 
 *To be added*
 
-## H3: Magnitude of Standard AMP effect vs. IA-AMP effect (using uninfluenced trials only)
+## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using uninfluenced trials only)
 
 If intentional responding drives the AMP effect, then the effect size in the IA-AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
 

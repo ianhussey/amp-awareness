@@ -1,7 +1,7 @@
 ---
 title: "Study 1"
 subtitle: "Analyses"
-author: "Jamie Cummins & Ian Hussey"
+author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
