@@ -119,6 +119,7 @@ AMP_cleaned <- AMP_df %>%
   
   # exclude participants without the right number of AMP trials
   group_by(subject) %>% 
+  
   filter(n() == 72) %>%
   ungroup() %>%
   select(subject, prime_type, rating) %>%
@@ -219,6 +220,7 @@ complete_data <- complete_demographics_data %>%
 
 # combine
 processed_data <- demographics_data %>%
+  full_join(AMP_data, by = "subject") %>%
   full_join(IA_AMP_data, by = "subject") %>%
   full_join(self_report_data, by = "subject") %>%
   full_join(complete_data, by = "subject") %>%

@@ -12,6 +12,18 @@ output:
     toc_float: yes
 ---
 
+# To do
+
+1. add boostrapping for H2
+
+# Notes
+
+1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
+2. The mixed effects models applied to trial level AMP data are more powerful and are used for hypothesis testing. However, for the sake of familiarity (with the method and similarity to previous published work) we also calculate participant level AMP effect (i.e., sum of positive prime trials rated as positive minus sum of negative prime trials rated as negative) and the analyse these for some central hypotheses, for the sake of familiarity. This could be done for all analyses of AMP data (e.g., manipulation checks), but for brevity's sake we only do it for key hypotheses.
+3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
+4. H2 and H3 from experiment 1 were discarded as being less interesting, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
+Contribution of offline and online measures in predicting AMP effect sizes).
+
 ```{r include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, 
@@ -30,136 +42,351 @@ library(sjPlot)
 library(effects)
 library(DescTools)
 library(Rmisc)
+library(effsize)
+library(psych)
 library(broom)
 library(kableExtra)
+# devtools::install_github("ianhussey/timesavers")  
+library(timesavers)  # for round_df()
 
-# get data
-subject_level_df       <- read.csv("../data/processed/subject_level.csv")
-intentional_AMP_df     <- read.csv("../data/processed/intentional_AMP.csv")
-standard_AMP_df        <- read.csv("../data/processed/standard_AMP.csv")
-na_omitted_subjects_df <- read.csv("../data/processed/na_omitted_subjects.csv")
-demographs             <- read.csv("../data/processed/demographs.csv")
+# functions
+## Logistic model performance: probability of superiority
+ruscios_A <- function(variable, group, data, value1 = 1, value2 = 0) {
+  # Ensure data is a data frame (e.g., not a tbl_data)
+  data <- as.data.frame(data)
+  # Select the observations for group 1
+  x <- data[data[[group]] == value1, variable]
+  # Select the observations for group 2
+  y <- data[data[[group]] == value2, variable]
+  # Matrix with difference between XY for all pairs (Guillaume Rousselet's suggestion)
+  m <- outer(x, y, FUN = "-")
+  # Convert to booleans; count ties as half true.
+  m <- ifelse(m == 0, 0.5, m > 0)
+  # Return proportion of TRUEs
+  ruscios_A <- round(mean(m), 3)
+  return(as.numeric(ruscios_A))
+}
+
+# # version with CIs - computationally intensive
+# ruscios_A_boot <- function(data, variable, group, value1 = 1, value2 = 0, B = 1000) {
+#   require(tidyverse)
+#   require(broom)
+#   ruscios_A_results <- data %>%
+#     ruscios_A(variable = variable,
+#               group = group,
+#               value1 = value1,
+#               value2 = value2,
+#               data = .)
+#   
+#   ruscios_A_boot_results <- data %>%
+#     broom::bootstrap(B) %>%
+#     do(broom::tidy(ruscios_A(variable = variable,
+#                              group = group,
+#                              value1 = value1,
+#                              value2 = value2,
+#                              data = .))) %>%
+#     ungroup() %>%
+#     dplyr::summarize(AUC_ci_lwr = round(quantile(x, 0.025, na.rm = TRUE), 3),
+#                      AUC_ci_upr = round(quantile(x, 0.975, na.rm = TRUE), 3)) %>%
+#     mutate(AUC_estimate = ruscios_A_results)
+#   
+#   return(ruscios_A_boot_results)
+# }
+
+# get data 
+task_level_data <- read.csv("../data/processed/processed_data.csv")
+
+trial_level_amp_data <- read.csv("../data/processed/trial_level_amp_obama_trump_data.csv")
+
+trial_level_ia_amp_data <- read.csv("../data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(influenced = recode(influenced,
+                             `0` = "no",
+                             `1` = "yes"),
+         influenced = as.numeric(influenced))
+
+
+# exclusions
+task_level_data_exclusions <- task_level_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+trial_level_amp_data_exclusions <- trial_level_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+trial_level_ia_amp_data_exclusions <- trial_level_ia_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
 
 ```
 
-# Gender and age descriptive statistics
+# Demographics
+
+Analytic sample after exclusions.
 
 ```{r age and gender}
+
 # Gender
-demographs %>%
+task_level_data_exclusions %>%
+  mutate(gender = tolower(gender)) %>%
   dplyr::count(gender)
 
 # Age mean and SD
-demographs %>%
+task_level_data_exclusions %>%
   mutate(age = as.numeric(as.character(age))) %>%
-  summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age))
+  summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age)) %>%
+  round_df(2)
+
 ```
+
 # Manipulation checks
 
-## M1: Demonstate an AMP effect on the standard AMP
+## M1: Demonstate an AMP effect on the AMP
 
-### Logistic mixed-effects model
-
-```{r}
-
-# fit model
-model_m1_std <- glmer(correct ~ prime_type + (1|subject), 
-                      family = binomial(link = "logit"),
-                      data = standard_AMP_df)
-
-# plot
-sjp.glmer(model_m1_std, type = "pred", vars = c("correct"))
-
-# results table
-sjt.glmer(model_m1_std)
-
-```
-
-## M2: Demonstate an AMP effect on the modified IA-AMP
-
-### Logistic mixed-effects model
+### Fit model
 
 ```{r}
 
 # fit model
-model_m1_int <- glmer(correct ~ prime_type + (1|subject), 
-                      family = binomial(link = "logit"),
-                      data = intentional_AMP_df)
+model_m1 <- glmer(rating ~ prime_type + (1 | subject), 
+                  family = binomial(link = "logit"),
+                  data = trial_level_amp_data_exclusions)
 
 # plot
-sjp.glmer(model_m1_int, type = "pred", vars = c("prime_type"))
+plot_model(model_m1, type = "pred", terms = c("prime_type"))
 
 # results table
-sjt.glmer(model_m1_int)
+tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
+
+### Bootstrap estimates for key parameters
+
+```{r}
+
+# bootstrap estimates and CIs for key parameters
+# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+model_m1_boot <- bootMer(model_m1, 
+                         FUN = fixef,  
+                         nsim = 1000,
+                         parallel = "multicore")
+
+# write to disk given long runtime
+save(model_m1_boot, file = "data/models/model_m1_boot.RData")
+load("data/models/model_m1_boot.RData")
+
+# print results
+model_m1_boot %>%
+  as.data.frame() %>%
+  # exponentiate to convert log odds to odds
+  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
+            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+```
+
+### Model performance
+
+```{r}
+
+# add model predictions back to the original data frame
+trial_level_ia_amp_data_exclusions$m1_predicted_probability <- predict(model_m1, type = "response")
+
+# predicted probability
+m1_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions, 
+                   variable = "m1_predicted_probability", 
+                   group = "rating")
+
+```
+
+Model predicted probability = `r m1_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
+
+## M2: Demonstate an AMP effect on the IA AMP
+
+### Fit model
+
+```{r}
+
+# fit model
+model_m2 <- glmer(rating ~ prime_type + (1 | subject), 
+                  family = binomial(link = "logit"),
+                  data = trial_level_ia_amp_data_exclusions)
+
+# plot
+plot_model(model_m1, type = "pred", terms = c("prime_type"))
+
+# results table
+tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
+
+```
+
+### Bootstrap estimates for key parameters
+
+```{r}
+
+# bootstrap estimates and CIs for key parameters
+# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+model_m2_boot <- bootMer(model_m2, 
+                         FUN = fixef,  
+                         nsim = 1000,
+                         parallel = "multicore")
+
+# write to disk given long runtime
+save(model_m2_boot, file = "data/models/model_m2_boot.RData")
+load("data/models/model_m2_boot.RData")
+
+# print results
+model_m2_boot %>%
+  as.data.frame() %>%
+  # exponentiate to convert log odds to odds
+  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
+            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+```
+
+### Model performance
+
+```{r}
+
+# add model predictions back to the original data frame
+trial_level_ia_amp_data_exclusions$m2_predicted_probability <- predict(model_m2, type = "response")
+
+# predicted probability
+m2_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions, 
+                   variable = "m2_predicted_probability", 
+                   group = "rating")
+
+```
+
+Model predicted probability = `r m2_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
+
 
 # Hypothesis tests
 
-## H1: influence moderates the IA-AMP effect (trial level)
+## H1: IA-AMP influence rate predicts IA-AMP effect
 
-The effect of prime type on response in trials is moderated by the subset of trials where influenced is reported.
+### H1a: at the trial level
 
-Key effect: influenced*prime_type interaction
+Does conscious awareness of influence of the prime on the target moderate the AMP effect?
+
+Key effect: influence*prime_type interaction
+
+#### Fit model
 
 ```{r}
 
 # model
-model_h1 <- glmer(correct ~ influenced * prime_type + (1|subject), 
-                  family = binomial(link = "logit"),
-                  data = intentional_AMP_df)
+model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+                   family = binomial(link = "logit"),
+                   data = trial_level_ia_amp_data_exclusions)
 
 # plot
-sjp.glmer(model_h1, type = "pred", vars = c("correct", "influenced"))
+plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
-sjt.glmer(model_h1, digits.p = 20)
+tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H2: IA-AMP influence rate predicts IA-AMP effect (participant level)
+#### Bootstrap estimates for key parameters
+
+```{r}
+
+# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+model_h1a_boot <- bootMer(model_h1a, 
+                          FUN = fixef,  
+                          nsim = 1000,
+                          parallel = "multicore")
+
+# write to disk given long runtime
+save(model_h1a_boot, file = "data/models/model_h1a_boot.RData")
+load("data/models/model_h1a_boot.RData")
+
+# print results
+model_h1a_boot %>%
+  as.data.frame() %>%
+  summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+            prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+```
+
+#### Model performance
+
+```{r}
+
+# add model predictions back to the original data frame
+trial_level_ia_amp_data_exclusions$h1a_predicted_probability <- predict(model_h1a, type = "response")
+
+# predicted probability
+h1a_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions, 
+                    variable = "h1a_predicted_probability", 
+                    group = "rating") 
+
+```
+
+Model predicted probability = `r h1a_pp`.
+
+### H1b: at the participant level
+
+Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
-That is: rate of influence in the IA-AMP should predict IA-AMP effect sizes.
+#### Fit model
 
 ```{r}
 
 # model
-fit_h2 <- lm(int_amp_effect ~ influence_rate, 
-             data = subject_level_df)
+fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+              data = task_level_data_exclusions)
 
 # plot
-ggplot(subject_level_df, aes(influence_rate, int_amp_effect)) + 
-  geom_point() +
+ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
+  geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
-  labs(title = "Experiment 3: Rate of influence and IA-AMP effect size", x = "Rate of influence", y = "IA-AMP effect size") +
+  labs(title = "Proportion of influenced trials and IA-AMP effect", 
+       x = "Proportion of influenced trials", 
+       y = "IA-AMP effect") +
   theme_classic()
 
-# table
-sjt.lm(fit_h2, show.std = TRUE, digits.p = 15, show.se = TRUE)
+# results table
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H3: IA-AMP influence rate predicts standard AMP effect
+## H2: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
 
 If effects in the standard AMP, as well as the IA-AMP, are driven by participants who are more often influenced, then rate of influence in the IA-AMP should predict effect sizes in the standard AMP. 
 
+Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate predicts the (previously completed) AMP's effect then this implies that 1) measuring the influence rate does not perturb the IA AMP effect, and 2) that the rate of influence is reliable within participants across AMP/IA AMPs.
+
 ```{r}
 
 # model
-fit_h3 <- lm(std_amp_effect ~ influence_rate, 
-             data = subject_level_df)
+fit_h2 <- lm(abs(AMP_effect_obama_trump) ~ influence_rate, 
+             data = task_level_data_exclusions)
 
 # plot
-ggplot(subject_level_df, aes(influence_rate, std_amp_effect)) + 
-  geom_point() +
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
+  geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
-  labs(title = "Experiment 3: Rate of influence and Standard AMP effect size", x = "Rate of influence", y = "Standard AMP effect size") +
+  labs(title = "Rate of influence and Standard AMP effect size", 
+       x = "Rate of influence", 
+       y = "Standard AMP effect size") +
   theme_classic()
 
 # table
-sjt.lm(fit_h3, show.std = TRUE, digits.p = 15)
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
+
+### Bootstrap estimates
+
+*To be added*
+

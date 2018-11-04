@@ -12,6 +12,10 @@ output:
     toc_float: yes
 ---
 
+# To do
+
+1. add boostrapping for H2 & H3
+
 # Notes
 
 1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
@@ -332,7 +336,6 @@ Model predicted probability = `r h1a_pp`.
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
-
 #### Fit model
 
 ```{r}
@@ -356,7 +359,7 @@ tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H2: IA-AMP influence rate predicts standard AMP effect
+## H2: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
 
 If effects in the standard AMP, as well as the IA-AMP, are driven by participants who are more often influenced, then rate of influence in the IA-AMP should predict effect sizes in the standard AMP. 
 
@@ -373,7 +376,9 @@ ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positiv
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
-  labs(title = "Rate of influence and Standard AMP effect size", x = "Rate of influence", y = "Standard AMP effect size") +
+  labs(title = "Rate of influence and Standard AMP effect size", 
+       x = "Rate of influence", 
+       y = "Standard AMP effect size") +
   theme_classic()
 
 # table
@@ -384,7 +389,6 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 ### Bootstrap estimates
 
 *To be added*
-
 
 ## H3: Magnitude of Standard AMP effect vs. IA-AMP effect (using uninfluenced trials only)
 
