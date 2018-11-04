@@ -1,0 +1,12 @@
+﻿************************************************
+Batch script for TMT variants
+************************************************
+Jamie Cummins (jamie.cummins@ugent.be)
+GPLv3+ license
+************************************************
+<batch>
+/ file="demographics.iqx"
+/ file = "IA-AMP obama-trump.iqx"
+/ file = "IA-AMP pos-neg.iqx"
+/ file = "post-questions.iqx"
+</batch>

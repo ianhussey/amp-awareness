@@ -1,0 +1,400 @@
+﻿***********************************************************************
+						Modified AFFECT MISATTRIBUTION PROCEDURE (AMP)
+***********************************************************************
+
+***********************************************************************
+											SCRIPT INFO
+
+Updated for Inquisit 4.0 by K. Borchert (katjab@millisecond.com) for Millisecond Software LLC
+
+Modifications by Jamie Cummins (jamie.cummins@ugent.be).
+
+AMP consists of the original 100 trial layout, with the addition of options after
+each trial to signal whether responses were influenced by the primes. 
+
+***********************************************************************
+											DEFAULTS
+***********************************************************************
+requires Inquisit 4.0.0.0 or higher
+
+<defaults>
+/ fontstyle = ("Arial", 3.5%)
+/ screencolor = black
+/ txbgcolor = black
+/ txcolor = white
+/ minimumversion = "4.0.0.0"
+/canvasaspectratio = (4, 3)
+</defaults>
+***********************************************************************
+											VALUES
+***********************************************************************
+***********************************************************************
+Scoring
+***********************************************************************
+completed:									0 = script was not completed; 1 = script was completed (all conditions run)
+/targetstim:								stores the itemnumber of the current target stimulus
+/primestim:									stores the itemnumber of the current prime stimulus
+
+************
+parameters: updated automatically
+************
+<values>
+/completed = 0
+/targetstim = 0
+/primestim = 0
+</values>
+
+***********************************************************************
+											EXPRESSIONS
+***********************************************************************
+<expressions>
+/ a = trial.prime_positive.percentcorrect
+/ b = trial.prime_negative.percentcorrect
+</expressions>
+***********************************************************************
+
+
+<data>
+/file = "Modified_Intentionality_AMP.iqdat"
+/columns = [date, time, subject, blockcode, blocknum, trialcode, trialnum, values.primestim, values.targetstim, correct, latency, 
+				trial.prime_positive.totalpercentcorrect, trial.prime_negative.totalpercentcorrect]
+/separatefiles = true
+</data>
+
+***********************************************************************
+											INSTRUCTIONS
+***********************************************************************
+***********************************************************************
+Task instruction stimuli
+***********************************************************************
+
+<list instructions>
+/ items = (1, 2, 3, 4, 5)
+/ resetinterval = 20
+/ selectionmode = sequence
+</list>
+
+<trial instructions>
+/ stimulustimes = [1=instructions, spacebar]
+/ correctresponse = (" ")
+/ errormessage = false
+/ recorddata = false
+</trial>
+
+<text instructions>
+/ items = instructions
+/ hjustify = left
+/ size = (90%, 60%)
+/ position = (50%, 85%)
+/ valign = bottom
+/ select = sequence
+</text>
+
+<item instructions>
+/ 1 = "This is the second part of the study.~n~nThis part of the study is the same as before, with the exception that the pictures presented before the Chinese characters will now be different."
+/ 2 = "We will now again provide you with an opportunity to practice the task. Remember: you should judge whether the Chinese characters are more or less visually pleasing than average by pressing either the 'E' or 'I' key, and press the spacebar after each trial if you felt that your response was influenced by the picture that came before it."
+/ 3 = "Good! The test phase will now begin. Keep going as before.~n~nAs a reminder: ~n~nIf the Chinese character is less visually pleasing than average, press the 'E' key. ~nIf it is more visual pleasing than average, press the 'I' key. 
+
+If your judgement of the Chinese character was influenced by the image that came before it, then press the spacebar when asked to do so."
+</item>
+
+<text spacebar>
+/ items = ("Press the SPACE BAR to begin.")
+/ position = (50%, 95%)
+/ valign = bottom
+</text>
+
+
+***********************************************************************
+											STIMULI
+***********************************************************************
+
+***********************************************************************
+This sample AMP can be easily adapted to different target categories 
+and attributes. To change the categories, you need only change the 
+stimulus items and labels immediately below this line.
+***********************************************************************
+
+<item attributeAlabel>
+/1 = "Pleasant"
+</item>
+
+<item attributeBlabel>
+/1 = "Unpleasant"
+</item>
+
+
+<item prime_positivelabel>
+/1 = "pleasant"
+</item>
+
+<item prime_negativelabel>
+/1 = "unpleasant"
+</item>
+
+<item prime_positive>
+/1 = "pleasant1.jpg"
+/2 = "pleasant2.jpg"
+/3 = "pleasant3.jpg"
+/4 = "pleasant4.jpg"
+/5 = "pleasant5.jpg"
+/6 = "pleasant6.jpg"
+/7 = "pleasant7.jpg"
+/8 = "pleasant8.jpg"
+/ 9 = "pleasant9.jpg"
+/ 10 = "pleasant10.jpg"
+/ 11 = "pleasant11.jpg"
+/ 12 = "pleasant12.jpg"
+</item>
+
+<item prime_negative>
+/1 = "unpleasant1.jpg"
+/2 = "unpleasant2.jpg"
+/3 = "unpleasant3.jpg"
+/4 = "unpleasant4.jpg"
+/5 = "unpleasant5.jpg"
+/6 = "unpleasant6.jpg"
+/7 = "unpleasant7.jpg"
+/8 = "unpleasant8.jpg"
+/ 9 = "unpleasant9.jpg"
+/ 10 = "unpleasant10.jpg"
+/ 11 = "unpleasant11.jpg"
+/ 12 = "unpleasant12.jpg" 
+</item>
+
+
+***********************************************************************
+To change the categories, you need only change the stimulus items and 
+labels immediately above this line. All commands below relate to the 
+AMP procedure, and need only be changed if you wish to modify the 
+generic AMP procedure.
+***********************************************************************
+
+
+
+***********************************************************************
+Symbol and neutral stimuli
+***********************************************************************
+
+<item symbols>
+/1 = "pic73.jpg"
+/2 = "pic74.jpg"
+/3 = "pic75.jpg"
+/4 = "pic76.jpg"
+/5 = "pic77.jpg"
+/6 = "pic78.jpg"
+/7 = "pic79.jpg"
+/8 = "pic80.jpg"
+/9 = "pic81.jpg"
+/10 = "pic82.jpg"
+/11 = "pic83.jpg"
+/12 = "pic84.jpg"
+/13 = "pic85.jpg"
+/14 = "pic86.jpg"
+/15 = "pic87.jpg"
+/16 = "pic88.jpg"
+/17 = "pic89.jpg"
+/18 = "pic90.jpg"
+/19 = "pic91.jpg"
+/20 = "pic92.jpg"
+/21 = "pic93.jpg"
+/22 = "pic94.jpg"
+/23 = "pic95.jpg"
+/24 = "pic96.jpg"
+/25 = "pic97.jpg"
+/26 = "pic98.jpg"
+/27 = "pic99.jpg"
+/28 = "pic100.jpg"
+/29 = "pic101.jpg"
+/30 = "pic102.jpg"
+/31 = "pic103.jpg"
+/32 = "pic104.jpg"
+/33 = "pic105.jpg"
+/34 = "pic106.jpg"
+/35 = "pic107.jpg"
+/36 = "pic108.jpg"
+/37 = "pic109.jpg"
+/38 = "pic110.jpg"
+/39 = "pic111.jpg"
+/40 = "pic112.jpg"
+/41 = "pic113.jpg"
+/42 = "pic114.jpg"
+/43 = "pic115.jpg"
+/44 = "pic116.jpg"
+/45 = "pic117.jpg"
+/46 = "pic118.jpg"
+/47 = "pic119.jpg"
+/48 = "pic120.jpg"
+/49 = "pic121.jpg"
+/50 = "pic122.jpg"
+/51 = "pic123.jpg"
+/52 = "pic124.jpg"
+/53 = "pic125.jpg"
+/54 = "pic126.jpg"
+/55 = "pic127.jpg"
+/56 = "pic128.jpg"
+/57 = "pic129.jpg"
+/58 = "pic130.jpg"
+/59 = "pic131.jpg"
+/60 = "pic132.jpg"
+/61 = "pic133.jpg"
+/62 = "pic134.jpg"
+/63 = "pic135.jpg"
+/64 = "pic136.jpg"
+/65 = "pic137.jpg"
+/66 = "pic138.jpg"
+/67 = "pic139.jpg"
+/68 = "pic140.jpg"
+/69 = "pic141.jpg"
+/70 = "pic142.jpg"
+/71 = "pic143.jpg"
+/72 = "pic144.jpg"
+</item>
+
+<picture target>
+/ items = symbols
+/ select = noreplace
+/ size = (30%, 30%)
+</picture>
+
+<shape blank>
+/ shape = rectangle
+/ color = black
+/ size = (30%, 30%)
+</shape>
+
+<picture prime_negative>
+/ items = prime_negative
+/ size = (30%, 30%)
+</picture>
+
+<picture prime_positive>
+/ items = prime_positive
+/ size = (30%, 30%)
+</picture>
+
+<text attributeAlabel>
+/ items = attributeAlabel
+/ valign = top
+/ halign = right
+/ position = (95%, 5%)
+/ txcolor = green
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text attributeBlabel>
+/ items = attributeBlabel
+/ valign = top
+/ halign = left
+/ position = (5%, 5%)
+/ txcolor = green
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<text intention_check>
+/ items = ("Press spacebar if the picture influenced your response to the Chinese symbol")
+/ size = (50%, 10%)
+/ vposition = (50%)
+/ txcolor = white
+/ fontstyle = ("Arial", 4%)
+/ erase = true(0, 0, 0)
+</text>
+
+<text cross>
+/ items = ("+")
+/ txcolor = white
+/ fontstyle = ("Arial", 5%)
+</text>
+
+<picture mask>
+/ items = ("mask.jpg")
+/ size = (33%, 33%)
+</picture>
+
+
+***********************************************************************
+Trials
+***********************************************************************
+<trial prime_positive_practice>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ branch = [if (1 == 1) trial.intention_check_practice]
+/ stimulustimes = [0= cross; 500 = prime_positive; 600=blank; 700=target; 800=mask]
+</trial>
+
+<trial prime_negative_practice>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ branch = [if (1 == 1) trial.intention_check_practice]
+/ stimulustimes = [0= cross; 500 = prime_negative; 600=blank; 700=target; 800=mask]
+</trial>
+
+<trial prime_positive>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ stimulustimes = [0= cross; 500 = prime_positive; 600=blank; 700=target; 800=mask]
+/ branch = [if (1 == 1) trial.intention_check]
+/ontrialend = [values.primestim = picture.prime_positive.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
+</trial>
+
+<trial prime_negative>
+/ validresponse = ("E", "I")
+/ correctresponse = ("I")
+/ stimulustimes = [0= cross; 500 = prime_negative; 600=blank; 700=target; 800=mask]
+/ branch = [if (1 == 1) trial.intention_check]
+/ontrialend = [values.primestim = picture.prime_negative.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
+</trial>
+
+<trial intention_check>
+/ validresponse = (" ")
+/ correctresponse = (" ")
+/ trialduration = 2500
+/ beginresponsetime = 0
+/ stimulustimes = [0 = blank; 200=intention_check; 2500 = blank]
+</trial>
+
+<trial intention_check_practice>
+/ validresponse = (" ")
+/ correctresponse = (" ")
+/ trialduration = 2500
+/ beginresponsetime = 0
+/ stimulustimes = [0=blank; 200=intention_check; 2500 = blank]
+</trial>
+
+***********************************************************************
+Blocks
+***********************************************************************
+
+<block practice>
+/ bgstim = (attributeAlabel, attributeBlabel)
+/ trials = [1-2 = instructions; 3-12 = noreplace(prime_positive_practice, prime_negative_practice)]
+/ recorddata = true
+</block>
+
+<block test>
+/ bgstim = (attributeAlabel, attributeBlabel)
+/ trials = [1 = instructions; 2-73 = noreplace(prime_positive, prime_negative)]
+</block>
+
+
+
+***********************************************************************
+Experiment
+***********************************************************************
+<expt>
+/ blocks = [1=practice; 2=test]
+/onexptend = [values.completed = 1]
+</expt>
+
+***********************************************************************
+Test Monkey
+***********************************************************************
+<monkey>
+/ latencydistribution = normal(1, 1)
+/ percentcorrect = 50
+</monkey>
+
+
+***********End of Script********************
+
+
