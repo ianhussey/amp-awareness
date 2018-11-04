@@ -1,0 +1,108 @@
+
+```{r}
+
+# set seed
+set.seed(42)
+
+# disable scientific notation
+options(scipen = 999) 
+
+# options
+options(knitr.table.format = "html")  # comment out if knitting to pdf
+
+# dependencies
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(plotrix)  # for std.error
+library(brms)
+library(parallel)
+library(sjPlot)
+library(sjstats)
+library(patchwork)
+
+# rounds all numerics in a df
+round_df <- function(df, digits) {
+  nums <- vapply(df, is.numeric, FUN.VALUE = logical(1))
+  df[,nums] <- round(df[,nums], digits = digits)
+  (df)
+}
+
+# get data
+## exp 1
+exp_1_ia_amp_task_level_data  <- read.csv("../experiment 1/data/processed/processed_data.csv") %>%
+  mutate(absolute_int_amp_effect = abs(IA_AMP_effect_positive_negative),
+         absolute_int_amp_effect_standaridized = round(as.numeric(scale(absolute_int_amp_effect)), 3),
+         Experiment = 1) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & 
+           complete_data == TRUE &
+           as.numeric(as.character(age)) >= 18 & 
+           as.numeric(as.character(age)) <= 65 &
+           !is.na(gender)) %>%
+  select(Experiment, subject, age, gender, absolute_int_amp_effect, absolute_int_amp_effect_standaridized, influence_rate)
+
+## exp 2
+exp_2_ia_amp_task_level_data  <- read.csv("../experiment 2/data/processed/processed_data.csv") %>%
+  mutate(absolute_int_amp_effect = abs(IA_AMP_effect_positive_negative),
+         absolute_int_amp_effect_standaridized = round(as.numeric(scale(absolute_int_amp_effect)), 3),
+         Experiment = 2) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & 
+           complete_data == TRUE &
+           as.numeric(as.character(age)) >= 18 & 
+           as.numeric(as.character(age)) <= 65 &
+           !is.na(gender)) %>%
+  select(Experiment, subject, age, gender, absolute_int_amp_effect, absolute_int_amp_effect_standaridized, influence_rate)
+
+## exp 3
+exp_3_ia_amp_task_level_data  <- read.csv("../experiment 3/data/processed/processed_data.csv") %>%
+  mutate(absolute_int_amp_effect = abs(IA_AMP_effect_positive_negative),
+         absolute_int_amp_effect_standaridized = round(as.numeric(scale(absolute_int_amp_effect)), 3),
+         Experiment = 3) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & 
+           complete_data == TRUE &
+           as.numeric(as.character(age)) >= 18 & 
+           as.numeric(as.character(age)) <= 65 &
+           !is.na(gender)) %>%
+  select(Experiment, subject, age, gender, absolute_int_amp_effect, absolute_int_amp_effect_standaridized, influence_rate)
+
+## exp 4
+exp_4_ia_amp_task_level_data  <- read.csv("../experiment 4/data/processed/processed_data.csv") %>%
+  mutate(absolute_int_amp_effect = abs(IA_AMP_effect_positive_negative),
+         absolute_int_amp_effect_standaridized = round(as.numeric(scale(absolute_int_amp_effect)), 3),
+         Experiment = 4) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & 
+           complete_data == TRUE &
+           as.numeric(as.character(age)) >= 18 & 
+           as.numeric(as.character(age)) <= 65 &
+           !is.na(gender)) %>%
+  dplyr::rename(influence_rate = influence_rate_positive_negative) %>%
+  select(Experiment, subject, age, gender, absolute_int_amp_effect, absolute_int_amp_effect_standaridized, influence_rate)
+
+## combine
+combined_data <- rbind(exp_1_ia_amp_task_level_data,
+                       exp_2_ia_amp_task_level_data, 
+                       exp_3_ia_amp_task_level_data,
+                       exp_4_ia_amp_task_level_data) %>%
+  mutate(Experiment = as.factor(Experiment))
+
+```
+
+# plot the IA AMP effect ~ influence rate across the four experiments
+
+```{r}
+
+# plot
+ggplot(combined_data, aes(influence_rate, 
+                          absolute_int_amp_effect)) + 
+  geom_point(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(x = "Proportion of influenced trials\non pos-neg IA-AMP", 
+       y = "Absolute IA-AMP effect") +
+  theme_classic() +
+  ylim(0, 1) +
+  scale_colour_viridis_d() +
+  scale_fill_viridis_d() +
+  facet_wrap(~Experiment)
+
+```
