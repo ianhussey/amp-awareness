@@ -275,18 +275,10 @@ div.tocify {
 demographics_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/demographics.csv&quot;</span>)
 
 posneg_IA_AMP_df   &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/modified_intentionality_amp.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">ifelse</span>(trialcode <span class="op">==</span><span class="st"> &quot;intention_check&quot;</span> <span class="op">&amp;</span><span class="st"> </span>correct <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">lead</span>(influenced)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_positive&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_negative&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">prime_type =</span> trialcode) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(correct)))
+<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_positive&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_negative&quot;</span>) 
 
 politics_IA_AMP_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/modified_intentionality_amp.csv&quot;</span>)  <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">ifelse</span>(trialcode <span class="op">==</span><span class="st"> &quot;intention_check&quot;</span> <span class="op">&amp;</span><span class="st"> </span>correct <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">lead</span>(influenced)) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_obama&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_trump&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rename</span>(<span class="dt">prime_type =</span> trialcode) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(correct)))
+<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_obama&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_trump&quot;</span>) 
 
 questions_df    &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/post_questions.csv&quot;</span>)</code></pre></div>
 <div id="demographics-and-self-reports" class="section level1">
@@ -389,6 +381,9 @@ self_report_data &lt;-<span class="st"> </span>questions_df <span class="op">%&g
 <h1>Politics IA AMP effects and influence rates</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">politics_IA_AMP_cleaned &lt;-<span class="st"> </span>politics_IA_AMP_df <span class="op">%&gt;%</span>
 <span class="st">  </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">prime_type =</span> trialcode) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(correct))) <span class="op">%&gt;%</span>
+<span class="st">  </span>
 <span class="st">  </span><span class="co"># reshape influence variable</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">lead</span>(correct)))) <span class="op">%&gt;%</span>
 <span class="st">  </span>
@@ -453,6 +448,9 @@ politics_IA_AMP_data &lt;-<span class="st"> </span>politics_IA_AMP_effect <span 
 <div id="pos-neg-ia-amp-effects-and-influence-rates" class="section level1">
 <h1>Pos-neg IA AMP effects and influence rates</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">posneg_IA_AMP_cleaned &lt;-<span class="st"> </span>posneg_IA_AMP_df <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="kw">rename</span>(<span class="dt">prime_type =</span> trialcode) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(correct))) <span class="op">%&gt;%</span>
 <span class="st">  </span>
 <span class="st">  </span><span class="co"># reshape influence variable</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">lead</span>(correct)))) <span class="op">%&gt;%</span>
@@ -530,13 +528,13 @@ processed_data &lt;-<span class="st"> </span>demographics_data <span class="op">
 
 <span class="co"># long format politics IA AMP data</span>
 trial_level_politics_ia_amp_data &lt;-<span class="st"> </span>processed_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">right_join</span>(politics_IA_AMP_df, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">right_join</span>(politics_IA_AMP_cleaned, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(subject, age, gender, party, 
                 prime_type, rating, influenced, self_exclusion_<span class="dv">1</span>, complete_data)
 
 <span class="co"># long format posneg IA AMP data</span>
 trial_level_posneg_ia_amp_data &lt;-<span class="st"> </span>processed_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">right_join</span>(posneg_IA_AMP_df, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">right_join</span>(posneg_IA_AMP_cleaned, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(subject, age, gender, party, 
                 prime_type, rating, influenced, self_exclusion_<span class="dv">1</span>, complete_data)
 

@@ -28,18 +28,10 @@ library(tidyverse)
 demographics_df <- read.csv("raw/demographics.csv")
 
 posneg_IA_AMP_df   <- read.csv("raw/modified_intentionality_amp.csv") %>%  
-  mutate(influenced = ifelse(trialcode == "intention_check" & correct == 1, 1, 0)) %>%
-  mutate(influenced = lead(influenced)) %>% 
-  filter(trialcode == "prime_positive" | trialcode == "prime_negative") %>%
-  rename(prime_type = trialcode) %>%
-  mutate(rating = as.numeric(as.character(correct)))
+  filter(trialcode == "prime_positive" | trialcode == "prime_negative") 
 
 politics_IA_AMP_df <- read.csv("raw/modified_intentionality_amp.csv")  %>%
-  mutate(influenced = ifelse(trialcode == "intention_check" & correct == 1, 1, 0)) %>%
-  mutate(influenced = lead(influenced)) %>% 
-  filter(trialcode == "prime_obama" | trialcode == "prime_trump") %>%
-  rename(prime_type = trialcode) %>%
-  mutate(rating = as.numeric(as.character(correct)))
+  filter(trialcode == "prime_obama" | trialcode == "prime_trump") 
 
 questions_df    <- read.csv("raw/post_questions.csv")
 
@@ -151,6 +143,9 @@ self_report_data <- questions_df %>%
 
 politics_IA_AMP_cleaned <- politics_IA_AMP_df %>%
   
+  rename(prime_type = trialcode) %>%
+  mutate(rating = as.numeric(as.character(correct))) %>%
+  
   # reshape influence variable
   mutate(influenced = as.numeric(as.character(lead(correct)))) %>%
   
@@ -219,6 +214,9 @@ politics_IA_AMP_data <- politics_IA_AMP_effect %>%
 ```{r}
 
 posneg_IA_AMP_cleaned <- posneg_IA_AMP_df %>%
+  
+  rename(prime_type = trialcode) %>%
+  mutate(rating = as.numeric(as.character(correct))) %>%
   
   # reshape influence variable
   mutate(influenced = as.numeric(as.character(lead(correct)))) %>%
@@ -304,13 +302,13 @@ processed_data <- demographics_data %>%
 
 # long format politics IA AMP data
 trial_level_politics_ia_amp_data <- processed_data %>%
-  right_join(politics_IA_AMP_df, by = "subject") %>%
+  right_join(politics_IA_AMP_cleaned, by = "subject") %>%
   dplyr::select(subject, age, gender, party, 
                 prime_type, rating, influenced, self_exclusion_1, complete_data)
 
 # long format posneg IA AMP data
 trial_level_posneg_ia_amp_data <- processed_data %>%
-  right_join(posneg_IA_AMP_df, by = "subject") %>%
+  right_join(posneg_IA_AMP_cleaned, by = "subject") %>%
   dplyr::select(subject, age, gender, party, 
                 prime_type, rating, influenced, self_exclusion_1, complete_data)
 
