@@ -272,15 +272,10 @@ div.tocify {
 <span class="kw">library</span>(tidyverse)
 
 <span class="co"># get data</span>
-demographics_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/demographics.csv&quot;</span>)
-
-posneg_IA_AMP_df   &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/modified_intentionality_amp.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st">  </span>
-<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_positive&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_negative&quot;</span>) 
-
-politics_IA_AMP_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/modified_intentionality_amp.csv&quot;</span>)  <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_obama&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_trump&quot;</span>) 
-
-questions_df    &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/post_questions.csv&quot;</span>)</code></pre></div>
+demographics_df    &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/demographics.csv&quot;</span>)
+posneg_IA_AMP_df   &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/modified_intentionality_amp.csv&quot;</span>)
+politics_IA_AMP_df &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/modified_intentionality_amp.csv&quot;</span>)
+questions_df       &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;raw/post_questions.csv&quot;</span>)</code></pre></div>
 <div id="demographics-and-self-reports" class="section level1">
 <h1>Demographics and self reports</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># match Prolific IDs to subject numbers (for payment processing)</span>
@@ -381,11 +376,11 @@ self_report_data &lt;-<span class="st"> </span>questions_df <span class="op">%&g
 <h1>Politics IA AMP effects and influence rates</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">politics_IA_AMP_cleaned &lt;-<span class="st"> </span>politics_IA_AMP_df <span class="op">%&gt;%</span>
 <span class="st">  </span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">lead</span>(correct)))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_obama&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_trump&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">prime_type =</span> trialcode) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(correct))) <span class="op">%&gt;%</span>
-<span class="st">  </span>
-<span class="st">  </span><span class="co"># reshape influence variable</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">lead</span>(correct)))) <span class="op">%&gt;%</span>
 <span class="st">  </span>
 <span class="st">  </span><span class="co"># keep only test blocks and ratings trials</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(prime_type, <span class="st">&quot;intention_check&quot;</span>),
@@ -448,12 +443,12 @@ politics_IA_AMP_data &lt;-<span class="st"> </span>politics_IA_AMP_effect <span 
 <div id="pos-neg-ia-amp-effects-and-influence-rates" class="section level1">
 <h1>Pos-neg IA AMP effects and influence rates</h1>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">posneg_IA_AMP_cleaned &lt;-<span class="st"> </span>posneg_IA_AMP_df <span class="op">%&gt;%</span>
+
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">lead</span>(correct)))) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(trialcode <span class="op">==</span><span class="st"> &quot;prime_positive&quot;</span> <span class="op">|</span><span class="st"> </span>trialcode <span class="op">==</span><span class="st"> &quot;prime_negative&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span>
 <span class="st">  </span><span class="kw">rename</span>(<span class="dt">prime_type =</span> trialcode) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rating =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(correct))) <span class="op">%&gt;%</span>
-<span class="st">  </span>
-<span class="st">  </span><span class="co"># reshape influence variable</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influenced =</span> <span class="kw">as.numeric</span>(<span class="kw">as.character</span>(<span class="kw">lead</span>(correct)))) <span class="op">%&gt;%</span>
 <span class="st">  </span>
 <span class="st">  </span><span class="co"># keep only test blocks and ratings trials</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">str_detect</span>(prime_type, <span class="st">&quot;intention_check&quot;</span>),

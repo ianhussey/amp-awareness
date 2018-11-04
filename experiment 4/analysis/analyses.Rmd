@@ -52,6 +52,7 @@ library(broom)
 library(kableExtra)
 # devtools::install_github("ianhussey/timesavers")  
 library(timesavers)  # for round_df()
+library(bootES)
 
 # functions
 ## Logistic model performance: probability of superiority
@@ -102,16 +103,16 @@ task_level_data <- read.csv("../data/processed/processed_data.csv")
 
 trial_level_politics_ia_amp_data <- read.csv("../data/processed/trial_level_politics_ia_amp_data.csv") %>%
   filter(party %in% c("democrat", "republican")) %>%
-  mutate(influenced = recode(influenced,
-                             `0` = "no",
-                             `1` = "yes"),
+  mutate(influenced = dplyr::recode(influenced,
+                                    `0` = "no",
+                                    `1` = "yes"),
          influenced = as.numeric(influenced))
 
 trial_level_posneg_ia_amp_data <- read.csv("../data/processed/trial_level_posneg_ia_amp_data.csv") %>%
   filter(party %in% c("democrat", "republican")) %>%
-  mutate(influenced = recode(influenced,
-                             `0` = "no",
-                             `1` = "yes"),
+  mutate(influenced = dplyr::recode(influenced,
+                                    `0` = "no",
+                                    `1` = "yes"),
          influenced = as.numeric(influenced))
 
 
@@ -439,7 +440,7 @@ fit_h3 <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negative,
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative, 
-                                       IA_AMP_effect_obama_trump)) + 
+                                       abs(IA_AMP_effect_obama_trump))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -467,7 +468,7 @@ fit_h4 <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump,
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
-                                       IA_AMP_effect_positive_negative)) + 
+                                       abs(IA_AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -491,7 +492,7 @@ If the subset of participants who respond intentionally in the AMP are consisten
 
 Bootstrapped estimate for robustness.
 
-```{r}
+```{r fig.height=6, fig.width=6}
 
 # test 
 cor.test(task_level_data_exclusions$influence_rate_obama_trump,
@@ -521,6 +522,14 @@ ggplot(task_level_data_exclusions,
   ylim(0,1) +
   xlim(0,1)
 
+# ggplot(task_level_data_exclusions, 
+#        aes(influence_rate_obama_trump)) +
+#   geom_density()
+# 
+# ggplot(task_level_data_exclusions, 
+#        aes(influence_rate_positive_negative)) +
+#   geom_density()
+
 ```
 
 ## H6: The politics IA-AMPs ability to predict political affiliation is driven by the subset of trials on which participants reporting being influenced
@@ -535,9 +544,24 @@ t.test(IA_AMP_effect_obama_trump_influenced ~ party,
        data = task_level_data_exclusions)
 
 # Cohen's d
-effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
-                 family = binomial,
-                 data = task_level_data_exclusions)
+# effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
+#                  family = binomial,
+#                  data = task_level_data_exclusions)
+
+fit_influenced <- task_level_data_exclusions %>%
+  bootES(.,
+         R = 2000,
+         data.col = "IA_AMP_effect_obama_trump_influenced",
+         group.col = "party",
+         contrast = c(A = "republican", B = "democrat"),
+         effect.type = "cohens.d",
+         ci.type = "bca",
+         ci.conf = 0.95)
+
+data.frame(cohens_d = round(fit_influenced$t0,        2),
+           se       = round(sd(fit_influenced$t),     2),
+           ci_lwr   = round(fit_influenced$bounds[1], 2),
+           ci_upr   = round(fit_influenced$bounds[2], 2))
 
 ```
 
@@ -551,8 +575,23 @@ t.test(IA_AMP_effect_obama_trump_uninfluenced ~ party,
        data = task_level_data_exclusions)
 
 # Cohen's d
-effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
-                 family = binomial,
-                 data = task_level_data_exclusions)
+# effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
+#                  family = binomial,
+#                  data = task_level_data_exclusions)
+
+fit_uninfluenced <- task_level_data_exclusions %>%
+  bootES(.,
+         R = 2000,
+         data.col = "IA_AMP_effect_obama_trump_uninfluenced",
+         group.col = "party",
+         contrast = c(A = "republican", B = "democrat"),
+         effect.type = "cohens.d",
+         ci.type = "bca",
+         ci.conf = 0.95)
+
+data.frame(cohens_d = round(fit_uninfluenced$t0,        2),
+           se       = round(sd(fit_uninfluenced$t),     2),
+           ci_lwr   = round(fit_uninfluenced$bounds[1], 2),
+           ci_upr   = round(fit_uninfluenced$bounds[2], 2))
 
 ```
