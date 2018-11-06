@@ -12,6 +12,8 @@ output:
     toc_float: yes
 ---
 
+jamie: note to self
+
 # Notes
 
 1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
