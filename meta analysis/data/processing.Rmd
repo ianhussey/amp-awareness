@@ -1,0 +1,159 @@
+---
+title: "Data processing for meta analysis"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+```
+
+# Participant level data
+
+```{r}
+
+# dependencies
+library(tidyverse)
+
+# get data and do exclusions
+
+## participant level
+exp_1 <- read.csv("../../experiment 1/data/processed/processed_data.csv") %>%
+  mutate(experiment = 1, 
+         AMP_effect_positive_negative = NA,
+         AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump_influenced = NA,
+         IA_AMP_effect_obama_trump_not_influenced = NA,
+         IA_AMP_effect_positive_negative_influenced = NA,
+         IA_AMP_effect_positive_negative_not_influenced = NA,
+         party = NA,
+         politics = NA,
+         demand = NA,
+         demand_pn = NA,
+         demand_to = NA,
+         influence_general_pn = NA,
+         influence_general_to = NA,
+         intentionality_pn = NA,
+         intentionality_to = NA,
+         self_exclusion_1other = NA,
+         unintentionality_pn = NA,
+         unintentionality_to = NA,
+         influence_rate_obama_trump = NA,
+         influence_rate_positive_negative = NA)
+
+exp_2 <- read.csv("../../experiment 2/data/processed/processed_data.csv") %>%
+  mutate(experiment = 2, 
+         AMP_effect_positive_negative = NA,
+         AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump_influenced = NA,
+         IA_AMP_effect_obama_trump_not_influenced = NA,
+         IA_AMP_effect_positive_negative_influenced = NA,
+         IA_AMP_effect_positive_negative_not_influenced = NA,
+         party = NA,
+         politics = NA,
+         demand = NA,
+         demand_pn = NA,
+         demand_to = NA,
+         influence_general_pn = NA,
+         influence_general_to = NA,
+         intentionality_pn = NA,
+         intentionality_to = NA,
+         self_exclusion_1other = NA,
+         unintentionality_pn = NA,
+         unintentionality_to = NA,
+         influence_rate_obama_trump = NA,
+         influence_rate_positive_negative = NA) %>%
+  select(-IA_AMP_uninfluenced_effect_positive_negative)  # additional unneeded column
+
+exp_3 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
+  mutate(experiment = 3, 
+         AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump = NA,
+         IA_AMP_effect_obama_trump_influenced = NA,
+         IA_AMP_effect_obama_trump_not_influenced = NA,
+         IA_AMP_effect_positive_negative_influenced = NA,
+         IA_AMP_effect_positive_negative_not_influenced = NA,
+         demand_pn = NA,
+         demand_to = NA,
+         influence_general_pn = NA,
+         influence_general_to = NA,
+         intentionality_pn = NA,
+         intentionality_to = NA,
+         self_exclusion_1other = NA,
+         unintentionality_pn = NA,
+         unintentionality_to = NA,
+         AMP_effect_positive_negative = NA,
+         influence_rate_obama_trump = NA,
+         influence_rate_positive_negative = NA)
+
+exp_4 <- read.csv("../../experiment 4 pilot/data/processed/processed_data.csv") %>%
+  mutate(experiment = 4, 
+         unintentionality = NA,
+         intentionality = NA,
+         demand = NA,
+         influence_general = NA,
+         influence_rate = NA,
+         AMP_effect_obama_trump = NA,
+         AMP_effect_positive_negative = NA)
+
+combined_participant_level_data <- rbind(exp_1, exp_2, exp_3, exp_4) %>%
+  select(sort(names(.))) %>%
+  filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
+  mutate(influence_rate = ifelse(is.na(influence_rate), 
+                                 influence_rate_positive_negative, influence_rate)) %>%
+  mutate(unique_id = paste(experiment, subject, sep = "_")) %>%
+  select(unique_id, IA_AMP_effect_positive_negative, influence_rate, experiment)
+
+# write to disk 
+write_csv(combined_participant_level_data, "combined_participant_level_data.csv")
+
+```
+
+# Trial level data
+
+```{r}
+
+# get data and do exclusions
+
+exp_1_trial_level <- read.csv("../../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 1)
+
+exp_2_trial_level <- read.csv("../../experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 2)
+
+exp_3_trial_level <- read.csv("../../experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 3)
+
+exp_4_trial_level <- read.csv("../../experiment 4 pilot/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 4)
+
+combined_trial_level_data <- rbind(exp_1_trial_level, 
+                                   exp_2_trial_level,
+                                   exp_3_trial_level,
+                                   exp_4_trial_level) %>%
+  filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
+  mutate(unique_id = paste(experiment, subject, sep = "_"),
+         prime_type = dplyr::recode(prime_type,
+                                    "prime_type_A" = "Positive",
+                                    "prime_type_B" = "Negative"),
+         prime_type = fct_relevel(prime_type,
+                                  "Negative",
+                                  "Positive")) %>%
+  select(-subject)
+
+# write to disk 
+write_csv(combined_trial_level_data, "combined_trial_level_data.csv")
+
+```
