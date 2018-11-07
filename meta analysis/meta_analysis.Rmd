@@ -11,11 +11,9 @@ output:
     toc_float: yes
 ---
 
-Meta analyses of pos-neg IA AMP, which was present in all studies. Other AMPs/IA AMPs were presented in only only one study each so can't be meta analysed. Meta analyses of both the participant level AMP effects and the trial type level data are included. *This seems redundant. Choose one? The former is more familiar, the latter is better powered.*
+Meta analyses of pos-neg IA AMP, which was present in all studies. 
 
-Rather than reporting the results of the IA AMP's prime_type*influence_rate interaction effect in each study, we could simply present it in Exp 1, where it is central to results, and then refer readers to the meta analysis of this effect at the end. This would decrease redundancy in reporting.
-
-- Think about problem of inversions?
+Meta analyses of both the participant level AMP effects and the trial type level data are included given that both types of analyses were done at the experiment level. However, analyses of trial level data given more precise estimations and are used for hypothesis tests.
 
 ```{r, include=FALSE}
 
@@ -32,10 +30,17 @@ library(timesavers)
 library(lme4)
 library(effects)
 library(metafor)
+library(patchwork)
 #library(pROC)
 
 # source for raincloud plots
 source("../geom_flat_violin.R")
+
+# disable scientific notation
+options(scipen = 999) 
+
+# knitr output for html
+options(knitr.table.format = "html")
 
 # get data and do exclusions
 ## participant level
@@ -85,7 +90,8 @@ exp_2 <- read.csv("../experiment 2/data/processed/processed_data.csv") %>%
          unintentionality_pn = NA,
          unintentionality_to = NA,
          influence_rate_obama_trump = NA,
-         influence_rate_positive_negative = NA)
+         influence_rate_positive_negative = NA) %>%
+  select(-IA_AMP_uninfluenced_effect_positive_negative)  # additional unneeded column
 
 exp_3 <- read.csv("../experiment 3/data/processed/processed_data.csv") %>%
   mutate(experiment = 3, 
@@ -126,6 +132,8 @@ combined_participant_level_data <- rbind(exp_1, exp_2, exp_3, exp_4) %>%
   mutate(unique_id = paste(experiment, subject, sep = "_")) %>%
   select(unique_id, IA_AMP_effect_positive_negative, influence_rate, experiment)
 
+# find differences
+#setdiff(colnames(exp_2), colnames(exp_1))
 
 ## trial level
 exp_1_trial_level <- read.csv("../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
@@ -153,9 +161,9 @@ combined_trial_level_data <- rbind(exp_1_trial_level,
 
 ```
 
-# Participant level analysis
+# Participant level analyses
 
-## Meta analysis of the AMP effect
+## IA-AMP effect
 
 ```{r}
 
@@ -184,21 +192,25 @@ model_exp_4_part <- combined_participant_level_data %>%
 fixed_effects_exp_1_part <- summary(model_exp_1_part)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "(Intercept)") %>%     # only the intercept
   mutate(Experiment = 1)
 
 fixed_effects_exp_2_part <- summary(model_exp_2_part)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "(Intercept)") %>%
   mutate(Experiment = 2)
 
 fixed_effects_exp_3_part <- summary(model_exp_3_part)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "(Intercept)") %>%
   mutate(Experiment = 3)
 
 fixed_effects_exp_4_part <- summary(model_exp_4_part)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "(Intercept)") %>%
   mutate(Experiment = 4)
 
 fixed_effects_part <- rbind(fixed_effects_exp_1_part, 
@@ -266,13 +278,136 @@ meta_heterogeneity_amp_part <-
 
 ```
 
+Total N = `r nrow(combined_participant_level_data)` participants.
+
 `r meta_effect_amp_part`
 
 `r meta_heterogeneity_amp_part`
 
-# Trial level analysis
+## IA-AMP effect ~ influence 
 
-## Meta analysis of the AMP effect
+```{r}
+
+# fit models
+model_exp_1_part <- combined_participant_level_data %>%
+  filter(experiment == 1) %>%
+  lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+     data = .)
+
+model_exp_2_part <- combined_participant_level_data %>%
+  filter(experiment == 2) %>%
+  lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+     data = .)
+
+model_exp_3_part <- combined_participant_level_data %>%
+  filter(experiment == 3) %>%
+  lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+     data = .)
+
+model_exp_4_part <- combined_participant_level_data %>%
+  filter(experiment == 4) %>%
+  lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+     data = .)
+
+# extract coefficients
+fixed_effects_exp_1_part <- summary(model_exp_1_part)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influence_rate") %>%      # only the influence rate
+  mutate(Experiment = 1)
+
+fixed_effects_exp_2_part <- summary(model_exp_2_part)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influence_rate") %>%
+  mutate(Experiment = 2)
+
+fixed_effects_exp_3_part <- summary(model_exp_3_part)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influence_rate") %>%
+  mutate(Experiment = 3)
+
+fixed_effects_exp_4_part <- summary(model_exp_4_part)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influence_rate") %>%
+  mutate(Experiment = 4)
+
+fixed_effects_part <- rbind(fixed_effects_exp_1_part, 
+                            fixed_effects_exp_2_part,
+                            fixed_effects_exp_3_part, 
+                            fixed_effects_exp_4_part)
+
+# reshape - requires models be bootstrapped prior to this
+amp_participant_data_for_meta_analysis <- fixed_effects_part %>%
+  mutate(
+    # beta
+    yi = Estimate,
+    # SE
+    sei = `Std. Error`,
+    # convert SE to variance
+    vi = sei^2
+  ) %>%
+  select(Experiment, yi, vi)
+
+# fit Random Effects model 
+meta_fit_amp_effect_participants <- 
+  rma(yi, vi,
+      data = amp_participant_data_for_meta_analysis,
+      slab = paste(Experiment))
+
+# make predictions converting to odds ratios
+predictions_amp_part <-
+  predict(meta_fit_amp_effect_participants, digits = 5) %>%
+  as.data.frame() %>%
+  gather() %>%
+  round_df(2) %>%
+  dplyr::rename(metric = key,
+                estimate = value) %>%
+  mutate(metric = dplyr::recode(metric,
+                                "pred" = "Meta analysed OR",
+                                "ci.lb" = "95% CI lower",
+                                "ci.ub" = "95% CI upper",
+                                "cr.lb" = "95% CR lower",
+                                "cr.ub" = "95% CR upper"))
+
+# plot
+forest(meta_fit_amp_effect_participants,
+       xlab = "Beta",
+       addcred = TRUE)
+# ## add column headings to the plot
+# text(-6.3, 6.8, "Participant", pos = 4)
+# text( 8.4, 6.8, "Odds Ratio [95% CI]", pos = 2)
+
+# summarize results
+meta_effect_amp_part <- 
+  paste0("Meta analysis: k = ", meta_fit_amp_effect_participants$k, 
+         ", Beta = ", predictions_amp_part$estimate[1],
+         ", 95% CI [", predictions_amp_part$estimate[3], ", ", predictions_amp_part$estimate[4], "]",  # watch out for indexing - se returned for some analyses and not others
+         ", 95% CR [", predictions_amp_part$estimate[5], ", ", predictions_amp_part$estimate[6], "]",
+         ", p = ", signif(2*pnorm(-abs(meta_fit_amp_effect_participants$zval)), digits = 1))  # exact p value from z score
+
+meta_heterogeneity_amp_part <- 
+  paste0("Heterogeneity tests: Q(df = ", meta_fit_amp_effect_participants$k - 1, ") = ", 
+         round(meta_fit_amp_effect_participants$QE, 2), 
+         ", p = ", ifelse(meta_fit_amp_effect_participants$pval < 0.001, "< .001",
+                          as.character(round(meta_fit_amp_effect_participants$pval, 3))),
+         ", tau^2 = ", round(meta_fit_amp_effect_participants$tau2, 2), 
+         ", I^2 = ",   round(meta_fit_amp_effect_participants$I2, 2),
+         ", H^2 = ",   round(meta_fit_amp_effect_participants$H2, 2))
+
+```
+
+Total N = `r nrow(combined_participant_level_data)` participants.
+
+`r meta_effect_amp_part`
+
+`r meta_heterogeneity_amp_part`
+
+# Trial level analyses
+
+## IA-AMP effect
 
 ```{r}
 
@@ -317,21 +452,25 @@ model_exp_4_amp <- combined_trial_level_data %>%
 fixed_effects_exp_1_amp <- summary(model_exp_1_amp)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "prime_typePositive") %>%      # only prime_typePositive
   mutate(Experiment = 1)
 
 fixed_effects_exp_2_amp <- summary(model_exp_2_amp)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "prime_typePositive") %>%
   mutate(Experiment = 2)
 
 fixed_effects_exp_3_amp <- summary(model_exp_3_amp)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "prime_typePositive") %>%
   mutate(Experiment = 3)
 
 fixed_effects_exp_4_amp <- summary(model_exp_4_amp)$coefficients %>%
   as.data.frame() %>%
   rownames_to_column(var = "effect") %>%
+  filter(effect == "prime_typePositive") %>%
   mutate(Experiment = 4)
 
 amp_effects <- rbind(fixed_effects_exp_1_amp, 
@@ -378,7 +517,8 @@ predictions_amp <-
 forest(meta_fit_amp_effect,
        xlab = "Odds ratio",
        addcred = TRUE,  # credibility intervals
-       atransf = exp)
+       atransf = exp,
+       refline = 1)
 # ## add column headings to the plot
 # text(-6.3, 6.8, "Participant", pos = 4)
 # text( 8.4, 6.8, "Odds Ratio [95% CI]", pos = 2)
@@ -400,11 +540,13 @@ meta_heterogeneity_amp <-
 
 ```
 
+Total N = `r nrow(combined_participant_level_data)` participants, `r nrow(combined_trial_level_data)` total evaluations on the IA-AMPs.
+
 `r meta_effect_amp`
 
 `r meta_heterogeneity_amp`
 
-## Meta analysis of the AMP effect*influence interaction
+## IA-AMP effect ~ influence
 
 ```{r}
 
@@ -509,7 +651,8 @@ predictions <-
 forest(meta_fit,
        xlab = "Odds ratio",
        addcred = TRUE,  # credibility intervals
-       atransf = exp)
+       atransf = exp,
+       refline = 1)
 # ## add column headings to the plot
 # text(-6.3, 6.8, "Experiment", pos = 4)
 # text( 8.4, 6.8, "Odds Ratio [95% CI]", pos = 2)
@@ -531,6 +674,8 @@ meta_heterogeneity_interaction <-
 
 ```
 
+Total N = `r nrow(combined_participant_level_data)` participants, `r nrow(combined_trial_level_data)` total evaluations on the IA-AMPs.
+
 `r meta_effect_interaction`
 
 `r meta_heterogeneity_interaction`
@@ -539,7 +684,7 @@ meta_heterogeneity_interaction <-
 
 ```{r fig.height=8, fig.width=6.5}
 
-# plot 1 - quintiles of interaction effect 
+# plot 1 - quantiles (10ths) of interaction effect 
 
 # model
 model_h2 <- glmer(rating ~ prime_type * influenced + (1 | unique_id) + (1 | experiment), 
@@ -550,14 +695,14 @@ model_h2 <- glmer(rating ~ prime_type * influenced + (1 | unique_id) + (1 | expe
 model_h2_predicted_effects <- 
   as.data.frame(effect("prime_type:influenced", model_h2, xlevels = 10)) %>%
   round_df(2) %>%
-  mutate(prime_type = fct_relevel(prime_type, "Positive", "Negative"))
+  mutate(prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
 # plot
 p1 <- 
   ggplot(data = model_h2_predicted_effects,
          aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
   geom_line() +
-  ylab("Mean evaluation on IA AMP") +
+  ylab("Mean evaluation on IA-AMP") +
   xlab("Prime type") +
   #scale_y_continuous(breaks = c(0, 0.25, 0.5, 0.75, 1)) +
   scale_colour_viridis_c(direction = -1) +
@@ -598,15 +743,13 @@ p2 <-
   coord_flip() +
   theme_classic() +
   xlab("Prime type") +
-  ylab("Evaluation on IA AMP") +
+  ylab("Evaluation on IA-AMP") +
   scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
                      labels = c("0.00\n(Negative)", "0.25", "0.50", "0.75", "1.00\n(Positive)"), 
                      limits = c(0, 1))
 
-# plot
-library(patchwork)
+# combined plots
 p1 + p2 + plot_layout(ncol = 1)
-
 
 ```
 
