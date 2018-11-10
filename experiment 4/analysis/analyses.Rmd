@@ -101,14 +101,14 @@ ruscios_A <- function(variable, group, data, value1 = 1, value2 = 0) {
 # get data 
 task_level_data <- read.csv("../data/processed/processed_data.csv")
 
-trial_level_politics_ia_amp_data <- read.csv("../data/processed/trial_level_politics_ia_amp_data.csv") %>%
+trial_level_politics_ia_amp_data <- read.csv("../data/processed/trial_level_ia_amp_obama_trump_data.csv") %>%
   filter(party %in% c("democrat", "republican")) %>%
   mutate(influenced = dplyr::recode(influenced,
                                     `0` = "no",
                                     `1` = "yes"),
          influenced = as.numeric(influenced))
 
-trial_level_posneg_ia_amp_data <- read.csv("../data/processed/trial_level_posneg_ia_amp_data.csv") %>%
+trial_level_posneg_ia_amp_data <- read.csv("../data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
   filter(party %in% c("democrat", "republican")) %>%
   mutate(influenced = dplyr::recode(influenced,
                                     `0` = "no",

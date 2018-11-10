@@ -309,8 +309,8 @@ trial_level_posneg_ia_amp_data <- processed_data %>%
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")
-write_csv(trial_level_politics_ia_amp_data, "processed/trial_level_politics_ia_amp_data.csv")
-write_csv(trial_level_posneg_ia_amp_data, "processed/trial_level_posneg_ia_amp_data.csv")
+write_csv(trial_level_politics_ia_amp_data, "processed/trial_level_ia_amp_obama_trump_data.csv")
+write_csv(trial_level_posneg_ia_amp_data, "processed/trial_level_ia_amp_positive_negative_data.csv")
 
 ```
 
