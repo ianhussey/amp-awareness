@@ -1,0 +1,1250 @@
+---
+title: "Moderation of the AMP effect by awareness of influence of the prime on the target"
+subtitle: "Using posteriors as priors"
+author: "Ian Hussey^[Ghent University. Email: ian.hussey@ugent.be]"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    number_sections: no
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# To do
+
+- ROPE set to arbitrary value, needs great thought to set to a meaningful value, or to be removed from script to prevent incorrect inferences.
+- Meta analysis default prior on intercept confuses me: second parameter changes between models but I don't understand what controls this, or what exactly the parameter is. meta model defaults to -3 which introduces much skew. However, inverting the log liklihoods still produces intelligable results, whereas using a normal prior makes results strange. Use default until this is better understood? 
+- Why does meta analysis show no prior for intercept in the prior vs posterior plots? Relatedly, no BF10 produced. 
+
+# Rationale
+
+Kruschke argued that if you are doing a series of studies you can update your prior in two ways. First, do a combination analysis with the original prior (e.g., to overwhelm that prior with increasingly more data). This may rase the question about how you enter experiment into the model (e.g., as a "random" effect or "fixed", to use the frequentist terms). Second, one can parameterize the posterior of experiment K and use this as the prior of experiment K+1. Above I have employed the second strategy. I employ the first strategy below for comparison.    
+
+See http://doingbayesiandataanalysis.blogspot.com/2014/08/how-to-use-mcmc-posterior-as-prior-for.html
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+```{r}
+
+# set seed
+set.seed(42)
+
+# disable scientific notation
+options(scipen = 999) 
+
+# options
+options(knitr.table.format = "html")  # comment out if knitting to pdf
+
+# dependencies
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(plotrix)  # for std.error
+library(brms)
+library(parallel)
+library(sjPlot)
+library(sjstats)
+library(patchwork)
+library(brmstools)
+
+# rounds all numerics in a df
+round_df <- function(df, digits) {
+  nums <- vapply(df, is.numeric, FUN.VALUE = logical(1))
+  df[,nums] <- round(df[,nums], digits = digits)
+  (df)
+}
+
+# get data
+exp_1_ia_amp_trial_level_data <- 
+  read.csv("../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(Experiment = 1,
+         influenced = recode(influenced,
+                             `0` = "no",
+                             `1` = "yes")) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+exp_2_ia_amp_trial_level_data <- 
+  read.csv("../experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(Experiment = 2,
+         influenced = recode(influenced,
+                             `0` = "no",
+                             `1` = "yes")) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+exp_3_ia_amp_trial_level_data <- 
+  read.csv("../experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(Experiment = 3,
+         influenced = recode(influenced,
+                             `0` = "no",
+                             `1` = "yes")) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+exp_4_ia_amp_trial_level_data <- 
+  read.csv("../experiment 4/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(Experiment = 4,
+         influenced = recode(influenced,
+                             `0` = "no",
+                             `1` = "yes")) %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
+  select(-age, -gender, -party)
+
+combined_data <- rbind(exp_1_ia_amp_trial_level_data,
+                       exp_2_ia_amp_trial_level_data, 
+                       exp_3_ia_amp_trial_level_data,
+                       exp_4_ia_amp_trial_level_data) %>%
+  mutate(Experiment = as.factor(Experiment))
+
+```
+
+# Sequential experiments using posteriors as priors
+
+Start with weak, non-informative priors. Parameterize the posterior distribution of each experiment and use it as the prior for the next experiment. Results of the final experiment are used for conclusions as they represent the final posterior beliefs.
+
+## Experiment 1
+
+### Fit model
+
+```{r}
+
+# model generic setup
+iterations    <- 2000
+chains        <- 4
+sample_prior  <- TRUE  # to optionally calculate Savage Dickey-BF
+cores         <- detectCores()
+control       <- list(adapt_delta = 0.99)
+model_formula <- rating ~ influenced * prime_type + (1 | subject)
+model_family  <- bernoulli(link = "logit")
+# for models with weak priors, weak priors placed on all parameters using reccomendations from  https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations
+weak_prior    <- c(set_prior(prior = "normal(0, 1)"))
+
+# model specific setup
+data          <- exp_1_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_1_weak_prior"
+prior         <- weak_prior
+
+# fit model
+fit_1_weak_prior <- brm(formula      = model_formula,
+                        family       = model_family,
+                        data         = data,
+                        prior        = prior,
+                        iter         = iterations,
+                        chains       = chains,
+                        sample_prior = sample_prior,
+                        cores        = cores,
+                        control      = control,
+                        file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_1_weak_prior, nsamples = 10) 
+
+plot(fit_1_weak_prior, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior <- function(model_fit) {
+  
+  # prior/posterior of intercept
+  p_intercept <- 
+    hypothesis(model_fit, 
+               hypothesis = "Intercept = 0", 
+               class = "b",
+               alpha = .05) %>%
+    plot(plot = FALSE)
+  
+  # prior/posterior of prime type
+  p_prime <- 
+    hypothesis(model_fit, 
+               hypothesis = "b_prime_typeprime_type_B = 0", 
+               class = NULL,
+               alpha = .05) %>%
+    plot(plot = FALSE)
+  
+  # prior/posterior of inf
+  p_influenced <- 
+    hypothesis(model_fit, 
+               hypothesis = "b_influencedyes = 0", 
+               class = NULL,
+               alpha = .05) %>%
+    plot(plot = FALSE)
+  
+  # prior/posterior of interaction
+  p_interaction <- 
+    hypothesis(model_fit, 
+               hypothesis = "b_influencedyes:prime_typeprime_type_B = 0", 
+               class = NULL,
+               alpha = .05) %>%
+    plot(plot = FALSE)
+  
+  # prior/posterior of sd of random effect
+  p_sd <- 
+    hypothesis(model_fit, 
+               hypothesis = "sd_subject__Intercept = 0", 
+               class = NULL,
+               alpha = .05) %>%
+    plot(plot = FALSE)
+  
+  return(list(p_intercept = p_intercept,
+              p_prime = p_prime,
+              p_influenced = p_influenced,
+              p_interaction = p_interaction,
+              p_sd = p_sd))
+  
+}
+
+plot_prior_vs_posterior(fit_1_weak_prior)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+key_results_and_plots  <- function(model_fit) {
+  
+  ROPE_data <- rope(model_fit, rope = c(-0.1, 0.1)) %>%  # NEEDS GREAT THOUGHT FOR ORs
+    rename(Parameter = term,
+           `% inside ROPE` = rope) %>%
+    filter(grepl("b_", Parameter) & !grepl("prior", Parameter)) %>% 
+    mutate(Parameter = str_replace_all(Parameter, "b_", ""),
+           Parameter = str_replace_all(Parameter, "[.]", ":"))
+  
+  results <- summary(model_fit)$fixed %>%
+    as.data.frame() %>%
+    rownames_to_column(var = "Parameter") %>%
+    rename(OR = Estimate,
+           SE = Est.Error,
+           Lower = `l-95% CI`,
+           Upper = `u-95% CI`) %>%
+    full_join(ROPE_data, by = "Parameter") %>%
+    mutate(OR = exp(OR),
+           Lower = exp(Lower),
+           Upper = exp(Upper)) %>%
+    round_df(3)
+  
+  # plot effects
+  plot_effects <- plot_model(model_fit,
+                             prob.inner = 0.5, 
+                             prob.outer = 0.95,
+                             plot = FALSE)
+  
+  # plot marginal means
+  plot_marginal <- plot(marginal_effects(model_fit), 
+                        ask = FALSE,
+                        plot = FALSE)
+  
+  return(list(results = results,
+              plot_effects = plot_effects,
+              plot_marginal = plot_marginal))
+  
+}
+
+# extract results
+fit_1_weak_prior_results <- key_results_and_plots(fit_1_weak_prior)
+
+# table
+fit_1_weak_prior_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_1_weak_prior_results$plot_effects
+
+# plot marginal means
+fit_1_weak_prior_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_1_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B = 0", alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_1_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)  
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+## Experiment 2
+
+### Posterior of exp 1 as prior for exp 2
+
+Parameterise the posterior distributions of the previous model (intercept, slope of influence rate, and its sigma) as normal distributions, use their M and SD as the prior for this model.
+
+```{r}
+
+# plot posterior vs parameterisation of it.
+plot_posterior_as_prior <- function(model_fit) {
+  
+  posterior <- as.data.frame(model_fit)
+  
+  # b_Intercept
+  p_intercept <- 
+    ggplot() +
+    geom_density(data = posterior, 
+                 aes(b_Intercept, color = "posterior")) +
+    stat_function(data = data.frame(x = c(min(posterior$b_Intercept), 
+                                          max(posterior$b_Intercept))), 
+                  aes(x, color = "parameterised"),
+                  fun = dnorm, 
+                  n = 101, 
+                  args = list(mean = mean(posterior$b_Intercept), 
+                              sd = sd(posterior$b_Intercept)), 
+                  linetype = "dashed") +
+    scale_colour_viridis_d(begin = 0.3, end = 0.8, direction = -1)
+  
+  # b_prime_typeprime_type_B
+  p_prime <- 
+    ggplot() +
+    geom_density(data = posterior, 
+                 aes(b_prime_typeprime_type_B, color = "posterior")) +
+    stat_function(data = data.frame(x = c(min(posterior$b_prime_typeprime_type_B), 
+                                          max(posterior$b_prime_typeprime_type_B))), 
+                  aes(x, color = "parameterised"),
+                  fun = dnorm, 
+                  n = 101, 
+                  args = list(mean = mean(posterior$b_prime_typeprime_type_B), 
+                              sd = sd(posterior$b_prime_typeprime_type_B)), 
+                  linetype = "dashed") +
+    scale_colour_viridis_d(begin = 0.3, end = 0.8, direction = -1)
+  
+  # b_influencedyes
+  p_influnce <- 
+    ggplot() +
+    geom_density(data = posterior, 
+                 aes(b_influencedyes, color = "posterior")) +
+    stat_function(data = data.frame(x = c(min(posterior$b_influencedyes), 
+                                          max(posterior$b_influencedyes))), 
+                  aes(x, color = "parameterised"),
+                  fun = dnorm, 
+                  n = 101, 
+                  args = list(mean = mean(posterior$b_influencedyes), 
+                              sd = sd(posterior$b_influencedyes)), 
+                  linetype = "dashed") +
+    scale_colour_viridis_d(begin = 0.3, end = 0.8, direction = -1)
+  
+  # b_influencedyes.prime_typeprime_type_B
+  p_interaction <- 
+    ggplot() +
+    geom_density(data = posterior, 
+                 aes(b_influencedyes.prime_typeprime_type_B, color = "posterior")) +
+    stat_function(data = data.frame(x = c(min(posterior$b_influencedyes.prime_typeprime_type_B), 
+                                          max(posterior$b_influencedyes.prime_typeprime_type_B))), 
+                  aes(x, color = "parameterised"),
+                  fun = dnorm, 
+                  n = 101, 
+                  args = list(mean = mean(posterior$b_influencedyes.prime_typeprime_type_B), 
+                              sd = sd(posterior$b_influencedyes.prime_typeprime_type_B)), 
+                  linetype = "dashed") +
+    scale_colour_viridis_d(begin = 0.3, end = 0.8, direction = -1)
+  
+  # sd of subject
+  p_sd <- 
+    ggplot() +
+    geom_density(data = posterior,
+                 aes(sd_subject__Intercept, color = "posterior")) +
+    stat_function(data = data.frame(x = c(min(posterior$sd_subject__Intercept), 
+                                          max(posterior$sd_subject__Intercept))), 
+                  aes(x, color = "parameterised"),
+                  fun = dnorm, 
+                  n = 101, 
+                  args = list(mean = mean(posterior$sd_subject__Intercept), 
+                              sd = sd(posterior$sd_subject__Intercept)), 
+                  linetype = "dashed") +
+    scale_colour_viridis_d(begin = 0.3, end = 0.8, direction = -1)
+  
+  return(list(p_intercept = p_intercept,
+              p_prime = p_prime,
+              p_influnce = p_influnce,
+              p_interaction = p_interaction,
+              p_sd = p_sd))
+}
+
+plot_posterior_as_prior(fit_1_weak_prior)
+
+```
+
+### Fit model
+
+```{r}
+
+# model specific setup
+data          <- exp_2_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_2_informed_prior"
+
+# use posterior of previous model as prior for this one
+posterior_as_prior <- function(model_fit) {
+  
+  posterior <- as.data.frame(model_fit)
+  
+  prior <- 
+    c(set_prior(prior = paste0("normal(", mean(posterior$b_Intercept), ", ", 
+                               sd(posterior$b_Intercept), ")"), 
+                class = "Intercept"), 
+      set_prior(prior = paste0("normal(", mean(posterior$b_prime_typeprime_type_B), ", ", sd(posterior$b_prime_typeprime_type_B), ")"), 
+                class = "b",
+                coef = "prime_typeprime_type_B"),
+      set_prior(prior = paste0("normal(", mean(posterior$b_influencedyes), ", ",
+                               sd(posterior$b_influencedyes), ")"), 
+                class = "b",
+                coef = "influencedyes"),
+      set_prior(prior = paste0("normal(", mean(posterior$b_influencedyes.prime_typeprime_type_B), ", ", 
+                               sd(posterior$b_influencedyes.prime_typeprime_type_B), ")"), 
+                class = "b",
+                coef = "influencedyes:prime_typeprime_type_B"),
+      set_prior(prior = paste0("normal(", mean(posterior$sd), ", ", 
+                               sd(posterior$sd), ")"), 
+                class = "sd"))
+  
+  return(prior)
+}
+
+prior <- posterior_as_prior(fit_1_weak_prior)
+
+# fit model
+fit_2 <- brm(formula      = model_formula,
+             family       = model_family,
+             data         = data,
+             prior        = prior,
+             iter         = iterations,
+             chains       = chains,
+             sample_prior = sample_prior,
+             cores        = cores,
+             control      = control,
+             file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_2, nsamples = 10) 
+
+plot(fit_2, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_2)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+# extract results
+fit_2_results <- key_results_and_plots(fit_2)
+
+# table
+fit_2_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_2_results$plot_effects
+
+# plot marginal means
+fit_2_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_2 %>% 
+  hypothesis(hypothesis = paste0("influencedyes:prime_typeprime_type_B = ", round(mean(as.data.frame(fit_1_weak_prior)$b_influencedyes.prime_typeprime_type_B), 2)),
+             alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_2 %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)  
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`. In this case this refers to the null hypothesis that the effect is centered on `r round(mean(as.data.frame(fit_1_weak_prior)$b_influencedyes.prime_typeprime_type_B), 2)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+## Experiment 3
+
+### Posterior of exp 2 as prior for exp 3
+
+Parameterise the posterior distributions of the previous model (intercept, slope of influence rate, and its sigma) as normal distributions, use their M and SD as the prior for this model.
+
+```{r}
+
+plot_posterior_as_prior(fit_2)
+
+```
+
+### Fit model
+
+```{r}
+
+# model specific setup
+data          <- exp_3_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_3_informed_prior"
+prior         <- posterior_as_prior(fit_2)
+
+# fit model
+fit_3 <- brm(formula      = model_formula,
+             family       = model_family,
+             data         = data,
+             prior        = prior,
+             iter         = iterations,
+             chains       = chains,
+             sample_prior = sample_prior,
+             cores        = cores,
+             control      = control,
+             file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_3, nsamples = 10) 
+
+plot(fit_3, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_3)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+# extract results
+fit_3_results <- key_results_and_plots(fit_3)
+
+# table
+fit_3_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_3_results$plot_effects
+
+# plot marginal means
+fit_3_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_3 %>% 
+  hypothesis(hypothesis = paste0("influencedyes:prime_typeprime_type_B = ", 
+                                 round(mean(as.data.frame(fit_2)$b_influencedyes.prime_typeprime_type_B), 2)),
+             alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_3 %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)  
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`. In this case this refers to the null hypothesis that the effect is centered on `r round(mean(as.data.frame(fit_2)$b_influencedyes.prime_typeprime_type_B), 2)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+## Experiment 4
+
+### Posterior of exp 3 as prior for exp 4
+
+Parameterise the posterior distributions of the previous model (intercept, slope of influence rate, and its sigma) as normal distributions, use their M and SD as the prior for this model.
+
+```{r}
+
+plot_posterior_as_prior(fit_3)
+
+```
+
+### Fit model
+
+```{r}
+
+# model specific setup
+data          <- exp_4_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_4_informed_prior"
+prior         <- posterior_as_prior(fit_3)
+
+# fit model
+fit_4 <- brm(formula      = model_formula,
+             family       = model_family,
+             data         = data,
+             prior        = prior,
+             iter         = iterations,
+             chains       = chains,
+             sample_prior = sample_prior,
+             cores        = cores,
+             control      = control,
+             file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_4, nsamples = 10) 
+
+plot(fit_4, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_4)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+# extract results
+fit_4_results <- key_results_and_plots(fit_4)
+
+# table
+fit_4_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_4_results$plot_effects
+
+# plot marginal means
+fit_4_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_4 %>% 
+  hypothesis(hypothesis = paste0("influencedyes:prime_typeprime_type_B = ", 
+                                 round(mean(as.data.frame(fit_3)$b_influencedyes.prime_typeprime_type_B), 2)),
+             alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_4 %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)  
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`. In this case this refers to the null hypothesis that the effect is centered on `r round(mean(as.data.frame(fit_3)$b_influencedyes.prime_typeprime_type_B), 2)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+# Sequential experiments using weak, non-informative priors
+
+Employ the same weak, non-informative priors applied to each study. Results then meta-analysed across studies using the same weak priors. Results of the meta analysis used for conclusions.
+
+## Experiment 1
+
+Already reported above. 
+
+## Experiment 2
+
+### Fit model
+
+```{r}
+
+# model specific setup
+data          <- exp_2_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_2_weak_prior"
+prior         <- weak_prior
+
+# fit model
+fit_2_weak_prior <- brm(formula      = model_formula,
+                        family       = model_family,
+                        data         = data,
+                        prior        = prior,
+                        iter         = iterations,
+                        chains       = chains,
+                        sample_prior = sample_prior,
+                        cores        = cores,
+                        control      = control,
+                        file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_2_weak_prior, nsamples = 10) 
+
+plot(fit_2_weak_prior, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_2_weak_prior)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+# extract results
+fit_2_weak_results <- key_results_and_plots(fit_2_weak_prior)
+
+# table
+fit_2_weak_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_2_weak_results$plot_effects
+
+# plot marginal means
+fit_2_weak_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_2_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B = 0", alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_2_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)  
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+## Experiment 3
+
+### Fit model
+
+```{r}
+
+# model specific setup
+data          <- exp_3_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_3_weak_prior"
+prior         <- weak_prior
+
+# fit model
+fit_3_weak_prior <- brm(formula      = model_formula,
+                        family       = model_family,
+                        data         = data,
+                        prior        = prior,
+                        iter         = iterations,
+                        chains       = chains,
+                        sample_prior = sample_prior,
+                        cores        = cores,
+                        control      = control,
+                        file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_3_weak_prior, nsamples = 10) 
+
+plot(fit_3_weak_prior, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_3_weak_prior)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+# extract results
+fit_3_weak_prior_results <- key_results_and_plots(fit_3_weak_prior)
+
+# table
+fit_3_weak_prior_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_3_weak_prior_results$plot_effects
+
+# plot marginal means
+fit_3_weak_prior_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_3_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B = 0", alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_3_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)  
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+## Experiment 4
+
+### Fit model
+
+```{r}
+
+# model specific setup
+data          <- exp_4_ia_amp_trial_level_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_4_weak_prior"
+prior         <- weak_prior
+
+# fit model
+fit_4_weak_prior <- brm(formula      = model_formula,
+                        family       = model_family,
+                        data         = data,
+                        prior        = prior,
+                        iter         = iterations,
+                        chains       = chains,
+                        sample_prior = sample_prior,
+                        cores        = cores,
+                        control      = control,
+                        file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_4_weak_prior, nsamples = 10) 
+
+plot(fit_4_weak_prior, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_4_weak_prior)
+
+```
+
+### Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI. 
+
+```{r}
+
+# extract results
+fit_4_weak_prior_results <- key_results_and_plots(fit_4_weak_prior)
+
+# table
+fit_4_weak_prior_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_4_weak_prior_results$plot_effects
+
+# plot marginal means
+fit_4_weak_prior_results$plot_marginal$`influenced:prime_type`
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_4_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B = 0", alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_4_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05) 
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+## Meta analysis
+
+```{r}
+
+# reshape log odds for meta analysis
+results_exp_1 <- summary(fit_1_weak_prior)$fixed %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "parameter") %>%
+  mutate(Experiment = "Experiment 1") 
+
+results_exp_2 <- summary(fit_2_weak_prior)$fixed %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "parameter") %>%
+  mutate(Experiment = "Experiment 2") 
+
+results_exp_3 <- summary(fit_3_weak_prior)$fixed %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "parameter") %>%
+  mutate(Experiment = "Experiment 3") 
+
+results_exp_4 <- summary(fit_4_weak_prior)$fixed %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "parameter") %>%
+  mutate(Experiment = "Experiment 4") 
+
+results_for_meta_analysis <- 
+  rbind(results_exp_1,
+        results_exp_2,
+        results_exp_3,
+        results_exp_4) %>%
+  mutate(Experiment = fct_rev(Experiment)) %>%
+  rename(yi = Estimate,
+         sei = `Est.Error`) %>%
+  select(Experiment, parameter, yi, sei) %>%
+  filter(parameter == "influencedyes:prime_typeprime_type_B")
+
+```
+
+### Fit model
+
+```{r}
+
+# model specific setup
+model_formula <- yi | se(sei) ~ 1 + (1 | Experiment)
+model_family  <- gaussian(link = "identity")
+
+# # use default brms prior based on its choice for intercept
+get_prior(formula = model_formula,
+          family  = model_family,
+          data    = results_for_meta_analysis)
+
+# # plot these priors to understand them
+# ggplot(data.frame(x = c(-20, 20)), aes(x = x)) +
+#   stat_function(fun = dt, args = list(3, -3, 10), color = "red") +  # prior on Intercept
+#   stat_function(fun = dt, args = list(3, 0, 10), color = "green") + # prior on rand sd
+#   coord_cartesian(xlim = c(-20, 20))
+
+# # potential alternative priors, but which introduce strange results:
+# prior         <- c(set_prior(prior = "normal(0, 1)", class = "Intercept"),
+#                    set_prior(prior = "normal(0, 1)", class = "sd"))
+
+# prior         <- c(set_prior(prior = "uniform(0, 1000)", class = "Intercept"),
+#                    set_prior(prior = "uniform(0, 1000)", class = "sd"))
+
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_meta_default_prior"
+
+# fit model
+fit_meta_default_prior <- brm(formula      = model_formula,
+                              family       = model_family,
+                              data         = results_for_meta_analysis,
+                              #prior        = prior,  # use brms default prior
+                              iter         = 5000,    # increase iterations to help convergence
+                              chains       = chains,
+                              sample_prior = sample_prior,
+                              cores        = cores,
+                              control      = control,
+                              file         = model_path)
+
+```
+
+### Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_meta_default_prior, nsamples = 10) 
+
+plot(fit_meta_default_prior, ask = FALSE)
+
+```
+
+### Plot prior vs posterior
+
+```{r}
+
+hypothesis(fit_meta_default_prior, 
+           hypothesis = "b_Intercept = 0", 
+           class = NULL,
+           alpha = .05) %>%
+  plot()
+
+hypothesis(fit_meta_default_prior, 
+           hypothesis = "sd_Experiment__Intercept = 0", 
+           class = NULL,
+           alpha = .05) %>%
+  plot()
+
+```
+
+### Results
+
+```{r}
+
+summary(fit_meta_default_prior)$fixed %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "Parameter") %>%
+  rename(OR = Estimate,
+         SE = Est.Error,
+         Lower = `l-95% CI`,
+         Upper = `u-95% CI`) %>%
+  mutate(OR = exp(OR),
+         Lower = exp(Lower),
+         Upper = exp(Upper)) %>%
+  round_df(3) %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# forest plot
+forest(fit_meta_default_prior,
+       show_data = TRUE,
+       sort = FALSE,
+       av_name = "Meta analysis")
+
+```
+
+#### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_meta_default_prior %>% 
+  hypothesis(hypothesis = "Intercept = 0", alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_meta_default_prior %>% 
+  hypothesis(hypothesis = "Intercept > 0", alpha = .05) 
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+# Combination analysis using weak, non-informative prior
+
+Analyse using a single model, with experiment as a random factor, using weak, non-informative priors. Results of this combined model used for conclusions.
+
+## Fit model
+
+(2 hour runtime on laptop)
+
+```{r}
+
+# model specific setup
+model_formula <- rating ~ influenced * prime_type + (1 | subject) + (1 | Experiment)
+data          <- combined_data
+model_path    <- "models/IA-AMP trial level moderated by influence/fit_combination_weak_prior"
+prior         <- weak_prior
+
+# fit model
+fit_combination_weak_prior <- 
+  brm(formula      = model_formula,
+      family       = model_family,
+      data         = data,
+      prior        = prior,
+      iter         = iterations,
+      chains       = chains,
+      sample_prior = sample_prior,
+      cores        = cores,
+      control      = control,
+      file         = model_path)
+
+```
+
+## Posterior checks
+
+```{r}
+
+# check the fit between the posterior distribution and the observed data
+pp_check(fit_combination_weak_prior, nsamples = 10) 
+
+plot(fit_combination_weak_prior, ask = FALSE)
+
+```
+
+## Plot prior vs posterior
+
+```{r}
+
+plot_prior_vs_posterior(fit_combination_weak_prior)
+
+# add one more plot for the additional sd of rand effect for Experiment, only in this model
+hypothesis(fit_combination_weak_prior, 
+           hypothesis = "sd_Experiment__Intercept = 0", 
+           class = NULL,
+           alpha = .05) %>%
+  plot()
+
+```
+
+## Results
+
+NB Not a box plot: outer error bars are 95% HDI, inner error bars are 50% HDI.
+
+```{r}
+
+# extract results
+fit_combination_weak_prior_results <- key_results_and_plots(fit_combination_weak_prior)
+
+# table
+fit_combination_weak_prior_results$results %>%
+  select(Parameter, OR, Lower, Upper, Eff.Sample, Rhat) %>%
+  rename() %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
+  add_header_above(c(" " = 2, "95% CI" = 2, " " = 2))
+
+# plot effects
+fit_combination_weak_prior_results$plot_effects
+
+# plot marginal means
+fit_combination_weak_prior_results$plot_marginal$`influenced:prime_type`
+
+```
+
+### Bayes factors & prior-posterior plots
+
+```{r}
+
+# Savage-Dickey Bayes Factor (BF10)
+sav_dic <- fit_combination_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B = 0", alpha = .05)  
+
+# Posterior evidence ratio (Bayesian p value)
+post_evid_ratio <- fit_combination_weak_prior %>% 
+  hypothesis(hypothesis = "influencedyes:prime_typeprime_type_B > 0", alpha = .05)   
+
+```
+
+Savage-Dickey Bayes Factor (BF10) = `r round(1/sav_dic$hypothesis$Evid.Ratio, 3)`.
+
+Posterior evidence ratio (Bayesian p value) = `r round(post_evid_ratio$hypothesis$Evid.Ratio, 5)`.
+
+# Frequentist combination analysis
+
+For comparison
+
+```{r}
+
+# fit model
+library(lme4)
+
+fit_combination_freq <- glmer(formula = model_formula,
+                              family  = binomial(link = "logit"),
+                              data    = data)
+
+plot_model(fit_combination_freq, type = "est")
+
+tab_model(fit_combination_freq, show.std = TRUE)
+
+```
+

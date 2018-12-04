@@ -1,0 +1,4 @@
+5. add analyses for IA-AMP effect (trial level)
+6. assess whether other tasks are repeated and can be analysed too.
+7. when full dataset is available, update the informed priors 
+8. should sd of experiment/participant posterior have a multiplier when used as prior? aspects of the experiment do change. 
