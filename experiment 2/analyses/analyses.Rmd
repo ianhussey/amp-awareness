@@ -100,10 +100,7 @@ task_level_data <- read.csv("../data/processed/processed_data.csv")
 trial_level_amp_data <- read.csv("../data/processed/trial_level_amp_positive_negative_data.csv")
 
 trial_level_ia_amp_data <- read.csv("../data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = recode(influenced,
-                             `0` = "no",
-                             `1` = "yes"),
-         influenced = as.numeric(influenced))
+  mutate(influenced = as.numeric(influenced))
 
 
 # exclusions
