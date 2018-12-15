@@ -29,7 +29,6 @@ demographics_df    <- read.csv("raw/demographics.csv")
 posneg_IA_AMP_df   <- read.csv("raw/modified_intentionality_amp.csv")
 politics_IA_AMP_df <- read.csv("raw/modified_intentionality_amp.csv")
 questions_df       <- read.csv("raw/post_questions.csv")
-
 ```
 
 # Demographics and self reports
