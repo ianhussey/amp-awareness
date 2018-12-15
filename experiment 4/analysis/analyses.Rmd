@@ -534,13 +534,11 @@ ggplot(task_level_data_exclusions,
 
 # test
 t.test(IA_AMP_effect_obama_trump_influenced ~ party,
-       family = binomial,
        data = task_level_data_exclusions)
 
 # Cohen's d
-# effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
-#                  family = binomial,
-#                  data = task_level_data_exclusions)
+effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
+                 data = task_level_data_exclusions)
 
 fit_influenced <- task_level_data_exclusions %>%
   bootES(.,
@@ -569,9 +567,8 @@ t.test(IA_AMP_effect_obama_trump_uninfluenced ~ party,
        data = task_level_data_exclusions)
 
 # Cohen's d
-# effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
-#                  family = binomial,
-#                  data = task_level_data_exclusions)
+effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
+                 data = task_level_data_exclusions)
 
 fit_uninfluenced <- task_level_data_exclusions %>%
   bootES(.,
