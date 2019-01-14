@@ -208,13 +208,10 @@ complete_AMP_data <- AMP_data %>%
   na.omit() %>%
   distinct(subject)
 
-complete_IA_AMP_data <- IA_AMP_data %>%
-  na.omit() %>%
-  distinct(subject)
 
 complete_data <- complete_demographics_data %>%
   semi_join(complete_self_report_data, by = "subject") %>%
-  semi_join(complete_IA_AMP_data, by = "subject") %>%
+  semi_join(IA_AMP_data, by = "subject") %>%
   semi_join(complete_AMP_data, by = "subject") %>%
   mutate(complete_data = TRUE)
 

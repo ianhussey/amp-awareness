@@ -29,7 +29,6 @@ demographics_df    <- read.csv("raw/demographics.csv")
 posneg_IA_AMP_df   <- read.csv("raw/modified_intentionality_amp.csv")
 politics_IA_AMP_df <- read.csv("raw/modified_intentionality_amp.csv")
 questions_df       <- read.csv("raw/post_questions.csv")
-
 ```
 
 # Demographics and self reports
@@ -267,18 +266,10 @@ complete_self_report_data <- self_report_data %>%
   na.omit() %>%
   distinct(subject)
 
-complete_politics_IA_AMP_data <- politics_IA_AMP_data %>%
-  na.omit() %>%
-  distinct(subject)
-
-complete_posneg_IA_AMP_data <- posneg_IA_AMP_data %>%
-  na.omit() %>%
-  distinct(subject)
-
 complete_data <- complete_demographics_data %>%
   semi_join(complete_self_report_data, by = "subject") %>%
-  semi_join(complete_politics_IA_AMP_data, by = "subject") %>%
-  semi_join(complete_posneg_IA_AMP_data, by = "subject") %>%
+  semi_join(politics_IA_AMP_data, by = "subject") %>%
+  semi_join(posneg_IA_AMP_data, by = "subject") %>%
   mutate(complete_data = TRUE)
 
 ```
