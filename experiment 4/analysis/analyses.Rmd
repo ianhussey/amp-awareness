@@ -572,9 +572,9 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump,
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
-  labs(title = "Rate of influence in the positive-negative IA-AMP and politics IA-AMP effect size", 
-       x = "Positive-negative IA-AMP influence rate", 
-       y = "Politics IA-AMP effect size") +
+  labs(title = "Rate of influence in the politics IA-AMP and positive-negative IA-AMP effect size", 
+       x = "Politics IA-AMP influence rate", 
+       y = "Positive-negative IA-AMP effect size") +
   theme_classic()
 
 # table
