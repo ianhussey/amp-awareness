@@ -639,15 +639,21 @@ ggplot(task_level_data_exclusions,
 ### Group membership predicting AMP effect from influenced trials
 
 ```{r}
+refactored_influenced <- task_level_data_exclusions %>% 
+  select(IA_AMP_effect_obama_trump_influenced, party) %>%
+  na.omit() %>%
+  mutate(party = as.character(party)) %>%
+  mutate(party = as.factor(party)) # need to refactor party as it thought it had 3 levels
+
 # test
 t.test(IA_AMP_effect_obama_trump_influenced ~ party,
-       data = task_level_data_exclusions)
+       data = refactored_influenced)
 
 # Cohen's d
 effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
-                 data = task_level_data_exclusions)
+                 data = refactored_influenced)
 
-fit_influenced <- task_level_data_exclusions %>%
+fit_influenced <- refactored_influenced %>%
   bootES(.,
          R = 2000,
          data.col = "IA_AMP_effect_obama_trump_influenced",
@@ -668,17 +674,23 @@ data.frame(cohens_d = round(fit_influenced$t0,        2),
 ### Group membership predicting AMP effect from uninfluenced trials
 
 ```{r}
+refactored_uninfluenced <- task_level_data_exclusions %>% 
+  select(IA_AMP_effect_obama_trump_uninfluenced, party) %>%
+  na.omit() %>%
+  mutate(party = as.character(party)) %>%
+  mutate(party = as.factor(party)) # refactored party here also
+
 
 # test
 t.test(IA_AMP_effect_obama_trump_uninfluenced ~ party,
        family = binomial,
-       data = task_level_data_exclusions)
+       data = refactored_uninfluenced)
 
 # Cohen's d
 effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
-                 data = task_level_data_exclusions)
+                 data = refactored_uninfluenced)
 
-fit_uninfluenced <- task_level_data_exclusions %>%
+fit_uninfluenced <- refactored_uninfluenced %>%
   bootES(.,
          R = 2000,
          data.col = "IA_AMP_effect_obama_trump_uninfluenced",
