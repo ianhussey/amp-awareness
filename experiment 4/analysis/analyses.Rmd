@@ -588,34 +588,6 @@ tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ")
 
 *To be added*
 
-## H4: Politics IA-AMP influence rate predicts the absolute magnitude of the positive-negative IA-AMP effect
-
-```{r}
-
-# model
-fit_h4 <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
-             data = task_level_data_exclusions)
-
-# plot
-ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
-                                       abs(IA_AMP_effect_positive_negative))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
-  geom_smooth(method = lm) +
-  labs(title = "Rate of influence in the politics IA-AMP and positive-negative IA-AMP effect size", 
-       x = "Politics IA-AMP influence rate", 
-       y = "Positive-negative IA-AMP effect size") +
-  theme_classic()
-
-# table
-tab_model(fit_h4, emph.p = FALSE, ci.hyphen = ", ")
-
-```
-
-### Bootstrap estimates
-
-*To be added*
-
 ## H5: Influence rates correlate between IA-AMPs across different domains
 
 If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
