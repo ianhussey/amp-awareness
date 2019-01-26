@@ -324,9 +324,108 @@ tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H2: Politics IA-AMP influence rate predicts politics IA-AMP effect
+## H2: IA-AMP influence rate predicts the same IA-AMP's effect 
 
-### H2a: at the trial level
+### H2a: Politics AMP
+
+#### 1. At the trial level
+
+Does conscious awareness of influence of the prime on the target moderate the AMP effect?
+
+Key effect: influence*prime_type interaction
+
+#### Fit model
+
+```{r}
+
+# model
+model_h2a_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+                   family = binomial(link = "logit"),
+                   data = trial_level_politics_ia_amp_data_exclusions)
+
+# plot
+plot_model(model_h2a_1, type = "pred", terms = c("influenced", "prime_type"))
+
+# results table
+tab_model(model_h2a_1, emph.p = FALSE, ci.hyphen = ", ")
+
+```
+
+#### Bootstrap estimates for key parameters
+
+```{r}
+
+# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+model_h2a_1_boot <- bootMer(model_h2a_1, 
+                          FUN = fixef,  
+                          nsim = 1000,
+                          parallel = "multicore")
+
+# write to disk given long runtime
+save(model_h2a_1_boot, file = "data/models/model_h2a_boot.RData")
+load("data/models/model_h2a_1_boot.RData")
+
+# print results
+model_h2a_1_boot %>%
+  as.data.frame() %>%
+  summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+            prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+```
+
+#### Model performance
+
+```{r}
+
+# add model predictions back to the original data frame
+trial_level_politics_ia_amp_data_exclusions$h2a_1_predicted_probability <- 
+  predict(model_h2a_1, type = "response")
+
+# predicted probability
+h2a_1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
+                    variable = "h2a_1_predicted_probability", 
+                    group = "rating") 
+
+```
+
+Model predicted probability = `r h2a_pp`.
+
+#### 2. At the participant level
+
+Does rate of influence in the IA-AMP predict IA-AMP effects?
+
+If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
+#### Fit model
+
+```{r}
+
+# model
+fit_h2a_2 <- lm(IA_AMP_effect_obama_trump ~ influence_rate_obama_trump, 
+              data = task_level_data_exclusions)
+
+# plot
+ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
+                                       IA_AMP_effect_obama_trump)) + 
+  geom_jitter(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Proportion of influenced trials and positive-negative IA-AMP effect", 
+       x = "Proportion of influenced trials\non the positive-negative IA-AMP", 
+       y = "Positive-negative IA-AMP effect") +
+  theme_classic()
+
+# results table
+tab_model(fit_h2a_2, emph.p = FALSE, ci.hyphen = ", ")
+
+```
+
+### H2b: Positive-Negative AMP
+
+#### 1. At the trial level
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
@@ -391,11 +490,12 @@ h2a_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions,
 
 Model predicted probability = `r h2a_pp`.
 
-### H2b: at the participant level
+#### 2. At the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
