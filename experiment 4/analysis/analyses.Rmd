@@ -391,7 +391,7 @@ h2a_1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions,
 
 ```
 
-Model predicted probability = `r h2a_pp`.
+Model predicted probability = `r h2a_1_pp`.
 
 #### 2. At the participant level
 
@@ -436,15 +436,15 @@ Key effect: influence*prime_type interaction
 ```{r}
 
 # model
-model_h2a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h2b_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
                    family = binomial(link = "logit"),
                    data = trial_level_posneg_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_h2a, type = "pred", terms = c("influenced", "prime_type"))
+plot_model(model_h2b_1, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
-tab_model(model_h2a, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_h2b_1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
@@ -453,17 +453,17 @@ tab_model(model_h2a, emph.p = FALSE, ci.hyphen = ", ")
 ```{r}
 
 # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_h2a_boot <- bootMer(model_h2a, 
+model_h2b_1_boot <- bootMer(model_h2b_1, 
                           FUN = fixef,  
                           nsim = 1000,
                           parallel = "multicore")
 
 # write to disk given long runtime
-save(model_h2a_boot, file = "data/models/model_h2a_boot.RData")
-load("data/models/model_h2a_boot.RData")
+save(model_h2b_1_boot, file = "data/models/model_h2a_boot.RData")
+load("data/models/model_h2b_1_boot.RData")
 
 # print results
-model_h2a_boot %>%
+model_h2b_1_boot %>%
   as.data.frame() %>%
   summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
             prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
@@ -478,17 +478,17 @@ model_h2a_boot %>%
 ```{r}
 
 # add model predictions back to the original data frame
-trial_level_posneg_ia_amp_data_exclusions$h2a_predicted_probability <- 
-  predict(model_h2a, type = "response")
+trial_level_posneg_ia_amp_data_exclusions$h2b_1_predicted_probability <- 
+  predict(model_h2b_1, type = "response")
 
 # predicted probability
-h2a_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
-                    variable = "h2a_predicted_probability", 
+h2b_1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
+                    variable = "h2b_1_predicted_probability", 
                     group = "rating") 
 
 ```
 
-Model predicted probability = `r h2a_pp`.
+Model predicted probability = `r h2b_1_pp`.
 
 #### 2. At the participant level
 
@@ -501,7 +501,7 @@ If effects in the IA-AMP are driven by intentional responding, then the size of 
 ```{r}
 
 # model
-fit_h2b <- lm(IA_AMP_effect_positive_negative ~ influence_rate_positive_negative, 
+fit_h2b_2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate_positive_negative, 
               data = task_level_data_exclusions)
 
 # plot
@@ -516,7 +516,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative,
   theme_classic()
 
 # results table
-tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
