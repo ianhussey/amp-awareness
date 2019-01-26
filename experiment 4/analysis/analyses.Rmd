@@ -588,7 +588,7 @@ tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ")
 
 *To be added*
 
-## H5: Influence rates correlate between IA-AMPs across different domains
+## H4: Influence rates correlate between IA-AMPs across different domains
 
 If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
 
