@@ -413,9 +413,9 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump,
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
-  labs(title = "Proportion of influenced trials and positive-negative IA-AMP effect", 
-       x = "Proportion of influenced trials\non the positive-negative IA-AMP", 
-       y = "Positive-negative IA-AMP effect") +
+  labs(title = "Proportion of influenced trials and politics IA-AMP effect", 
+       x = "Proportion of influenced trials\non the politics IA-AMP", 
+       y = "Politics IA-AMP effect") +
   theme_classic()
 
 # results table
