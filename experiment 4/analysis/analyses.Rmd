@@ -657,6 +657,7 @@ fit_influenced <- task_level_data_exclusions %>%
          ci.type = "bca",
          ci.conf = 0.95)
 
+
 data.frame(cohens_d = round(fit_influenced$t0,        2),
            se       = round(sd(fit_influenced$t),     2),
            ci_lwr   = round(fit_influenced$bounds[1], 2),
