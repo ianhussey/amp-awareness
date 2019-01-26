@@ -399,17 +399,19 @@ Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
 
+For the politics AMP here we use the absolute magnitude of the effect size, ignoring the directionality, as Republicans and Democrats will have effects in different directions. 
+
 #### Fit model
 
 ```{r}
 
 # model
-fit_h2a_2 <- lm(IA_AMP_effect_obama_trump ~ influence_rate_obama_trump, 
+fit_h2a_2 <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_obama_trump, 
               data = task_level_data_exclusions)
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
-                                       IA_AMP_effect_obama_trump)) + 
+                                       abs(IA_AMP_effect_obama_trump))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
