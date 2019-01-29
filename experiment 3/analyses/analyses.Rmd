@@ -363,7 +363,7 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h3 <- lm(abs(AMP_effect_obama_trump) ~ influence_rate, 
+fit_h3 <- lm(AMP_effect_obama_trump ~ influence_rate, 
              data = task_level_data_exclusions)
 
 # plot
