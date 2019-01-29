@@ -14,11 +14,10 @@ output:
 
 # To do
 
-1. full sample hasn't been recruited yet
-2. check age and party exclusions in the other studies
-3. cohen's ds for h6 don't have CIs, probably needs bootstrapping.
-4. H2, H3, H4, H6 all need scrutiny, either analyses are off or effects were not replicated/results are not as expected. In the latter case, this seems to run contrary to previous analysis implementations.
-4. more to be documented?
+1. full sample hasn't been recruited yet - has been now
+2. check age and party exclusions in the other studies - did that too
+3. cohen's ds for h6 don't have CIs, probably needs bootstrapping. - They have CIs now since Jamie fixed bug
+4. H2, H3, H4, H6 all need scrutiny, either analyses are off or effects were not replicated/results are not as expected. In the latter case, this seems to run contrary to previous analysis implementations. - Think you might have misinterpreted this Ian, all looks good to me?
 
 # Notes
 
@@ -27,6 +26,7 @@ output:
 3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
 4. H2 and H3 from experiment 1 were discarded as being less interesting, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
 Contribution of offline and online measures in predicting AMP effect sizes).
+5. Redistribute wealth and data
 
 ```{r include=FALSE}
 
