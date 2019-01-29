@@ -367,7 +367,7 @@ fit_h3 <- lm(AMP_effect_obama_trump ~ influence_rate,
              data = task_level_data_exclusions)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -377,7 +377,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positiv
   theme_classic()
 
 # table
-tab_model(fit_h3, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h3, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
