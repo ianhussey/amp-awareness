@@ -163,42 +163,44 @@ task_level_data_exclusions %>%
 
 # Manipulation checks
 
-## M1: Demonstate an AMP effect on the positive negative IA AMP
+## M1: Demonstate an AMP effect 
 
-### Fit model
+### on the positive negative IA AMP
+
+#### Fit model
 
 ```{r}
 
 # fit model
-model_m1 <- glmer(rating ~ prime_type + (1 | subject), 
+model_m1a <- glmer(rating ~ prime_type + (1 | subject), 
                   family = binomial(link = "logit"),
                   data = trial_level_posneg_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_m1, type = "pred", terms = c("prime_type"))
+plot_model(model_m1a, type = "pred", terms = c("prime_type"))
 
 # results table
-tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_m1a, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-### Bootstrap estimates for key parameters
+#### Bootstrap estimates for key parameters
 
 ```{r}
 
 # bootstrap estimates and CIs for key parameters
 # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_m1_boot <- bootMer(model_m1, 
+model_m1a_boot <- bootMer(model_m1a, 
                          FUN = fixef,  
                          nsim = 1000,
                          parallel = "multicore")
 
 # write to disk given long runtime
-save(model_m1_boot, file = "data/models/model_m1_boot.RData")
-load("data/models/model_m1_boot.RData")
+save(model_m1a_boot, file = "data/models/model_m1a_boot.RData")
+load("data/models/model_m1a_boot.RData")
 
 # print results
-model_m1_boot %>%
+model_m1a_boot %>%
   as.data.frame() %>%
   # exponentiate to convert log odds to odds
   summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
@@ -209,22 +211,42 @@ model_m1_boot %>%
 
 ```
 
-### Model performance
+#### Model performance
 
 ```{r}
 
 # add model predictions back to the original data frame
 trial_level_posneg_ia_amp_data_exclusions$m1_predicted_probability <- 
-  predict(model_m1, type = "response")
+  predict(model_m1a, type = "response")
 
 # predicted probability
-m1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
+m1a_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
                    variable = "m1_predicted_probability", 
                    group = "rating")
 
 ```
 
-Model predicted probability = `r m1_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
+Model predicted probability = `r m1a_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
+
+### on the politics IA-AMP
+
+#### Fit model
+
+```{r}
+
+# fit model
+model_m1b <- glmer(rating ~ prime_type + (1 | subject), 
+                  family = binomial(link = "logit"),
+                  data = trial_level_politics_ia_amp_data_exclusions)
+
+# plot
+plot_model(model_m1b, type = "pred", terms = c("prime_type"))
+
+# results table
+tab_model(model_m1b, emph.p = FALSE, ci.hyphen = ", ")
+
+```
+
 
 # Hypothesis tests
 
