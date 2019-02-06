@@ -12,6 +12,10 @@ output:
     toc_float: yes
 ---
 
+# Notes to Ian:
+1. Can you add the boostrapping code for H2?
+2. Which Ruscio's A?
+
 # To do
 
 1. add boostrapping for H2
@@ -21,8 +25,6 @@ output:
 1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
 2. The mixed effects models applied to trial level AMP data are more powerful and are used for hypothesis testing. However, for the sake of familiarity (with the method and similarity to previous published work) we also calculate participant level AMP effect (i.e., sum of positive prime trials rated as positive minus sum of negative prime trials rated as negative) and the analyse these for some central hypotheses, for the sake of familiarity. This could be done for all analyses of AMP data (e.g., manipulation checks), but for brevity's sake we only do it for key hypotheses.
 3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
-4. H2 and H3 from experiment 1 were discarded as being less interesting, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
-Contribution of offline and online measures in predicting AMP effect sizes).
 
 ```{r include=FALSE}
 
