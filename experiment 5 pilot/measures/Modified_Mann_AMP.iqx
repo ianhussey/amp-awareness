@@ -324,7 +324,7 @@ Trials
 <trial prime_positive>
 / validresponse = ("D", "K")
 / correctresponse = ("K")
-/ stimulustimes = [0= cross; 500 = prime_positive; 575=blank; 675=target; 775=mask]
+/ stimulustimes = [0= cross; 500 = prime_positive; 600=blank; 700=target; 800=mask]
 / branch = [if (1 == 1) trial.intention_check]
 /ontrialend = [values.primestim = picture.prime_positive.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
 </trial>
@@ -332,7 +332,7 @@ Trials
 <trial prime_negative>
 / validresponse = ("D", "K")
 / correctresponse = ("K")
-/ stimulustimes = [0= cross; 500 = prime_negative; 575=blank;  675=target; 775=mask]
+/ stimulustimes = [0= cross; 500 = prime_negative; 600=blank;  700=target; 800=mask]
 / branch = [if (1 == 1) trial.intention_check]
 /ontrialend = [values.primestim = picture.prime_negative.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
 </trial>
