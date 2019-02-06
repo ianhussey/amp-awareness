@@ -548,46 +548,13 @@ tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
 
 If effects in the AMPs are driven by participants who are more often influenced, then rate of influence in one IA-AMP should predict effect sizes in the other. 
 
-### H3a: Pos-neg influence rate, politics effect size
-
-If the positive-negative IA AMP's influence rate predicts the (previously completed) politics IA-AMP's effect then this implies that the rate of influence is reliable within participants/across IA AMPs.
-
-Here we use the absolute politics AMP effect size, as the effects are necessarily opposite for Republicans and Democrats. Hence, we use absolute values as we are only interested in magnitude, not direction, of the effect.
+### H3a: Politics influence rate, pos-neg effect size
 
 
 ```{r}
 
 # model
-fit_h3a <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negative, 
-             data = task_level_data_exclusions)
-
-# plot
-ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative, 
-                                       abs(IA_AMP_effect_obama_trump))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
-  geom_smooth(method = lm) +
-  labs(title = "Rate of influence in the positive-negative IA-AMP and politics IA-AMP effect size", 
-       x = "Positive-negative IA-AMP influence rate", 
-       y = "Politics IA-AMP effect size") +
-  theme_classic()
-
-# table
-tab_model(fit_h3a, emph.p = FALSE, ci.hyphen = ", ")
-
-```
-
-### Bootstrap estimates
-
-*To be added*
-
-### H3b: Politics influence rate, pos-neg effect size
-
-
-```{r}
-
-# model
-fit_h3b <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
+fit_h3a <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
              data = task_level_data_exclusions)
 
 # plot
@@ -602,13 +569,48 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump,
   theme_classic()
 
 # table
-tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+tab_model(fit_h3a, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
 ### Bootstrap estimates
 
 *To be added*
+
+### H3b: Pos-neg influence rate, politics effect size
+
+If the positive-negative IA AMP's influence rate predicts the (previously completed) politics IA-AMP's effect then this implies that the rate of influence is reliable within participants/across IA AMPs.
+
+Here we use the absolute politics AMP effect size, as the effects are necessarily opposite for Republicans and Democrats. Hence, we use absolute values as we are only interested in magnitude, not direction, of the effect.
+
+
+```{r}
+
+# model
+fit_h3b <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negative, 
+             data = task_level_data_exclusions)
+
+# plot
+ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative, 
+                                       abs(IA_AMP_effect_obama_trump))) + 
+  geom_jitter(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence in the positive-negative IA-AMP and politics IA-AMP effect size", 
+       x = "Positive-negative IA-AMP influence rate", 
+       y = "Politics IA-AMP effect size") +
+  theme_classic()
+
+# table
+tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ")
+
+```
+
+### Bootstrap estimates
+
+*To be added*
+
+
 
 ## H4: Influence rates correlate between IA-AMPs across different domains
 
