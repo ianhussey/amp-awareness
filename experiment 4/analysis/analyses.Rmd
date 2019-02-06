@@ -12,11 +12,13 @@ output:
     toc_float: yes
 ---
 
-# To do
+# Notes to Ian:
+1. Your fourth point in the to-do list - can you double-check that you think something's off? Everything looks ok to me. Could you flag which analyses you think are off if you still find issues? 
+2. Which Ruscio's A?
+3. Do we have any reason for why we used 2000 comparisons in the bootstrap for H4?
 
-1. full sample hasn't been recruited yet - has been now
-2. check age and party exclusions in the other studies - did that too
-3. cohen's ds for h6 don't have CIs, probably needs bootstrapping. - They have CIs now since Jamie fixed bug
+
+# To do
 4. H2, H3, H4, H6 all need scrutiny, either analyses are off or effects were not replicated/results are not as expected. In the latter case, this seems to run contrary to previous analysis implementations. - Think you might have misinterpreted this Ian, all looks good to me?
 
 # Notes
@@ -24,9 +26,7 @@ output:
 1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
 2. The mixed effects models applied to trial level AMP data are more powerful and are used for hypothesis testing. However, for the sake of familiarity (with the method and similarity to previous published work) we also calculate participant level AMP effect (i.e., sum of positive prime trials rated as positive minus sum of negative prime trials rated as negative) and the analyse these for some central hypotheses, for the sake of familiarity. This could be done for all analyses of AMP data (e.g., manipulation checks), but for brevity's sake we only do it for key hypotheses.
 3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
-4. H2 and H3 from experiment 1 were discarded as being less interesting, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
-Contribution of offline and online measures in predicting AMP effect sizes).
-5. Redistribute wealth and data
+4. Redistribute wealth and data
 
 ```{r include=FALSE}
 
@@ -163,44 +163,42 @@ task_level_data_exclusions %>%
 
 # Manipulation checks
 
-## M1: Demonstate an AMP effect 
+## M1: Demonstate an AMP effect on the positive negative IA AMP
 
-### on the positive negative IA AMP
-
-#### Fit model
+### Fit model
 
 ```{r}
 
 # fit model
-model_m1a <- glmer(rating ~ prime_type + (1 | subject), 
+model_m1 <- glmer(rating ~ prime_type + (1 | subject), 
                   family = binomial(link = "logit"),
                   data = trial_level_posneg_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_m1a, type = "pred", terms = c("prime_type"))
+plot_model(model_m1, type = "pred", terms = c("prime_type"))
 
 # results table
-tab_model(model_m1a, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-#### Bootstrap estimates for key parameters
+### Bootstrap estimates for key parameters
 
 ```{r}
 
 # bootstrap estimates and CIs for key parameters
 # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_m1a_boot <- bootMer(model_m1a, 
+model_m1_boot <- bootMer(model_m1, 
                          FUN = fixef,  
                          nsim = 1000,
                          parallel = "multicore")
 
 # write to disk given long runtime
-save(model_m1a_boot, file = "data/models/model_m1a_boot.RData")
+save(model_m1_boot, file = "data/models/model_m1a_boot.RData")
 load("data/models/model_m1a_boot.RData")
 
 # print results
-model_m1a_boot %>%
+model_m1_boot %>%
   as.data.frame() %>%
   # exponentiate to convert log odds to odds
   summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
@@ -211,42 +209,85 @@ model_m1a_boot %>%
 
 ```
 
-#### Model performance
+### Model performance
 
 ```{r}
 
 # add model predictions back to the original data frame
 trial_level_posneg_ia_amp_data_exclusions$m1_predicted_probability <- 
-  predict(model_m1a, type = "response")
+  predict(model_m1, type = "response")
 
 # predicted probability
-m1a_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
+m1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
                    variable = "m1_predicted_probability", 
                    group = "rating")
 
 ```
 
-Model predicted probability = `r m1a_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
+Model predicted probability = `r m1_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
 
-### on the politics IA-AMP
+## M2: Demonstate an AMP effect on the politics IA AMP
 
-#### Fit model
+### Fit model
 
 ```{r}
 
 # fit model
-model_m1b <- glmer(rating ~ prime_type + (1 | subject), 
+model_m2 <- glmer(rating ~ prime_type + (1 | subject), 
                   family = binomial(link = "logit"),
                   data = trial_level_politics_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_m1b, type = "pred", terms = c("prime_type"))
+plot_model(model_m2, type = "pred", terms = c("prime_type"))
 
 # results table
-tab_model(model_m1b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
+### Bootstrap estimates for key parameters
+
+```{r}
+
+# bootstrap estimates and CIs for key parameters
+# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+model_m2_boot <- bootMer(model_m2, 
+                         FUN = fixef,  
+                         nsim = 1000,
+                         parallel = "multicore")
+
+# write to disk given long runtime
+save(model_m2_boot, file = "data/models/model_m1a_boot.RData")
+load("data/models/model_m1a_boot.RData")
+
+# print results
+model_m2_boot %>%
+  as.data.frame() %>%
+  # exponentiate to convert log odds to odds
+  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
+            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+  round_df(2) %>%
+  gather()
+
+```
+
+### Model performance
+
+```{r}
+
+# add model predictions back to the original data frame
+trial_level_posneg_ia_amp_data_exclusions$m1_predicted_probability <- 
+  predict(model_m2, type = "response")
+
+# predicted probability
+m2_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
+                   variable = "m1_predicted_probability", 
+                   group = "rating")
+
+```
+
+Model predicted probability = `r m2_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
 
 # Hypothesis tests
 
@@ -322,6 +363,7 @@ Model predicted probability = `r h1a_pp`.
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
@@ -611,7 +653,6 @@ tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 *To be added*
 
 
-
 ## H4: Influence rates correlate between IA-AMPs across different domains
 
 If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
@@ -647,14 +688,6 @@ ggplot(task_level_data_exclusions,
   theme_classic() +
   ylim(0,1) +
   xlim(0,1)
-
-# ggplot(task_level_data_exclusions, 
-#        aes(influence_rate_obama_trump)) +
-#   geom_density()
-# 
-# ggplot(task_level_data_exclusions, 
-#        aes(influence_rate_positive_negative)) +
-#   geom_density()
 
 ```
 
