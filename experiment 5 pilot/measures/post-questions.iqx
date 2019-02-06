@@ -23,7 +23,7 @@ Demographics
 <radiobuttons self_exclusion_1>
 /caption = "In your honest opinion, do you think should we use your data in our analysis? 
 
-There are many reasons why you might feel that we should exclude your data, such as a computer malfunction or a distraction at an important moment during the study.~nNote, however, that being influenced by the pictures that came before the Chinese characters is not a reason for exclusion in this study.
+There are many reasons why you might feel that we should exclude your data, such as a computer malfunction or a distraction at an important moment during the study.~nNote, however, that being influenced by the pictures that came before the paintings is not a reason for exclusion in this study.
 
 Your responses on this question will NOT affect your payment. However, if you choose 'No, exclude my data', please fill in the accompanying text box to let us know why."
 / options = ("Yes, use my data")
@@ -43,27 +43,27 @@ Your responses on this question will NOT affect your payment. However, if you ch
 </textbox>
 
 <radiobuttons awareness>
-/caption = "For all of the following questions, please only answer based on the second task you completed, where you were to press the spacebar if you felt you were influenced by the pictures that came before the Chinese characters.~n~n~n~nThink back to the task you just completed. On how many trials was a picture presented before the Chinese character? It is important that you are honest here."
+/caption = "For all of the following questions, please only answer based on the second task you completed, where you were to press the spacebar if you felt you were influenced by the pictures that came before the paintings.~n~n~n~nThink back to the task you just completed. On how many trials was a picture presented before the painting? It is important that you are honest here."
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /required = true
 /orientation = vertical
 </radiobuttons>
 
 <radiobuttons influence_general>
-/caption = "On how many trials were your ratings of the Chinese symbols influenced by the pictures that appeared immediately before those symbols?"
+/caption = "On how many trials were your ratings of the paintings influenced by the pictures that appeared immediately before those paintings?"
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /required = true
 /orientation = vertical
 </radiobuttons>
 
 <radiobuttons intentionality>
-/caption = "On how many trials did you intentionally base your rating of the Chinese symbol on the image that immediately appeared before it?"
+/caption = "On how many trials did you intentionally base your rating of the painting on the image that immediately appeared before it?"
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /orientation = vertical
 </radiobuttons>
 
 <radiobuttons unintentionality>
-/caption = "On how many trials do you think that your rating of the Chinese symbol was unintentionally influenced by the pictures that appeared immediately before those symbols?"
+/caption = "On how many trials do you think that your rating of the painting was unintentionally influenced by the pictures that appeared immediately before those paintings?"
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /orientation = vertical
 </radiobuttons>
