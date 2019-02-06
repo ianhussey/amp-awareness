@@ -602,7 +602,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump,
   theme_classic()
 
 # table
-tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
