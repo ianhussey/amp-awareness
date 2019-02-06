@@ -11,6 +11,11 @@ output:
     toc: yes
     toc_float: yes
 ---
+# Notes to Ian:
+1. Can you add the bootstrapping code to H2 and H3?
+2. Which Ruscio's A do you want to keep in the first chunk?
+
+
 
 # To do
 
@@ -21,7 +26,7 @@ output:
 1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
 2. The mixed effects models applied to trial level AMP data are more powerful and are used for hypothesis testing. However, for the sake of familiarity (with the method and similarity to previous published work) we also calculate participant level AMP effect (i.e., sum of positive prime trials rated as positive minus sum of negative prime trials rated as negative) and the analyse these for some central hypotheses, for the sake of familiarity. This could be done for all analyses of AMP data (e.g., manipulation checks), but for brevity's sake we only do it for key hypotheses.
 3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
-4. H2 and H3 from experiment 1 were discarded as being less interesting, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
+4. H2 and H3 from experiment 1 were discarded as they were not relevant to our questions in this experiment, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
 Contribution of offline and online measures in predicting AMP effect sizes).
 
 ```{r include=FALSE}
@@ -198,7 +203,7 @@ m1_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions,
 
 Model predicted probability = `r m1_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
 
-## M2: Demonstate an AMP effect on the IA AMP
+## M2: Demonstate an AMP effect on the IA-AMP
 
 ### Fit model
 
@@ -334,6 +339,7 @@ Model predicted probability = `r h1a_pp`.
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
