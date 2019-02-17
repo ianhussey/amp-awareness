@@ -1,0 +1,12 @@
+subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,IA_AMP_uninfluenced_effect_positive_negative,influence_rate,awareness,influence_general,intentionality,self_exclusion_1,self_exclusion_1other,unintentionality,complete_data
+9223988,41,male,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","I think there were technical difficulties with my survey. I didn't see any paintings/Chinese characters. Every 'painting' looked like static on a TV ste to me, black background with white randomly scattered over it. I didn't see any Chinese characters, or anything else discernable amongst the 'static'.   If this sounds like my paintings were not displaying correctly, my data is probably useless",1,TRUE
+113460491,20,male,0.1,0.27,0.24,0.03,1,1,1,"Yes, use my data",,1,TRUE
+181883259,32,female,0.37,0.33,0,0.27,6,3,1,"Yes, use my data",,2,TRUE
+272486146,33,Male,-0.1,-0.17,-0.17,0,7,1,1,"No, exclude my data (please specify why):","I wasn't fully expecting the images to flash by so quickly, so I voted ""Unpleasant"" for perhaps the first 10 images in the first test without realising.",2,TRUE
+275523320,18,female,-0.2,0.2,-0.08,0.32,7,3,3,"Yes, use my data",,2,TRUE
+521153975,26,Female,0.23,-0.03,-0.24,0.17,7,1,1,"No, exclude my data (please specify why):","I didn't see any chinese characters after the pictures.  What I saw was a real life image, a painting and then a static image.",1,TRUE
+566506627,22,Female,0.5,0.87,NA,0.98,7,6,1,"Yes, use my data",,7,TRUE
+766228610,21,female,0.27,0.07,-0.04,0.1,7,3,1,"Yes, use my data",,4,TRUE
+798411943,24,male,0.17,-0.03,-0.16,0.1,1,1,1,"Yes, use my data",,1,TRUE
+886642803,31,Female,0.03,0.13,-0.02,0.18,7,3,1,"Yes, use my data",,3,TRUE
+206664142,NA,NA,NA,NA,NA,NA,1,1,1,"No, exclude my data (please specify why):",uuhiuhiu,1,FALSE
