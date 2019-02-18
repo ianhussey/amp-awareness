@@ -416,3 +416,18 @@ effsize::cohen.d(subset$AMP_effect_positive_negative,
 *To be added*
 
 
+```{r}
+a <- ggplot(data = task_level_data_exclusions, aes(AMP_effect_positive_negative)) +
+  geom_density(adjust = .5) +
+  labs(x = "AMP effect", title = "Density plot for Standard Mann AMP") +
+  theme_classic()
+
+b <- ggplot(data = task_level_data_exclusions, aes(IA_AMP_effect_positive_negative)) +
+  geom_density(adjust = .5) +
+  labs(x = "IA-AMP effect", title = "Density plot for Mann IA-AMP") +
+  theme_classic()
+
+library(patchwork)
+a + b
+```
+
