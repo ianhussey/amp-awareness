@@ -147,3 +147,24 @@ ks.test(exp_2_df$AMP_effect_positive_negative, exp_5_df$AMP_effect_positive_nega
 ks.test(exp_2_df$IA_AMP_effect_positive_negative, exp_5_df$IA_AMP_effect_positive_negative)
 ```
 
+
+```{r}
+
+joined_temp <- exp_2_df %>%
+  rbind(exp_5_df) %>%
+  mutate(exp = c(rep(2, nrow(exp_2_df)), rep(5, nrow(exp_5_df))))
+
+temp_fit <- lm(IA_AMP_effect_positive_negative ~ influence_rate * exp,
+               data = joined_temp)
+tab_model(temp_fit, show.std = TRUE)
+plot_model(temp_fit, type = "int")
+
+```
+
+```{r}
+temp_fit <- lm(AMP_effect_positive_negative ~
+                 IA_AMP_effect_positive_negative * exp,
+               data = joined_temp)
+tab_model(temp_fit, show.std = TRUE)
+plot_model(temp_fit, type = "int")
+```
