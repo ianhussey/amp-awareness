@@ -11,8 +11,10 @@ output:
     toc: yes
     toc_float: yes
 ---
+# Comments to Ian:
 
-jamie: note to self
+1. Which of the Ruscio's As do you want to keep in the first chunk? Or both? One is commented out, not sure what you're doing there. 
+
 
 # Notes
 

@@ -12,6 +12,10 @@ output:
     toc_float: yes
 ---
 
+# Notes to Ian:
+1. Can you add the boostrapping code for H2?
+2. Which Ruscio's A?
+
 # To do
 
 1. add boostrapping for H2
@@ -21,8 +25,6 @@ output:
 1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
 2. The mixed effects models applied to trial level AMP data are more powerful and are used for hypothesis testing. However, for the sake of familiarity (with the method and similarity to previous published work) we also calculate participant level AMP effect (i.e., sum of positive prime trials rated as positive minus sum of negative prime trials rated as negative) and the analyse these for some central hypotheses, for the sake of familiarity. This could be done for all analyses of AMP data (e.g., manipulation checks), but for brevity's sake we only do it for key hypotheses.
 3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
-4. H2 and H3 from experiment 1 were discarded as being less interesting, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
-Contribution of offline and online measures in predicting AMP effect sizes).
 
 ```{r include=FALSE}
 
@@ -209,10 +211,10 @@ model_m2 <- glmer(rating ~ prime_type + (1 | subject),
                   data = trial_level_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_m1, type = "pred", terms = c("prime_type"))
+plot_model(model_m2, type = "pred", terms = c("prime_type"))
 
 # results table
-tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
@@ -262,9 +264,7 @@ Model predicted probability = `r m2_pp`. In this case this is the probability th
 
 # Hypothesis tests
 
-## H1: IA-AMP influence rate predicts IA-AMP effect
-
-### H1a: at the trial level
+## H1: IA-AMP influence rate predicts IA-AMP effect at the trial level
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
@@ -275,7 +275,7 @@ Key effect: influence*prime_type interaction
 ```{r}
 
 # model
-model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
                    family = binomial(link = "logit"),
                    data = trial_level_ia_amp_data_exclusions)
 
@@ -283,7 +283,7 @@ model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject),
 plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
-tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_h1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
@@ -292,17 +292,17 @@ tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 ```{r}
 
 # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_h1a_boot <- bootMer(model_h1a, 
+model_h1_boot <- bootMer(model_h1, 
                           FUN = fixef,  
                           nsim = 1000,
                           parallel = "multicore")
 
 # write to disk given long runtime
-save(model_h1a_boot, file = "data/models/model_h1a_boot.RData")
+save(model_h1_boot, file = "data/models/model_h1a_boot.RData")
 load("data/models/model_h1a_boot.RData")
 
 # print results
-model_h1a_boot %>%
+model_h1_boot %>%
   as.data.frame() %>%
   summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
             prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
@@ -317,18 +317,18 @@ model_h1a_boot %>%
 ```{r}
 
 # add model predictions back to the original data frame
-trial_level_ia_amp_data_exclusions$h1a_predicted_probability <- predict(model_h1a, type = "response")
+trial_level_ia_amp_data_exclusions$h1a_predicted_probability <- predict(model_h1, type = "response")
 
 # predicted probability
-h1a_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions, 
+h1_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions, 
                     variable = "h1a_predicted_probability", 
                     group = "rating") 
 
 ```
 
-Model predicted probability = `r h1a_pp`.
+Model predicted probability = `r h1_pp`.
 
-### H1b: at the participant level
+### H2: IA-AMP influence rate predicts IA-AMP effect at the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
@@ -338,7 +338,7 @@ If effects in the IA-AMP are driven by intentional responding, then the size of 
 ```{r}
 
 # model
-fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+fit_h2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
               data = task_level_data_exclusions)
 
 # plot
@@ -352,11 +352,11 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
   theme_classic()
 
 # results table
-tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H2: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
+## H3: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
 
 If effects in the standard AMP, as well as the IA-AMP, are driven by participants who are more often influenced, then rate of influence in the IA-AMP should predict effect sizes in the standard AMP. 
 
@@ -365,11 +365,11 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h2 <- lm(abs(AMP_effect_obama_trump) ~ influence_rate, 
+fit_h3 <- lm(AMP_effect_obama_trump ~ influence_rate, 
              data = task_level_data_exclusions)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -379,7 +379,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positiv
   theme_classic()
 
 # table
-tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h3, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
