@@ -36,6 +36,7 @@ library(lme4)
 library(effects)
 library(metafor)
 library(patchwork)
+library(lme4)
 
 # source for raincloud plots
 source("../geom_flat_violin.R")
