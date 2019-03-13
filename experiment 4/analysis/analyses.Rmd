@@ -621,7 +621,7 @@ tab_model(fit_h3a, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 fit_h3a_bootstraps <- task_level_data_exclusions %>%
   ungroup() %>%
   broom::bootstrap(2000) %>%
-  do(broom::tidy(lm(IA_AMP_effect_positive_negative ~ influence_rate_obama_trump, 
+  do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
                     data = .)))
 
 fit_h3a_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
@@ -667,7 +667,7 @@ tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 fit_h3b_bootstraps <- task_level_data_exclusions %>%
   ungroup() %>%
   broom::bootstrap(2000) %>%
-  do(broom::tidy(lm(IA_AMP_effect_obama_trump ~ influence_rate_positive_negatiev, 
+  do(broom::tidy(lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negatiev, 
                     data = .)))
 
 fit_h3b_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
