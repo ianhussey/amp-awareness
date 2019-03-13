@@ -354,7 +354,7 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h2 <- lm(AMP_effect_positive_negative ~ influence_rate, 
+fit_h2 <- lm(abs(AMP_effect_positive_negative) ~ influence_rate, 
              data = task_level_data_exclusions)
 
 # plot
@@ -374,7 +374,20 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 
 ### Bootstrap estimates
 
-*To be added*
+```{r}
+fit_h2_bootstraps <- task_level_data_exclusions %>%
+  ungroup() %>%
+  broom::bootstrap(2000) %>%
+  do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate, 
+                    data = .)))
+
+fit_h2_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
+  filter(term == "influence_rate") %>%
+  summarize(median = quantile(as.numeric(estimate), 0.500),
+            ci_lwr = quantile(as.numeric(estimate), 0.025),
+            ci_upr = quantile(as.numeric(estimate), 0.975))
+
+```
 
 ## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using uninfluenced trials only)
 
