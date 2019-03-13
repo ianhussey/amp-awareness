@@ -429,21 +429,31 @@ subset %>%
                    ci_upr = mean + se*1.96) %>%
   round_df(2)
   
+# gather subset
+long_subset <- subset %>%
+  gather(condition, score, AMP_effect_positive_negative:IA_AMP_uninfluenced_effect_positive_negative)
+
 # t test
-t.test(subset$AMP_effect_positive_negative, 
-       subset$IA_AMP_uninfluenced_effect_positive_negative, 
-       paired = TRUE) %>%
+t.test(score ~ condition, 
+       paired = TRUE,
+       data = long_subset) %>%
   tidy()
 
 # cohen's d
-effsize::cohen.d(subset$AMP_effect_positive_negative, 
-       subset$IA_AMP_uninfluenced_effect_positive_negative, 
-       paired = TRUE)
+effsize::cohen.d(score ~ condition,
+       paired = TRUE,
+       data = long_subset)
 
 ```
 
 ### Bootstrap estimates
 
-*To be added*
-
-
+```{r}
+bootES::bootES(long_subset,
+               R = 2000,
+               data.col = "score", 
+               group.col = "condition",
+               effect.type = "cohens.d",
+               contrast=c(AMP_effect_positive_negative=1, 
+                          IA_AMP_uninfluenced_effect_positive_negative=-1))
+```
