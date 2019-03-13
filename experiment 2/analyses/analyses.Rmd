@@ -396,7 +396,7 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 fit_h2_bootstraps <- task_level_data_exclusions %>%
   ungroup() %>%
   broom::bootstrap(2000) %>%
-  do(broom::tidy(lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+  do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate, 
                     data = .)))
 
 fit_h2_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
