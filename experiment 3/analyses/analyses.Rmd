@@ -264,7 +264,7 @@ Model predicted probability = `r m2_pp`. In this case this is the probability th
 
 # Hypothesis tests
 
-## H1: IA-AMP influence rate predicts IA-AMP effect at the trial level
+## H1a: IA-AMP influence rate predicts IA-AMP effect at the trial level
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
@@ -328,17 +328,18 @@ h1_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions,
 
 Model predicted probability = `r h1_pp`.
 
-### H2: IA-AMP influence rate predicts IA-AMP effect at the participant level
+### H1b: IA-AMP influence rate predicts IA-AMP effect at the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
 
 # model
-fit_h2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
               data = task_level_data_exclusions)
 
 # plot
@@ -352,11 +353,11 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
   theme_classic()
 
 # results table
-tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H3: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
+## H2: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
 
 If effects in the standard AMP, as well as the IA-AMP, are driven by participants who are more often influenced, then rate of influence in the IA-AMP should predict effect sizes in the standard AMP. 
 
@@ -365,7 +366,7 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h3 <- lm(AMP_effect_obama_trump ~ influence_rate, 
+fit_h2 <- lm(AMP_effect_obama_trump ~ influence_rate, 
              data = task_level_data_exclusions)
 
 # plot
@@ -379,11 +380,24 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
   theme_classic()
 
 # table
-tab_model(fit_h3, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
 ### Bootstrap estimates
 
-*To be added*
+```{r}
+fit_h2_bootstraps <- task_level_data_exclusions %>%
+  ungroup() %>%
+  broom::bootstrap(2000) %>%
+  do(broom::tidy(lm(abs(AMP_effect_obama_trump) ~ influence_rate, 
+                    data = .)))
+
+fit_h2_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
+  filter(term == "influence_rate") %>%
+  summarize(median = quantile(as.numeric(estimate), 0.500),
+            ci_lwr = quantile(as.numeric(estimate), 0.025),
+            ci_upr = quantile(as.numeric(estimate), 0.975))
+
+```
 

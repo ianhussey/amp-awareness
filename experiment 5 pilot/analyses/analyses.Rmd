@@ -322,6 +322,7 @@ Model predicted probability = `r h1a_pp`.
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
@@ -354,7 +355,7 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h2 <- lm(AMP_effect_positive_negative ~ influence_rate, 
+fit_h2 <- lm(abs(AMP_effect_positive_negative) ~ influence_rate, 
              data = task_level_data_exclusions)
 
 # plot
@@ -374,60 +375,21 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 
 ### Bootstrap estimates
 
-*To be added*
-
-## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using uninfluenced trials only)
-
-If intentional responding drives the AMP effect, then the effect size in the IA-AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
-
 ```{r}
+fit_h2_bootstraps <- task_level_data_exclusions %>%
+  ungroup() %>%
+  broom::bootstrap(2000) %>%
+  do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate, 
+                    data = .)))
 
-# subset data
-subset <- task_level_data_exclusions %>%
-  select(AMP_effect_positive_negative, IA_AMP_uninfluenced_effect_positive_negative) %>%
-  na.omit()
-
-# descriptives
-subset %>%
-  gather() %>%
-  group_by(key) %>%
-  dplyr::summarize(mean = mean(value),
-                   sd = sd(value),
-                   se = std.error(value),
-                   ci_lwr = mean - se*1.96,
-                   ci_upr = mean + se*1.96) %>%
-  round_df(2)
-  
-# t test
-t.test(subset$AMP_effect_positive_negative, 
-       subset$IA_AMP_uninfluenced_effect_positive_negative, 
-       paired = TRUE) %>%
-  tidy()
-
-# cohen's d
-effsize::cohen.d(subset$AMP_effect_positive_negative, 
-       subset$IA_AMP_uninfluenced_effect_positive_negative, 
-       paired = TRUE)
+fit_h2_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
+  filter(term == "influence_rate") %>%
+  summarize(median = quantile(as.numeric(estimate), 0.500),
+            ci_lwr = quantile(as.numeric(estimate), 0.025),
+            ci_upr = quantile(as.numeric(estimate), 0.975))
 
 ```
 
-### Bootstrap estimates
-
-*To be added*
 
 
-```{r}
-a <- ggplot(data = task_level_data_exclusions, aes(AMP_effect_positive_negative)) +
-  geom_density(adjust = .5) +
-  labs(x = "AMP effect", title = "Density plot for Standard Mann AMP") +
-  theme_classic()
-
-b <- ggplot(data = task_level_data_exclusions, aes(IA_AMP_effect_positive_negative)) +
-  geom_density(adjust = .5) +
-  labs(x = "IA-AMP effect", title = "Density plot for Mann IA-AMP") +
-  theme_classic()
-
-library(patchwork)
-a + b
-```
 
