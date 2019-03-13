@@ -264,7 +264,7 @@ Model predicted probability = `r m2_pp`. In this case this is the probability th
 
 # Hypothesis tests
 
-## H1: IA-AMP influence rate predicts IA-AMP effect at the trial level
+## H1a: IA-AMP influence rate predicts IA-AMP effect at the trial level
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
@@ -328,17 +328,18 @@ h1_pp <- ruscios_A(data = trial_level_ia_amp_data_exclusions,
 
 Model predicted probability = `r h1_pp`.
 
-### H2: IA-AMP influence rate predicts IA-AMP effect at the participant level
+### H1b: IA-AMP influence rate predicts IA-AMP effect at the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
 
 # model
-fit_h2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
               data = task_level_data_exclusions)
 
 # plot
@@ -352,7 +353,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
   theme_classic()
 
 # results table
-tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
