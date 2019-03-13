@@ -322,6 +322,7 @@ Model predicted probability = `r h1a_pp`.
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
 #### Fit model
 
 ```{r}
