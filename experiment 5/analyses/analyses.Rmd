@@ -391,5 +391,42 @@ fit_h2_bootstraps %>%
 ```
 
 
+# Exploratory tests
+
+## Cross-experiment comparison
+
+Does influence rate differentially predict AMP effects between the Mann AMP and the standard AMP?
+
+```{r}
+# bring in exp 2 data
+exp_2_df <- read_csv("../../experiment 2/data/processed/processed_data.csv") %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
+  dplyr::mutate(experiment = "exp_2",
+                age = as.character(age))
+
+# mutate eperiment column for exp 5 data
+exp_5_df <- task_level_data_exclusions %>%
+  dplyr::mutate(experiment = "exp_5",
+                age = as.character(age))
+
+# create new df combining experiment 2 and 5 data
+combined_exps_2_and_5 <- bind_rows(exp_2_df, exp_5_df)
+
+
+# model
+fit_comparison <- lm(abs(AMP_effect_positive_negative) ~ influence_rate * experiment, 
+                    data = combined_exps_2_and_5)
+
+# plot
+plot_model(fit_comparison, type = "int")
+
+
+# table
+tab_model(fit_comparison, emph.p = FALSE, 
+          ci.hyphen = ", ", show.std = TRUE)
+
+```
+
+
 
 
