@@ -670,7 +670,7 @@ fit_h3b_bootstraps <- task_level_data_exclusions %>%
   do(broom::tidy(lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negatiev, 
                     data = .)))
 
-fit_h3b_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
+fit_h3b_bootstraps %>%
   filter(term == "influence_rate_positive_negative") %>%
   summarize(median = quantile(as.numeric(estimate), 0.500),
             ci_lwr = quantile(as.numeric(estimate), 0.025),
