@@ -420,7 +420,6 @@ fit_comparison <- lm(abs(AMP_effect_positive_negative) ~ influence_rate * experi
 # plot
 plot_model(fit_comparison, type = "int")
 
-
 # table
 tab_model(fit_comparison, emph.p = FALSE, 
           ci.hyphen = ", ", show.std = TRUE)
