@@ -165,10 +165,14 @@ exp_3_trial_level <- read.csv("../../experiment 3/data/processed/trial_level_ia_
 exp_4_trial_level <- read.csv("../../experiment 4 pilot/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
   mutate(experiment = 4)
 
+exp_5_trial_level <- read.csv("../../experiment 5 pilot/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 5)
+
 combined_trial_level_data <- rbind(exp_1_trial_level, 
                                    exp_2_trial_level,
                                    exp_3_trial_level,
-                                   exp_4_trial_level) %>%
+                                   exp_4_trial_level,
+                                   exp_5_trial_level) %>%
   filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
   mutate(unique_id = paste(experiment, subject, sep = "_"),
          prime_type = dplyr::recode(prime_type,
