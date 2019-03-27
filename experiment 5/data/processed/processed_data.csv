@@ -41,7 +41,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 65902677,34,female,0.13,-0.2,-0.08,0.22,6,3,2,"Yes, use my data",,6,TRUE
 67840148,22,Female,0,0,0,0.02,7,1,1,"Yes, use my data",,1,TRUE
 68090154,59,Female,0.57,0.37,0.34,0.05,3,2,1,"Yes, use my data",,2,TRUE
-68993172,18 ,Male,0.1,0.1,0,0.1,7,2,1,"Yes, use my data",,2,TRUE
+68993172,18,Male,0.1,0.1,0,0.1,7,2,1,"Yes, use my data",,2,TRUE
 76153849,18,Male,0.7,0.73,0.73,0.12,6,4,2,"Yes, use my data",,2,TRUE
 78011892,27,male,0,0.13,-0.17,0.35,5,4,5,"Yes, use my data",,4,TRUE
 79039533,20,male,-0.07,0.67,-1,0.97,6,6,3,"Yes, use my data",,6,TRUE
@@ -82,7 +82,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 171053919,41,Female,0,0,0,0,7,1,7,"Yes, use my data",,1,TRUE
 172480377,38,Female,0.07,NA,NA,NA,7,2,1,"No, exclude my data (please specify why):",I don't think the .exe was working properly.,1,FALSE
 173195330,32,male ,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-173604659,28  ,Female,0.1,0.5,0.28,0.38,7,5,2,"Yes, use my data",,3,TRUE
+173604659,28,Female,0.1,0.5,0.28,0.38,7,5,2,"Yes, use my data",,3,TRUE
 178900360,22,female,0.17,0.47,0.36,0.18,7,3,2,"Yes, use my data",,2,TRUE
 179050802,43,male,0.07,-0.1,-0.1,0,7,1,1,"Yes, use my data",,1,TRUE
 179832241,23,Female,0,0,0,0.2,7,3,3,"Yes, use my data",,1,TRUE
@@ -330,7 +330,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 785761984,26,male,-0.07,0.1,-0.03,0.55,4,4,4,"No, exclude my data (please specify why):","The images were not presenting clearly. They were on the screen for about 0.1seconds, and then was followed by a black square with white dots. So I was unable to do the test. ",4,TRUE
 788517091,37,Male,0,0,0,0,1,1,1,"No, exclude my data (please specify why):",Something must have gone wrong here. I was just seeing black and white noise patterns with no visual appeal at all. I rated every single picture unappealing and the preceding picture had no influence at all. There was a momentary flash of a picture with a navy blue background and coloured stripes. Perhaps this was supposed to be displayed instead of the noise pattern.,1,TRUE
 788801514,32,female,-0.1,0.53,0.43,0.12,7,2,1,"Yes, use my data",,2,TRUE
-792625375,39 ,female,0.2,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+792625375,39,female,0.2,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 793290647,39,Male,0.33,0.07,0.06,0.08,7,2,1,"Yes, use my data",,2,TRUE
 794375296,18,Male,0.43,0.53,0.75,0.85,7,6,1,"No, exclude my data (please specify why):",I just felt like every single image presented before the painting meant I was not able to view the paintings nuetrally. The paintings were far harder to actually process mentally than the images presented before them. Even though I tried extremely hard to focus on the paintings I felt each image clouded my impression unintentionally,5,TRUE
 798288819,20,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
@@ -346,7 +346,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 824444440,53,male,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 824619681,23,female,0.67,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 825327997,24,Male,0.07,0.1,0,0.05,7,2,2,"Yes, use my data",,1,TRUE
-833363030,37 ,Male,-0.03,-0.13,0,0.87,4,3,4,"Yes, use my data",,4,TRUE
+833363030,37,Male,-0.03,-0.13,0,0.87,4,3,4,"Yes, use my data",,4,TRUE
 834362450,30,female,0.9,0.9,1,0.87,7,6,6,"Yes, use my data",,6,TRUE
 835934101,32,Male,-0.03,0.23,0.09,0.17,7,3,3,"Yes, use my data",,3,TRUE
 836810172,42,female,0.1,-0.07,-0.16,0.25,6,2,2,"Yes, use my data",,4,TRUE
@@ -375,7 +375,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 895346667,29,Male,0.5,0.77,0.71,0.18,3,3,3,"Yes, use my data",,1,TRUE
 898452413,50,female,-0.13,0.03,-0.19,0.22,7,2,2,"No, exclude my data (please specify why):",because to be honest the painting was the same throughout the survey so once i had decided upon m feeling for the painting there seamed little point to the trying to state how i felt about it ,2,TRUE
 898699104,21,male,0.17,0.3,-0.13,0.55,7,6,6,"Yes, use my data",,6,TRUE
-898951393,efe,fefe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+898951393,,fefe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 900653247,28,Male,0,0.23,-0.33,0.93,7,5,4,"Yes, use my data",,4,TRUE
 904062037,52,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
 904151564,33,female,0,0.2,0.2,0,7,1,7,"Yes, use my data",,1,TRUE
