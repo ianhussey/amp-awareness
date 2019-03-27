@@ -39,7 +39,7 @@ library(patchwork)
 library(lme4)
 
 # source for raincloud plots
-source("../geom_flat_violin.R")
+source("geom_flat_violin.R")
 
 # disable scientific notation
 options(scipen = 999) 
