@@ -147,26 +147,26 @@ tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```{r}
 
-# bootstrap estimates and CIs for key parameters
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_m1_boot <- bootMer(model_m1, 
-                         FUN = fixef,  
-                         nsim = 1000,
-                         parallel = "multicore")
-
-# write to disk given long runtime
-save(model_m1_boot, file = "data/models/model_m1_boot.RData")
-load("data/models/model_m1_boot.RData")
-
-# print results
-model_m1_boot %>%
-  as.data.frame() %>%
-  # exponentiate to convert log odds to odds
-  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
-            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
+# # bootstrap estimates and CIs for key parameters
+# # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+# model_m1_boot <- bootMer(model_m1, 
+#                          FUN = fixef,  
+#                          nsim = 1000,
+#                          parallel = "multicore")
+# 
+# # write to disk given long runtime
+# save(model_m1_boot, file = "data/models/model_m1_boot.RData")
+# load("data/models/model_m1_boot.RData")
+# 
+# # print results
+# model_m1_boot %>%
+#   as.data.frame() %>%
+#   # exponentiate to convert log odds to odds
+#   summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
+#             prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+#             prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+#   round_df(2) %>%
+#   gather()
 
 ```
 
@@ -209,26 +209,26 @@ tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```{r}
 
-# bootstrap estimates and CIs for key parameters
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_m2_boot <- bootMer(model_m2, 
-                         FUN = fixef,  
-                         nsim = 1000,
-                         parallel = "multicore")
-
-# write to disk given long runtime
-save(model_m2_boot, file = "data/models/model_m2_boot.RData")
-load("data/models/model_m2_boot.RData")
-
-# print results
-model_m2_boot %>%
-  as.data.frame() %>%
-  # exponentiate to convert log odds to odds
-  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
-            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
+# # bootstrap estimates and CIs for key parameters
+# # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+# model_m2_boot <- bootMer(model_m2, 
+#                          FUN = fixef,  
+#                          nsim = 1000,
+#                          parallel = "multicore")
+# 
+# # write to disk given long runtime
+# save(model_m2_boot, file = "data/models/model_m2_boot.RData")
+# load("data/models/model_m2_boot.RData")
+# 
+# # print results
+# model_m2_boot %>%
+#   as.data.frame() %>%
+#   # exponentiate to convert log odds to odds
+#   summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
+#             prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
+#             prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
+#   round_df(2) %>%
+#   gather()
 
 ```
 
@@ -280,24 +280,24 @@ tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 
 ```{r}
 
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_h1a_boot <- bootMer(model_h1a, 
-                          FUN = fixef,  
-                          nsim = 1000,
-                          parallel = "multicore")
-
-# write to disk given long runtime
-save(model_h1a_boot, file = "data/models/model_h1a_boot.RData")
-load("data/models/model_h1a_boot.RData")
-
-# print results
-model_h1a_boot %>%
-  as.data.frame() %>%
-  summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
-            prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
+# # apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
+# model_h1a_boot <- bootMer(model_h1a, 
+#                           FUN = fixef,  
+#                           nsim = 1000,
+#                           parallel = "multicore")
+# 
+# # write to disk given long runtime
+# save(model_h1a_boot, file = "data/models/model_h1a_boot.RData")
+# load("data/models/model_h1a_boot.RData")
+# 
+# # print results
+# model_h1a_boot %>%
+#   as.data.frame() %>%
+#   summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
+#             prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
+#             prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
+#   round_df(2) %>%
+#   gather()
 
 ```
 
@@ -376,17 +376,18 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
 ### Bootstrap estimates
 
 ```{r}
-fit_h2_bootstraps <- task_level_data_exclusions %>%
-  ungroup() %>%
-  broom::bootstrap(2000) %>%
-  do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate, 
-                    data = .)))
 
-fit_h2_bootstraps %>% 
-  filter(term == "influence_rate") %>%
-  summarize(median = quantile(as.numeric(estimate), 0.500),
-            ci_lwr = quantile(as.numeric(estimate), 0.025),
-            ci_upr = quantile(as.numeric(estimate), 0.975))
+# fit_h2_bootstraps <- task_level_data_exclusions %>%
+#   ungroup() %>%
+#   broom::bootstrap(2000) %>%
+#   do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate, 
+#                     data = .)))
+# 
+# fit_h2_bootstraps %>% 
+#   filter(term == "influence_rate") %>%
+#   summarize(median = quantile(as.numeric(estimate), 0.500),
+#             ci_lwr = quantile(as.numeric(estimate), 0.025),
+#             ci_upr = quantile(as.numeric(estimate), 0.975))
 
 ```
 
