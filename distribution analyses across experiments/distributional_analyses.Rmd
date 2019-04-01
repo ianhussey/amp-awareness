@@ -1,6 +1,6 @@
 ---
 title: "Distributional Analyses"
-author: "Jamie Cummins"
+author: "Jamie Cummins & Ian Hussey"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -17,7 +17,6 @@ output:
 
 knitr::opts_chunk$set(message = FALSE, 
                       warning = FALSE, 
-                      cache = TRUE,
                       echo = FALSE)
 
 ```
@@ -27,27 +26,27 @@ knitr::opts_chunk$set(message = FALSE,
 library(tidyverse)
 library(patchwork)
 
-exp_1_df <- read_csv("experiment 1/data/processed/processed_data.csv") %>%
+exp_1_df <- read_csv("../experiment 1/data/processed/processed_data.csv") %>%
   filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
   dplyr::mutate(experiment = "exp_1",
                 age = as.character(age))
 
-exp_2_df <- read_csv("experiment 2/data/processed/processed_data.csv") %>%
+exp_2_df <- read_csv("../experiment 2/data/processed/processed_data.csv") %>%
   filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
   dplyr::mutate(experiment = "exp_2",
                 age = as.character(age))
 
-exp_3_df <- read_csv("experiment 3/data/processed/processed_data.csv") %>%
+exp_3_df <- read_csv("../experiment 3/data/processed/processed_data.csv") %>%
   filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
   dplyr::mutate(experiment = "exp_3",
                 age = as.character(age))
 
-exp_4_df <- read_csv("experiment 4/data/processed/processed_data.csv") %>%
+exp_4_df <- read_csv("../experiment 4/data/processed/processed_data.csv") %>%
   filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
   dplyr::mutate(experiment = "exp_4",
                 age = as.character(age))
 
-exp_5_df <- read_csv("experiment 5/data/processed/processed_data.csv") %>%
+exp_5_df <- read_csv("../experiment 5/data/processed/processed_data.csv") %>%
   filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
   dplyr::mutate(experiment = "exp_5",
                 age = as.character(age))
@@ -65,6 +64,7 @@ combined_all_exps <- bind_rows(exp_1_df, exp_2_df, exp_3_df, exp_4_df, exp_5_df)
 Distribution of IA-AMP effect in Experiment 1 appears somewhat bimodal. Shape is descriptively similar to that of Mann et al.'s findings.
 
 ```{r}
+
 ggplot(exp_1_df, aes(IA_AMP_effect_positive_negative)) +
   geom_density(adjust = .5) +
   labs(x = "IA-AMP effect", title = "Density plot: Experiment 1") +
@@ -209,6 +209,10 @@ ks.test(exp_2_df$AMP_effect_positive_negative, exp_5_df$AMP_effect_positive_nega
 
 ## IA AMP
 
+# Other comparisons between exp 2 and 5 (regular vs Mann AMPs)
+
+## Differences in AMP effect distribution between regular vs Mann AMPs:
+
 ```{r}
 
 ggplot(combined_exps_2_and_5, aes(IA_AMP_effect_positive_negative, fill = experiment)) +
@@ -221,24 +225,43 @@ ks.test(exp_2_df$IA_AMP_effect_positive_negative, exp_5_df$IA_AMP_effect_positiv
 
 ```
 
+## Differences in influence rates between regular and Mann AMPs:
 
 ```{r}
 
-joined_temp <- exp_2_df %>%
-  rbind(exp_5_df) %>%
-  mutate(exp = c(rep(2, nrow(exp_2_df)), rep(5, nrow(exp_5_df))))
+library(broom)
 
-temp_fit <- lm(IA_AMP_effect_positive_negative ~ influence_rate * exp,
+joined_temp <- exp_2_df %>%
+  rbind(exp_5_df) 
+
+t.test(influence_rate ~ experiment,
+                   data = joined_temp) %>%
+  tidy()
+
+```
+
+## Differences in moderation of the AMP effect between regular and Mann AMPs:
+
+```{r}
+
+library(sjPlot)
+
+temp_fit <- lm(IA_AMP_effect_positive_negative ~ influence_rate * experiment,
                data = joined_temp)
 tab_model(temp_fit, show.std = TRUE)
 plot_model(temp_fit, type = "int")
 
 ```
 
+## IA AMP effect predicts AMP effect
+
 ```{r}
-temp_fit <- lm(AMP_effect_positive_negative ~
-                 IA_AMP_effect_positive_negative * exp,
+
+cor.test(joined_temp$IA_AMP_effect_positive_negative, joined_temp$AMP_effect_positive_negative)
+
+temp_fit <- lm(AMP_effect_positive_negative ~ IA_AMP_effect_positive_negative * experiment,
                data = joined_temp)
 tab_model(temp_fit, show.std = TRUE)
 plot_model(temp_fit, type = "int")
+
 ```
