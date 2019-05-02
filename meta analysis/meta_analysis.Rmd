@@ -146,7 +146,19 @@ meta_analysis_workflow <- function(data, effect_size_label, reference_line, exp_
 # get data
 
 combined_participant_level_data <- read.csv("data/combined_participant_level_data.csv")
-combined_trial_level_data <- read.csv("data/combined_trial_level_data.csv")
+
+combined_trial_level_data <- read.csv("data/combined_trial_level_data.csv") %>%
+  mutate(influenced = case_when(influenced == 1 ~ 0,
+                                influenced == 0 ~ 1))
+
+long_participant_level_data <- 
+  combined_participant_level_data %>%
+  filter(experiment != 1 & experiment != 4) %>%
+  select(unique_id, experiment, AMP_effect_positive_negative,
+         AMP_effect_obama_trump, influence_rate) %>%
+  gather(AMP_type, AMP_effect, 
+         AMP_effect_positive_negative:AMP_effect_obama_trump) %>%
+  na.omit()
 
 ```
 
@@ -351,6 +363,30 @@ results_for_meta_analysis_2 <- rbind(
 
 # meta analyse results
 meta_results_2 <- meta_analysis_workflow(data              = results_for_meta_analysis_2, 
+                                         effect_size_label = "Beta",
+                                         reference_line    = 0)
+
+```
+
+- Meta analysis: `r meta_results_2$meta_analysis_results_text`
+- Heterogeneity tests: `r meta_results_2$heterogeneity_test_results_text`
+
+### Traditional AMP effect ~ influence 
+
+```{r}
+
+formula <- as.formula("AMP_effect_positive_negative ~ influence_rate")
+effect  <- "influence_rate"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_5 <- rbind(,
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 2, formula = formula, effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 3, formula = formula, effect = effect),,
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 5, formula = formula, effect = effect)
+)
+
+# meta analyse results
+meta_results_5 <- meta_analysis_workflow(data              = results_for_meta_analysis_5, 
                                          effect_size_label = "Beta",
                                          reference_line    = 0)
 
