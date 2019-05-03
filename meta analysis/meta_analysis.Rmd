@@ -312,6 +312,61 @@ combined_participant_level_data %>%
 
 ```
 
+### Do rates of influence correlate with any demographic variables?
+
+```{r}
+# by gender
+gender_comparison <- combined_participant_level_data %>%
+  filter(gender != "other")
+
+# test
+t.test(influence_rate ~ gender, data = gender_comparison)
+
+# plot
+gender_comparison %>%
+  group_by(gender) %>%
+  summarise(mean = mean(influence_rate),
+            sd= sd(influence_rate)) %>%
+  ggplot(aes(gender, mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) +
+  labs(x = "gender", y = "mean influence rate") +
+  theme_classic()
+
+
+# by age
+# test
+cor.test(combined_participant_level_data$age,
+         combined_participant_level_data$influence_rate)
+
+# plot
+ggplot(combined_participant_level_data, aes(age, influence_rate)) +
+  geom_smooth(method = "lm") +
+  geom_point() +
+  theme_classic()
+
+
+# by politics
+party_comparison <- combined_participant_level_data %>%
+  filter(!(is.na(party))) %>%
+  filter(party != "neither/moderate")
+
+# test
+t.test(influence_rate ~ party, data = party_comparison)
+
+# plot
+party_comparison %>%
+  group_by(party) %>%
+  summarise(mean = mean(influence_rate),
+            sd= sd(influence_rate)) %>%
+  ggplot(aes(party, mean)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd)) +
+  labs(x = "political party", y = "mean influence rate") +
+  theme_classic()
+
+```
+
 ### IA-AMP effect
 
 ```{r}

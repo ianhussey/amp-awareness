@@ -55,7 +55,17 @@ combined_participant_level_data <- bind_rows(exp_1, exp_2, exp_3, exp_4, exp_5) 
   mutate(influence_rate = ifelse(is.na(influence_rate), 
                                  influence_rate_positive_negative, influence_rate)) %>%
   mutate(unique_id = paste(experiment, subject, sep = "_")) %>%
-  dplyr::select(unique_id, experiment,
+  mutate(gender = case_when(str_detect(gender, "F") ~ "female",
+                            str_detect(gender, "f") ~ "female",
+                            str_detect(gender, "Female") ~ "female",
+                            str_detect(gender, "W") ~ "female",
+                            str_detect(gender, "w") ~ "female",
+                            str_detect(gender, "M") ~ "male",
+                            str_detect(gender, "m") ~ "male",
+                            str_detect(gender, "Male") ~ "male",
+                            TRUE ~ "other")) %>%
+  mutate(age = as.numeric(age)) %>%
+  dplyr::select(unique_id, age, gender, party, politics, experiment,
                 AMP_effect_positive_negative, AMP_effect_obama_trump, 
                 IA_AMP_effect_positive_negative, 
                 influence_rate, influence_general,
