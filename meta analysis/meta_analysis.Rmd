@@ -330,7 +330,8 @@ gender_comparison <- combined_participant_level_data %>%
   filter(gender != "other")
 
 # test
-t.test(influence_rate ~ gender, data = gender_comparison)
+t.test(influence_rate ~ gender, data = gender_comparison,
+       var.eq = TRUE)
 
 # plot
 gender_comparison %>%
@@ -395,6 +396,7 @@ results_for_meta_analysis_0 <- rbind(
 meta_results_0 <- meta_analysis_workflow(data              = results_for_meta_analysis_0, 
                                          effect_size_label = "Beta",
                                          reference_line    = 0)
+
 ```
 - Meta analysis: `r meta_results_0$meta_analysis_results_text`
 - Heterogeneity tests: `r meta_results_0$heterogeneity_test_results_text`
