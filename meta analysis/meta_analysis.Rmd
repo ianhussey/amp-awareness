@@ -375,14 +375,14 @@ meta_results_2 <- meta_analysis_workflow(data              = results_for_meta_an
 
 ```{r}
 
-formula <- as.formula("AMP_effect_positive_negative ~ influence_rate")
+formula <- as.formula("AMP_effect ~ influence_rate")
 effect  <- "influence_rate"
 
 # apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_5 <- rbind(,
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 2, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 3, formula = formula, effect = effect),,
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 5, formula = formula, effect = effect)
+results_for_meta_analysis_5 <- rbind(
+  fit_lm_model_and_extract_effect(data = long_participant_level_data, experiment_n = 2, formula = formula, effect = effect),
+  fit_lm_model_and_extract_effect(data = long_participant_level_data, experiment_n = 3, formula = formula, effect = effect),
+  fit_lm_model_and_extract_effect(data = long_participant_level_data, experiment_n = 5, formula = formula, effect = effect)
 )
 
 # meta analyse results
