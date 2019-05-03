@@ -242,6 +242,26 @@ posneg_IA_AMP_effect <- posneg_IA_AMP_cleaned %>%
   mutate(IA_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
   select(subject, IA_AMP_effect_positive_negative) 
 
+# score uninfluenced amp effect
+posneg_IA_AMP_uninfluenced_effect <- posneg_IA_AMP_cleaned %>%
+  filter(influenced == 0) %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(IA_AMP_uninfluenced_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, IA_AMP_uninfluenced_effect_positive_negative) 
+
+# score influenced amp effect
+posneg_IA_AMP_influenced_effect <- posneg_IA_AMP_cleaned %>%
+  filter(influenced == 1) %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(IA_AMP_influenced_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, IA_AMP_influenced_effect_positive_negative) 
+
 # score influence rates
 posneg_IA_AMP_influence_rate <- posneg_IA_AMP_cleaned %>%
   group_by(subject) %>%
@@ -250,7 +270,9 @@ posneg_IA_AMP_influence_rate <- posneg_IA_AMP_cleaned %>%
 
 posneg_IA_AMP_data <- full_join(posneg_IA_AMP_effect, 
                                 posneg_IA_AMP_influence_rate, 
-                                by = "subject")
+                                by = "subject") %>%
+  full_join(posneg_IA_AMP_influenced_effect, by = "subject") %>%
+  full_join(posneg_IA_AMP_uninfluenced_effect, by = "subject") 
 
 ```
 

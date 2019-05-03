@@ -58,7 +58,9 @@ combined_participant_level_data <- bind_rows(exp_1, exp_2, exp_3, exp_4, exp_5) 
   dplyr::select(unique_id, experiment,
                 AMP_effect_positive_negative, AMP_effect_obama_trump, 
                 IA_AMP_effect_positive_negative, 
-                influence_rate, influence_general)
+                influence_rate, influence_general,
+                IA_AMP_uninfluenced_effect_positive_negative,
+                IA_AMP_influenced_effect_positive_negative)
 
 # write to disk 
 write_csv(combined_participant_level_data, "combined_participant_level_data.csv")
