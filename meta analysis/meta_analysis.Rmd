@@ -266,7 +266,34 @@ grid::grid.draw(p2)
 
 ## Participant level analyses
 
-### Means for influenced and uninfluenced IA-AMP effects
+### Descriptive statistics
+
+#### (rates of) rates of influence
+
+```{r}
+# mean and sd for influence rates
+combined_participant_level_data %>%
+  summarise(mean_influence_rate = mean(influence_rate),
+            sd_influence_rate = sd(influence_rate))
+
+# proportion of participants with influences rates...
+total_participants <- nrow(combined_participant_level_data)
+less_than_25 <- filter(combined_participant_level_data,
+                       influence_rate < .25) %>%
+  nrow()
+more_than_75 <- filter(combined_participant_level_data,
+                       influence_rate > .75)%>%
+  nrow()
+
+# ...less than 25%
+less_than_25 / total_participants
+
+# ...greater than 75%
+more_than_75 / total_participants
+
+```
+
+#### Means for influenced and uninfluenced IA-AMP effects
 
 ```{r}
 combined_participant_level_data %>%
