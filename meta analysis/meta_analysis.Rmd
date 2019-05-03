@@ -392,8 +392,8 @@ meta_results_5 <- meta_analysis_workflow(data              = results_for_meta_an
 
 ```
 
-- Meta analysis: `r meta_results_2$meta_analysis_results_text`
-- Heterogeneity tests: `r meta_results_2$heterogeneity_test_results_text`
+- Meta analysis: `r meta_results_5$meta_analysis_results_text`
+- Heterogeneity tests: `r meta_results_5$heterogeneity_test_results_text`
 
 #### Plot raw data
 
