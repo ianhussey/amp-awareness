@@ -160,6 +160,16 @@ long_participant_level_data <-
          AMP_effect_positive_negative:AMP_effect_obama_trump) %>%
   na.omit()
 
+different_domains_data <- combined_participant_level_data %>%
+  filter(experiment == 3 | experiment == 4) %>%
+  select(unique_id, experiment, IA_AMP_effect_positive_negative,
+         AMP_effect_obama_trump,  IA_AMP_effect_obama_trump) %>%
+  gather(amp_type, AMP_effect_politics, 
+         IA_AMP_effect_obama_trump:AMP_effect_obama_trump) %>%
+  na.omit() %>%
+  select(-amp_type) %>%
+  mutate(AMP_effect_politics = abs(AMP_effect_politics))
+
 ```
 
 # Correlation between online and offline influence rates
@@ -366,6 +376,29 @@ party_comparison %>%
   theme_classic()
 
 ```
+
+### Do unrelated AMP effects correlate?
+
+```{r}
+formula <- as.formula("IA_AMP_effect_positive_negative ~ AMP_effect_politics")
+effect  <- "AMP_effect_politics"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_0 <- rbind(
+  fit_lm_model_and_extract_effect(data = different_domains_data, 
+                                  experiment_n = 3, formula = formula, effect = effect),
+  fit_lm_model_and_extract_effect(data =  different_domains_data, 
+                                  experiment_n = 4, formula = formula, effect = effect)
+)
+
+# meta analyse results
+meta_results_0 <- meta_analysis_workflow(data              = results_for_meta_analysis_0, 
+                                         effect_size_label = "Beta",
+                                         reference_line    = 0)
+```
+- Meta analysis: `r meta_results_0$meta_analysis_results_text`
+- Heterogeneity tests: `r meta_results_0$heterogeneity_test_results_text`
+
 
 ### IA-AMP effect
 
