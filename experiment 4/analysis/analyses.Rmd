@@ -446,7 +446,7 @@ refactored_influenced <- task_level_data_exclusions %>%
 
 # test
 t.test(IA_AMP_effect_obama_trump_influenced ~ party,
-       data = refactored_influenced)
+       data = refactored_influenced, var.equal = TRUE)
 
 # Cohen's d
 effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
@@ -466,8 +466,7 @@ refactored_uninfluenced <- task_level_data_exclusions %>%
 
 # test
 t.test(IA_AMP_effect_obama_trump_uninfluenced ~ party,
-       family = binomial,
-       data = refactored_uninfluenced)
+       data = refactored_uninfluenced, var.equal = TRUE)
 
 # Cohen's d
 effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
