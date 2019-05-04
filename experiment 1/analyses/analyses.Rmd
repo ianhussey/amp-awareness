@@ -158,7 +158,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
   theme_classic()
 
 # results table
-tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
