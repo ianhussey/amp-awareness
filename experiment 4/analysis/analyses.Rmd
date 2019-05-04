@@ -120,6 +120,12 @@ plot_model(model_m1, type = "pred", terms = c("prime_type"))
 # results table
 tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
+# extract OR
+OR_m1 <- exp(fixef(model_m1))
+
+# convert OR to D
+timesavers::OR_to_d(OR_m1)
+
 ```
 
 ## M2: Demonstate an AMP effect on the politics IA AMP
@@ -138,6 +144,12 @@ plot_model(model_m2, type = "pred", terms = c("prime_type"))
 
 # results table
 tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR
+OR_m2 <- exp(fixef(model_m2))
+
+# convert OR to D
+timesavers::OR_to_d(OR_m2)
 
 ```
 
@@ -166,6 +178,12 @@ plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
 tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR
+OR_h1a <- exp(fixef(model_h1a))
+
+# convert OR to D
+timesavers::OR_to_d(OR_h1a)
 
 ```
 
@@ -225,6 +243,12 @@ plot_model(model_h2a_1, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h2a_1, emph.p = FALSE, ci.hyphen = ", ")
 
+# extract OR
+OR_h2a_1 <- exp(fixef(model_h2a_1))
+
+# convert OR to D
+timesavers::OR_to_d(OR_h2a_1)
+
 ```
 
 #### 2. At the participant level
@@ -281,6 +305,12 @@ plot_model(model_h2b_1, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
 tab_model(model_h2b_1, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR
+OR_h2b_1 <- exp(fixef(model_h2b_1))
+
+# convert OR to D
+timesavers::OR_to_d(OR_h2b_1)
 
 ```
 
