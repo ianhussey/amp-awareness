@@ -96,6 +96,12 @@ plot_model(model_m1, type = "pred", terms = c("prime_type"))
 # results table
 tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
+# extract OR
+OR_m1 <- exp(fixef(model_m1))
+
+# convert OR to D
+timesavers::OR_to_d(OR_m1)
+
 ```
 
 ## M2: Demonstate an AMP effect on the IA AMP
@@ -115,6 +121,12 @@ plot_model(model_m2, type = "pred", terms = c("prime_type"))
 # results table
 tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
 
+# extract OR
+OR_m2 <- exp(fixef(model_m2))
+
+# convert OR to D
+timesavers::OR_to_d(OR_m2)
+
 ```
 
 # Hypothesis tests
@@ -130,7 +142,7 @@ Key effect: influence*prime_type interaction
 ```{r}
 
 # model
-model_h1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
                    family = binomial(link = "logit"),
                    data = trial_level_ia_amp_data_exclusions)
 
@@ -138,7 +150,13 @@ model_h1 <- glmer(rating ~ influenced * prime_type + (1 | subject),
 plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
-tab_model(model_h1, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR
+OR_h1a <- exp(fixef(model_h1a))
+
+# convert OR to D
+timesavers::OR_to_d(OR_h1a)
 
 ```
 
