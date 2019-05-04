@@ -225,7 +225,7 @@ combined_exps_2_and_5 <- bind_rows(exp_2_df, exp_5_df)
 
 
 # model
-fit_comparison <- lm(abs(AMP_effect_positive_negative) ~ influence_rate * experiment, 
+fit_comparison <- lm(AMP_effect_positive_negative ~ influence_rate * experiment, 
                     data = combined_exps_2_and_5)
 
 # plot
@@ -234,6 +234,9 @@ plot_model(fit_comparison, type = "int")
 # table
 tab_model(fit_comparison, emph.p = FALSE, 
           ci.hyphen = ", ", show.std = TRUE)
+
+# Bayes factor
+BayesFactor::generalTestBF(AMP_effect_positive_negative ~ influence_rate * experiment, data = combined_exps_2_and_5)
 
 ```
 
