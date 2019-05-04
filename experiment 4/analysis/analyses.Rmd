@@ -12,22 +12,6 @@ output:
     toc_float: yes
 ---
 
-# Notes to Ian:
-1. Your fourth point in the to-do list - can you double-check that you think something's off? Everything looks ok to me. Could you flag which analyses you think are off if you still find issues? 
-2. Which Ruscio's A?
-3. Do we have any reason for why we used 2000 comparisons in the bootstrap for H4?
-
-
-# To do
-4. H2, H3, H4, H6 all need scrutiny, either analyses are off or effects were not replicated/results are not as expected. In the latter case, this seems to run contrary to previous analysis implementations. - Think you might have misinterpreted this Ian, all looks good to me?
-
-# Notes
-
-1. When the DV is binary, we include a predicted probability for the model. This can be a useful addition to R^2.
-2. The mixed effects models applied to trial level AMP data are more powerful and are used for hypothesis testing. However, for the sake of familiarity (with the method and similarity to previous published work) we also calculate participant level AMP effect (i.e., sum of positive prime trials rated as positive minus sum of negative prime trials rated as negative) and the analyse these for some central hypotheses, for the sake of familiarity. This could be done for all analyses of AMP data (e.g., manipulation checks), but for brevity's sake we only do it for key hypotheses.
-3. We bootstrap estimates and CIs for the key parameters in key hypotheses, to increase robustness. 
-4. Redistribute wealth and data
-
 ```{r include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, 
@@ -53,50 +37,6 @@ library(kableExtra)
 # devtools::install_github("ianhussey/timesavers")  
 library(timesavers)  # for round_df()
 library(bootES)
-
-# functions
-## Logistic model performance: probability of superiority
-ruscios_A <- function(variable, group, data, value1 = 1, value2 = 0) {
-  # Ensure data is a data frame (e.g., not a tbl_data)
-  data <- as.data.frame(data)
-  # Select the observations for group 1
-  x <- data[data[[group]] == value1, variable]
-  # Select the observations for group 2
-  y <- data[data[[group]] == value2, variable]
-  # Matrix with difference between XY for all pairs (Guillaume Rousselet's suggestion)
-  m <- outer(x, y, FUN = "-")
-  # Convert to booleans; count ties as half true.
-  m <- ifelse(m == 0, 0.5, m > 0)
-  # Return proportion of TRUEs
-  ruscios_A <- round(mean(m), 3)
-  return(as.numeric(ruscios_A))
-}
-
-# # version with CIs - computationally intensive
-# ruscios_A_boot <- function(data, variable, group, value1 = 1, value2 = 0, B = 1000) {
-#   require(tidyverse)
-#   require(broom)
-#   ruscios_A_results <- data %>%
-#     ruscios_A(variable = variable,
-#               group = group,
-#               value1 = value1,
-#               value2 = value2,
-#               data = .)
-#   
-#   ruscios_A_boot_results <- data %>%
-#     broom::bootstrap(B) %>%
-#     do(broom::tidy(ruscios_A(variable = variable,
-#                              group = group,
-#                              value1 = value1,
-#                              value2 = value2,
-#                              data = .))) %>%
-#     ungroup() %>%
-#     dplyr::summarize(AUC_ci_lwr = round(quantile(x, 0.025, na.rm = TRUE), 3),
-#                      AUC_ci_upr = round(quantile(x, 0.975, na.rm = TRUE), 3)) %>%
-#     mutate(AUC_estimate = ruscios_A_results)
-#   
-#   return(ruscios_A_boot_results)
-# }
 
 # get data 
 task_level_data <- read.csv("../data/processed/processed_data.csv")
@@ -182,50 +122,6 @@ tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-### Bootstrap estimates for key parameters
-
-```{r}
-
-# bootstrap estimates and CIs for key parameters
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_m1_boot <- bootMer(model_m1, 
-                         FUN = fixef,  
-                         nsim = 1000,
-                         parallel = "multicore")
-
-# write to disk given long runtime
-save(model_m1_boot, file = "data/models/model_m1a_boot.RData")
-load("data/models/model_m1a_boot.RData")
-
-# print results
-model_m1_boot %>%
-  as.data.frame() %>%
-  # exponentiate to convert log odds to odds
-  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
-            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
-
-```
-
-### Model performance
-
-```{r}
-
-# add model predictions back to the original data frame
-trial_level_posneg_ia_amp_data_exclusions$m1_predicted_probability <- 
-  predict(model_m1, type = "response")
-
-# predicted probability
-m1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
-                   variable = "m1_predicted_probability", 
-                   group = "rating")
-
-```
-
-Model predicted probability = `r m1_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
-
 ## M2: Demonstate an AMP effect on the politics IA AMP
 
 ### Fit model
@@ -245,49 +141,6 @@ tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-### Bootstrap estimates for key parameters
-
-```{r}
-
-# bootstrap estimates and CIs for key parameters
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_m2_boot <- bootMer(model_m2, 
-                         FUN = fixef,  
-                         nsim = 1000,
-                         parallel = "multicore")
-
-# write to disk given long runtime
-save(model_m2_boot, file = "data/models/model_m1a_boot.RData")
-load("data/models/model_m1a_boot.RData")
-
-# print results
-model_m2_boot %>%
-  as.data.frame() %>%
-  # exponentiate to convert log odds to odds
-  summarize(prime_type_OR_median = quantile(exp(prime_type), 0.500, na.rm = TRUE),  
-            prime_type_OR_lwr    = quantile(exp(prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
-
-```
-
-### Model performance
-
-```{r}
-
-# add model predictions back to the original data frame
-trial_level_posneg_ia_amp_data_exclusions$m1_predicted_probability <- 
-  predict(model_m2, type = "response")
-
-# predicted probability
-m2_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
-                   variable = "m1_predicted_probability", 
-                   group = "rating")
-
-```
-
-Model predicted probability = `r m2_pp`. In this case this is the probability that a randomly selected trial preceeded by a positive prime was evaluated more positively than a randomly selected negative prime.
 
 # Hypothesis tests
 
@@ -316,47 +169,6 @@ tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-#### Bootstrap estimates for key parameters
-
-```{r}
-
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_h1a_boot <- bootMer(model_h1a, 
-                          FUN = fixef,  
-                          nsim = 1000,
-                          parallel = "multicore")
-
-# write to disk given long runtime
-save(model_h1a_boot, file = "data/models/model_h1a_boot.RData")
-load("data/models/model_h1a_boot.RData")
-
-# print results
-model_h1a_boot %>%
-  as.data.frame() %>%
-  summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
-            prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
-
-```
-
-#### Model performance
-
-```{r}
-
-# add model predictions back to the original data frame
-trial_level_politics_ia_amp_data_exclusions$h1a_predicted_probability <- 
-  predict(model_h1a, type = "response")
-
-# predicted probability
-h1a_pp <- ruscios_A(data = trial_level_politics_ia_amp_data_exclusions, 
-                    variable = "h1a_predicted_probability", 
-                    group = "rating") 
-
-```
-
-Model predicted probability = `r h1a_pp`.
 
 ### H1b: at the participant level
 
@@ -415,48 +227,6 @@ tab_model(model_h2a_1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-#### Bootstrap estimates for key parameters
-
-```{r}
-
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_h2a_1_boot <- bootMer(model_h2a_1, 
-                          FUN = fixef,  
-                          nsim = 1000,
-                          parallel = "multicore")
-
-# write to disk given long runtime
-save(model_h2a_1_boot, file = "data/models/model_h2a_boot.RData")
-load("data/models/model_h2a_1_boot.RData")
-
-# print results
-model_h2a_1_boot %>%
-  as.data.frame() %>%
-  summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
-            prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
-
-```
-
-#### Model performance
-
-```{r}
-
-# add model predictions back to the original data frame
-trial_level_politics_ia_amp_data_exclusions$h2a_1_predicted_probability <- 
-  predict(model_h2a_1, type = "response")
-
-# predicted probability
-h2a_1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
-                    variable = "h2a_1_predicted_probability", 
-                    group = "rating") 
-
-```
-
-Model predicted probability = `r h2a_1_pp`.
-
 #### 2. At the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
@@ -513,48 +283,6 @@ plot_model(model_h2b_1, type = "pred", terms = c("influenced", "prime_type"))
 tab_model(model_h2b_1, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
-
-#### Bootstrap estimates for key parameters
-
-```{r}
-
-# apply fixef() to the output of each boot to get fixed effects, save only this to the data frame
-model_h2b_1_boot <- bootMer(model_h2b_1, 
-                          FUN = fixef,  
-                          nsim = 1000,
-                          parallel = "multicore")
-
-# write to disk given long runtime
-save(model_h2b_1_boot, file = "data/models/model_h2a_boot.RData")
-load("data/models/model_h2b_1_boot.RData")
-
-# print results
-model_h2b_1_boot %>%
-  as.data.frame() %>%
-  summarize(prime_type_OR_median = quantile(exp(influenced:prime_type), 0.500, na.rm = TRUE),  # exponentiate to convert log odds to odds ratios
-            prime_type_OR_lwr    = quantile(exp(influenced:prime_type), 0.025, na.rm = TRUE),
-            prime_type_OR_upr    = quantile(exp(influenced:prime_type), 0.975, na.rm = TRUE)) %>%
-  round_df(2) %>%
-  gather()
-
-```
-
-#### Model performance
-
-```{r}
-
-# add model predictions back to the original data frame
-trial_level_posneg_ia_amp_data_exclusions$h2b_1_predicted_probability <- 
-  predict(model_h2b_1, type = "response")
-
-# predicted probability
-h2b_1_pp <- ruscios_A(data = trial_level_posneg_ia_amp_data_exclusions, 
-                    variable = "h2b_1_predicted_probability", 
-                    group = "rating") 
-
-```
-
-Model predicted probability = `r h2b_1_pp`.
 
 #### 2. At the participant level
 
@@ -615,23 +343,6 @@ tab_model(fit_h3a, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
-### Bootstrap estimates
-
-```{r}
-fit_h3a_bootstraps <- task_level_data_exclusions %>%
-  ungroup() %>%
-  broom::bootstrap(2000) %>%
-  do(broom::tidy(lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
-                    data = .)))
-
-fit_h3a_bootstraps %>% ### Ian, I think this solution works, but I need you to check it out for me
-  filter(term == "influence_rate_obama_trump") %>%
-  summarize(median = quantile(as.numeric(estimate), 0.500),
-            ci_lwr = quantile(as.numeric(estimate), 0.025),
-            ci_upr = quantile(as.numeric(estimate), 0.975))
-
-```
-
 ### H3b: Pos-neg influence rate, politics effect size
 
 If the positive-negative IA AMP's influence rate predicts the (previously completed) politics IA-AMP's effect then this implies that the rate of influence is reliable within participants/across IA AMPs.
@@ -661,24 +372,6 @@ tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
-### Bootstrap estimates
-
-```{r}
-fit_h3b_bootstraps <- task_level_data_exclusions %>%
-  ungroup() %>%
-  broom::bootstrap(2000) %>%
-  do(broom::tidy(lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negatiev, 
-                    data = .)))
-
-fit_h3b_bootstraps %>%
-  filter(term == "influence_rate_positive_negative") %>%
-  summarize(median = quantile(as.numeric(estimate), 0.500),
-            ci_lwr = quantile(as.numeric(estimate), 0.025),
-            ci_upr = quantile(as.numeric(estimate), 0.975))
-
-```
-
-
 ## H4: Influence rates correlate between IA-AMPs across different domains
 
 If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
@@ -692,18 +385,6 @@ cor.test(task_level_data_exclusions$influence_rate_obama_trump,
          task_level_data_exclusions$influence_rate_positive_negative,
          paired = TRUE) %>% 
   tidy()
-
-# bootstrap estimates
-task_level_data_exclusions %>%
-  broom::bootstrap(2000) %>%
-  do(r = cor.test(.$influence_rate_obama_trump,
-                  .$influence_rate_positive_negative,
-                  paired = TRUE)$estimate) %>%
-  ungroup() %>%
-  mutate(r = as.numeric(r)) %>%
-  dplyr::summarize(r_median = round(quantile(r, 0.500, na.rm = TRUE), 3),
-                   r_ci_lwr = round(quantile(r, 0.025, na.rm = TRUE), 3),
-                   r_ci_upr = round(quantile(r, 0.975, na.rm = TRUE), 3))
 
 # plot
 ggplot(task_level_data_exclusions, 
@@ -736,22 +417,6 @@ t.test(IA_AMP_effect_obama_trump_influenced ~ party,
 effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
                  data = refactored_influenced)
 
-fit_influenced <- refactored_influenced %>%
-  bootES(.,
-         R = 2000,
-         data.col = "IA_AMP_effect_obama_trump_influenced",
-         group.col = "party",
-         contrast = c(A = "republican", B = "democrat"),
-         effect.type = "cohens.d",
-         ci.type = "bca",
-         ci.conf = 0.95)
-
-
-data.frame(cohens_d = round(fit_influenced$t0,        2),
-           se       = round(sd(fit_influenced$t),     2),
-           ci_lwr   = round(fit_influenced$bounds[1], 2),
-           ci_upr   = round(fit_influenced$bounds[2], 2))
-
 ```
 
 ### Group membership predicting AMP effect from uninfluenced trials
@@ -773,19 +438,5 @@ t.test(IA_AMP_effect_obama_trump_uninfluenced ~ party,
 effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
                  data = refactored_uninfluenced)
 
-fit_uninfluenced <- refactored_uninfluenced %>%
-  bootES(.,
-         R = 2000,
-         data.col = "IA_AMP_effect_obama_trump_uninfluenced",
-         group.col = "party",
-         contrast = c(A = "republican", B = "democrat"),
-         effect.type = "cohens.d",
-         ci.type = "bca",
-         ci.conf = 0.95)
-
-data.frame(cohens_d = round(fit_uninfluenced$t0,        2),
-           se       = round(sd(fit_uninfluenced$t),     2),
-           ci_lwr   = round(fit_uninfluenced$bounds[1], 2),
-           ci_upr   = round(fit_uninfluenced$bounds[2], 2))
 
 ```
