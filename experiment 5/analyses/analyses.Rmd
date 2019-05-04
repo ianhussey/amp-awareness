@@ -244,8 +244,8 @@ full_model <- BayesFactor::lmBF(AMP_effect_positive_negative ~ influence_rate + 
 no_interaction_model <- BayesFactor::lmBF(AMP_effect_positive_negative ~ influence_rate + experiment, data = combined_exps_2_and_5)
 
 
-# Bayes Factor
-full_model / no_interaction_model
+# BF01
+1 / (full_model / no_interaction_model)
 
 ```
 
