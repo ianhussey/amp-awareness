@@ -190,7 +190,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
   theme_classic()
 
 # results table
-tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
@@ -217,7 +217,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positiv
   theme_classic()
 
 # table
-tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
@@ -231,13 +231,13 @@ Does influence rate differentially predict AMP effects between the Mann AMP and 
 # bring in exp 2 data
 exp_2_df <- read_csv("../../experiment 2/data/processed/processed_data.csv") %>%
   filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::mutate(experiment = "exp_2",
-                age = as.character(age))
+  dplyr::mutate(experiment = "exp_2") %>%
+  select(subject, AMP_effect_positive_negative, influence_rate, experiment)
 
 # mutate eperiment column for exp 5 data
 exp_5_df <- task_level_data_exclusions %>%
-  dplyr::mutate(experiment = "exp_5",
-                age = as.character(age))
+  dplyr::mutate(experiment = "exp_5") %>%
+  select(subject, AMP_effect_positive_negative, influence_rate, experiment)
 
 # create new df combining experiment 2 and 5 data
 combined_exps_2_and_5 <- bind_rows(exp_2_df, exp_5_df)
