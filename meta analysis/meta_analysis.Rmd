@@ -1,6 +1,6 @@
 ---
 title: "Meta analysis"
-author: "Ian Hussey"
+author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -276,7 +276,6 @@ grid::grid.draw(p2)
 
 ## Participant level analyses
 
-<<<<<<< HEAD
 ### Descriptive statistics
 
 #### (rates of) rates of influence
@@ -403,8 +402,6 @@ meta_results_0 <- meta_analysis_workflow(data              = results_for_meta_an
 - Heterogeneity tests: `r meta_results_0$heterogeneity_test_results_text`
 
 
-=======
->>>>>>> parent of 532ddee... adding in influenced and uninfluenced scores in each processing script
 ### IA-AMP effect
 
 ```{r}
