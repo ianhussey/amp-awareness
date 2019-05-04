@@ -91,10 +91,11 @@ plot_model(model_m1, type = "pred", terms = c("prime_type"))
 tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
 # extract OR
-OR_m1 <- exp(fixef(model_m1))
+OR_m1 <- exp(cbind(est=fixef(model_m1), 
+                   confint(model_m1, parm="beta_", method="Wald")))
 
 # convert OR to D
-timesavers::OR_to_d(OR_m1)
+abs(timesavers::OR_to_d(OR_m1))
   
 ```
 
@@ -124,10 +125,11 @@ plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 
 # extract OR
-OR_h1a <- exp(fixef(model_h1a))
+OR_h1a <- exp(cbind(est=fixef(model_h1a), 
+                   confint(model_h1a, parm="beta_", method="Wald")))
 
 # convert OR to D
-timesavers::OR_to_d(OR_h1a)
+abs(timesavers::OR_to_d(OR_h1a))
 
 ```
 
