@@ -126,11 +126,13 @@ AMP_cleaned <- AMP_df %>%
 # score amp effect
 AMP_data <- AMP_cleaned %>%
   group_by(subject, prime_type) %>%
-  summarize(amp_effect = mean(rating)) %>%
+  dplyr::summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
   mutate(AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
-  select(subject, AMP_effect_positive_negative) 
+  select(subject, AMP_effect_positive_negative)  %>%
+  mutate(AMP_effect_positive_negative = 
+           abs(AMP_effect_positive_negative))
 
 ```
 
@@ -164,26 +166,30 @@ IA_AMP_cleaned <- IA_AMP_df %>%
 # score amp effect
 IA_AMP_effect <- IA_AMP_cleaned %>%
   group_by(subject, prime_type) %>%
-  summarize(amp_effect = mean(rating)) %>%
+  dplyr::summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
   mutate(IA_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
-  select(subject, IA_AMP_effect_positive_negative) 
+  select(subject, IA_AMP_effect_positive_negative)  %>%
+  mutate(IA_AMP_effect_positive_negative = 
+           abs(IA_AMP_effect_positive_negative))
 
 # score amp effect
 IA_AMP_uninfluenced_effect <- IA_AMP_cleaned %>%
   filter(influenced == 0) %>%
   group_by(subject, prime_type) %>%
-  summarize(amp_effect = mean(rating)) %>%
+  dplyr::summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
   mutate(IA_AMP_uninfluenced_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
-  select(subject, IA_AMP_uninfluenced_effect_positive_negative) 
+  select(subject, IA_AMP_uninfluenced_effect_positive_negative) %>%
+  mutate(IA_AMP_uninfluenced_effect_positive_negative = 
+           abs(IA_AMP_uninfluenced_effect_positive_negative))
 
 # score influence rates
 IA_AMP_influence_rate <- IA_AMP_cleaned %>%
   group_by(subject) %>%
-  summarize(influence_rate = round(mean(influenced), 2)) %>%
+  dplyr::summarize(influence_rate = round(mean(influenced), 2)) %>%
   ungroup()
 
 IA_AMP_data <- IA_AMP_effect %>%
