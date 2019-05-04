@@ -235,8 +235,17 @@ plot_model(fit_comparison, type = "int")
 tab_model(fit_comparison, emph.p = FALSE, 
           ci.hyphen = ", ", show.std = TRUE)
 
-# Bayes factor
-BayesFactor::generalTestBF(AMP_effect_positive_negative ~ influence_rate * experiment, data = combined_exps_2_and_5)
+# Compute Bayes Factor
+
+# full model
+full_model <- BayesFactor::lmBF(AMP_effect_positive_negative ~ influence_rate + experiment + influence_rate:experiment, data = combined_exps_2_and_5)
+
+# model minus interaction
+no_interaction_model <- BayesFactor::lmBF(AMP_effect_positive_negative ~ influence_rate + experiment, data = combined_exps_2_and_5)
+
+
+# Bayes Factor
+full_model / no_interaction_model
 
 ```
 
