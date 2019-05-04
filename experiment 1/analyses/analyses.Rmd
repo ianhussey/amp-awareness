@@ -34,7 +34,7 @@ library(effsize)
 library(psych)
 library(broom)
 library(kableExtra)
-# devtools::install_github("ianhussey/timesavers")  
+# devtools::install_github("ianhussey/timesavers")
 library(timesavers)  # for round_df()
 
 # get data 
@@ -90,6 +90,12 @@ plot_model(model_m1, type = "pred", terms = c("prime_type"))
 # results table
 tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
+# extract OR
+OR_m1 <- exp(fixef(model_m1))
+
+# convert OR to D
+timesavers::OR_to_d(OR_m1)
+  
 ```
 
 # Hypothesis tests
@@ -116,6 +122,12 @@ plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
 tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR
+OR_h1a <- exp(fixef(model_h1a))
+
+# convert OR to D
+timesavers::OR_to_d(OR_h1a)
 
 ```
 
