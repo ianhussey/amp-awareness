@@ -1,0 +1,65 @@
+﻿************************************************
+Exploratory questions
+************************************************
+
+Jamie Cummins (jamie.cummins@ugent.be)
+GPLv3+ license
+
+************************************************
+<defaults>
+/ canvassize = (1024px, 768px)
+/ windowsize = (1024px, 768px)
+/ screencolor = white
+/ txcolor = black
+/ fontstyle = ("Arial", 3%)
+/ inputdevice = keyboard
+/ validkeys = (" ", "t")
+/ halign = center
+/ Com1BaudRate = 9600
+</defaults>
+
+<expt>
+/ blocks = [1 = exploratory]
+</expt>
+
+************************************************
+Exploratory
+************************************************
+<textbox exploratory>
+/ caption = 
+"We are currently in the process of piloting the procedure you just completed (with the Chinese characters and images).~n~nDo you have any comments on how we could improve the procedure so that it would make more sense, or be easier to complete?"
+/ position = (10%,10%)
+/ textboxsize = (45, 40)
+/ multiline = true
+</textbox>
+
+***********************************************
+
+<surveypage exploration>
+/ questions = [1 = exploratory]
+/ showpagenumbers = false 
+/ showquestionnumbers = false
+</surveypage>
+
+
+************************************************
+block
+************************************************
+
+<block exploratory>
+/ screencolor = white
+/ trials = [1 = exploration]
+</block>
+
+************************************************
+Instructions
+************************************************
+
+<instruct>  
+/ fontstyle = ("Arial", 3%)
+/ inputdevice = keyboard
+/ nextkey = (" ")
+/ nextlabel = "Press the spacebar to continue"
+/ prevlabel = "Press the 't' key to go back"
+/ prevkey = ("t")
+</instruct>
