@@ -110,7 +110,7 @@ AMP_cleaned <- AMP_df %>%
   filter(blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
          subject = as.character(subject),
          rating = as.numeric(as.character(correct))) %>%
   
@@ -150,7 +150,7 @@ IA_AMP_cleaned <- IA_AMP_df %>%
          blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
          subject = as.character(subject),
          rating = as.numeric(as.character(correct))) %>%
   

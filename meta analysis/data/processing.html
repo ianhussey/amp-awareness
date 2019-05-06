@@ -401,8 +401,8 @@ combined_trial_level_data &lt;-<span class="st"> </span><span class="kw">bind_ro
                                        exp_5_trial_level) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">unique_id =</span> <span class="kw">paste</span>(experiment, subject, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>),
          <span class="dt">prime_type =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(prime_type,
-                                    <span class="st">&quot;prime_type_A&quot;</span> =<span class="st"> &quot;Positive&quot;</span>,
-                                    <span class="st">&quot;prime_type_B&quot;</span> =<span class="st"> &quot;Negative&quot;</span>),
+                                    <span class="st">&quot;prime_type_B&quot;</span> =<span class="st"> &quot;Positive&quot;</span>,
+                                    <span class="st">&quot;prime_type_A&quot;</span> =<span class="st"> &quot;Negative&quot;</span>),
          <span class="dt">prime_type =</span> <span class="kw">fct_relevel</span>(prime_type,
                                   <span class="st">&quot;Negative&quot;</span>,
                                   <span class="st">&quot;Positive&quot;</span>)) <span class="op">%&gt;%</span>
@@ -463,6 +463,9 @@ exp_<span class="dv">5</span> &lt;-<span class="st"> </span><span class="kw">rea
 
 combined_participant_level_data &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(exp_<span class="dv">1</span>, exp_<span class="dv">2</span>, exp_<span class="dv">3</span>, exp_<span class="dv">4</span>, exp_<span class="dv">5</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">sort</span>(<span class="kw">names</span>(.))) <span class="op">%&gt;%</span>
+<span class="st">  </span>
+<span class="st">  </span><span class="co"># two influence rates captured in experiment 4 - make the standard influence rate column</span>
+<span class="st">  </span><span class="co"># reflect the influence rate of the positive-negative IA-AMP</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">influence_rate =</span> <span class="kw">ifelse</span>(<span class="kw">is.na</span>(influence_rate), 
                                  influence_rate_positive_negative, influence_rate)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">unique_id =</span> <span class="kw">paste</span>(experiment, subject, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>)) <span class="op">%&gt;%</span>
@@ -547,7 +550,7 @@ exp_3_uninfluenced &lt;-<span class="st"> </span>exp_3_trial_level <span class="
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span>
-
+<span class="st">  </span>
 <span class="st">  </span><span class="kw">select</span>(unique_id, IA_AMP_uninfluenced_effect_positive_negative) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">semi_join</span>(combined_participant_level_data, <span class="dt">by =</span> <span class="st">&quot;unique_id&quot;</span>)
 

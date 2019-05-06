@@ -29,6 +29,7 @@ demographics_df    <- read.csv("raw/demographics.csv")
 posneg_IA_AMP_df   <- read.csv("raw/modified_intentionality_amp.csv")
 politics_IA_AMP_df <- read.csv("raw/modified_intentionality_amp.csv")
 questions_df       <- read.csv("raw/post_questions.csv")
+
 ```
 
 # Demographics and self reports
@@ -140,15 +141,14 @@ politics_IA_AMP_cleaned <- politics_IA_AMP_df %>%
   mutate(influenced = as.numeric(as.character(lead(correct)))) %>%
   filter(trialcode == "prime_obama" | trialcode == "prime_trump") %>%
   
-  rename(prime_type = trialcode) %>%
   mutate(rating = as.numeric(as.character(correct))) %>%
   
   # keep only test blocks and ratings trials
-  filter(!str_detect(prime_type, "intention_check"),
+  filter(!str_detect(trialcode, "intention_check"),
          blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(prime_type %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
          subject = as.character(subject),
          rating = as.numeric(as.character(correct))) %>%
   
@@ -212,15 +212,14 @@ posneg_IA_AMP_cleaned <- posneg_IA_AMP_df %>%
   mutate(influenced = as.numeric(as.character(lead(correct)))) %>%
   filter(trialcode == "prime_positive" | trialcode == "prime_negative") %>% 
   
-  rename(prime_type = trialcode) %>%
   mutate(rating = as.numeric(as.character(correct))) %>%
   
   # keep only test blocks and ratings trials
-  filter(!str_detect(prime_type, "intention_check"),
+  filter(!str_detect(trialcode, "intention_check"),
          blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(prime_type %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
          subject = as.character(subject),
          rating = as.numeric(as.character(correct))) %>%
   
