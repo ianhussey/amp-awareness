@@ -3,16 +3,15 @@
 1. write a code book for all data files.
    1. code book must note that the AMP effects are absolute amp effects unless explicitly noted. only place this isn't used is the politics between groups AMP effects.
 2. improve this readme with licenses, links to materials, etc.
-3. or to d is making new confidence intervals when it could just extract the known ones from the OR. inspect the or to d implementation generally.
-4. change plots in meta -
+3. change plots in meta -
    1.  change raincloud to swap pos/neg and inf/non inf.
    2. better yet, swap for pred plot: trial type*influenced plots; they really illustrate the effect 
-5. add raincloud plot of dem/repub inf/non inf AMP effects, with latter on x and former as coloring 
-6. get exact p values for meta analyses
-7. do moderator meta for cohens d comparisons, get exact p value
-8. add plot of influence rate to meta section
+4. add raincloud plot of dem/repub inf/non inf AMP effects, with latter on x and former as coloring 
+5. get exact p values for meta analyses
+6. do moderator meta for cohens d comparisons, get exact p value
+7. add plot of influence rate to meta section
    1. Add analysis of proportion that have influence rate below .25 given its non normal distribution?
-9. add processing and analysis of the political amp exp 4 - currently only uses posneg
+8. meta - add processing and analysis of the political amp exp 4 - currently only uses posneg
 
 
 
