@@ -159,7 +159,6 @@ m2_d <- c(exp(pull(coefficients_temp, Estimate)),
 
 OR converted to Cohen's d for familiarity: d = `r m2_d[1]`, 95% CI [`r m2_d[2]`, `r m2_d[3]`].
 
-
 # Hypothesis tests
 
 ## H1: Politics IA-AMP influence rate predicts politics IA-AMP effect
@@ -185,15 +184,21 @@ plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR
-OR_h1a <- exp(cbind(est=fixef(model_h1a), 
-                   confint(model_h1a, parm="beta_", method="Wald")))
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h1a)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B")
 
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h1a))
+h1a_d <- c(exp(pull(coefficients_temp, Estimate)), 
+           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
 
 ```
 
+OR converted to Cohen's d for familiarity: d = `r h1a_d[1]`, 95% CI [`r h1a_d[2]`, `r h1a_d[3]`].
 
 ### H1b: at the participant level
 
@@ -241,8 +246,8 @@ Key effect: influence*prime_type interaction
 
 # model
 model_h2a_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
-                   family = binomial(link = "logit"),
-                   data = trial_level_politics_ia_amp_data_exclusions)
+                     family = binomial(link = "logit"),
+                     data = trial_level_politics_ia_amp_data_exclusions)
 
 # plot
 plot_model(model_h2a_1, type = "pred", terms = c("influenced", "prime_type"))
@@ -250,14 +255,21 @@ plot_model(model_h2a_1, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h2a_1, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR
-OR_h2a_1 <- exp(cbind(est=fixef(model_h2a_1), 
-                   confint(model_h2a_1, parm="beta_", method="Wald")))
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h2a_1)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B")
 
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h2a_1))
+h2a_1_d <- c(exp(pull(coefficients_temp, Estimate)), 
+           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
 
 ```
+
+OR converted to Cohen's d for familiarity: d = `r h2a_1_d[1]`, 95% CI [`r h2a_1_d[2]`, `r h2a_1_d[3]`].
 
 #### 2. At the participant level
 
