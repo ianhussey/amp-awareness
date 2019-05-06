@@ -229,12 +229,12 @@ processed_data <- demographics_data %>%
 # long format AMP data
 trial_level_amp_data <- processed_data %>%
   right_join(AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, self_exclusion_1, complete_data)
+  select(subject, party, prime_type, rating, self_exclusion_1, complete_data)
 
 # long format IA AMP data
 trial_level_ia_amp_data <- processed_data %>%
   right_join(IA_AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)
+  select(subject, party, prime_type, rating, influenced, self_exclusion_1, complete_data)
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")
