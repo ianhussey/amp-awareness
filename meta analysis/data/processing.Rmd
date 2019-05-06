@@ -30,26 +30,37 @@ library(tidyverse)
 # get data and do exclusions
 
 exp_1_trial_level <- read.csv("../../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 1)
+  mutate(experiment = 1) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
 
 exp_2_trial_level <- read.csv("../../experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 2)
+  mutate(experiment = 2) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
 
 exp_3_trial_level <- read.csv("../../experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 3)
+  mutate(experiment = 3) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data" &
+           party == "democrat")
 
 exp_4_trial_level <- read.csv("../../experiment 4/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 4)
+  mutate(experiment = 4) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data" &
+           party %in% c("democrat", "republican"))
 
 exp_5_trial_level <- read.csv("../../experiment 5/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 5)
+  mutate(experiment = 5) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
 
 combined_trial_level_data <- bind_rows(exp_1_trial_level, 
                                        exp_2_trial_level,
                                        exp_3_trial_level,
                                        exp_4_trial_level,
                                        exp_5_trial_level) %>%
-  filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
   mutate(unique_id = paste(experiment, subject, sep = "_"),
          prime_type = dplyr::recode(prime_type,
                                     "prime_type_A" = "Positive",
@@ -62,10 +73,10 @@ combined_trial_level_data <- bind_rows(exp_1_trial_level,
 # write to disk 
 write_csv(combined_trial_level_data, "combined_trial_level_data.csv")
 
-
 ```
 
 ```{r}
+
 ## participant level
 exp_1 <- read.csv("../../experiment 1/data/processed/processed_data.csv") %>%
   mutate(experiment = 1, 
@@ -73,7 +84,9 @@ exp_1 <- read.csv("../../experiment 1/data/processed/processed_data.csv") %>%
          awareness = as.numeric(awareness),
          influence_general = as.numeric(influence_general),
          intentionality = as.numeric(intentionality),
-         unintentionality = as.numeric(unintentionality))
+         unintentionality = as.numeric(unintentionality)) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
 
 exp_2 <- read.csv("../../experiment 2/data/processed/processed_data.csv") %>%
   mutate(experiment = 2, 
@@ -82,7 +95,9 @@ exp_2 <- read.csv("../../experiment 2/data/processed/processed_data.csv") %>%
          influence_general = as.numeric(influence_general),
          intentionality = as.numeric(intentionality),
          unintentionality = as.numeric(unintentionality)) %>%
-  dplyr::select(-IA_AMP_uninfluenced_effect_positive_negative)  # additional unneeded column
+  dplyr::select(-IA_AMP_uninfluenced_effect_positive_negative) %>%  # additional unneeded column
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
 
 exp_3 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
   mutate(experiment = 3, 
@@ -90,12 +105,18 @@ exp_3 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
          awareness = as.numeric(awareness),
          influence_general = as.numeric(influence_general),
          intentionality = as.numeric(intentionality),
-         unintentionality = as.numeric(unintentionality))
+         unintentionality = as.numeric(unintentionality)) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data" &
+           party == "democrat")
 
 exp_4 <- read.csv("../../experiment 4/data/processed/processed_data.csv") %>%
   mutate(experiment = 4, 
          age = as.character(age),
-         awareness = as.numeric(awareness))
+         awareness = as.numeric(awareness)) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data" &
+           party %in% c("democrat", "republican"))
 
 exp_5 <- read.csv("../../experiment 5/data/processed/processed_data.csv") %>%
   mutate(experiment = 5,
@@ -103,11 +124,12 @@ exp_5 <- read.csv("../../experiment 5/data/processed/processed_data.csv") %>%
          awareness = as.numeric(awareness),
          influence_general = as.numeric(influence_general),
          intentionality = as.numeric(intentionality),
-         unintentionality = as.numeric(unintentionality))
+         unintentionality = as.numeric(unintentionality)) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
 
 combined_participant_level_data <- bind_rows(exp_1, exp_2, exp_3, exp_4, exp_5) %>%
   dplyr::select(sort(names(.))) %>%
-  filter(complete_data == TRUE & self_exclusion_1 == "Yes, use my data") %>%
   mutate(influence_rate = ifelse(is.na(influence_rate), 
                                  influence_rate_positive_negative, influence_rate)) %>%
   mutate(unique_id = paste(experiment, subject, sep = "_")) %>%
@@ -126,6 +148,7 @@ combined_participant_level_data <- bind_rows(exp_1, exp_2, exp_3, exp_4, exp_5) 
                 IA_AMP_effect_positive_negative, 
                 influence_rate, influence_general,
                 IA_AMP_effect_obama_trump)
+
 ```
 
 
