@@ -130,6 +130,9 @@ exp_5 <- read.csv("../../experiment 5/data/processed/processed_data.csv") %>%
 
 combined_participant_level_data <- bind_rows(exp_1, exp_2, exp_3, exp_4, exp_5) %>%
   dplyr::select(sort(names(.))) %>%
+  
+  # two influence rates captured in experiment 4 - make the standard influence rate column
+  # reflect the influence rate of the positive-negative IA-AMP
   mutate(influence_rate = ifelse(is.na(influence_rate), 
                                  influence_rate_positive_negative, influence_rate)) %>%
   mutate(unique_id = paste(experiment, subject, sep = "_")) %>%
