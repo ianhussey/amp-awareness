@@ -268,10 +268,18 @@ complete_self_report_data <- self_report_data %>%
   na.omit() %>%
   distinct(subject)
 
+complete_politics_IA_AMP_data <- politics_IA_AMP_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_posneg_IA_AMP_data <- posneg_IA_AMP_data %>%
+  na.omit() %>%
+  distinct(subject)
+
 complete_data <- complete_demographics_data %>%
   semi_join(complete_self_report_data, by = "subject") %>%
-  semi_join(politics_IA_AMP_data, by = "subject") %>%
-  semi_join(posneg_IA_AMP_data, by = "subject") %>%
+  semi_join(complete_politics_IA_AMP_data, by = "subject") %>%
+  semi_join(complete_posneg_IA_AMP_data, by = "subject") %>%
   mutate(complete_data = TRUE)
 
 ```
@@ -291,13 +299,13 @@ processed_data <- demographics_data %>%
 # long format politics IA AMP data
 trial_level_politics_ia_amp_data <- processed_data %>%
   right_join(politics_IA_AMP_cleaned, by = "subject") %>%
-  dplyr::select(subject, age, gender, party, 
+  dplyr::select(subject, party, 
                 prime_type, rating, influenced, self_exclusion_1, complete_data)
 
 # long format posneg IA AMP data
 trial_level_posneg_ia_amp_data <- processed_data %>%
   right_join(posneg_IA_AMP_cleaned, by = "subject") %>%
-  dplyr::select(subject, age, gender, party, 
+  dplyr::select(subject, party, 
                 prime_type, rating, influenced, self_exclusion_1, complete_data)
 
 # write to disk
