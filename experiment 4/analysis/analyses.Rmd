@@ -12,6 +12,13 @@ output:
     toc_float: yes
 ---
 
+# Notes
+
+1. The numbering of hypotheses has changed between the preregistration and the analysis code here:
+- H1 and H2 are now combined into a single hypothesis, with subhypotheses within this
+- H2 in the code refers to H3 in the preregistration, H3 (code) to H4 (prereg), 
+- and H4 (code) to H5 (prereg).
+
 ```{r include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, 
@@ -162,51 +169,53 @@ OR converted to Cohen's d for familiarity: d = `r m2_d[1]`, 95% CI [`r m2_d[2]`,
 
 # Hypothesis tests
 
-## H1: Politics IA-AMP influence rate predicts politics IA-AMP effect
+## H1: Does IA-AMP influence-awareness predict AMP effects in the same IA-AMP
 
-### H1a: at the trial level
+### H1a: Politics IA-AMP
+
+#### 1: at the trial level
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
 Key effect: influence*prime_type interaction
 
-#### Fit model
+##### Fit model
 
 ```{r}
 
 # model
-model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h1a_1 <- glmer(rating ~ influenced * prime_type * party + (1 | subject), 
                    family = binomial(link = "logit"),
                    data = trial_level_politics_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
+plot_model(model_h1a_1, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
-tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_h1a_1, emph.p = FALSE, ci.hyphen = ", ", digits = 5)
 
 # extract OR
-OR_h1a <- exp(cbind(est=fixef(model_h1a), 
+OR_h1a_1 <- exp(cbind(est=fixef(model_h1a), 
                    confint(model_h1a, parm="beta_", method="Wald")))
 
 # convert OR to D
-abs(timesavers::OR_to_d(OR_h1a))
+abs(timesavers::OR_to_d(OR_h1a_1))
 
 ```
 
 
-### H1b: at the participant level
+#### 2: at the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
 
-#### Fit model
+##### Fit model
 
 ```{r}
 
 # model
-fit_h1b <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_obama_trump, 
+fit_h1b_2 <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_obama_trump, 
               data = task_level_data_exclusions)
 
 # plot
@@ -221,13 +230,12 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump,
   theme_classic()
 
 # results table
-tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H2: IA-AMP influence rate predicts the same IA-AMP's effect 
 
-### H2a: Politics AMP
+### H1b: Positive-Negative IA-AMP
 
 #### 1. At the trial level
 
@@ -235,91 +243,27 @@ Does conscious awareness of influence of the prime on the target moderate the AM
 
 Key effect: influence*prime_type interaction
 
-#### Fit model
+##### Fit model
 
 ```{r}
 
 # model
-model_h2a_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
-                   family = binomial(link = "logit"),
-                   data = trial_level_politics_ia_amp_data_exclusions)
-
-# plot
-plot_model(model_h2a_1, type = "pred", terms = c("influenced", "prime_type"))
-
-# results table
-tab_model(model_h2a_1, emph.p = FALSE, ci.hyphen = ", ")
-
-# extract OR
-OR_h2a_1 <- exp(cbind(est=fixef(model_h2a_1), 
-                   confint(model_h2a_1, parm="beta_", method="Wald")))
-
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h2a_1))
-
-```
-
-#### 2. At the participant level
-
-Does rate of influence in the IA-AMP predict IA-AMP effects?
-
-If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
-
-For the politics AMP here we use the absolute magnitude of the effect size, ignoring the directionality, as Republicans and Democrats will have effects in different directions. 
-
-#### Fit model
-
-```{r}
-
-# model
-fit_h2a_2 <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_obama_trump, 
-              data = task_level_data_exclusions)
-
-# plot
-ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
-                                       abs(IA_AMP_effect_obama_trump))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
-  geom_smooth(method = lm) +
-  labs(title = "Proportion of influenced trials and politics IA-AMP effect", 
-       x = "Proportion of influenced trials\non the politics IA-AMP", 
-       y = "Politics IA-AMP effect") +
-  theme_classic()
-
-# results table
-tab_model(fit_h2a_2, emph.p = FALSE, ci.hyphen = ", ")
-
-```
-
-### H2b: Positive-Negative AMP
-
-#### 1. At the trial level
-
-Does conscious awareness of influence of the prime on the target moderate the AMP effect?
-
-Key effect: influence*prime_type interaction
-
-#### Fit model
-
-```{r}
-
-# model
-model_h2b_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h1b_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
                    family = binomial(link = "logit"),
                    data = trial_level_posneg_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_h2b_1, type = "pred", terms = c("influenced", "prime_type"))
+plot_model(model_h1b_1, type = "pred", terms = c("influenced", "prime_type"))
 
 # results table
-tab_model(model_h2b_1, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(model_h1b_1, emph.p = FALSE, ci.hyphen = ", ")
 
 # extract OR
-OR_h2b_1 <- exp(cbind(est=fixef(model_h2b_1), 
+OR_h1b_1 <- exp(cbind(est=fixef(model_h2b_1), 
                    confint(model_h2b_1, parm="beta_", method="Wald")))
 
 # convert OR to D
-abs(timesavers::OR_to_d(OR_h2b_1))
+abs(timesavers::OR_to_d(OR_h1b_1))
 
 ```
 
@@ -329,12 +273,12 @@ Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
 
-#### Fit model
+##### Fit model
 
 ```{r}
 
 # model
-fit_h2b_2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate_positive_negative, 
+fit_h1b_2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate_positive_negative, 
               data = task_level_data_exclusions)
 
 # plot
@@ -349,21 +293,21 @@ ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative,
   theme_classic()
 
 # results table
-tab_model(fit_h2b_2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
 
 ```
 
-## H3: Influence rate in one IA-AMP predicts the absolute magnitude of the other IA-AMP effect
+## H2: Influence rate in one IA-AMP predicts the absolute magnitude of the other IA-AMP effect
 
 If effects in the AMPs are driven by participants who are more often influenced, then rate of influence in one IA-AMP should predict effect sizes in the other. 
 
-### H3a: Politics influence rate, pos-neg effect size
+### H2a: Politics influence rate, pos-neg effect size
 
 
 ```{r}
 
 # model
-fit_h3a <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
+fit_h2a <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
              data = task_level_data_exclusions)
 
 # plot
@@ -378,11 +322,11 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump,
   theme_classic()
 
 # table
-tab_model(fit_h3a, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+tab_model(fit_h2a, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
-### H3b: Pos-neg influence rate, politics effect size
+### H2b: Pos-neg influence rate, politics effect size
 
 If the positive-negative IA AMP's influence rate predicts the (previously completed) politics IA-AMP's effect then this implies that the rate of influence is reliable within participants/across IA AMPs.
 
@@ -392,7 +336,7 @@ Here we use the absolute politics AMP effect size, as the effects are necessaril
 ```{r}
 
 # model
-fit_h3b <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negative, 
+fit_h2b <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negative, 
              data = task_level_data_exclusions)
 
 # plot
@@ -407,11 +351,11 @@ ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative,
   theme_classic()
 
 # table
-tab_model(fit_h3b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+tab_model(fit_h2b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
-## H4: Influence rates correlate between IA-AMPs across different domains
+## H3: Influence rates correlate between IA-AMPs across different domains
 
 If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
 
@@ -437,7 +381,7 @@ ggplot(task_level_data_exclusions,
 
 ```
 
-## H5: The politics IA-AMPs ability to predict political affiliation is driven by the subset of trials on which participants reporting being influenced
+## H4: The politics IA-AMPs ability to predict political affiliation is driven by the subset of trials on which participants reporting being influenced
 
 ### Group membership predicting AMP effect from influenced trials
 
