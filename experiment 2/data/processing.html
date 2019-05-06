@@ -119,9 +119,6 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
-.html-widget {
-  margin-bottom: 20px;
-}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -263,7 +260,7 @@ div.tocify {
 <h1 class="title toc-ignore">Study 2</h1>
 <h3 class="subtitle"><em>Processing</em></h3>
 <h4 class="author"><em>Ian Hussey &amp; Jamie Cummins</em></h4>
-<h4 class="date"><em>06 November, 2018</em></h4>
+<h4 class="date"><em>06 May, 2019</em></h4>
 
 </div>
 
@@ -368,7 +365,9 @@ AMP_data &lt;-<span class="st"> </span>AMP_cleaned <span class="op">%&gt;%</span
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">AMP_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(subject, AMP_effect_positive_negative) </code></pre></div>
+<span class="st">  </span><span class="kw">select</span>(subject, AMP_effect_positive_negative) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">AMP_effect_positive_negative =</span> 
+           <span class="kw">abs</span>(AMP_effect_positive_negative))</code></pre></div>
 </div>
 <div id="ia-amp-effects-and-influence-rates" class="section level1">
 <h1>IA AMP effects and influence rates</h1>
@@ -402,7 +401,9 @@ IA_AMP_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_effect_positive_negative) 
+<span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_effect_positive_negative) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> 
+           <span class="kw">abs</span>(IA_AMP_effect_positive_negative))
 
 <span class="co"># score amp effect</span>
 IA_AMP_uninfluenced_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span>
@@ -412,7 +413,9 @@ IA_AMP_uninfluenced_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span cl
 <span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_uninfluenced_effect_positive_negative) 
+<span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_uninfluenced_effect_positive_negative) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> 
+           <span class="kw">abs</span>(IA_AMP_uninfluenced_effect_positive_negative))
 
 <span class="co"># score influence rates</span>
 IA_AMP_influence_rate &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span>
@@ -438,13 +441,10 @@ complete_AMP_data &lt;-<span class="st"> </span>AMP_data <span class="op">%&gt;%
 <span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">distinct</span>(subject)
 
-complete_IA_AMP_data &lt;-<span class="st"> </span>IA_AMP_data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">distinct</span>(subject)
 
 complete_data &lt;-<span class="st"> </span>complete_demographics_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">semi_join</span>(complete_self_report_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">semi_join</span>(complete_IA_AMP_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">semi_join</span>(IA_AMP_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">semi_join</span>(complete_AMP_data, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">complete_data =</span> <span class="ot">TRUE</span>)</code></pre></div>
 </div>

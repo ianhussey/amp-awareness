@@ -119,9 +119,6 @@ img {
 .tabbed-pane {
   padding-top: 12px;
 }
-.html-widget {
-  margin-bottom: 20px;
-}
 button.code-folding-btn:focus {
   outline: none;
 }
@@ -263,7 +260,7 @@ div.tocify {
 <h1 class="title toc-ignore">Study 3</h1>
 <h3 class="subtitle"><em>Processing</em></h3>
 <h4 class="author"><em>Ian Hussey &amp; Jamie Cummins</em></h4>
-<h4 class="date"><em>06 November, 2018</em></h4>
+<h4 class="date"><em>06 May, 2019</em></h4>
 
 </div>
 
@@ -455,12 +452,12 @@ processed_data &lt;-<span class="st"> </span>demographics_data <span class="op">
 <span class="co"># long format AMP data</span>
 trial_level_amp_data &lt;-<span class="st"> </span>processed_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">right_join</span>(AMP_cleaned, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(subject, prime_type, rating, self_exclusion_<span class="dv">1</span>, complete_data)
+<span class="st">  </span><span class="kw">select</span>(subject, party, prime_type, rating, self_exclusion_<span class="dv">1</span>, complete_data)
 
 <span class="co"># long format IA AMP data</span>
 trial_level_ia_amp_data &lt;-<span class="st"> </span>processed_data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">right_join</span>(IA_AMP_cleaned, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(subject, prime_type, rating, influenced, self_exclusion_<span class="dv">1</span>, complete_data)
+<span class="st">  </span><span class="kw">select</span>(subject, party, prime_type, rating, influenced, self_exclusion_<span class="dv">1</span>, complete_data)
 
 <span class="co"># write to disk</span>
 <span class="kw">write_csv</span>(processed_data, <span class="st">&quot;processed/processed_data.csv&quot;</span>)
