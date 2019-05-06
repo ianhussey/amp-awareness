@@ -11,15 +11,6 @@ output:
     toc_float: yes
 ---
 
-# To do
-
-- Add analysis of proportion that have influence rate below .25 given its non normal distribution.
-- Participant level IA-AMP effect ~ IA-AMP influence rate, and both IA-AMP trial level analyses should have 2 IA-AMPs for experiment 4. Each needs a multivariate meta analysis that includes the politics IA-AMP too.
-- Correlate the aware and unaware trials political IA-AMP effects. Are they correlated well, and do both have decent distributions? We elsewhere show that the unaware trials effect is worse at separating known groups but can still do it. One response is that a unaware trials only AMP could be used in future as an implicit measure - but the question here is does it actually contain any additional or hidden information not in the aware trials? if its just a poorer predictor and is still correlated well with the aware trials effect then what is actually interesting about the implicit measure apart from the operating conditions that produced this effect?
-  - More complicated: Correlate the 1) aware trials political IA-AMP effect, 2) unaware trials political IA-AMP effect, 3) aware trials generic valence IA-AMP effect, and 4) unaware trials generic valence IA-AMP effects. compare within-domain, between-awareness correlations with between-domain, within-awareness effects 
-- Evaluate whether online/offline is needed, if so change to meta.
-- Add meta analyses to OSF.
-
 ```{r, include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE,
@@ -187,33 +178,12 @@ combined_trial_level_data <- read.csv("data/combined_trial_level_data.csv")
 
 ```
 
-# Correlation between online and offline influence rates
-
-change to meta
-
-needed?
-
-```{r}
-
-# cor.test(combined_participant_level_data$influence_general, combined_participant_level_data$influence_rate)
-# 
-# ggplot(combined_participant_level_data, aes(as.integer(as.character(influence_general)), influence_rate)) +
-#   geom_jitter(alpha = 0.3) +
-#   geom_smooth(method = "lm")
-
-fit <- lmer(influence_rate ~ influence_general + (1 | experiment), 
-            data = combined_participant_level_data)
-
-library(sjPlot)
-
-plot_model(fit, type = "pred", show.data = TRUE)
-tab_model(fit, show.std = TRUE, emph.p = FALSE)
-
-```
-
 # AMP effect ~ IA AMP influence rate
 
-should change this to multivariate meta and take amp type into account
+amp_type	amp_domain
+
+absolute IA amp effect?
+
 
 ```{r}
 
@@ -329,6 +299,12 @@ meta_results_inf <- meta_analysis_workflow(data              = results_for_meta_
 - Heterogeneity tests: `r meta_results_inf$heterogeneity_test_results_text`
 
 ### IA-AMP effect ~ IA-AMP influence rate 
+
+absolute IA amp effect?
+
+random effect candidates:
+
+- experiment, ia amp domain, ia amp type, 
 
 ```{r}
 
