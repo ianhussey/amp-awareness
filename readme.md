@@ -12,6 +12,8 @@
 7. add plot of influence rate to meta section
    1. Add analysis of proportion that have influence rate below .25 given its non normal distribution?
 8. meta - add processing and analysis of the political amp exp 4 - currently only uses posneg
+9. square prereg with analyses re hypotheses numbers - at least exp 4 had some issues.
+
 
 
 
