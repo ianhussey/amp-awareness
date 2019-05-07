@@ -194,12 +194,17 @@ plot_model(model_h1a_1, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h1a_1, emph.p = FALSE, ci.hyphen = ", ", digits = 5)
 
-# extract OR
-OR_h1a_1 <- exp(cbind(est=fixef(model_h1a), 
-                   confint(model_h1a, parm="beta_", method="Wald")))
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h1a_1)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B:partyrepublican")
 
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h1a_1))
+h1a_1_d <- c(exp(pull(coefficients_temp, Estimate)), 
+           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
 
 ```
 
@@ -258,12 +263,17 @@ plot_model(model_h1b_1, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h1b_1, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR
-OR_h1b_1 <- exp(cbind(est=fixef(model_h2b_1), 
-                   confint(model_h2b_1, parm="beta_", method="Wald")))
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h1b_1)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B")
 
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h1b_1))
+h1b_1_d <- c(exp(pull(coefficients_temp, Estimate)), 
+           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
 
 ```
 
