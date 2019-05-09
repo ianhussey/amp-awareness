@@ -178,7 +178,7 @@ OR converted to Cohen's d for familiarity: d = `r m2_d[1]`, 95% CI [`r m2_d[2]`,
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
-Key effect: influence*prime_type interaction
+Key effect: influence:prime_type:party interaction
 
 ##### Fit model
 
@@ -190,7 +190,7 @@ model_h1a_1 <- glmer(rating ~ influenced * prime_type * party + (1 | subject),
                      data = trial_level_politics_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_h1a_1, type = "pred", terms = c("influenced", "prime_type"))
+plot_model(model_h1a_1, type = "int")
 
 # results table
 tab_model(model_h1a_1, emph.p = FALSE, ci.hyphen = ", ", digits = 5)
