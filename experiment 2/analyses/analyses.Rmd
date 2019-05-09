@@ -20,8 +20,7 @@ Contribution of offline and online measures in predicting AMP effect sizes).
 ```{r include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, 
-                      warning = FALSE, 
-                      echo = FALSE)
+                      warning = FALSE)
 
 ```
 

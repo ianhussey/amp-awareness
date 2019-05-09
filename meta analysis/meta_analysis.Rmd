@@ -27,7 +27,8 @@ library(lme4)
 library(effects)
 library(metafor)
 library(patchwork)
-library(lme4)
+library(ggExtra)
+library(sjPlot)
 
 # source for raincloud plots
 source("geom_flat_violin.R")
@@ -41,321 +42,198 @@ options(knitr.table.format = "html")
 
 # custom functions --------------------
 
+zscore_to_p <- function(z){
+  2*pnorm(-abs(z))
+}
+
 # fit models to individual experiments and extract an effect of interest
-fit_lm_model_and_extract_effect <- function(data, experiment_n, formula, effect) {
+fit_lm_model_and_extract_effect <- function(data, experiment_n, formula, effect, 
+                                            IA_AMP_domain_name = NULL,
+                                            AMP_domain_name = NULL) {
   require(tidyverse)
   
-  fit <- data %>%
-    dplyr::filter(experiment == experiment_n) %>%
-    lm(formula = formula, 
-       data = .)
-  
-  results <- 
-    summary(fit)$coefficients %>%
-    as.data.frame() %>%
-    rownames_to_column(var = "Effect") %>%
-    dplyr::filter(Effect == effect) %>%
-    mutate(Experiment = experiment_n,
-           yi = Estimate,       # effect size
-           vi = `Std. Error`^2) # convert SE to variance
+  if (!is.null(IA_AMP_domain_name)) {
+    
+    fit <- data %>%
+      dplyr::filter(experiment == experiment_n & 
+                      IA_AMP_domain == IA_AMP_domain_name) %>%
+      lm(formula = formula, 
+         data = .)
+    
+    results <- 
+      summary(fit)$coefficients %>%
+      as.data.frame() %>%
+      rownames_to_column(var = "Effect") %>%
+      dplyr::filter(Effect == effect) %>%
+      mutate(Experiment = experiment_n,
+             IA_AMP_domain = IA_AMP_domain_name,
+             yi = Estimate,       # effect size
+             vi = `Std. Error`^2) # convert SE to variance
+    
+  } else if (!is.null(AMP_domain_name)) {
+    
+    fit <- data %>%
+      dplyr::filter(experiment == experiment_n & 
+                      AMP_domain == AMP_domain_name) %>%
+      lm(formula = formula, 
+         data = .)
+    
+    results <- 
+      summary(fit)$coefficients %>%
+      as.data.frame() %>%
+      rownames_to_column(var = "Effect") %>%
+      dplyr::filter(Effect == effect) %>%
+      mutate(Experiment = experiment_n,
+             AMP_domain = AMP_domain_name,
+             yi = Estimate,       # effect size
+             vi = `Std. Error`^2) # convert SE to variance
+    
+  }
   
   return(results)
 }
 
 # fit models to individual experiments and extract an effect of interest
-fit_glmer_model_and_extract_effect <- function(data, experiment_n, formula, effect) {
+fit_glmer_model_and_extract_effect <- function(data, experiment_n, formula, effect, domain_name = NULL) {
   require(tidyverse)
   
-  fit <- data %>%
-    dplyr::filter(experiment == experiment_n) %>%
-    glmer(formula = formula, 
-          family = binomial(link = "logit"),
-          data = .)
-  
-  results <- 
-    summary(fit)$coefficients %>%
-    as.data.frame() %>%
-    rownames_to_column(var = "Effect") %>%
-    dplyr::filter(Effect == effect) %>%
-    mutate(Experiment = experiment_n,
-           yi = Estimate,       # effect size
-           vi = `Std. Error`^2) # convert SE to variance
+  if (!is.null(domain_name)) {
+    
+    fit <- data %>%
+      dplyr::filter(experiment == experiment_n & 
+                      domain == domain_name) %>%
+      glmer(formula = formula, 
+            family = binomial(link = "logit"),
+            data = .)
+    
+    results <- 
+      summary(fit)$coefficients %>%
+      as.data.frame() %>%
+      rownames_to_column(var = "Effect") %>%
+      dplyr::filter(Effect == effect) %>%
+      mutate(Experiment = experiment_n,
+             domain = domain_name,
+             yi = Estimate,       # effect size
+             vi = `Std. Error`^2) # convert SE to variance
+    
+  } else {
+    
+    fit <- data %>%
+      dplyr::filter(experiment == experiment_n) %>%
+      glmer(formula = formula, 
+            family = binomial(link = "logit"),
+            data = .)
+    
+    results <- 
+      summary(fit)$coefficients %>%
+      as.data.frame() %>%
+      rownames_to_column(var = "Effect") %>%
+      dplyr::filter(Effect == effect) %>%
+      mutate(Experiment = experiment_n,
+             yi = Estimate,       # effect size
+             vi = `Std. Error`^2) # convert SE to variance
+  }
   
   return(results)
-}
-
-# meta analyse and plot
-meta_analysis_workflow <- function(data, effect_size_label, reference_line, exp_estimates = FALSE) {
-  require(timesavers)
-  require(tidyverse)
-  require(metafor)
-  
-  # fit random effects model 
-  fitted_model <- 
-    rma(yi, vi,
-        data = data,
-        slab = Experiment)
-  
-  # model predictions
-  meta_analysis_results <-
-    predict(fitted_model, digits = 5) %>%
-    as.data.frame() %>%
-    gather() %>%
-    round_df(3) %>%
-    dplyr::rename(metric = key,
-                  estimate = value) %>%
-    mutate(metric = dplyr::recode(metric,
-                                  "pred" = paste0("Meta analysed ", effect_size_label),
-                                  "ci.lb" = "95% CI lower",
-                                  "ci.ub" = "95% CI upper",
-                                  "cr.lb" = "95% CR lower",
-                                  "cr.ub" = "95% CR upper"))
-  
-  meta_analysis_results_as_probabilities_text <- NULL
-  
-  # conditionally exponentiate estimates if converting log odds to odds ratios
-  if(exp_estimates == TRUE) {
-    meta_analysis_results <- meta_analysis_results %>%
-      mutate(estimate = round(exp(estimate), 3))
-  }
-  
-  # summarize results
-  meta_analysis_results_text <- 
-    paste0("k = ", fitted_model$k, ", ", effect_size_label, " = ", meta_analysis_results$estimate[1],
-           # dynamic indexing of some values as different models return variables in different locations, but relative location is reliable
-           ", 95% CI [",  meta_analysis_results$estimate[length(meta_analysis_results$estimate)-3],  
-           ", ",          meta_analysis_results$estimate[length(meta_analysis_results$estimate)-2], 
-           "], 95% CR [", meta_analysis_results$estimate[length(meta_analysis_results$estimate)-1], 
-           ", ",          meta_analysis_results$estimate[length(meta_analysis_results$estimate)], 
-           "], p = ",     signif(2*pnorm(-abs(fitted_model$zval)), digits = 1))  # p value from z score
-  
-  meta_analysis_results_as_probabilities_text <- 
-    paste0("k = ", fitted_model$k, ", Probability = ", meta_analysis_results$estimate[1],
-           # dynamic indexing of some values as different models return variables in different locations, but relative location is reliable
-           ", 95% CI [",  round(meta_analysis_results$estimate[length(meta_analysis_results$estimate)-3] /
-             (1 + meta_analysis_results$estimate[length(meta_analysis_results$estimate)-3]), 3), 
-           ", ",          round(meta_analysis_results$estimate[length(meta_analysis_results$estimate)-2] / 
-             (1 + meta_analysis_results$estimate[length(meta_analysis_results$estimate)-2]), 3),
-           "], 95% CR [", round(meta_analysis_results$estimate[length(meta_analysis_results$estimate)-1] /
-             (1 + meta_analysis_results$estimate[length(meta_analysis_results$estimate)-1]), 3),
-           ", ",          round(meta_analysis_results$estimate[length(meta_analysis_results$estimate)] / 
-             (1 + meta_analysis_results$estimate[length(meta_analysis_results$estimate)]), 3),
-           "], p = ",     signif(2*pnorm(-abs(fitted_model$zval)), digits = 1))  # p value from z score
-
-  heterogeneity_test_results_text <- 
-    paste0("Q(df = ",     fitted_model$k - 1, ") = ", round(fitted_model$QE, 2), 
-           ", p = ",      ifelse(fitted_model$QEp < 0.001, "< .001", as.character(round(fitted_model$pval, 3))),
-           ", tau^2 = ",  round(fitted_model$tau2, 2), 
-           ", I^2 = ",    round(fitted_model$I2, 2),
-           ", H^2 = ",    round(fitted_model$H2, 2))
-  
-  # forest plot
-  if (exp_estimates == TRUE) {
-    transformation <- exp
-  } else { 
-    transformation <- NULL
-  }
-  
-  forest_plot <- forest(fitted_model,
-                        xlab = effect_size_label,
-                        addcred = TRUE,
-                        atransf = transformation,
-                        refline = reference_line)
-  
-  return(list(fitted_model = fitted_model, 
-              meta_analysis_results = meta_analysis_results,
-              meta_analysis_results_text = meta_analysis_results_text,
-              meta_analysis_results_as_probabilities_text = meta_analysis_results_as_probabilities_text,
-              heterogeneity_test_results_text = heterogeneity_test_results_text,
-              forest_plot = forest_plot))
 }
 
 
 # get data
-
 combined_participant_level_data <- read.csv("data/combined_participant_level_data.csv")
-combined_trial_level_data <- read.csv("data/combined_trial_level_data.csv")
+combined_trial_level_data       <- read.csv("data/combined_trial_level_data.csv") 
 
 ```
 
-# AMP effect ~ IA AMP influence rate
+# Does influence rate predict the magnitude of (IA)AMP effects?
 
-amp_type	amp_domain
+## IA-AMP
 
-absolute IA amp effect?
+### Participant level
 
+IA-AMP effect ~ IA-AMP influence rate 
+
+Absolute IA-AMP effects.
 
 ```{r}
 
-reshaped_data <- combined_participant_level_data %>%
-  dplyr::select(unique_id, experiment, influence_rate, AMP_effect_positive_negative, AMP_effect_obama_trump) %>%
-  gather(AMP_type, AMP_effect, c("AMP_effect_positive_negative", "AMP_effect_obama_trump")) %>%
-  na.omit
-
-formula <- as.formula("AMP_effect ~ influence_rate")
-effect  <- "influence_rate"
-
-# apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_amp <- rbind(
-  fit_lm_model_and_extract_effect(data = reshaped_data, experiment_n = 2, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = reshaped_data, experiment_n = 3, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = reshaped_data, experiment_n = 5, formula = formula, effect = effect)
-) 
-
-# meta analyse results
-meta_results_amp <- meta_analysis_workflow(data              = results_for_meta_analysis_amp,
-                                           effect_size_label = "Beta",
-                                           reference_line    = 0)
-
-```
-
-- Meta analysis: `r meta_results_amp$meta_analysis_results_text`
-- Heterogeneity tests: `r meta_results_amp$heterogeneity_test_results_text`
-
-```{r}
-
-# library(lme4)
-# library(sjPlot)
-# 
-# combined_trial_level_data <- combined_trial_level_data %>%
-#   mutate(influenced_inverted = abs(influenced - 1))
-# 
-# summary <- combined_trial_level_data %>%
-#   group_by(experiment, unique_id) %>%
-#   dplyr::summarize(perc_influenced = mean(influenced)) %>%
-#   ungroup()
-# 
-# ggplot(summary, aes(perc_influenced, group = as.factor(experiment), fill = as.factor(experiment))) +
-#   geom_density(alpha = 0.4, adjust = 0.8) +
-#   scale_fill_viridis_d()
-
-
-library(ggExtra)
-
-p <- ggplot(reshaped_data, 
-            aes(influence_rate, abs(AMP_effect))) +
-  geom_point(alpha = 0.3, position = position_jitter()) +
-  geom_smooth(method = "lm") +
-  scale_color_viridis_d(end = 0.8) +
-  theme_classic()
-
-p2 <- ggMarginal(p, 
-                 type = "histogram", 
-                 margins = "both", 
-                 size = 3)
-
-```
-
-```{r fig.height=5, fig.width=5}
-
-grid::grid.newpage()
-grid::grid.draw(p2)
-
-```
-
-# IA-AMP analyses
-
-## Participant level analyses
-
-### IA-AMP influence rate
-
-```{r}
-
-formula <- as.formula("influence_rate ~ 1")
-effect  <- "(Intercept)"
-
-# apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_inf <- rbind(
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
-                                  experiment_n = 1, 
-                                  formula = formula, 
-                                  effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
-                                  experiment_n = 2, 
-                                  formula = formula, 
-                                  effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
-                                  experiment_n = 3, 
-                                  formula = formula, 
-                                  effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
-                                  experiment_n = 4, 
-                                  formula = formula, 
-                                  effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
-                                  experiment_n = 5, 
-                                  formula = formula, 
-                                  effect = effect)
-)
-
-# meta analyse results
-meta_results_inf <- meta_analysis_workflow(data              = results_for_meta_analysis_inf, 
-                                           effect_size_label = "Influence rate",
-                                           reference_line    = 0)
-
-```
-
-- Meta analysis: `r meta_results_inf$meta_analysis_results_text`
-- Heterogeneity tests: `r meta_results_inf$heterogeneity_test_results_text`
-
-### IA-AMP effect ~ IA-AMP influence rate 
-
-absolute IA amp effect?
-
-random effect candidates:
-
-- experiment, ia amp domain, ia amp type, 
-
-```{r}
-
-formula <- as.formula("IA_AMP_effect_positive_negative ~ influence_rate")
+formula <- as.formula("abs(IA_AMP_effect) ~ influence_rate")
 effect  <- "influence_rate"
 
 # apply models to individual experiments, extract results for key effect
 results_for_meta_analysis_2 <- rbind(
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 1, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 2, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 3, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 4, formula = formula, effect = effect),
-  fit_lm_model_and_extract_effect(data = combined_participant_level_data, experiment_n = 5, formula = formula, effect = effect)
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 1, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 2, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 3, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 4, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 4, 
+                                  IA_AMP_domain_name = "Politics",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 5, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect)
 )
-
-# meta analyse results
-meta_results_2 <- meta_analysis_workflow(data              = results_for_meta_analysis_2, 
-                                         effect_size_label = "Beta",
-                                         reference_line    = 0)
 
 ```
 
-- Meta analysis: `r meta_results_2$meta_analysis_results_text`
-- Heterogeneity tests: `r meta_results_2$heterogeneity_test_results_text`
+```{r}
+
+# reshape data
+data_temp <- results_for_meta_analysis_2 %>%
+  dplyr::rename(V = vi)
+
+# fit
+fit <- rma.mv(yi     = yi,
+              V      = V,
+              random = ~ 1 | Experiment/IA_AMP_domain,
+              data   = data_temp,
+              slab   = paste(Experiment, IA_AMP_domain))
+
+# plot
+forest(fit,
+       xlab = "Beta",
+       addcred = TRUE,
+       refline = 0)
+
+# convert to OR, show CR
+predict(fit) %>%
+  as.data.frame() %>%
+  round_df(2) %>%
+  mutate(p = zscore_to_p(fit$zval))
+
+```
+
+#### Plot
 
 ```{r}
 
-# library(lme4)
-# library(sjPlot)
-# 
-# combined_trial_level_data <- combined_trial_level_data %>%
-#   mutate(influenced_inverted = abs(influenced - 1))
-# 
-# summary <- combined_trial_level_data %>%
-#   group_by(experiment, unique_id) %>%
-#   dplyr::summarize(perc_influenced = mean(influenced)) %>%
-#   ungroup()
-# 
-# ggplot(summary, aes(perc_influenced, group = as.factor(experiment), fill = as.factor(experiment))) +
-#   geom_density(alpha = 0.4, adjust = 0.8) +
-#   scale_fill_viridis_d()
-
-
-library(ggExtra)
-
 p <- ggplot(combined_participant_level_data, 
-            aes(influence_rate, abs(IA_AMP_effect_positive_negative))) +
+            aes(influence_rate, IA_AMP_effect)) +
   geom_point(alpha = 0.3, position = position_jitter()) +
   geom_smooth(method = "lm") +
   scale_color_viridis_d(end = 0.8) +
-  theme_classic()
+  theme_classic() +
+  xlab("Influence-awareness rate") +
+  ylab('Absolute magnitude of IA-AMP effect')
 
 p2 <- ggMarginal(p, 
                  type = "histogram", 
@@ -371,85 +249,7 @@ grid::grid.draw(p2)
 
 ```
 
-#### in progress - Multivariate meta option
-
-exp 4 has two IA-AMPs
-
-need to revisit data processing first
-
-```{r}
-
-# # reshape data
-# data_temp <- results_for_meta_analysis_2 %>%
-#   bind_cols(Domain = c("(Generic valence)",
-#                        "(Politics)",
-#                        "(Generic valence)")) %>%
-#   rename(V = vi)
-# 
-# # fit
-# fit <- rma.mv(yi     = yi, 
-#               V      = V,
-#               random = ~ 1 | Experiment/Domain,
-#               data   = data_temp,
-#               slab   = paste(Experiment, Domain))
-# 
-# # plot
-# forest(fit,
-#        xlab = "Beta",
-#        addcred = TRUE,
-#        refline = 0)
-# 
-# fit
-
-```
-
-## Trial level analyses
-
-### IA-AMP influence rate ~ 1
-
-```{r}
-
-formula <- as.formula("influenced ~ 1 + (1 | unique_id)")
-effect  <- "(Intercept)"
-
-# apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_4 <- rbind(
-  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
-                                     experiment_n = 1, 
-                                     formula = formula, 
-                                     effect = effect),
-  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
-                                     experiment_n = 2, 
-                                     formula = formula, 
-                                     effect = effect),
-  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
-                                     experiment_n = 3, 
-                                     formula = formula, 
-                                     effect = effect),
-  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
-                                     experiment_n = 4, 
-                                     formula = formula, 
-                                     effect = effect),
-  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
-                                     experiment_n = 5, 
-                                     formula = formula, 
-                                     effect = effect)
-)
-
-# meta analyse results
-meta_results_4 <- meta_analysis_workflow(data              = results_for_meta_analysis_4, 
-                                         effect_size_label = "OR",
-                                         reference_line    = NULL, 
-                                         exp_estimates     = TRUE) # exponentiate log odds to odds ratios
-
-```
-
-- N participants = `r nrow(combined_participant_level_data)`
-- N IA-AMP trials = `r nrow(combined_trial_level_data)`
-- Meta analysis (probabilities rather than odds ratios): `r meta_results_4$meta_analysis_results_as_probabilities_text`
-- Heterogeneity tests: `r meta_results_4$heterogeneity_test_results_text`
-
-### IA-AMP effect ~ influence
+### Trial level
 
 ```{r}
 
@@ -460,43 +260,86 @@ effect  <- "prime_typePositive:influenced"
 results_for_meta_analysis_5 <- rbind(
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 1, 
+                                     domain_name = "Generic valence",
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 2, 
+                                     domain_name = "Generic valence",
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 3, 
+                                     domain_name = "Generic valence",
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 4, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 4, 
+                                     domain_name = "Politics",
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 5, 
+                                     domain_name = "Generic valence",
                                      formula = formula, 
                                      effect = effect)
 )
 
-# meta analyse results
-meta_results_5 <- meta_analysis_workflow(data              = results_for_meta_analysis_5, 
-                                         effect_size_label = "OR",
-                                         reference_line    = NULL, 
-                                         exp_estimates     = TRUE) # exponentiate log odds to odds ratios
+```
+
+```{r}
+
+# reshape data
+data_temp <- results_for_meta_analysis_5 %>%
+  dplyr::rename(V = vi)
+
+# fit
+fit <- rma.mv(yi     = yi,
+              V      = V,
+              random = ~ 1 | Experiment/domain,
+              data   = data_temp,
+              slab   = paste(Experiment, domain))
+
+# plot
+forest(fit,
+       xlab = "Odds Ratio",
+       addcred = TRUE,
+       refline = 1,
+       atransf = exp)
+
+# convert to OR, show CR
+OR <- predict(fit) %>%
+  as.data.frame() %>%
+  exp() %>%
+  select(-se) %>%
+  round_df(2) 
+
+## print as odds ratios
+OR %>%
+  mutate(p = zscore_to_p(fit$zval))
 
 ```
 
-- N participants = `r nrow(combined_participant_level_data)`
-- N IA-AMP trials = `r nrow(combined_trial_level_data)`
-- Meta analysis: `r meta_results_5$meta_analysis_results_text`
-- Heterogeneity tests: `r meta_results_5$heterogeneity_test_results_text`
+Convert to cohen's d
+
+```{r}
+
+OR_to_d(OR) %>%
+  round_df(2)
+
+```
+
+#### Plot
 
 ```{r fig.height=11, fig.width=9}
 
 # fit combined model
-model_combined <- glmer(rating ~ prime_type * influenced + (1 | unique_id) + (1 | experiment), 
+model_combined <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain), 
                         family = binomial(link = "logit"),
                         data = combined_trial_level_data)
 
@@ -537,10 +380,10 @@ predictions <- combined_trial_level_data %>%
 # plot
 p2 <- 
   ggplot(data = predictions, 
-         aes(x = as.factor(prime_type), 
+         aes(x = `Influence of prime\non evaluation of target`, 
              y = prob,
-             fill = `Influence of prime\non evaluation of target`,
-             color = `Influence of prime\non evaluation of target`)) +
+             fill = as.factor(prime_type),
+             color = as.factor(prime_type))) +
   geom_flat_violin(position = position_nudge(x = .2, y = 0),
                    adjust = 2,
                    alpha = .8) +
@@ -551,19 +394,210 @@ p2 <-
   scale_fill_viridis_d(begin = 0.3, end = 0.7) +
   coord_flip() +
   theme_classic() +
-  xlab("Prime type") +
+  xlab("Influence-awareness of prime on evaluation of target") +
   ylab("Evaluation on IA-AMP") +
   scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
                      labels = c("0.00\n(Negative)", "0.25", "0.50", "0.75", "1.00\n(Positive)"), 
                      limits = c(0, 1)) + 
-  labs(color = "Influence of prime on evaluation of target") + 
-  labs(name = "Influence of prime on evaluation of target") +
-  labs(fill = "Influence of prime on evaluation of target")
+  labs(color = "Prime type") + 
+  labs(name = "Prime type") +
+  labs(fill = "Prime type")
 
 # combined plots
 p1 + p2 + plot_layout(ncol = 1)
 
 ```
 
+```{r fig.height=8.5, fig.width=9}
 
+# plot 3: interaction
+plot_model(model_combined, 
+           type = "pred", 
+           terms = c("influenced", "prime_type")) +
+  theme_classic() +
+  xlab("Influence-awareness rate") +
+  ylab("Evaluation on IA-AMP") +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
+  scale_fill_viridis_d(begin = 0.3, end = 0.7) + 
+  labs(color = "Prime type") + 
+  labs(name = "Prime type") +
+  labs(fill = "Prime type") +
+  ggtitle("") +
+  xlim(0,1) +
+  ylim(0,1)
 
+```
+
+## AMP effect ~ IA-AMP influence rate
+
+### Participant level 
+
+AMP effect ~ IA-AMP influence rate
+
+Absolute AMP effects.
+
+```{r}
+
+formula <- as.formula("AMP_effect ~ influence_rate")
+effect  <- "influence_rate"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_amp <- rbind(
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 2, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 3, 
+                                  AMP_domain_name = "Politics",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 5, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect)
+) 
+
+```
+
+```{r}
+
+# reshape data
+data_temp <- results_for_meta_analysis_amp %>%
+  dplyr::rename(V = vi)
+
+# fit
+fit <- rma.mv(yi     = yi,
+              V      = V,
+              random = ~ 1 | Experiment/AMP_domain,
+              data   = data_temp,
+              slab   = paste(Experiment, AMP_domain))
+
+# plot
+forest(fit,
+       xlab = "Beta",
+       addcred = TRUE,
+       refline = 0)
+
+# convert to OR, show CR
+predict(fit) %>%
+  as.data.frame() %>%
+  round_df(2) %>%
+  mutate(p = zscore_to_p(fit$zval))
+
+```
+
+#### Plot
+
+```{r}
+
+p <- ggplot(combined_participant_level_data, 
+            aes(influence_rate, AMP_effect)) +
+  geom_point(alpha = 0.3, position = position_jitter()) +
+  geom_smooth(method = "lm") +
+  scale_color_viridis_d(end = 0.8) +
+  theme_classic() +
+  xlab("Influence-awareness rate") +
+  ylab('Absolute magnitude of AMP effect')
+
+p2 <- ggMarginal(p, 
+                 type = "histogram", 
+                 margins = "both", 
+                 size = 3)
+
+```
+
+```{r fig.height=5, fig.width=5}
+
+grid::grid.newpage()
+grid::grid.draw(p2)
+
+```
+
+# IA-AMP influence rate
+
+Combination analysis due to severe bimodality.
+
+Participant level
+
+## Distribution
+
+```{r}
+
+# Distribution
+ggplot(combined_participant_level_data, aes(influence_rate)) +
+  geom_density(adjust = .4, fill = 1, alpha = .8) +
+  #geom_histogram(fill = 1, alpha = .8, bins = 30) +
+  #geom_histogram(fill = 1, alpha = .8, bins = 100) +
+  theme_classic() +
+  xlab("Influence-awareness rate") +
+  ylab("Kernal density")
+
+```
+
+```{r}
+
+N <- nrow(combined_participant_level_data)
+
+combined_participant_level_data %>%
+  mutate(influence_rate_quintiles = ifelse(influence_rate <= .20, 1, 
+                                           ifelse(influence_rate <= .40, 2, 
+                                                  ifelse(influence_rate <= .60, 3, 
+                                                         ifelse(influence_rate <= .80, 4, 
+                                                                ifelse(influence_rate <= 1.00, 5, NA))))),
+         influence_rate_quintiles = as.factor(influence_rate_quintiles)) %>%
+  count(influence_rate_quintiles) %>%
+  mutate(percent = round(n/N, 2)) %>%
+  kable()
+
+combined_participant_level_data %>%
+  mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
+                                           ifelse(influence_rate >= 0.95, "almost all", "some")),
+         influence_rate_categories = as.factor(influence_rate_categories)) %>%
+  count(influence_rate_categories) %>%
+  mutate(percent = round(n/N, 2)) %>%
+  kable()
+
+combined_participant_level_data %>%
+  summarize(median_influence_rate = median(influence_rate),
+            mad_influence_rate = mad(influence_rate)) %>%
+  kable()
+
+```
+
+## Association with demographic variables
+
+### Gender
+
+```{r}
+
+combined_participant_level_data %>%
+  filter(gender %in% c("male", "female")) %>%
+  t.test(influence_rate ~ gender,
+         data = .) %>%
+  broom::tidy()
+
+combined_participant_level_data %>%
+  filter(gender %in% c("male", "female")) %>%
+  effsize::cohen.d(influence_rate ~ gender,
+                   data = .)
+
+```
+
+### Age
+
+```{r}
+
+cor.test(combined_participant_level_data$influence_rate,
+         combined_participant_level_data$age) %>%
+  broom::tidy()
+
+cis <- combined_participant_level_data %>%
+  select(influence_rate, age) %>%
+  psych::cor.ci(n.iter = 2000, plot = FALSE)
+
+cis$ci
+
+```
