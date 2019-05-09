@@ -177,7 +177,7 @@ OR converted to Cohen's d for familiarity: d = `r m2_d[1]`, 95% CI [`r m2_d[2]`,
 
 Does conscious awareness of influence of the prime on the target moderate the AMP effect?
 
-Key effect: influence*prime_type interaction
+Key effect: influence x prime_type x party interaction
 
 ##### Fit model
 
