@@ -189,7 +189,7 @@ model_h1a_1 <- glmer(rating ~ influenced * prime_type * party + (1 | subject),
                    data = trial_level_politics_ia_amp_data_exclusions)
 
 # plot
-plot_model(model_h1a_1, type = "pred", terms = c("influenced", "prime_type"))
+plot_model(model_h1a_1, type = "int")
 
 # results table
 tab_model(model_h1a_1, emph.p = FALSE, ci.hyphen = ", ", digits = 5)
