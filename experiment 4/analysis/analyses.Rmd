@@ -22,12 +22,11 @@ output:
 ```{r include=FALSE}
 
 knitr::opts_chunk$set(message = FALSE, 
-                      warning = FALSE, 
-                      echo = FALSE)
+                      warning = FALSE)
 
 ```
 
-```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+```{r setup, message=FALSE, warning=FALSE}
 
 # dependencies
 library(tidyverse)
@@ -43,6 +42,8 @@ library(kableExtra)
 # devtools::install_github("ianhussey/timesavers")  
 library(timesavers)  # for round_df()
 library(bootES)
+library(metafor)
+library(ggridges)
 
 # get data 
 task_level_data <- read.csv("../data/processed/processed_data.csv")
@@ -83,7 +84,7 @@ Analytic sample after exclusions.
 # count by party
 task_level_data_exclusions %>%
   dplyr::count(party)
-  
+
 # Gender
 task_level_data_exclusions %>%
   mutate(gender = tolower(gender)) %>%
@@ -124,8 +125,8 @@ coefficients_temp <- summary(model_m1)$coefficients %>%
   filter(effect == "prime_typeprime_type_B")
 
 m1_d <- c(exp(pull(coefficients_temp, Estimate)), 
-           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
   timesavers::OR_to_d(.) %>%
   round(2)
 
@@ -157,8 +158,8 @@ coefficients_temp <- summary(model_m2)$coefficients %>%
   filter(effect == "prime_typeprime_type_B")
 
 m2_d <- c(exp(pull(coefficients_temp, Estimate)), 
-           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
   timesavers::OR_to_d(.) %>%
   round(2)
 
@@ -185,8 +186,8 @@ Key effect: influence*prime_type interaction
 
 # model
 model_h1a_1 <- glmer(rating ~ influenced * prime_type * party + (1 | subject), 
-                   family = binomial(link = "logit"),
-                   data = trial_level_politics_ia_amp_data_exclusions)
+                     family = binomial(link = "logit"),
+                     data = trial_level_politics_ia_amp_data_exclusions)
 
 # plot
 plot_model(model_h1a_1, type = "pred", terms = c("influenced", "prime_type"))
@@ -194,15 +195,21 @@ plot_model(model_h1a_1, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h1a_1, emph.p = FALSE, ci.hyphen = ", ", digits = 5)
 
-# extract OR
-OR_h1a_1 <- exp(cbind(est=fixef(model_h1a), 
-                   confint(model_h1a, parm="beta_", method="Wald")))
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h1a_1)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B:partyrepublican")
 
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h1a_1))
+h1a_1_d <- c(exp(pull(coefficients_temp, Estimate)), 
+             exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+             exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
 
 ```
 
+OR converted to Cohen's d for familiarity: d = `r h1a_1_d[1]`, 95% CI [`r h1a_1_d[2]`, `r h1a_1_d[3]`].
 
 #### 2: at the participant level
 
@@ -216,7 +223,7 @@ If effects in the IA-AMP are driven by intentional responding, then the size of 
 
 # model
 fit_h1b_2 <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_obama_trump, 
-              data = task_level_data_exclusions)
+                data = task_level_data_exclusions)
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
@@ -249,8 +256,8 @@ Key effect: influence*prime_type interaction
 
 # model
 model_h1b_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
-                   family = binomial(link = "logit"),
-                   data = trial_level_posneg_ia_amp_data_exclusions)
+                     family = binomial(link = "logit"),
+                     data = trial_level_posneg_ia_amp_data_exclusions)
 
 # plot
 plot_model(model_h1b_1, type = "pred", terms = c("influenced", "prime_type"))
@@ -258,14 +265,21 @@ plot_model(model_h1b_1, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h1b_1, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR
-OR_h1b_1 <- exp(cbind(est=fixef(model_h2b_1), 
-                   confint(model_h2b_1, parm="beta_", method="Wald")))
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h1b_1)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B")
 
-# convert OR to D
-abs(timesavers::OR_to_d(OR_h1b_1))
+h1b_1_d <- c(exp(pull(coefficients_temp, Estimate)), 
+             exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+             exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
 
 ```
+
+OR converted to Cohen's d for familiarity: d = `r h1b_1_d[1]`, 95% CI [`r h1b_1_d[2]`, `r h1b_1_d[3]`].
 
 #### 2. At the participant level
 
@@ -279,7 +293,7 @@ If effects in the IA-AMP are driven by intentional responding, then the size of 
 
 # model
 fit_h1b_2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate_positive_negative, 
-              data = task_level_data_exclusions)
+                data = task_level_data_exclusions)
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative, 
@@ -303,12 +317,11 @@ If effects in the AMPs are driven by participants who are more often influenced,
 
 ### H2a: Politics influence rate, pos-neg effect size
 
-
 ```{r}
 
 # model
 fit_h2a <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate_obama_trump, 
-             data = task_level_data_exclusions)
+              data = task_level_data_exclusions)
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, 
@@ -337,7 +350,7 @@ Here we use the absolute politics AMP effect size, as the effects are necessaril
 
 # model
 fit_h2b <- lm(abs(IA_AMP_effect_obama_trump) ~ influence_rate_positive_negative, 
-             data = task_level_data_exclusions)
+              data = task_level_data_exclusions)
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative, 
@@ -355,11 +368,9 @@ tab_model(fit_h2b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
 
-## H3: Influence rates correlate between IA-AMPs across different domains
+## H3: Influence-awareness rate correlates between IA-AMPs across different domains
 
 If the subset of participants who respond intentionally in the AMP are consistent across procedures, then then influence rates in the AMP should correlate.
-
-Bootstrapped estimate for robustness.
 
 ```{r fig.height=6, fig.width=6}
 
@@ -374,7 +385,7 @@ ggplot(task_level_data_exclusions,
        aes(influence_rate_obama_trump, influence_rate_positive_negative)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(x = "Influence rate in\npolitics IA-AMP", y = "Influence rate in\npositive-negative IA-AMP") +
+  labs(x = "Influence-awareness rate\nin politics IA-AMP", y = "Influence-awareness rate\nin positive-negative IA-AMP") +
   theme_classic() +
   ylim(0,1) +
   xlim(0,1)
@@ -386,39 +397,127 @@ ggplot(task_level_data_exclusions,
 ### Group membership predicting AMP effect from influenced trials
 
 ```{r}
+
 refactored_influenced <- task_level_data_exclusions %>% 
   select(IA_AMP_effect_obama_trump_influenced, party) %>%
   na.omit() %>%
-  mutate(party = as.character(party)) %>%
-  mutate(party = as.factor(party)) # need to refactor party as it thought it had 3 levels
+  mutate(party = as.factor(as.character(party))) # need to refactor party as it thought it had 3 levels
 
 # test
 t.test(IA_AMP_effect_obama_trump_influenced ~ party,
        data = refactored_influenced, var.equal = TRUE)
 
 # Cohen's d
-effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
-                 data = refactored_influenced)
+d_inf <- effsize::cohen.d(IA_AMP_effect_obama_trump_influenced ~ party,
+                          data = refactored_influenced)
+
+d_inf
 
 ```
 
 ### Group membership predicting AMP effect from uninfluenced trials
 
 ```{r}
+
 refactored_uninfluenced <- task_level_data_exclusions %>% 
   select(IA_AMP_effect_obama_trump_uninfluenced, party) %>%
   na.omit() %>%
-  mutate(party = as.character(party)) %>%
-  mutate(party = as.factor(party)) # refactored party here also
-
+  mutate(party = as.factor(as.character(party))) 
 
 # test
 t.test(IA_AMP_effect_obama_trump_uninfluenced ~ party,
        data = refactored_uninfluenced, var.equal = TRUE)
 
 # Cohen's d
-effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
-                 data = refactored_uninfluenced)
+d_uninf <- effsize::cohen.d(IA_AMP_effect_obama_trump_uninfluenced ~ party,
+                            data = refactored_uninfluenced)
 
+d_uninf
+
+```
+
+### Chi square test to compare
+
+Easiest implementation to compare two cohen's d values is to use the chi square (test for heterogeneity) from the metafor package. Might seem odd to fit a meta analysis here, but it's the easiest implementation of the test. Only the test for heterogeneity should be reported.
+
+```{r}
+
+data <- data.frame(yi = c(d_inf$estimate, d_uninf$estimate),
+                   sei = c((d_inf$conf.int["upper"] - d_inf$conf.int["lower"])/(2*1.96),
+                           (d_uninf$conf.int["upper"] - d_uninf$conf.int["lower"])/(2*1.96)),
+                   condition = c("influenced", "uninfluenced")) %>%
+  mutate(vi = sei^2)
+
+fit <- rma(yi = yi,
+           sei = sei,
+           data = data,
+           slab = condition)
+
+#forest(fit)
+
+# Q test in meta analysis heterogeneity is exactly equivalent to the below method
+summary(fit, digits = 5)
+
+```
+
+#### Plot
+
+```{r}
+
+data_plotting <- 
+  task_level_data_exclusions %>%
+  dplyr::rename("Influenced\ntrials" = IA_AMP_effect_obama_trump_influenced,
+                "Uninfluenced\ntrials" = IA_AMP_effect_obama_trump_uninfluenced) %>%
+  mutate(party = dplyr::recode(party,
+                               "democrat" = "Democrat",
+                               "republican" = "Republican")) %>%
+  gather(influence, 
+         IA_AMP_effect, 
+         c("Influenced\ntrials", "Uninfluenced\ntrials"))
+
+data_summary_plotting <- data_plotting %>%
+  group_by(party, influence) %>%
+  dplyr::summarize(IA_AMP_effect_mean = mean(IA_AMP_effect),
+                   IA_AMP_effect_se = plotrix::std.error(IA_AMP_effect)) %>%
+  ungroup()
+
+ggplot() +
+  stat_density_ridges(data = data_plotting,
+                      aes(x = IA_AMP_effect,
+                          y = influence, 
+                          fill = as.factor(party),
+                          color = as.factor(party)),
+                      geom = "density_ridges_gradient",
+                      bandwidth = 0.35,
+                      jittered_points = TRUE, 
+                      scale = .95, 
+                      rel_min_height = .05,
+                      point_shape = "|", 
+                      point_size = 3, 
+                      size = 0.25,
+                      position = position_points_jitter(height = 0, width = 0, yoffset = -0.05)) +
+  geom_errorbarh(data = data_summary_plotting,
+                 aes(xmin = IA_AMP_effect_mean - IA_AMP_effect_se*1.96,
+                     xmax = IA_AMP_effect_mean + IA_AMP_effect_se*1.96,
+                     y = influence,
+                     color = as.factor(party)),
+                 height = .1,
+                 position = position_nudge(y = -0.16)) +
+  geom_point(data = data_summary_plotting,
+             aes(x = IA_AMP_effect_mean,
+                 y = influence,
+                 fill = as.factor(party),
+                 color = as.factor(party)),
+             position = position_nudge(y = -0.16)) +
+  scale_colour_viridis_d(begin = 0.3, end = 0.7, alpha = 1) +
+  scale_fill_viridis_d(begin = 0.3, end = 0.7, alpha = 0.5) +
+  theme_classic() +
+  scale_x_continuous(breaks = c(-1.0, -0.5, 0.0, 0.5, 1.0),
+                     labels = c("-1.0\n(Obama-bad/Trump-good)", "-0.5", "0.0", "0.5", "1.0\n(Obama-good/Trump-bad)")) +
+  ylab("Influence-awareness") +
+  xlab("Evaluation on IA-AMP") +
+  labs(color = "Political party") + 
+  labs(name = "Political party") +
+  labs(fill = "Political party")
 
 ```

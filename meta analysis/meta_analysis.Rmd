@@ -29,6 +29,8 @@ library(metafor)
 library(patchwork)
 library(ggExtra)
 library(sjPlot)
+library(kableExtra)
+library(knitr)
 
 # source for raincloud plots
 source("geom_flat_violin.R")
@@ -160,7 +162,7 @@ formula <- as.formula("abs(IA_AMP_effect) ~ influence_rate")
 effect  <- "influence_rate"
 
 # apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_2 <- rbind(
+results_for_meta_analysis_1 <- rbind(
   fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
                                   experiment_n = 1, 
                                   IA_AMP_domain_name = "Generic valence",
@@ -198,7 +200,7 @@ results_for_meta_analysis_2 <- rbind(
 ```{r}
 
 # reshape data
-data_temp <- results_for_meta_analysis_2 %>%
+data_temp <- results_for_meta_analysis_1 %>%
   dplyr::rename(V = vi)
 
 # fit
@@ -224,28 +226,16 @@ predict(fit) %>%
 
 #### Plot
 
-```{r}
+```{r fig.height=5, fig.width=5}
 
-p <- ggplot(combined_participant_level_data, 
+ggplot(combined_participant_level_data, 
             aes(influence_rate, IA_AMP_effect)) +
-  geom_point(alpha = 0.3, position = position_jitter()) +
+  geom_jitter(alpha = 0.3, width = 0.02, height = 0.02) +
   geom_smooth(method = "lm") +
   scale_color_viridis_d(end = 0.8) +
   theme_classic() +
-  xlab("Influence-awareness rate") +
+  xlab("IA-AMP influence-awareness rate") +
   ylab('Absolute magnitude of IA-AMP effect')
-
-p2 <- ggMarginal(p, 
-                 type = "histogram", 
-                 margins = "both", 
-                 size = 3)
-
-```
-
-```{r fig.height=5, fig.width=5}
-
-grid::grid.newpage()
-grid::grid.draw(p2)
 
 ```
 
@@ -257,7 +247,7 @@ formula <- as.formula("rating ~ prime_type * influenced + (1 | unique_id)")
 effect  <- "prime_typePositive:influenced"
 
 # apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_5 <- rbind(
+results_for_meta_analysis_2 <- rbind(
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 1, 
                                      domain_name = "Generic valence",
@@ -295,7 +285,7 @@ results_for_meta_analysis_5 <- rbind(
 ```{r}
 
 # reshape data
-data_temp <- results_for_meta_analysis_5 %>%
+data_temp <- results_for_meta_analysis_2 %>%
   dplyr::rename(V = vi)
 
 # fit
@@ -336,22 +326,21 @@ OR_to_d(OR) %>%
 
 #### Plot
 
-```{r fig.height=11, fig.width=9}
+```{r fig.height=5, fig.width=6.5}
 
 # fit combined model
-model_combined <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain), 
-                        family = binomial(link = "logit"),
-                        data = combined_trial_level_data)
+model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain), 
+                 family = binomial(link = "logit"),
+                 data = combined_trial_level_data)
 
 # predictions
-model_combined_predicted_effects <- 
-  as.data.frame(effect("prime_type:influenced", model_combined, xlevels = 50)) %>%
+model_2_predicted_effects <- 
+  as.data.frame(effect("prime_type:influenced", model_2, xlevels = 50)) %>%
   round_df(2) %>%
   mutate(prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
 # Plot 1 -  quantiles (10ths) of interaction effect 
-p1 <- 
-  ggplot(data = model_combined_predicted_effects,
+ggplot(data = model_2_predicted_effects,
          aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
   geom_line() +
   ylab("Mean evaluation on IA-AMP") +
@@ -359,11 +348,14 @@ p1 <-
   #scale_y_continuous(breaks = c(0, 0.25, 0.5, 0.75, 1)) +
   scale_colour_viridis_c(direction = -1) +
   theme_classic() + 
-  labs(colour = "Proportion of\ninfluenced trials") +
+  labs(colour = "Proportion of\ninfluence-aware\ntrials") +
   scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
                      labels = c("(Negative) 0.00", "0.25", "0.50", "0.75", "(Positive) 1.00"), 
                      limits = c(0, 1))
 
+```
+
+```{r fig.height=5, fig.width=6.5}
 
 # Plot 2 - differences between influenced and non influenced trials
 
@@ -371,15 +363,14 @@ p1 <-
 predictions <- combined_trial_level_data %>%
   dplyr::select(prime_type, influenced, unique_id,  experiment) %>%
   na.omit %>%
-  mutate(prob = predict(model_combined, type = c("response")),
+  mutate(prob = predict(model_2, type = c("response")),
          `Influence of prime\non evaluation of target` = dplyr::recode(influenced, 
                                                                        "0" = "Uninfluenced trials",
                                                                        "1" = "Influenced trials"),
          prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
 # plot
-p2 <- 
-  ggplot(data = predictions, 
+ggplot(data = predictions, 
          aes(x = `Influence of prime\non evaluation of target`, 
              y = prob,
              fill = as.factor(prime_type),
@@ -403,15 +394,12 @@ p2 <-
   labs(name = "Prime type") +
   labs(fill = "Prime type")
 
-# combined plots
-p1 + p2 + plot_layout(ncol = 1)
-
 ```
 
-```{r fig.height=8.5, fig.width=9}
+```{r fig.height=5, fig.width=6.5}
 
 # plot 3: interaction
-plot_model(model_combined, 
+plot_model(model_2, 
            type = "pred", 
            terms = c("influenced", "prime_type")) +
   theme_classic() +
@@ -442,7 +430,7 @@ formula <- as.formula("AMP_effect ~ influence_rate")
 effect  <- "influence_rate"
 
 # apply models to individual experiments, extract results for key effect
-results_for_meta_analysis_amp <- rbind(
+results_for_meta_analysis_3 <- rbind(
   fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
                                   experiment_n = 2, 
                                   AMP_domain_name = "Generic valence",
@@ -465,7 +453,7 @@ results_for_meta_analysis_amp <- rbind(
 ```{r}
 
 # reshape data
-data_temp <- results_for_meta_analysis_amp %>%
+data_temp <- results_for_meta_analysis_3 %>%
   dplyr::rename(V = vi)
 
 # fit
@@ -491,28 +479,16 @@ predict(fit) %>%
 
 #### Plot
 
-```{r}
+```{r fig.height=5, fig.width=5}
 
-p <- ggplot(combined_participant_level_data, 
+ggplot(combined_participant_level_data, 
             aes(influence_rate, AMP_effect)) +
-  geom_point(alpha = 0.3, position = position_jitter()) +
+  geom_jitter(alpha = 0.3, width = 0.02, height = 0.02) +
   geom_smooth(method = "lm") +
   scale_color_viridis_d(end = 0.8) +
   theme_classic() +
-  xlab("Influence-awareness rate") +
+  xlab("IA-AMP influence-awareness rate") +
   ylab('Absolute magnitude of AMP effect')
-
-p2 <- ggMarginal(p, 
-                 type = "histogram", 
-                 margins = "both", 
-                 size = 3)
-
-```
-
-```{r fig.height=5, fig.width=5}
-
-grid::grid.newpage()
-grid::grid.draw(p2)
 
 ```
 
@@ -548,7 +524,7 @@ combined_participant_level_data %>%
                                                          ifelse(influence_rate <= .80, 4, 
                                                                 ifelse(influence_rate <= 1.00, 5, NA))))),
          influence_rate_quintiles = as.factor(influence_rate_quintiles)) %>%
-  count(influence_rate_quintiles) %>%
+  dplyr::count(influence_rate_quintiles) %>%
   mutate(percent = round(n/N, 2)) %>%
   kable()
 
@@ -556,7 +532,7 @@ combined_participant_level_data %>%
   mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
                                            ifelse(influence_rate >= 0.95, "almost all", "some")),
          influence_rate_categories = as.factor(influence_rate_categories)) %>%
-  count(influence_rate_categories) %>%
+  dplyr::count(influence_rate_categories) %>%
   mutate(percent = round(n/N, 2)) %>%
   kable()
 
@@ -564,40 +540,5 @@ combined_participant_level_data %>%
   summarize(median_influence_rate = median(influence_rate),
             mad_influence_rate = mad(influence_rate)) %>%
   kable()
-
-```
-
-## Association with demographic variables
-
-### Gender
-
-```{r}
-
-combined_participant_level_data %>%
-  filter(gender %in% c("male", "female")) %>%
-  t.test(influence_rate ~ gender,
-         data = .) %>%
-  broom::tidy()
-
-combined_participant_level_data %>%
-  filter(gender %in% c("male", "female")) %>%
-  effsize::cohen.d(influence_rate ~ gender,
-                   data = .)
-
-```
-
-### Age
-
-```{r}
-
-cor.test(combined_participant_level_data$influence_rate,
-         combined_participant_level_data$age) %>%
-  broom::tidy()
-
-cis <- combined_participant_level_data %>%
-  select(influence_rate, age) %>%
-  psych::cor.ci(n.iter = 2000, plot = FALSE)
-
-cis$ci
 
 ```

@@ -19,7 +19,7 @@ knitr::opts_chunk$set(message = FALSE,
 
 ```
 
-```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+```{r setup, message=FALSE, warning=FALSE}
 
 # dependencies
 library(tidyverse)
