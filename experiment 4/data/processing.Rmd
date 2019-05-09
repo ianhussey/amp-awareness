@@ -268,11 +268,9 @@ complete_self_report_data <- self_report_data %>%
   distinct(subject)
 
 complete_politics_IA_AMP_data <- politics_IA_AMP_data %>%
-  na.omit() %>%
   distinct(subject)
 
 complete_posneg_IA_AMP_data <- posneg_IA_AMP_data %>%
-  na.omit() %>%
   distinct(subject)
 
 complete_data <- complete_demographics_data %>%
