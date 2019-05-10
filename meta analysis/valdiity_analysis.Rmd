@@ -1,0 +1,393 @@
+---
+title: "Structural validity assessment"
+subtitle: "Does the AMP function comparably in high and low influence-aware participants?"
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+Could we simply calculate inf and non inf effects and show they correlate differentially between groups? would this be more intelligable for most readers?
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+```
+
+```{r setup, message=FALSE, warning=FALSE}
+
+# dependencies
+library(tidyverse)
+library(lavaan)
+library(semTools)
+library(semPlot)
+library(timesavers)
+library(knitr)
+library(kableExtra)
+
+```
+
+# Exp 2
+
+## Data
+
+```{r}
+
+# get data 
+task_level_data <- read.csv("../experiment 2/data/processed/processed_data.csv")
+
+trial_level_amp_data <- read.csv("../experiment 2/data/processed/trial_level_amp_positive_negative_data.csv")
+
+# exclusions
+task_level_data_exclusions <- task_level_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+trial_level_amp_data_exclusions <- trial_level_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+```
+
+```{r}
+
+# influence rate from the IA AMP 
+data_influence_rate_groups <- task_level_data_exclusions %>%
+  dplyr::mutate(influence_rate_group = as.factor(ifelse(influence_rate >= median(influence_rate), "high", "low"))) %>%
+  dplyr::mutate(influence_rate_group = forcats::fct_relevel(influence_rate_group, "low", "high")) %>%
+  select(subject, influence_rate_group)
+
+# AMP effect from AMP - politics, democrats only
+data_reshaped <- trial_level_amp_data_exclusions %>%
+  # arrange the trials by prime type and order of completion
+  arrange(subject, prime_type) %>%
+  group_by(subject) %>%
+  dplyr::mutate(AMP_trial = row_number()) %>%
+  ungroup() %>%
+  rownames_to_column() %>%
+  select(subject, AMP_trial, rating) %>%
+  dplyr::mutate(parcel = ifelse(AMP_trial <= 12, "parcel_1", 
+                                ifelse(AMP_trial <= 24, "parcel_2", 
+                                       ifelse(AMP_trial <= 36, "parcel_3", 
+                                              ifelse(AMP_trial <= 48, "parcel_4", 
+                                                     ifelse(AMP_trial <= 60, "parcel_5", 
+                                                            ifelse(AMP_trial <= 72, "parcel_6", NA))))))) %>%
+  group_by(subject, parcel) %>%
+  dplyr::summarize(rating_sum = sum(rating)) %>%
+  ungroup() %>%
+  spread(parcel, rating_sum) %>%
+  left_join(data_influence_rate_groups, by = "subject")
+
+#levels(data_reshaped$influence_rate_group)
+
+```
+
+## Fit CFA
+
+```{r}
+
+model <- "AMP_primetype_A =~ parcel_1 + parcel_2 + parcel_3 
+          AMP_primetype_B =~ parcel_4 + parcel_5 + parcel_6"
+
+# fit the configural model 
+fit_configural <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group")
+
+# constrain slopes
+fit_metric <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group",
+      group.equal = "loadings")
+
+# constrain intercepts
+fit_scalar <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group",
+      group.equal = c( "loadings", "intercepts"))
+
+# summarize these cfa fit indices, and their change across nested models
+results <- compareFit(fit_configural, fit_metric, fit_scalar, nested = TRUE) %>%
+  summary()
+
+fit_indices <- results$fit.indices %>%
+  rownames_to_column(var = "test") %>%
+  round_df(3)
+  
+fit_indices %>%
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+fit_deltas <- results$fit.diff %>%
+  rownames_to_column(var = "test") %>%
+  dplyr::mutate(MI = ifelse(rmsea.robust > 0.01 | cfi.robust < -0.015, "failed", "passed")) %>%
+  round_df(3)
+
+fit_deltas %>%
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+# plot configural model
+semPaths(fit_configural,
+         "est",
+         "std",
+         fade = FALSE,
+         ask = FALSE, 
+         curveAdjacent = TRUE, 
+         edge.label.cex = 1.2)
+
+# table
+summary(fit_configural, standardized = TRUE)
+
+```
+
+# Exp 3
+
+## Data
+
+```{r}
+
+# get data 
+task_level_data <- read.csv("../experiment 3/data/processed/processed_data.csv")
+
+trial_level_amp_data <- read.csv("../experiment 3/data/processed/trial_level_amp_obama_trump_data.csv")
+
+# exclusions
+task_level_data_exclusions <- task_level_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE & 
+           party %in% c("democrat"))
+
+trial_level_amp_data_exclusions <- trial_level_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE & 
+           party %in% c("democrat"))
+
+```
+
+```{r}
+
+# influence rate from the IA AMP 
+data_influence_rate_groups <- task_level_data_exclusions %>%
+  dplyr::mutate(influence_rate_group = as.factor(ifelse(influence_rate >= median(influence_rate), "high", "low"))) %>%
+  dplyr::mutate(influence_rate_group = forcats::fct_relevel(influence_rate_group, "low", "high")) %>%
+  select(subject, influence_rate_group)
+
+# AMP effect from AMP - politics, democrats only
+data_reshaped <- trial_level_amp_data_exclusions %>%
+  # arrange the trials by prime type and order of completion
+  arrange(subject, prime_type) %>%
+  group_by(subject) %>%
+  dplyr::mutate(AMP_trial = row_number()) %>%
+  ungroup() %>%
+  rownames_to_column() %>%
+  select(subject, AMP_trial, rating) %>%
+  dplyr::mutate(parcel = ifelse(AMP_trial <= 12, "parcel_1", 
+                                ifelse(AMP_trial <= 24, "parcel_2", 
+                                       ifelse(AMP_trial <= 36, "parcel_3", 
+                                              ifelse(AMP_trial <= 48, "parcel_4", 
+                                                     ifelse(AMP_trial <= 60, "parcel_5", 
+                                                            ifelse(AMP_trial <= 72, "parcel_6", NA))))))) %>%
+  group_by(subject, parcel) %>%
+  dplyr::summarize(rating_sum = sum(rating)) %>%
+  ungroup() %>%
+  spread(parcel, rating_sum) %>%
+  left_join(data_influence_rate_groups, by = "subject")
+
+#levels(data_reshaped$influence_rate_group)
+
+```
+
+## Fit CFA
+
+```{r}
+
+model <- "AMP_primetype_A =~ parcel_1 + parcel_2 + parcel_3 
+          AMP_primetype_B =~ parcel_4 + parcel_5 + parcel_6"
+
+# fit the configural model 
+fit_configural <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group")
+
+# constrain slopes
+fit_metric <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group",
+      group.equal = "loadings")
+
+# constrain intercepts
+fit_scalar <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group",
+      group.equal = c( "loadings", "intercepts"))
+
+# summarize these cfa fit indices, and their change across nested models
+results <- compareFit(fit_configural, fit_metric, fit_scalar, nested = TRUE) %>%
+  summary()
+
+fit_indices <- results$fit.indices %>%
+  rownames_to_column(var = "test") %>%
+  round_df(3)
+  
+fit_indices %>%
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+fit_deltas <- results$fit.diff %>%
+  rownames_to_column(var = "test") %>%
+  dplyr::mutate(MI = ifelse(rmsea.robust > 0.01 | cfi.robust < -0.015, "failed", "passed")) %>%
+  round_df(3)
+
+fit_deltas %>%
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+# plot configural model
+semPaths(fit_configural,
+         "est",
+         "std",
+         fade = FALSE,
+         ask = FALSE, 
+         curveAdjacent = TRUE, 
+         edge.label.cex = 1.2)
+
+# table
+summary(fit_configural, standardized = TRUE)
+
+```
+
+# Exp 5
+
+## Data
+
+```{r}
+
+# get data 
+task_level_data <- read.csv("../experiment 5/data/processed/processed_data.csv")
+
+trial_level_amp_data <- read.csv("../experiment 5/data/processed/trial_level_amp_positive_negative_data.csv")
+
+# exclusions
+task_level_data_exclusions <- task_level_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+trial_level_amp_data_exclusions <- trial_level_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+```
+
+```{r}
+
+# influence rate from the IA AMP 
+data_influence_rate_groups <- task_level_data_exclusions %>%
+  dplyr::mutate(influence_rate_group = as.factor(ifelse(influence_rate >= median(influence_rate), "high", "low"))) %>%
+  dplyr::mutate(influence_rate_group = forcats::fct_relevel(influence_rate_group, "low", "high")) %>%
+  select(subject, influence_rate_group)
+
+# AMP effect from AMP - politics, democrats only
+data_reshaped <- trial_level_amp_data_exclusions %>%
+  # arrange the trials by prime type and order of completion
+  arrange(subject, prime_type) %>%
+  group_by(subject) %>%
+  dplyr::mutate(AMP_trial = row_number()) %>%
+  ungroup() %>%
+  rownames_to_column() %>%
+  select(subject, AMP_trial, rating) %>%
+  dplyr::mutate(parcel = ifelse(AMP_trial <= 10, "parcel_1", 
+                                ifelse(AMP_trial <= 20, "parcel_2", 
+                                       ifelse(AMP_trial <= 30, "parcel_3", 
+                                              ifelse(AMP_trial <= 40, "parcel_4", 
+                                                     ifelse(AMP_trial <= 50, "parcel_5", 
+                                                            ifelse(AMP_trial <= 60, "parcel_6", NA))))))) %>%
+  group_by(subject, parcel) %>%
+  dplyr::summarize(rating_sum = sum(rating)) %>%
+  ungroup() %>%
+  spread(parcel, rating_sum) %>%
+  left_join(data_influence_rate_groups, by = "subject")
+
+#levels(data_reshaped$influence_rate_group)
+
+```
+
+## Fit CFA
+
+```{r}
+
+model <- "AMP_primetype_A =~ parcel_1 + parcel_2 + parcel_3 
+          AMP_primetype_B =~ parcel_4 + parcel_5 + parcel_6"
+
+# fit the configural model 
+fit_configural <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group")
+
+# constrain slopes
+fit_metric <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group",
+      group.equal = "loadings")
+
+# constrain intercepts
+fit_scalar <- data_reshaped %>%
+  cfa(model = model,
+      data  = .,
+      estimator = "MLR",
+      group = "influence_rate_group",
+      group.equal = c( "loadings", "intercepts"))
+
+# summarize these cfa fit indices, and their change across nested models
+results <- compareFit(fit_configural, fit_metric, fit_scalar, nested = TRUE) %>%
+  summary()
+
+fit_indices <- results$fit.indices %>%
+  rownames_to_column(var = "test") %>%
+  round_df(3)
+  
+fit_indices %>%
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+fit_deltas <- results$fit.diff %>%
+  rownames_to_column(var = "test") %>%
+  dplyr::mutate(MI = ifelse(rmsea.robust > 0.01 | cfi.robust < -0.015, "failed", "passed")) %>%
+  round_df(3)
+
+fit_deltas %>%
+  kable() %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+# plot configural model
+semPaths(fit_configural,
+         "est",
+         "std",
+         fade = FALSE,
+         ask = FALSE, 
+         curveAdjacent = TRUE, 
+         edge.label.cex = 1.2)
+
+# table
+summary(fit_configural, standardized = TRUE)
+
+```
+
+
