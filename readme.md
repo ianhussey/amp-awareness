@@ -5,5 +5,5 @@
 2. improve this readme with licenses, links to materials, etc.
 3. square prereg with analyses re hypotheses numbers - at least exp 4 had some issues.
    1. exp 4 done, others to do
-4. re run all canonical processing and analyses prior to manuscript reporting checks
-5. Add meta analyses to OSF.
+4. re run all canonical processing and analyses prior to manuscript reporting checks, 
+   1. update all code and data on OSF.
