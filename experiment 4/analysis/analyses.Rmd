@@ -92,6 +92,7 @@ task_level_data_exclusions %>%
 
 # Age mean and SD
 task_level_data_exclusions %>%
+  filter(!(is.na(age))) %>%
   mutate(age = as.numeric(as.character(age))) %>%
   dplyr::summarise("age (mean)" = mean(age), 
                    "age (standard deviation)" = sd(age)) %>%
