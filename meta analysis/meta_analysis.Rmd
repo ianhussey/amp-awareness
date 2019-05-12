@@ -141,8 +141,17 @@ fit_glmer_model_and_extract_effect <- function(data, experiment_n, formula, effe
 
 
 # get data
-combined_participant_level_data <- read.csv("data/combined_participant_level_data.csv")
+combined_participant_level_data <- read.csv("data/combined_participant_level_data.csv") 
 combined_trial_level_data       <- read.csv("data/combined_trial_level_data.csv") 
+
+```
+
+# total participants
+
+```{r}
+combined_participant_level_data %>%
+  distinct(unique_id) %>%
+  dplyr::count()
 
 ```
 
