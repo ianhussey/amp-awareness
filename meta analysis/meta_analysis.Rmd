@@ -334,8 +334,8 @@ OR_to_d(OR) %>%
 
 ```{r fig.height=5, fig.width=6.5}
 
-# # fit combined model
-# model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain), 
+# fit combined model
+# model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain),
 #                  family = binomial(link = "logit"),
 #                  data = combined_trial_level_data)
 # 
