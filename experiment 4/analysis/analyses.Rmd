@@ -477,7 +477,7 @@ data_plotting <-
 
 data_summary_plotting <- data_plotting %>%
   group_by(party, influence) %>%
-  dplyr::summarize(IA_AMP_effect_mean = mean(IA_AMP_effect),
+  dplyr::summarize(IA_AMP_effect_mean = mean(IA_AMP_effect, na.rm = TRUE),
                    IA_AMP_effect_se = plotrix::std.error(IA_AMP_effect)) %>%
   ungroup()
 
