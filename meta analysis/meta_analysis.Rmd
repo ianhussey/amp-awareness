@@ -146,12 +146,14 @@ combined_trial_level_data       <- read.csv("data/combined_trial_level_data.csv"
 
 ```
 
-# total participants
+# Total participants after exclusions
 
 ```{r}
+
 combined_participant_level_data %>%
   distinct(unique_id) %>%
-  dplyr::count()
+  dplyr::count() %>%
+  kable()
 
 ```
 
@@ -251,10 +253,12 @@ ggplot(temp_data,
   labs(name = "Domain") +
   labs(fill = "Domain") + 
   theme(legend.position = c(0.3, .8))
-  
+
 ```
 
 ### Trial level
+
+Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
 
 ```{r}
 
@@ -281,11 +285,6 @@ results_for_meta_analysis_2 <- rbind(
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 4, 
                                      domain_name = "Generic valence",
-                                     formula = formula, 
-                                     effect = effect),
-  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
-                                     experiment_n = 4, 
-                                     domain_name = "Politics",
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
@@ -341,15 +340,12 @@ OR_to_d(OR) %>%
 
 #### Plot
 
-```{r fig.height=5, fig.width=6.5}
+```{r fig.height=5, fig.width=5}
 
 # fit combined model
-# model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain),
-#                  family = binomial(link = "logit"),
-#                  data = combined_trial_level_data)
-# 
-# save(model_2, file = "model_2.Rdata")
-load("model_2.RData")
+model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
+                 family = binomial(link = "logit"),
+                 data = combined_trial_level_data)
 
 # predictions
 model_2_predicted_effects <- 
@@ -358,8 +354,8 @@ model_2_predicted_effects <-
   mutate(prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
 # Plot 1 -  quantiles (10ths) of interaction effect 
-ggplot(data = model_2_predicted_effects,
-         aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
+p2 <- ggplot(data = model_2_predicted_effects,
+             aes(x = prime_type, y = fit, colour = influenced, group = influenced)) +
   geom_line() +
   ylab("Mean evaluation on IA-AMP") +
   xlab("Prime type") +
@@ -368,9 +364,11 @@ ggplot(data = model_2_predicted_effects,
   theme_classic() + 
   labs(colour = "Proportion of\ninfluence-aware\ntrials") +
   scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
-                     labels = c("(Negative) 0.00", "0.25", "0.50", "0.75", "(Positive) 1.00"), 
+                     labels = c("0.00\n(Negative) ", "0.25", "0.50", "0.75", "1.00\n(Positive) "), 
                      limits = c(0, 1)) + 
   theme(legend.position = c(0.85, 0.30))
+
+p2
 
 ```
 
@@ -390,10 +388,10 @@ predictions <- combined_trial_level_data %>%
 
 # plot
 ggplot(data = predictions, 
-         aes(x = `Influence of prime\non evaluation of target`, 
-             y = prob,
-             fill = as.factor(prime_type),
-             color = as.factor(prime_type))) +
+       aes(x = `Influence of prime\non evaluation of target`, 
+           y = prob,
+           fill = as.factor(prime_type),
+           color = as.factor(prime_type))) +
   geom_flat_violin(position = position_nudge(x = .2, y = 0),
                    adjust = 2,
                    alpha = .8) +
@@ -507,8 +505,8 @@ temp_data <- combined_participant_level_data %>%
   select(experiment, AMP_domain, IA_AMP_domain, influence_rate, AMP_effect) %>%
   mutate(prediction_type = ifelse(AMP_domain == IA_AMP_domain, "Same domain", "Different domain"))
 
-ggplot(temp_data, 
-       aes(influence_rate, AMP_effect, color = prediction_type)) +
+p3 <- ggplot(temp_data, 
+             aes(influence_rate, AMP_effect, color = prediction_type)) +
   geom_smooth(method = "lm") +
   scale_color_viridis_d(end = 0.7, begin = 0.3) +
   theme_classic() +
@@ -518,6 +516,8 @@ ggplot(temp_data,
   labs(name = "Domains assessed by\nthe IA-AMP vs. AMP") +
   labs(fill = "Domains assessed by\nthe IA-AMP vs. AMP") + 
   theme(legend.position = c(0.3, .8))
+
+p3
 
 ```
 
@@ -532,13 +532,15 @@ Participant level
 ```{r fig.height=5, fig.width=5}
 
 # Distribution
-ggplot(combined_participant_level_data, aes(influence_rate)) +
+p4 <- ggplot(combined_participant_level_data, aes(influence_rate)) +
   geom_density(adjust = .4, fill = 1, alpha = .8) +
   #geom_histogram(fill = 1, alpha = .8, bins = 30) +
   #geom_histogram(fill = 1, alpha = .8, bins = 100) +
   theme_classic() +
   xlab("Influence-awareness rate") +
   ylab("Distribution density")
+
+p4
 
 ```
 
@@ -559,7 +561,7 @@ combined_participant_level_data %>%
 
 combined_participant_level_data %>%
   mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
-                                           ifelse(influence_rate >= 0.95, "almost all", "some")),
+                                            ifelse(influence_rate >= 0.95, "almost all", "some")),
          influence_rate_categories = as.factor(influence_rate_categories)) %>%
   dplyr::count(influence_rate_categories) %>%
   mutate(percent = round(n/N, 2)) %>%
@@ -571,3 +573,17 @@ combined_participant_level_data %>%
   kable()
 
 ```
+
+# Combine plots
+
+```{r fig.height=16.2, fig.width=5}
+
+# get plot from exp 4
+load("../Experiment 4/analysis/p1.RData")
+
+library(patchwork)
+p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
+
+```
+
+

@@ -482,7 +482,7 @@ data_summary_plotting <- data_plotting %>%
                    IA_AMP_effect_se = plotrix::std.error(IA_AMP_effect, na.rm = TRUE)) %>%
   ungroup()
 
-ggplot() +
+p1 <- ggplot() +
   stat_density_ridges(data = data_plotting,
                       aes(x = IA_AMP_effect,
                           y = influence, 
@@ -520,5 +520,9 @@ ggplot() +
   labs(color = "Political party") + 
   labs(name = "Political party") +
   labs(fill = "Political party")
+
+p1
+
+save(p1, file = "p1.RData")
 
 ```
