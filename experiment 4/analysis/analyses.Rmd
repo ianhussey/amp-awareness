@@ -456,7 +456,7 @@ fit <- rma(yi = yi,
 #forest(fit)
 
 # Q test in meta analysis heterogeneity is exactly equivalent to the below method
-summary(fit, digits = 5)
+summary(fit, digits = 7)
 
 ```
 
@@ -479,6 +479,7 @@ data_summary_plotting <- data_plotting %>%
   group_by(party, influence) %>%
   dplyr::summarize(IA_AMP_effect_mean = mean(IA_AMP_effect, na.rm = TRUE),
                    IA_AMP_effect_se = plotrix::std.error(IA_AMP_effect)) %>%
+                   IA_AMP_effect_se = plotrix::std.error(IA_AMP_effect, na.rm = TRUE) %>%
   ungroup()
 
 ggplot() +
@@ -490,8 +491,8 @@ ggplot() +
                       geom = "density_ridges_gradient",
                       bandwidth = 0.35,
                       jittered_points = TRUE, 
-                      scale = .95, 
-                      rel_min_height = .05,
+                      scale = 0.95, 
+                      rel_min_height = 0.05,
                       point_shape = "|", 
                       point_size = 3, 
                       size = 0.25,
@@ -501,14 +502,14 @@ ggplot() +
                      xmax = IA_AMP_effect_mean + IA_AMP_effect_se*1.96,
                      y = influence,
                      color = as.factor(party)),
-                 height = .1,
-                 position = position_nudge(y = -0.16)) +
+                 height = 0.1,
+                 position = position_nudge(y = -0.16, x = 0)) +
   geom_point(data = data_summary_plotting,
              aes(x = IA_AMP_effect_mean,
                  y = influence,
                  fill = as.factor(party),
                  color = as.factor(party)),
-             position = position_nudge(y = -0.16)) +
+             position = position_nudge(y = -0.16, x = 0)) +
   scale_colour_viridis_d(begin = 0.3, end = 0.7, alpha = 1) +
   scale_fill_viridis_d(begin = 0.3, end = 0.7, alpha = 0.5) +
   theme_classic() +

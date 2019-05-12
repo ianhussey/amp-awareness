@@ -228,15 +228,21 @@ predict(fit) %>%
 
 ```{r fig.height=5, fig.width=5}
 
-ggplot(combined_participant_level_data, 
-            aes(influence_rate, IA_AMP_effect)) +
-  geom_jitter(alpha = 0.3, width = 0.02, height = 0.02) +
+temp_data <- combined_participant_level_data %>%
+  select(experiment, IA_AMP_domain, IA_AMP_effect, influence_rate)
+
+ggplot(temp_data, 
+       aes(influence_rate, IA_AMP_effect, color = IA_AMP_domain)) +
   geom_smooth(method = "lm") +
-  scale_color_viridis_d(end = 0.8) +
+  scale_color_viridis_d(end = 0.7, begin = 0.3) +
   theme_classic() +
   xlab("IA-AMP influence-awareness rate") +
-  ylab('Absolute magnitude of IA-AMP effect')
-
+  ylab("Absolute magnitude of IA-AMP effect") +
+  labs(color = "Domain") + 
+  labs(name = "Domain") +
+  labs(fill = "Domain") + 
+  theme(legend.position = c(0.3, .8))
+  
 ```
 
 ### Trial level
@@ -328,10 +334,13 @@ OR_to_d(OR) %>%
 
 ```{r fig.height=5, fig.width=6.5}
 
-# fit combined model
-model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain), 
-                 family = binomial(link = "logit"),
-                 data = combined_trial_level_data)
+# # fit combined model
+# model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id) + (1 | domain), 
+#                  family = binomial(link = "logit"),
+#                  data = combined_trial_level_data)
+# 
+# save(model_2, file = "model_2.Rdata")
+load("model_2.RData")
 
 # predictions
 model_2_predicted_effects <- 
@@ -351,7 +360,8 @@ ggplot(data = model_2_predicted_effects,
   labs(colour = "Proportion of\ninfluence-aware\ntrials") +
   scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
                      labels = c("(Negative) 0.00", "0.25", "0.50", "0.75", "(Positive) 1.00"), 
-                     limits = c(0, 1))
+                     limits = c(0, 1)) + 
+  theme(legend.position = c(0.85, 0.30))
 
 ```
 
@@ -481,14 +491,24 @@ predict(fit) %>%
 
 ```{r fig.height=5, fig.width=5}
 
-ggplot(combined_participant_level_data, 
-            aes(influence_rate, AMP_effect)) +
-  geom_jitter(alpha = 0.3, width = 0.02, height = 0.02) +
+temp_data <- combined_participant_level_data %>%
+  filter((experiment == 2 & AMP_domain == "Generic valence") |
+           (experiment == 3 & AMP_domain == "Politics") |
+           (experiment == 5 & AMP_domain == "Generic valence")) %>%
+  select(experiment, AMP_domain, IA_AMP_domain, influence_rate, AMP_effect) %>%
+  mutate(prediction_type = ifelse(AMP_domain == IA_AMP_domain, "Same domain", "Different domain"))
+
+ggplot(temp_data, 
+       aes(influence_rate, AMP_effect, color = prediction_type)) +
   geom_smooth(method = "lm") +
-  scale_color_viridis_d(end = 0.8) +
+  scale_color_viridis_d(end = 0.7, begin = 0.3) +
   theme_classic() +
-  xlab("IA-AMP influence-awareness rate") +
-  ylab('Absolute magnitude of AMP effect')
+  xlab("IA-AMP influence-awareness rate\n(Completed second)") +
+  ylab("Absolute magnitude of AMP effect\n(Completed first)") +
+  labs(color = "Domains assessed by\nthe IA-AMP vs. AMP") + 
+  labs(name = "Domains assessed by\nthe IA-AMP vs. AMP") +
+  labs(fill = "Domains assessed by\nthe IA-AMP vs. AMP") + 
+  theme(legend.position = c(0.3, .8))
 
 ```
 
@@ -500,7 +520,7 @@ Participant level
 
 ## Distribution
 
-```{r}
+```{r fig.height=5, fig.width=5}
 
 # Distribution
 ggplot(combined_participant_level_data, aes(influence_rate)) +
@@ -509,7 +529,7 @@ ggplot(combined_participant_level_data, aes(influence_rate)) +
   #geom_histogram(fill = 1, alpha = .8, bins = 100) +
   theme_classic() +
   xlab("Influence-awareness rate") +
-  ylab("Kernal density")
+  ylab("Distribution density")
 
 ```
 

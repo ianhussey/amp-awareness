@@ -104,8 +104,8 @@ coefficients_temp <- summary(model_m1)$coefficients %>%
   filter(effect == "prime_typeprime_type_B")
 
 m1_d <- c(exp(pull(coefficients_temp, Estimate)), 
-           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
   timesavers::OR_to_d(.) %>%
   round(2)
 
@@ -137,8 +137,8 @@ coefficients_temp <- summary(model_m2)$coefficients %>%
   filter(effect == "prime_typeprime_type_B")
 
 m2_d <- c(exp(pull(coefficients_temp, Estimate)), 
-           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
   timesavers::OR_to_d(.) %>%
   round(2)
 
@@ -185,7 +185,7 @@ h1a_d <- c(exp(pull(coefficients_temp, Estimate)),
 
 OR converted to Cohen's d for familiarity: d = `r h1a_d[1]`, 95% CI [`r h1a_d[2]`, `r h1a_d[3]`].
 
-### H1b: IA-AMP influence rate predicts IA-AMP effect at the participant level
+## H1b: IA-AMP influence rate predicts IA-AMP effect at the participant level
 
 Does rate of influence in the IA-AMP predict IA-AMP effects?
 
@@ -240,5 +240,3 @@ ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_ne
 tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
-
-
