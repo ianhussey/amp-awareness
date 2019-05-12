@@ -254,7 +254,7 @@ If intentional responding drives the AMP effect, then the effect size in the IA-
 
 ### Preregistered analysis
 
-Our preregistered analysis was to use a Welchs' t test and Cohen's d to compare the AMP effect and the IA-AMP effect calcualted from uninfluenced trials only. However, we did not take into account the fact that influence rates of 100% would result in some participants having no score for the uninfluenced IA-AMP. These NA values prevent the test from running. While they could simply be excluded in order to run the test (as in the below), these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion distorts results. We include the below on the basis that it was preregistered, although it is arguably not appropriate to the question. 
+Our preregistered analysis was to use a paired-samples t test and Cohen's d to compare the AMP effect and the IA-AMP effect calcualted from uninfluenced trials only. However, we did not take into account the fact that influence rates of 100% would result in some participants having no score for the uninfluenced IA-AMP. These NA values prevent the test from running. While they could simply be excluded in order to run the test (as in the below), these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion distorts results. We include the below on the basis that it was preregistered, although it is arguably not appropriate to the question. 
 
 ```{r}
 
