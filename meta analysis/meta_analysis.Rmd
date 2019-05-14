@@ -349,7 +349,7 @@ model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
 
 # predictions
 model_2_predicted_effects <- 
-  as.data.frame(effect("prime_type:influenced", model_2, xlevels = 50)) %>%
+  as.data.frame(effect("prime_type:influenced", model_2, xlevels = 51)) %>%
   round_df(2) %>%
   mutate(prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
@@ -576,7 +576,7 @@ combined_participant_level_data %>%
 
 # Combine plots
 
-```{r fig.height=16.2, fig.width=5}
+```{r fig.height=16.2, fig.width=6}
 
 # get plot from exp 4
 load("../Experiment 4/analysis/p1.RData")
