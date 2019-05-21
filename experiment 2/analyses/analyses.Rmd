@@ -248,13 +248,13 @@ tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 ```
 
 
-## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using uninfluenced trials only)
+## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using noninfluenced trials only)
 
 If intentional responding drives the AMP effect, then the effect size in the IA-AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
 
 ### Preregistered analysis
 
-Our preregistered analysis was to use a paired-samples t test and Cohen's d to compare the AMP effect and the IA-AMP effect calcualted from uninfluenced trials only. However, we did not take into account the fact that influence rates of 100% would result in some participants having no score for the uninfluenced IA-AMP. These NA values prevent the test from running. While they could simply be excluded in order to run the test (as in the below), these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion distorts results. We include the below on the basis that it was preregistered, although it is arguably not appropriate to the question. 
+Our preregistered analysis was to use a paired-samples t test and Cohen's d to compare the AMP effect and the IA-AMP effect calcualted from noninfluenced trials only. However, we did not take into account the fact that influence rates of 100% would result in some participants having no score for the noninfluenced IA-AMP. These NA values prevent the test from running. While they could simply be excluded in order to run the test (as in the below), these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion distorts results. We include the below on the basis that it was preregistered, although it is arguably not appropriate to the question. 
 
 ```{r}
 
@@ -293,7 +293,7 @@ effsize::cohen.d(score ~ condition,
 
 ### Non-preregistered analytic approach
 
-In order to overcome this, we also employed (after seeing the data) the alternative approach of a partially overlapping t test. Specifically, Derrick, Toher & White (2017) developed a method to assess partially overlapping samples. That is, neither a dependant nor independant t test, but a mixed t test containing some independant and some dependant data. Participants who demonstrated an influence rate of 100% have missing IA AMP effects. Their corrisponding (and present) AMP effects are entered as independant data. Participants that have both AMP and uninfluenced IA AMP data are entered as dependant.
+In order to overcome this, we also employed (after seeing the data) the alternative approach of a partially overlapping t test. Specifically, Derrick, Toher & White (2017) developed a method to assess partially overlapping samples. That is, neither a dependant nor independant t test, but a mixed t test containing some independant and some dependant data. Participants who demonstrated an influence rate of 100% have missing IA AMP effects. Their corrisponding (and present) AMP effects are entered as independant data. Participants that have both AMP and noninfluenced IA AMP data are entered as dependant.
 
 NB Cohen's d estimates are imperfect as data are treated as independant when this is not the case. No partial overlap version of Cohen's d exists to our knowledge. This estimate, and it's CIs, are therefore likely to be biased and should be interpreted with caution.
 

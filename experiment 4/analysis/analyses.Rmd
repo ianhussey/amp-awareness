@@ -416,7 +416,7 @@ d_inf
 
 ```
 
-### Group membership predicting AMP effect from uninfluenced trials
+### Group membership predicting AMP effect from noninfluenced trials
 
 ```{r}
 
@@ -467,14 +467,14 @@ summary(fit, digits = 7)
 
 data_plotting <- 
   task_level_data_exclusions %>%
-  dplyr::rename("Influenced\ntrials" = IA_AMP_effect_obama_trump_influenced,
-                "Uninfluenced\ntrials" = IA_AMP_effect_obama_trump_uninfluenced) %>%
+  dplyr::rename("Influence\naware\ntrials" = IA_AMP_effect_obama_trump_influenced,
+                "Non-influence\naware\ntrials" = IA_AMP_effect_obama_trump_uninfluenced) %>%
   mutate(party = dplyr::recode(party,
                                "democrat" = "Democrat",
                                "republican" = "Republican")) %>%
   gather(influence, 
          IA_AMP_effect, 
-         c("Influenced\ntrials", "Uninfluenced\ntrials"))
+         c("Influence\naware\ntrials", "Non-influence\naware\ntrials"))
 
 data_summary_plotting <- data_plotting %>%
   group_by(party, influence) %>%

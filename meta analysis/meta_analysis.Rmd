@@ -163,6 +163,8 @@ combined_participant_level_data %>%
 
 ### Participant level
 
+#### Main effect
+
 IA-AMP effect ~ IA-AMP influence rate 
 
 Absolute IA-AMP effects.
@@ -235,7 +237,7 @@ predict(fit) %>%
 
 ```
 
-#### Plot
+##### Plot
 
 ```{r fig.height=5, fig.width=5}
 
@@ -256,7 +258,83 @@ ggplot(temp_data,
 
 ```
 
+#### Intercept effect
+
+IA-AMP effect ~ 1
+
+Absolute IA-AMP effects.
+
+```{r}
+
+formula <- as.formula("abs(IA_AMP_effect) ~ 1")
+effect  <- "(Intercept)"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_1b <- rbind(
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 1, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 2, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 3, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 4, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 4, 
+                                  IA_AMP_domain_name = "Politics",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 5, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect)
+)
+
+```
+
+```{r}
+
+# reshape data
+data_temp <- results_for_meta_analysis_1b %>%
+  dplyr::rename(V = vi)
+
+# fit
+fitb <- rma.mv(yi     = yi,
+               V      = V,
+               random = ~ 1 | Experiment/IA_AMP_domain,
+               data   = data_temp,
+               slab   = paste(Experiment, IA_AMP_domain))
+
+# plot
+forest(fitb,
+       xlab = "Beta",
+       addcred = TRUE,
+       refline = 0)
+
+# convert to OR, show CR
+predict(fitb) %>%
+  as.data.frame() %>%
+  round_df(2) %>%
+  mutate(p = zscore_to_p(fitb$zval))
+
+```
+
 ### Trial level
+
+#### Interaction effect
 
 Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
 
@@ -338,7 +416,7 @@ OR_to_d(OR) %>%
 
 ```
 
-#### Plot
+##### Plot
 
 ```{r fig.height=5, fig.width=5}
 
@@ -349,7 +427,7 @@ model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
 
 # predictions
 model_2_predicted_effects <- 
-  as.data.frame(effect("prime_type:influenced", model_2, xlevels = 51)) %>%
+  as.data.frame(effect("prime_type:influenced", model_2, xlevels = 101)) %>%
   round_df(2) %>%
   mutate(prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
@@ -370,6 +448,8 @@ p2 <- ggplot(data = model_2_predicted_effects,
 
 p2
 
+save(p2, file = "data/p2.RData")
+
 ```
 
 ```{r fig.height=5, fig.width=6.5}
@@ -382,8 +462,8 @@ predictions <- combined_trial_level_data %>%
   na.omit %>%
   mutate(prob = predict(model_2, type = c("response")),
          `Influence of prime\non evaluation of target` = dplyr::recode(influenced, 
-                                                                       "0" = "Uninfluenced trials",
-                                                                       "1" = "Influenced trials"),
+                                                                       "0" = "Non-influence aware trials",
+                                                                       "1" = "Influence aware trials"),
          prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
 # plot
@@ -433,9 +513,93 @@ plot_model(model_2,
 
 ```
 
+#### Main effect
+
+Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
+
+```{r}
+
+formula <- as.formula("rating ~ prime_type + (1 | unique_id)")
+effect  <- "prime_typePositive"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_2b <- rbind(
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 1, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 2, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 3, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 4, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 5, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect)
+)
+
+```
+
+```{r}
+
+# reshape data
+data_temp <- results_for_meta_analysis_2b %>%
+  dplyr::rename(V = vi)
+
+# fit
+fitb <- rma.mv(yi     = yi,
+               V      = V,
+               random = ~ 1 | Experiment/domain,
+               data   = data_temp,
+               slab   = paste(Experiment, domain))
+
+# plot
+forest(fitb,
+       xlab = "Odds Ratio",
+       addcred = TRUE,
+       refline = 1,
+       atransf = exp)
+
+# convert to OR, show CR
+ORb <- predict(fitb) %>%
+  as.data.frame() %>%
+  exp() %>%
+  select(-se) %>%
+  round_df(2) 
+
+## print as odds ratios
+ORb %>%
+  mutate(p = zscore_to_p(fit$zval))
+
+```
+
+Convert to cohen's d
+
+```{r}
+
+OR_to_d(ORb) %>%
+  round_df(2)
+
+```
+
 ## AMP effect ~ IA-AMP influence rate
 
 ### Participant level 
+
+#### Main effect
 
 AMP effect ~ IA-AMP influence rate
 
@@ -494,7 +658,7 @@ predict(fit) %>%
 
 ```
 
-#### Plot
+##### Plot
 
 ```{r fig.height=5, fig.width=5}
 
@@ -519,6 +683,67 @@ p3 <- ggplot(temp_data,
 
 p3
 
+save(p3, file = "data/p3.RData")
+
+```
+
+#### Intercept effect
+
+AMP effect ~ IA-AMP influence rate
+
+Absolute AMP effects.
+
+```{r}
+
+formula <- as.formula("AMP_effect ~ 1")
+effect  <- "(Intercept)"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_3b <- rbind(
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 2, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 3, 
+                                  AMP_domain_name = "Politics",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 5, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect)
+) 
+
+```
+
+```{r}
+
+# reshape data
+data_temp <- results_for_meta_analysis_3b %>%
+  dplyr::rename(V = vi)
+
+# fit
+fitb <- rma.mv(yi     = yi,
+               V      = V,
+               random = ~ 1 | Experiment/AMP_domain,
+               data   = data_temp,
+               slab   = paste(Experiment, AMP_domain))
+
+# plot
+forest(fitb,
+       xlab = "Beta",
+       addcred = TRUE,
+       refline = 0)
+
+# convert to OR, show CR
+predict(fitb) %>%
+  as.data.frame() %>%
+  round_df(2) %>%
+  mutate(p = zscore_to_p(fit$zval))
+
 ```
 
 # IA-AMP influence rate
@@ -541,6 +766,8 @@ p4 <- ggplot(combined_participant_level_data, aes(influence_rate)) +
   ylab("Distribution density")
 
 p4
+
+save(p4, file = "data/p4.RData")
 
 ```
 
