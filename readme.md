@@ -13,8 +13,3 @@ All code is licensed as GPL3+: You may reuse it as you wish as long as you ackno
 ## Citation & preprint
 
 Cummins, Hussey, & Hughes. (2019). The AMPeror’s New Clothes: Performance on the Affect Misattribution Procedure is Mainly Driven by Awareness of Prime Influence. Preprint: psyarxiv.com/XXX, data and materials: [osf.io/gv7cm](https://www.osf.io/gv7cm)
-
-## To do
-
-1. write a code book for all data files.
-   1. code book must note that the AMP effects are absolute amp effects unless explicitly noted. only place this isn't used is the politics between groups AMP effects.
