@@ -118,7 +118,7 @@ AMP_cleaned <- AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 72) %>%
   ungroup() %>%
-  select(subject, prime_type, rating) %>%
+  select(subject, prime_type, rating, latency) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -158,7 +158,7 @@ IA_AMP_cleaned <- IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 72) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, latency) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -198,6 +198,37 @@ IA_AMP_data <- IA_AMP_effect %>%
 
 ```
 
+```{r}
+iaamp_rts_df <- IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(mean_rt = mean(latency)) %>%
+  mutate(fast = ifelse(mean_rt > 300, 0, 1)) %>%
+  select(-mean_rt) %>%
+  filter(fast == 0)
+
+iaamp_responses_df <- IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(responses = sum(rating)) %>%
+  filter(responses != 72,
+         responses != 0)
+
+amp_rts_df <- AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(mean_rt = mean(latency)) %>%
+  mutate(fast = ifelse(mean_rt > 300, 0, 1)) %>%
+  select(-mean_rt) %>%
+  filter(fast == 0)
+
+amp_responses_df <- AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(responses = sum(rating)) %>%
+  filter(responses != 72,
+         responses != 0)
+
+
+```
+
+
 # Screen for complete data
 
 ```{r}
@@ -233,17 +264,29 @@ processed_data <- demographics_data %>%
   full_join(IA_AMP_data, by = "subject") %>%
   full_join(self_report_data, by = "subject") %>%
   full_join(complete_data, by = "subject") %>%
-  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data))
+  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data)) %>%
+  semi_join(iaamp_responses_df) %>%
+  semi_join(iaamp_rts_df) %>%
+  semi_join(amp_responses_df) %>%
+  semi_join(amp_rts_df)
 
 # long format AMP data
 trial_level_amp_data <- processed_data %>%
   right_join(AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, self_exclusion_1, complete_data)
+  select(subject, prime_type, rating, self_exclusion_1, complete_data)%>%
+  semi_join(iaamp_responses_df) %>%
+  semi_join(iaamp_rts_df) %>%
+  semi_join(amp_responses_df) %>%
+  semi_join(amp_rts_df)
 
 # long format IA AMP data
 trial_level_ia_amp_data <- processed_data %>%
   right_join(IA_AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)
+  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)%>%
+  semi_join(iaamp_responses_df) %>%
+  semi_join(iaamp_rts_df) %>%
+  semi_join(amp_responses_df) %>%
+  semi_join(amp_rts_df)
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")

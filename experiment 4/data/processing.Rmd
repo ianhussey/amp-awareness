@@ -156,7 +156,7 @@ politics_IA_AMP_cleaned <- politics_IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 72) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, latency) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -227,7 +227,7 @@ posneg_IA_AMP_cleaned <- posneg_IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 72) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, latency) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -254,6 +254,38 @@ posneg_IA_AMP_data <- full_join(posneg_IA_AMP_effect,
                                 by = "subject")
 
 ```
+
+```{r}
+iaamp_rts_df <- posneg_IA_AMP_cleaned %>%
+  mutate(latency = as.numeric(as.character(latency))) %>%
+  group_by(subject) %>%
+  summarise(mean_rt = mean(latency)) %>%
+  mutate(fast = ifelse(mean_rt > 300, 0, 1)) %>%
+  select(-mean_rt) %>%
+  filter(fast == 0)
+
+iaamp_responses_df <- posneg_IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(responses = sum(rating)) %>%
+  filter(responses != 72,
+         responses != 0)
+
+amp_rts_df <- politics_IA_AMP_cleaned %>%
+  mutate(latency = as.numeric(as.character(latency))) %>%
+  group_by(subject) %>%
+  summarise(mean_rt = mean(latency)) %>%
+  mutate(fast = ifelse(mean_rt > 300, 0, 1)) %>%
+  select(-mean_rt) %>%
+  filter(fast == 0)
+
+amp_responses_df <- politics_IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(responses = sum(rating)) %>%
+  filter(responses != 72,
+         responses != 0)
+
+```
+
 
 # Screen for complete data
 
@@ -291,19 +323,31 @@ processed_data <- demographics_data %>%
   full_join(posneg_IA_AMP_data, by = "subject") %>%
   full_join(self_report_data, by = "subject") %>%
   full_join(complete_data, by = "subject") %>%
-  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data))
+  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data)) %>%
+  semi_join(iaamp_responses_df) %>%
+  semi_join(iaamp_rts_df) %>%
+  semi_join(amp_responses_df) %>%
+  semi_join(amp_rts_df)
 
 # long format politics IA AMP data
 trial_level_politics_ia_amp_data <- processed_data %>%
   right_join(politics_IA_AMP_cleaned, by = "subject") %>%
   dplyr::select(subject, party, 
-                prime_type, rating, influenced, self_exclusion_1, complete_data)
+                prime_type, rating, influenced, self_exclusion_1, complete_data)%>%
+  semi_join(iaamp_responses_df) %>%
+  semi_join(iaamp_rts_df) %>%
+  semi_join(amp_responses_df) %>%
+  semi_join(amp_rts_df)
 
 # long format posneg IA AMP data
 trial_level_posneg_ia_amp_data <- processed_data %>%
   right_join(posneg_IA_AMP_cleaned, by = "subject") %>%
   dplyr::select(subject, party, 
-                prime_type, rating, influenced, self_exclusion_1, complete_data)
+                prime_type, rating, influenced, self_exclusion_1, complete_data)%>%
+  semi_join(iaamp_responses_df) %>%
+  semi_join(iaamp_rts_df) %>%
+  semi_join(amp_responses_df) %>%
+  semi_join(amp_rts_df)
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")

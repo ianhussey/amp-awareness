@@ -121,7 +121,7 @@ IA_AMP_cleaned <- IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 120) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, latency) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -171,6 +171,24 @@ complete_data <- complete_demographics_data %>%
 
 ```
 
+```{r}
+rts_df <- IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(mean_rt = mean(latency)) %>%
+  mutate(fast = ifelse(mean_rt > 300, 0, 1)) %>%
+  select(-mean_rt) %>%
+  filter(fast == 0)
+
+responses_df <- IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarise(responses = sum(rating)) %>%
+  filter(responses != 120,
+         responses != 0)
+
+
+```
+
+
 # Write to disk
 
 ```{r}
@@ -180,12 +198,16 @@ processed_data <- demographics_data %>%
   full_join(IA_AMP_data, by = "subject") %>%
   full_join(self_report_data, by = "subject") %>%
   full_join(complete_data, by = "subject") %>%
-  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data))
+  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data)) %>%
+  semi_join(rts_df) %>%
+  semi_join(responses_df)
 
 # long format IA AMP data
 trial_level_ia_amp_data <- processed_data %>%
   right_join(IA_AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)
+  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data) %>%
+  semi_join(rts_df)  %>%
+  semi_join(responses_df)
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")
