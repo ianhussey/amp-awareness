@@ -514,7 +514,7 @@ p1 <- ggplot() +
   scale_fill_viridis_d(begin = 0.3, end = 0.7, alpha = 0.5) +
   theme_classic() +
   scale_x_continuous(breaks = c(-1.0, -0.5, 0.0, 0.5, 1.0),
-                     labels = c("-1.0\n(Obama-bad/Trump-good)", "-0.5", "0.0", "0.5", "1.0\n(Obama-good/Trump-bad)")) +
+                     labels = c("-1.0\n(Obama-good/Trump-bad)", "-0.5", "0.0", "0.5", "1.0\n(Obama-bad/Trump-good)")) +
   ylab("Influence-awareness") +
   xlab("Evaluation on IA-AMP") +
   labs(color = "Political party") + 
