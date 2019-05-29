@@ -463,7 +463,7 @@ summary(fit, digits = 7)
 
 #### Plot
 
-```{r fig.height=2.5, fig.width=4}
+```{r}
 
 data_plotting <- 
   task_level_data_exclusions %>%
