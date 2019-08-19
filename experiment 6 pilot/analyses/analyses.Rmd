@@ -229,11 +229,11 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h2 <- lm(abs(IA_AMP_effect_positive_negative) ~ influence_rate, 
+fit_h2 <- lm(abs(AMP_effect_positive_negative) ~ influence_rate, 
              data = task_level_data_exclusions)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
