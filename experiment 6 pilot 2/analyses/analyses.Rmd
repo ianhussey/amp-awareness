@@ -1,0 +1,309 @@
+---
+title: "Study 6 pilot"
+subtitle: "Analyses"
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+# Notes
+
+1. H2 and H3 from experiment 1 were discarded as they were not relevant to our questions in this experiment, but could notionally be assessed in retrospect (i.e., Correlation between online and offline measures of influence, 
+Contribution of offline and online measures in predicting AMP effect sizes).
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+```
+
+```{r setup, message=FALSE, warning=FALSE}
+
+# dependencies
+library(tidyverse)
+library(lme4)
+library(sjPlot)
+library(effects)
+library(DescTools)
+library(Rmisc)
+library(effsize)
+library(psych)
+library(broom)
+library(kableExtra)
+# devtools::install_github("ianhussey/timesavers")  
+library(timesavers)  # for round_df()
+library(plotrix)
+
+
+# get data 
+task_level_data <- read.csv("../data/processed/processed_data.csv")
+
+trial_level_amp_data <- read.csv("../data/processed/trial_level_amp_positive_negative_data.csv")
+
+trial_level_ia_amp_data <- read.csv("../data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(influenced = as.numeric(influenced))
+
+
+# exclusions
+task_level_data_exclusions <- task_level_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+trial_level_amp_data_exclusions <- trial_level_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+trial_level_ia_amp_data_exclusions <- trial_level_ia_amp_data %>%
+  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE)
+
+```
+
+# Demographics
+
+Analytic sample after exclusions.
+
+```{r age and gender}
+
+# Gender
+task_level_data_exclusions %>%
+  mutate(gender = tolower(gender)) %>%
+  dplyr::count(gender)
+
+# Age mean and SD
+task_level_data_exclusions %>%
+  mutate(age = as.numeric(as.character(age))) %>%
+  summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age)) %>%
+  round_df(2)
+
+```
+
+# Manipulation checks
+
+## M1: Demonstate an AMP effect on the AMP
+
+### Fit model
+
+```{r}
+
+# fit model
+model_m1 <- glmer(rating ~ prime_type + (1 | subject), 
+                  family = binomial(link = "logit"),
+                  data = trial_level_amp_data_exclusions)
+
+# plot
+plot_model(model_m1, type = "pred", terms = c("prime_type"))
+
+# results table
+tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_m1)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "prime_typeprime_type_B")
+
+m1_d <- c(exp(pull(coefficients_temp, Estimate)), 
+          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
+
+```
+
+OR converted to Cohen's d for familiarity: d = `r m1_d[1]`, 95% CI [`r m1_d[2]`, `r m1_d[3]`].
+
+## M2: Demonstate an AMP effect on the IA-AMP
+
+### Fit model
+
+```{r}
+
+# fit model
+model_m2 <- glmer(rating ~ prime_type + (1 | subject), 
+                  family = binomial(link = "logit"),
+                  data = trial_level_ia_amp_data_exclusions)
+
+# plot
+plot_model(model_m2, type = "pred", terms = c("prime_type"))
+
+# results table
+tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_m2)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "prime_typeprime_type_B")
+
+m2_d <- c(exp(pull(coefficients_temp, Estimate)), 
+          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
+
+```
+
+OR converted to Cohen's d for familiarity: d = `r m2_d[1]`, 95% CI [`r m2_d[2]`, `r m2_d[3]`].
+
+# Hypothesis tests
+
+## H1: IA-AMP influence rate predicts IA-AMP effect
+
+### H1a: at the trial level
+
+Does conscious awareness of influence of the prime on the target moderate the AMP effect?
+
+Key effect: influence*prime_type interaction
+
+#### Fit model
+
+```{r}
+
+# model
+model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+                   family = binomial(link = "logit"),
+                   data = trial_level_ia_amp_data_exclusions)
+
+# plot
+plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
+
+# results table
+tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
+
+# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
+coefficients_temp <- summary(model_h1a)$coefficients %>%
+  as.data.frame() %>%
+  rownames_to_column(var = "effect") %>%
+  filter(effect == "influenced:prime_typeprime_type_B")
+
+h1a_d <- c(exp(pull(coefficients_temp, Estimate)), 
+           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
+           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
+  timesavers::OR_to_d(.) %>%
+  round(2)
+
+```
+
+OR converted to Cohen's d for familiarity: d = `r h1a_d[1]`, 95% CI [`r h1a_d[2]`, `r h1a_d[3]`].
+
+### H1b: at the participant level
+
+Does rate of influence in the IA-AMP predict IA-AMP effects?
+
+If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
+#### Fit model
+
+```{r}
+
+# model
+fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
+              data = task_level_data_exclusions)
+
+# plot
+ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
+  geom_jitter(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Proportion of influenced trials and IA-AMP effect", 
+       x = "Proportion of influenced trials", 
+       y = "IA-AMP effect") +
+  theme_classic()
+
+# results table
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+
+```
+
+## H2: IA-AMP influence rate predicts the absolute magnitude of the standard AMP effect
+
+If effects in the standard AMP, as well as the IA-AMP, are driven by participants who are more often influenced, then rate of influence in the IA-AMP should predict effect sizes in the standard AMP. 
+
+Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate predicts the (previously completed) AMP's effect then this implies that 1) measuring the influence rate does not perturb the IA AMP effect, and 2) that the rate of influence is reliable within participants across AMP/IA AMPs.
+
+```{r}
+
+# model
+fit_h2 <- lm(abs(AMP_effect_positive_negative) ~ influence_rate, 
+             data = task_level_data_exclusions)
+
+# plot
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
+  geom_jitter(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence and Standard AMP effect size", 
+       x = "Rate of influence", 
+       y = "Standard AMP effect size") +
+  theme_classic()
+
+# table
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+
+```
+
+
+## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using noninfluenced trials only)
+
+If intentional responding drives the AMP effect, then the effect size in the IA-AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
+
+In order to overcome the fact that that influence rates of 100% would result in some participants having no score for the noninfluenced IA-AMP, we employed a partially overlapping t test to assess differences between the two AMP types. Specifically, Derrick, Toher & White (2017) developed a method to assess partially overlapping samples. That is, neither a dependant nor independant t test, but a mixed t test containing some independant and some dependant data. Participants who demonstrated an influence rate of 100% have missing IA AMP effects. Their corrisponding (and present) AMP effects are entered as independant data. Participants that have both AMP and noninfluenced IA AMP data are entered as dependant.
+
+NB Cohen's d estimates are imperfect as data are treated as independant when this is not the case. No partial overlap version of Cohen's d exists to our knowledge. This estimate, and it's CIs, are therefore likely to be biased and should be interpreted with caution.
+
+```{r}
+
+# subset data
+subset <- task_level_data_exclusions %>%
+  select(AMP_effect_positive_negative, IA_AMP_uninfluenced_effect_positive_negative) 
+
+# gather subset
+long_subset <- subset %>%
+  gather(condition, score, AMP_effect_positive_negative:IA_AMP_uninfluenced_effect_positive_negative)
+
+library(Partiallyoverlapping)
+
+x1 <- subset %>%
+  filter(is.na(IA_AMP_uninfluenced_effect_positive_negative)) %>%
+  pull(AMP_effect_positive_negative)
+
+x2 <- subset %>%
+  filter(is.na(AMP_effect_positive_negative)) %>%
+  pull(IA_AMP_uninfluenced_effect_positive_negative)
+
+x3 <- subset %>%
+  na.omit() %>%
+  pull(AMP_effect_positive_negative)
+
+x4 <- subset %>%
+  na.omit() %>%
+  pull(IA_AMP_uninfluenced_effect_positive_negative)
+
+Partover.test(x1 = x1,
+              x2 = x2,
+              x3 = x3, 
+              x4 = x4,
+              var.equal = FALSE)
+
+# effect size
+effsize::cohen.d(score ~ condition,
+                 paired = FALSE,
+                 data = long_subset)
+
+# descriptives
+subset %>%
+  gather() %>%
+  group_by(key) %>%
+  dplyr::summarize(mean = mean(value, na.rm = TRUE),
+                   sd = sd(value, na.rm = TRUE),
+                   se = std.error(value, na.rm = TRUE),
+                   ci_lwr = mean - se*1.96,
+                   ci_upr = mean + se*1.96) %>%
+  round_df(2)
+
+```
