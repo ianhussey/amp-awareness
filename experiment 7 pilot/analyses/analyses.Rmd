@@ -1,5 +1,5 @@
 ---
-title: "Study 6 pilot"
+title: "Study 7 pilot"
 subtitle: "Analyses"
 author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
