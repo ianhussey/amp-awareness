@@ -298,7 +298,6 @@ Symbol and neutral stimuli
 / fontstyle = ("Arial", 5%)
 </text>
 
-# "Press spacebar if the first picture influenced how you are going to respond to the Chinese symbol"
 # old message from IA-amp: "Press spacebar if the picture influenced your response to the Chinese symbol"
 
 <text intention_check>
@@ -315,7 +314,7 @@ Symbol and neutral stimuli
 / size = (50%, 10%)
 / vposition = (50%)
 / txcolor = white
-/ fontstyle = ("Arial", 4%)
+/ fontstyle = ("Arial", 3%)
 / erase = true(0, 0, 0)
 </text>
 
@@ -354,7 +353,7 @@ Trials
 <trial intention_check_positive>
 / validresponse = (" ")
 / correctresponse = (" ")
-/ timeout = 2500
+/ trialduration = 2300
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
 / branch = [if (1 == 1) trial.mask_prime_positive]
@@ -363,7 +362,7 @@ Trials
 <trial intention_check_negative>
 / validresponse = (" ")
 / correctresponse = (" ")
-/ timeout = 2500
+/ trialduration = 2300
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
 / branch = [if (1 == 1) trial.mask_prime_negative]
@@ -376,7 +375,7 @@ Trials
 / correctresponse = ("I")
 / stimulustimes = [0 = evaluative_instruction]
 / ontrialend = [values.primestim = picture.prime_positive.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
-/ posttrialpause = 1500
+/ posttrialpause = 1000
 </trial>
 
 <trial mask_prime_negative>
@@ -384,7 +383,7 @@ Trials
 / correctresponse = ("I")
 / stimulustimes = [0 = evaluative_instruction]
 / ontrialend = [values.primestim = picture.prime_negative.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
-/ posttrialpause = 1500
+/ posttrialpause = 1000
 </trial>
 
 ***********************************************************************
