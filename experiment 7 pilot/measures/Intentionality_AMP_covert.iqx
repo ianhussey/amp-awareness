@@ -55,7 +55,7 @@ parameters: updated automatically
 
 
 <data>
-/file = "Modified_Intentionality_AMP.iqdat"
+/file = "covert_IA_AMP.iqdat"
 /columns = [date, time, subject, blockcode, blocknum, trialcode, trialnum, values.primestim, values.targetstim, correct, latency, 
 				trial.prime_positive.totalpercentcorrect, trial.prime_negative.totalpercentcorrect]
 /separatefiles = true
@@ -91,7 +91,7 @@ Task instruction stimuli
 </text>
 
 <item instructions>
-/ 1 = "The second part of the study will now begin.~n~nThis part of the study is similar to what you just did. However there is one important difference. This time, BEFORE you rate a Chinese character as being pleasant or unpleasant, we will ask you a question: do you think the response you are going to give to the Chinese character will be influenced by the image that first appeared onscreen? ~n~nIf so, and you think that how you are going to respond to the Chinese character will be influenced by the first image then press the spacebar.~n~nIf not, then simply wait, and when given the opportunity, evaluate the Chinese character as you normally would."
+/ 1 = "The second part of the study will now begin.~n~nThis part of the study is similar to what you just did. However there is one important difference. This time, BEFORE you see a Chinese character and rate it as being pleasant or unpleasant, we will ask you a question: do you think the response you are going to give to the Chinese character will be influenced by the image that first appeared onscreen? ~n~nIf you think that how you are going to respond to the Chinese character will be influenced by the first image then press the spacebar. If not, then simply wait. ~n~nIn both cases, the chinese character will then appear, and you will then be given the opportunity to evaluate the Chinese character as you normally would."
 / 2 = "We will now provide you with an opportunity to practice the task. Remember: you should judge whether the Chinese characters are more or less visually pleasing than average by pressing either the 'E' or 'I' key."
 / 3 = "Good! The test phase will now begin. Keep going as before.~n~nAs a reminder: ~n~nIf the Chinese character is less visually pleasing than average, press the 'E' key. ~nIf it is more visual pleasing than average, press the 'I' key. 
 
@@ -356,7 +356,7 @@ Trials
 <trial intention_check_positive>
 / validresponse = (" ")
 / correctresponse = (" ")
-/ timeout = 2500
+/ trialduration = 2500
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
 / branch = [if (1 == 1) trial.mask_prime_positive]
@@ -365,7 +365,7 @@ Trials
 <trial intention_check_negative>
 / validresponse = (" ")
 / correctresponse = (" ")
-/ timeout = 2500
+/ trialduration = 2500
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
 / branch = [if (1 == 1) trial.mask_prime_negative]
