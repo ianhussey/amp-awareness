@@ -356,6 +356,7 @@ Trials
 <trial intention_check_positive>
 / validresponse = (" ")
 / correctresponse = (" ")
+/ correctmessage = true(mask, 0)
 / trialduration = 2500
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
@@ -365,6 +366,7 @@ Trials
 <trial intention_check_negative>
 / validresponse = (" ")
 / correctresponse = (" ")
+/ correctmessage = true(mask, 0)
 / trialduration = 2500
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
