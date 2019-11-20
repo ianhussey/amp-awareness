@@ -8,6 +8,6 @@ GPLv3+ license
 / groupassignment = subjectnumber
 / file="demographics.iqx"
 / file = "Standard_AMP.iqx"
-/ file = "Intentionality_AMP_overt.iqx"
+/ file = "Intentionality_AMP.iqx"
 / file = "post-questions.iqx"
 </batch>

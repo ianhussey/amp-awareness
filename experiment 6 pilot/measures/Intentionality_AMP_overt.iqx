@@ -312,7 +312,7 @@ Symbol and neutral stimuli
 <text evaluative_instruction>
 / items = ("Use E or I to evaluate the Chinese character")
 / size = (50%, 10%)
-/ vposition = (50%)
+/ vposition = (20%)
 / txcolor = white
 / fontstyle = ("Arial", 3%)
 / erase = true(0, 0, 0)
@@ -356,6 +356,7 @@ Trials
 / trialduration = 2300
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
+/ correctmessage = true(mask, 0)
 / branch = [if (1 == 1) trial.mask_prime_positive]
 </trial>
 
@@ -365,6 +366,7 @@ Trials
 / trialduration = 2300
 / beginresponsetime = 0
 / stimulustimes = [0 = mask, intention_check]
+/ correctmessage = true(mask, 0)
 / branch = [if (1 == 1) trial.mask_prime_negative]
 </trial>
 
@@ -373,7 +375,7 @@ Trials
 <trial mask_prime_positive>
 / validresponse = ("E", "I")
 / correctresponse = ("I")
-/ stimulustimes = [0 = evaluative_instruction]
+/ stimulustimes = [0 = mask, evaluative_instruction]
 / ontrialend = [values.primestim = picture.prime_positive.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
 / posttrialpause = 1000
 </trial>
@@ -381,7 +383,7 @@ Trials
 <trial mask_prime_negative>
 / validresponse = ("E", "I")
 / correctresponse = ("I")
-/ stimulustimes = [0 = evaluative_instruction]
+/ stimulustimes = [0 = mask, evaluative_instruction]
 / ontrialend = [values.primestim = picture.prime_negative.currentitemnumber; values.targetstim = picture.target.currentitemnumber]
 / posttrialpause = 1000
 </trial>
