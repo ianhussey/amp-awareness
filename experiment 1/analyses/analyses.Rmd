@@ -71,6 +71,18 @@ task_level_data_exclusions %>%
 
 # Manipulation checks
 
+## Descriptives
+
+```{r}
+
+trial_level_ia_amp_data_exclusions %>%
+  group_by(subject, prime_type, influenced) %>%
+  dplyr::summarise(mean_rating = mean(rating)) %>%
+  spread(prime_type, mean_rating) %>%
+  mutate(amp_eff)
+
+```
+
 ## M1: Demonstate an AMP effect on the IA AMP
 
 ### Fit model
