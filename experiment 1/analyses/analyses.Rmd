@@ -71,15 +71,43 @@ task_level_data_exclusions %>%
 
 # Manipulation checks
 
-## Descriptives
+## Descriptives - Asked for inclusion by Reviewer 1
 
 ```{r}
 
+# overall IA-AMP effect size
+task_level_data_exclusions %>%
+  select(subject, IA_AMP_effect_positive_negative) %>%
+  summarise(effect = mean(IA_AMP_effect_positive_negative),
+            sd = sd(IA_AMP_effect_positive_negative))
+
+# specific effects
 trial_level_ia_amp_data_exclusions %>%
   group_by(subject, prime_type, influenced) %>%
   dplyr::summarise(mean_rating = mean(rating)) %>%
   spread(prime_type, mean_rating) %>%
-  mutate(amp_eff)
+  mutate(prime_type_A = ifelse(is.na(prime_type_A), .5, prime_type_A),
+         prime_type_B = ifelse(is.na(prime_type_B), .5, prime_type_B)) %>%
+  mutate(amp_effect = prime_type_B - prime_type_A) %>%
+  select(subject, influenced, amp_effect) %>%
+  spread(influenced, amp_effect) %>%
+  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
+         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
+  summarise(mean_uninfluenced = mean(`0`),
+            sd_uninfluenced = sd(`0`),
+            mean_influenced = mean(`1`),
+            sd_influenced = sd(`1`))
+
+# How many influence-aware trials?
+trial_level_ia_amp_data_exclusions %>%
+  dplyr::count(subject, influenced) %>%
+  spread(influenced, n) %>%
+  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
+         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
+  summarise(mean_influenced = mean(`1`),
+            sd = sd(`1`))
+  
+  
 
 ```
 
