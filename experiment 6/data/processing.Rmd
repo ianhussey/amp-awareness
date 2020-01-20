@@ -1,0 +1,253 @@
+---
+title: "Study 6"
+subtitle: "Processing"
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+
+# get data
+demographics_df <- read.csv("raw/demographics.csv")
+IA_AMP_df       <- read.csv("raw/Modified_Intentionality_AMP.csv")
+AMP_df          <- read.csv("raw/Standard_AMP.csv")
+questions_df    <- read.csv("raw/post-questions.csv")
+
+```
+
+# Demographics and self reports
+
+```{r}
+
+# match Prolific IDs to subject numbers (for payment processing)
+prolificid_df <- demographics_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode == "ProlificCode") %>%
+  dplyr::select(subject, response) 
+
+demographics_data <- demographics_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode != "ProlificCode") %>%
+  select(subject, trialcode, response) %>%
+  spread(trialcode, response) %>%
+  mutate(subject = as.character(subject))
+
+
+allowed_response_options <- c("none", "a few", "less than half", "about half", "more than half", "most", "all")
+
+self_report_data <- questions_df %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  select(subject, trialcode, response) %>%
+  group_by(subject) %>%
+  spread(trialcode, response) %>%
+  ungroup %>% 
+  mutate(subject = as.character(subject)) %>%
+  # some pilot data that used alternative reponse options made it into the data. exclude this.
+  mutate(awareness = ifelse(!(influence_general %in% allowed_response_options), NA, as.character(awareness)),
+         influence_general = ifelse(!(influence_general %in% allowed_response_options), NA, as.character(influence_general)),
+         intentionality    = ifelse(!(intentionality %in% allowed_response_options), NA, as.character(intentionality)),
+         unintentionality  = ifelse(!(unintentionality %in% allowed_response_options), NA, as.character(unintentionality)),
+         # recode likert from string to integer
+         awareness = dplyr::recode(as.character(awareness),
+                                   `none`           = 1,
+                                   `a few`          = 2,
+                                   `less than half` = 3,
+                                   `about half`     = 4,
+                                   `more than half` = 5,
+                                   `most`           = 6,
+                                   `all`            = 7),
+         influence_general = dplyr::recode(as.character(influence_general),
+                                           `none`           = 1,
+                                           `a few`          = 2,
+                                           `less than half` = 3,
+                                           `about half`     = 4,
+                                           `more than half` = 5,
+                                           `most`           = 6,
+                                           `all`            = 7),
+         intentionality = dplyr::recode(as.character(intentionality),
+                                        `none`           = 1,
+                                        `a few`          = 2,
+                                        `less than half` = 3,
+                                        `about half`     = 4,
+                                        `more than half` = 5,
+                                        `most`           = 6,
+                                        `all`            = 7),
+         unintentionality = dplyr::recode(as.character(unintentionality),
+                                          `none`           = 1,
+                                          `a few`          = 2,
+                                          `less than half` = 3,
+                                          `about half`     = 4,
+                                          `more than half` = 5,
+                                          `most`           = 6,
+                                          `all`            = 7))
+
+```
+
+# AMP effects and influence rates
+
+```{r}
+
+AMP_cleaned <- AMP_df %>%
+
+  # keep only test blocks and ratings trials
+  filter(blockcode == "test") %>%
+  
+  # mutate some vars
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
+         subject = as.character(subject),
+         rating = as.numeric(as.character(correct))) %>%
+  
+  # exclude participants without the right number of AMP trials
+  group_by(subject) %>% 
+  filter(n() == 72) %>%
+  ungroup() %>%
+  select(subject, prime_type, rating) %>%
+  
+  # exclude those who didn't have the right number of trials on the screener
+  mutate(subject = as.character(subject))
+
+# score amp effect
+AMP_data <- AMP_cleaned %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, AMP_effect_positive_negative) %>%
+  mutate(AMP_effect_positive_negative = 
+           abs(AMP_effect_positive_negative))
+
+```
+
+# IA AMP effects and influence rates
+
+```{r}
+
+IA_AMP_cleaned <- IA_AMP_df %>%
+  
+  # reshape influence variable
+  mutate(influenced = as.numeric(as.character(lag(correct)))) %>%
+  
+  # keep only test blocks and ratings trials
+  filter(str_detect(trialcode, "mask"),
+         blockcode == "test") %>%
+  
+  # mutate some vars
+  mutate(prime_type = ifelse(trialcode %in% c("mask_prime_positive"), "prime_type_B", "prime_type_A"),
+         subject = as.character(subject),
+         rating = as.numeric(as.character(correct))) %>%
+  
+  # exclude participants without the right number of AMP trials
+  group_by(subject) %>% 
+  filter(n() == 72) %>%
+  ungroup() %>%
+  select(subject, prime_type, rating, influenced) %>%
+  
+  # exclude those who didn't have the right number of trials on the screener
+  mutate(subject = as.character(subject))
+
+# score amp effect
+IA_AMP_effect <- IA_AMP_cleaned %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(IA_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, IA_AMP_effect_positive_negative) %>%
+  mutate(IA_AMP_effect_positive_negative = 
+           abs(IA_AMP_effect_positive_negative))
+
+# score amp effect
+IA_AMP_uninfluenced_effect <- IA_AMP_cleaned %>%
+  filter(influenced == 0) %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(IA_AMP_uninfluenced_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, IA_AMP_uninfluenced_effect_positive_negative) %>%
+  mutate(IA_AMP_uninfluenced_effect_positive_negative = 
+           abs(IA_AMP_uninfluenced_effect_positive_negative))
+
+# score influence rates
+IA_AMP_influence_rate <- IA_AMP_cleaned %>%
+  group_by(subject) %>%
+  summarize(influence_rate = round(mean(influenced), 2)) %>%
+  ungroup()
+
+IA_AMP_data <- IA_AMP_effect %>%
+  full_join(IA_AMP_uninfluenced_effect, by = "subject") %>%
+  full_join(IA_AMP_influence_rate, by = "subject")
+
+```
+
+# Screen for complete data
+
+```{r}
+
+complete_demographics_data <- demographics_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_self_report_data <- self_report_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_AMP_data <- AMP_data %>%
+  na.omit() %>%
+  distinct(subject)
+
+
+complete_data <- complete_demographics_data %>%
+  semi_join(complete_self_report_data, by = "subject") %>%
+  semi_join(IA_AMP_data, by = "subject") %>%
+  semi_join(complete_AMP_data, by = "subject") %>%
+  mutate(complete_data = TRUE)
+
+```
+
+# Write to disk
+
+```{r}
+
+# combine
+processed_data <- demographics_data %>%
+  full_join(AMP_data, by = "subject") %>%
+  full_join(IA_AMP_data, by = "subject") %>%
+  full_join(self_report_data, by = "subject") %>%
+  full_join(complete_data, by = "subject") %>%
+  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data))
+
+# long format AMP data
+trial_level_amp_data <- processed_data %>%
+  right_join(AMP_cleaned, by = "subject") %>%
+  select(subject, prime_type, rating, self_exclusion_1, complete_data)
+
+# long format IA AMP data
+trial_level_ia_amp_data <- processed_data %>%
+  right_join(IA_AMP_cleaned, by = "subject") %>%
+  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)
+
+# write to disk
+write_csv(processed_data, "processed/processed_data.csv")
+write_csv(trial_level_amp_data, "processed/trial_level_amp_positive_negative_data.csv")
+write_csv(trial_level_ia_amp_data, "processed/trial_level_ia_amp_positive_negative_data.csv")
+
+```
