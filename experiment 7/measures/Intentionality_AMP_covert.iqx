@@ -91,8 +91,8 @@ Task instruction stimuli
 </text>
 
 <item instructions>
-/ 1 = "The second part of the study will now begin.~n~nThis part of the study is similar to what you just did. However there is one important difference: this time, BEFORE you see the Chinese character, you will be asked a simple question: Do you think your response to the Chinese character is going to be influenced by the picture that initially appeared onscreen? ~n~nIn other words, do you think the initial picture you saw onscreen will influence how you later respond to the Chinese character? If so (i.e., if you think your response to the Chinese character will be influenced by the image that initially appears) then press the spacebar. If not, then do not press the spacebar and simply wait to respond to the Chinese character. ~n~nIn both cases, the chinese character will appear, and you will be asked to evaluate it."
-/ 2 = "We will now provide you with an opportunity to practice the task. Remember: your job is to indicate if the Chinese character is more or less visually pleasing than average."
+/ 1 = "This part of the study is similar to the previous one. ~n~nThis time, before you see the Chinese character, you will be asked whether you think your response to the Chinese character will be influenced by the picture that initially appeared onscreen. ~n~nIf so, then press the spacebar. If not, then simply wait. ~n~nIn both cases, the Chinese character will then appear and you will be asked to evaluate it."
+/ 2 = "We will now provide you with an opportunity to practice the task. ~n~nRemember: your job is to indicate if the Chinese character is more or less visually pleasing than average."
 / 3 = "Good! The test phase will now begin. Keep going as before.~n~nAs a reminder: ~n~nIf the Chinese character is less visually pleasing than average, press the 'E' key. ~nIf it is more visual pleasing than average, press the 'I' key. 
 
 If you think your response to the Chinese character is going to be influenced by the image that initially appears onscreen, then press the spacebar when asked to do so."

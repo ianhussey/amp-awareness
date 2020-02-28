@@ -43,7 +43,7 @@ Your responses on this question will NOT affect your payment. However, if you ch
 </textbox>
 
 <radiobuttons awareness>
-/caption = "All of the following questions are about the SECOND TASK you just completed (i.e., the task where you had to press the spacebar when you felt the picture influenced your response to the Chinese character).~n~n~n~nThink back to that task. On how many trials did a picture appear before the Chinese character? It is important that you are honest here."
+/caption = "This question is about the SECOND TASK you just completed (i.e., the task where you had to press the spacebar when you felt the picture influenced your response to the Chinese character).~n~n~n~nThink back to that task. On how many trials did a picture appear before the Chinese character? It is important that you are honest here."
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /required = true
 /orientation = vertical
