@@ -419,6 +419,21 @@ OR_to_d(OR) %>%
 
 ```
 
+# Reviewer requested: Compute effects at each level of the moderator
+
+```{r}
+
+combined_trial_level_data %>%
+  filter(domain == "Generic valence") %>%
+  group_by(influenced) %>%
+  select(unique_id, prime_type, rating, influenced) %>%
+  group_by(prime_type, influenced) %>%
+  summarise(mean_rating = mean(rating),
+            sd_rating = sd(rating)) 
+
+```
+
+
 ##### Plot
 
 ```{r fig.height=5, fig.width=5}
@@ -510,7 +525,7 @@ plot_model(model_2,
            type = "pred", 
            terms = c("influenced", "prime_type")) +
   theme_classic() +
-  xlab("Influence-awareness rate") +
+  xlab("Influence-awareness of response") +
   ylab("Evaluation on IA-AMP") +
   scale_color_viridis_d(begin = 0.3, end = 0.7) +
   scale_fill_viridis_d(begin = 0.3, end = 0.7) + 
@@ -813,7 +828,7 @@ combined_participant_level_data %>%
 
 # Combine plots
 
-```{r fig.height=16.2, fig.width=6}
+```{r fig.height=4.5, fig.width=4}
 
 # get plot from exp 4
 load("../Experiment 4/analysis/p1.RData")

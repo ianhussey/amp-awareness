@@ -1,5 +1,5 @@
 ---
-title: "Study 6 pilot"
+title: "Study 7 pilot"
 subtitle: "Processing"
 author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -26,7 +26,7 @@ library(tidyverse)
 
 # get data
 demographics_df <- read.csv("raw/demographics.csv")
-IA_AMP_df       <- read.csv("raw/modified_intentionality_amp.csv")
+IA_AMP_df       <- read.csv("raw/covert_ia_amp.csv")
 AMP_df          <- read.csv("raw/standard_amp.csv")
 questions_df    <- read.csv("raw/post_questions.csv")
 

@@ -43,27 +43,27 @@ Your responses on this question will NOT affect your payment. However, if you ch
 </textbox>
 
 <radiobuttons awareness>
-/caption = "For all of the following questions, please only answer based on the second task you completed, where you were to press the spacebar if you felt you would be influenced by the pictures that came before the Chinese characters.~n~n~n~nThink back to the task you just completed. On how many trials was a picture presented before the Chinese character? It is important that you are honest here."
+/caption = "Think back to the second task you completed (i.e., where you pressed the spacebar if the first image influences your response to the second [Chinese] image). On how many trials was a picture presented before the Chinese character? It is important that you are honest here."
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /required = true
 /orientation = vertical
 </radiobuttons>
 
 <radiobuttons influence_general>
-/caption = "On how many trials were your ratings of the Chinese symbols influenced by the pictures that appeared immediately before those symbols?"
+/caption = "In the second task you completed, on how many trials were your ratings of the Chinese symbols influenced by the pictures that appeared immediately before those symbols?"
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /required = true
 /orientation = vertical
 </radiobuttons>
 
 <radiobuttons intentionality>
-/caption = "On how many trials did you intentionally base your rating of the Chinese symbol on the image that immediately appeared before it?"
+/caption = "In the second task you completed, on how many trials did you intentionally base your rating of the Chinese symbol on the image that immediately appeared before it?"
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /orientation = vertical
 </radiobuttons>
 
 <radiobuttons unintentionality>
-/caption = "On how many trials do you think that your rating of the Chinese symbol was unintentionally influenced by the pictures that appeared immediately before those symbols?"
+/caption = "In the second task you completed, on how many trials do you think that your rating of the Chinese symbol was unintentionally influenced by the pictures that appeared immediately before those symbols?"
 / options = ("none", "a few", "less than half", "about half", "more than half", "most", "all")
 /orientation = vertical
 </radiobuttons>

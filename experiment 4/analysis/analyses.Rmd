@@ -44,6 +44,7 @@ library(timesavers)  # for round_df()
 library(bootES)
 library(metafor)
 library(ggridges)
+library(patchwork)
 
 # get data 
 task_level_data <- read.csv("../data/processed/processed_data.csv")
@@ -101,6 +102,80 @@ task_level_data_exclusions %>%
 ```
 
 # Manipulation checks
+
+## Descriptives - Asked for inclusion by Reviewer 1
+
+```{r}
+
+# overall valence IA-AMP effect size
+task_level_data_exclusions %>%
+  select(subject, IA_AMP_effect_positive_negative) %>%
+  summarise(effect = mean(IA_AMP_effect_positive_negative),
+            sd = sd(IA_AMP_effect_positive_negative))
+
+# specific alence IA-AMP effects
+trial_level_posneg_ia_amp_data_exclusions %>%
+  group_by(subject, prime_type, influenced) %>%
+  dplyr::summarise(mean_rating = mean(rating)) %>%
+  spread(prime_type, mean_rating) %>%
+  mutate(prime_type_A = ifelse(is.na(prime_type_A), .5, prime_type_A),
+         prime_type_B = ifelse(is.na(prime_type_B), .5, prime_type_B)) %>%
+  mutate(amp_effect = prime_type_B - prime_type_A) %>%
+  select(subject, influenced, amp_effect) %>%
+  spread(influenced, amp_effect) %>%
+  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
+         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
+  summarise(mean_uninfluenced = mean(`0`),
+            sd_uninfluenced = sd(`0`),
+            mean_influenced = mean(`1`),
+            sd_influenced = sd(`1`))
+
+# How many influence-aware trials in valence IA-AMP?
+trial_level_posneg_ia_amp_data_exclusions %>%
+  dplyr::count(subject, influenced) %>%
+  spread(influenced, n) %>%
+  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
+         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
+  summarise(mean_influenced = mean(`1`),
+            sd = sd(`1`))
+
+# overall valence IA-AMP effect size
+task_level_data_exclusions %>%
+  select(subject, party, IA_AMP_effect_obama_trump) %>%
+  group_by(party) %>%
+  dplyr::summarise(effect = mean(IA_AMP_effect_obama_trump),
+            sd = sd(IA_AMP_effect_obama_trump))
+
+# specific alence IA-AMP effects
+trial_level_politics_ia_amp_data_exclusions %>%
+  group_by(subject, party, prime_type, influenced) %>%
+  dplyr::summarise(mean_rating = mean(rating)) %>%
+  spread(prime_type, mean_rating) %>%
+  mutate(prime_type_A = ifelse(is.na(prime_type_A), .5, prime_type_A),
+         prime_type_B = ifelse(is.na(prime_type_B), .5, prime_type_B)) %>%
+  mutate(amp_effect = prime_type_B - prime_type_A) %>%
+  select(subject, party, influenced, amp_effect) %>%
+  spread(influenced, amp_effect) %>%
+  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
+         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
+  group_by(party) %>%
+  dplyr::summarise(mean_uninfluenced = mean(`0`),
+            sd_uninfluenced = sd(`0`),
+            mean_influenced = mean(`1`),
+            sd_influenced = sd(`1`))
+
+# How many influence-aware trials in valence IA-AMP?
+trial_level_politics_ia_amp_data_exclusions %>%
+  dplyr::count(subject, party, influenced) %>%
+  spread(influenced, n) %>%
+  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
+         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
+  group_by(party) %>%
+  dplyr::summarise(mean_influenced = mean(`1`),
+            sd = sd(`1`))
+  
+  
+```
 
 ## M1: Demonstate an AMP effect on the positive negative IA AMP
 
@@ -310,7 +385,9 @@ ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative,
 # results table
 tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
 
+
 ```
+
 
 ## H2: Influence rate in one IA-AMP predicts the absolute magnitude of the other IA-AMP effect
 
