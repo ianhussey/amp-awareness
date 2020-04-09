@@ -1,0 +1,174 @@
+---
+title: "Meta analyses robustness tests"
+subtitle: "Comparing logistic vs linear probability mixed effects models"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+McCabe, Halvorson, King, Cao, & Kim (2020) recently demonstrated that estimates of interaction effects in logistic regression can be unstable, on the basis that independence between IVs is violated when using a non linear/metric link function. WHile McCabe et al. provided suggestions and code to implement novel methods to test for such interactions, thus far these can only be applied in the context of fixed effects models. Given we employ mixed effects models here, an alternative strategy of testing robustness was divised. Specifically, we employed a linear probability model to overcome the violation of non-independence that McCabe highlighted in logistic models. 
+
+As such, we included the following robustness test. The multilevel logistic models reported in the main analyses and meta analyses were replaced with multilevel linear probability models. Interaction effects were then meta analyzed across experiments, as in the main analyses. Unlike the robustness tests for the fixed effects models, only the congruence in conclusions could be compared (i.e., p values between logistic and linear probability models), as Odds Ratios and linear probabilities cannot be directly compared. p values for the logistic models are reported in the main meta analyses. 
+
+Code/analyses are adapted from the meta analyses. Meta analyses of the key hypothesis tests are refitted, i.e., influence rates predicting IA-AMP effects.
+
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+library(timesavers)
+library(lme4)
+library(effects)
+library(metafor)
+library(patchwork)
+library(ggExtra)
+library(sjPlot)
+library(kableExtra)
+library(knitr)
+
+# disable scientific notation
+options(scipen = 999) 
+
+# knitr output for html
+options(knitr.table.format = "html")
+
+
+# custom functions --------------------
+
+zscore_to_p <- function(z){
+  2*pnorm(-abs(z))
+}
+
+# fit models to individual experiments and extract an effect of interest
+fit_lmer_model_and_extract_effect <- function(data, experiment_n, formula, effect, domain_name = NULL) {
+  require(tidyverse)
+  
+  if (!is.null(domain_name)) {
+    
+    fit <- data %>%
+      dplyr::filter(experiment == experiment_n & 
+                      domain == domain_name) %>%
+      lmer(formula = formula, 
+           data = .)
+    
+    results <- 
+      summary(fit)$coefficients %>%
+      as.data.frame() %>%
+      rownames_to_column(var = "Effect") %>%
+      dplyr::filter(Effect == effect) %>%
+      mutate(Experiment = experiment_n,
+             domain = domain_name,
+             yi = Estimate,       # effect size
+             vi = `Std. Error`^2) # convert SE to variance
+    
+  } else {
+    
+    fit <- data %>%
+      dplyr::filter(experiment == experiment_n) %>%
+      lmer(formula = formula, 
+           data = .)
+    
+    results <- 
+      summary(fit)$coefficients %>%
+      as.data.frame() %>%
+      rownames_to_column(var = "Effect") %>%
+      dplyr::filter(Effect == effect) %>%
+      mutate(Experiment = experiment_n,
+             yi = Estimate,       # effect size
+             vi = `Std. Error`^2) # convert SE to variance
+    
+  }
+  
+  return(results)
+}
+
+
+# get data
+combined_trial_level_data       <- read.csv("../data/combined_trial_level_data.csv") %>%
+  mutate(influenced = as.logical(influenced))
+
+```
+
+# Does influence rate predict the magnitude of (IA)AMP effects?
+
+## IA-AMP
+
+### Trial level
+
+#### Interaction effect
+
+Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
+
+```{r}
+
+formula <- as.formula("rating ~ prime_type * influenced + (1 | unique_id)")
+effect  <- "prime_typePositive:influencedTRUE"
+
+# apply models to individual experiments, extract results for key effect
+results_for_meta_analysis_2_linearprobabiility <- rbind(
+  fit_lmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                    experiment_n = 1, 
+                                    domain_name = "Generic valence",
+                                    formula = formula, 
+                                    effect = effect),
+  fit_lmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                    experiment_n = 2, 
+                                    domain_name = "Generic valence",
+                                    formula = formula, 
+                                    effect = effect),
+  fit_lmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                    experiment_n = 3, 
+                                    domain_name = "Generic valence",
+                                    formula = formula, 
+                                    effect = effect),
+  fit_lmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                    experiment_n = 4, 
+                                    domain_name = "Generic valence",
+                                    formula = formula, 
+                                    effect = effect),
+  fit_lmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                    experiment_n = 5, 
+                                    domain_name = "Generic valence",
+                                    formula = formula, 
+                                    effect = effect)
+)
+
+```
+
+```{r}
+
+# reshape data
+data_temp_linearprobabiility <- results_for_meta_analysis_2_linearprobabiility %>%
+  dplyr::rename(V = vi)
+
+# fit
+fit_linearprobabiility <- 
+  rma.mv(yi     = yi,
+         V      = V,
+         random = ~ 1 | Experiment/domain,
+         data   = data_temp_linearprobabiility,
+         slab   = paste(Experiment, domain))
+
+# plot
+forest(fit_linearprobabiility,
+       xlab = "Probability",
+       addcred = TRUE,
+       refline = 0.5)
+
+summary(fit_linearprobabiility)
+
+```
+
