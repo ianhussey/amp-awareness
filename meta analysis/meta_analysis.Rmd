@@ -31,6 +31,8 @@ library(ggExtra)
 library(sjPlot)
 library(kableExtra)
 library(knitr)
+library(patchwork)
+library(ggridges)
 
 # source for raincloud plots
 source("geom_flat_violin.R")
@@ -142,11 +144,12 @@ fit_glmer_model_and_extract_effect <- function(data, experiment_n, formula, effe
 
 # get data
 combined_participant_level_data <- read.csv("data/combined_participant_level_data.csv") 
-combined_trial_level_data       <- read.csv("data/combined_trial_level_data.csv") 
+combined_trial_level_data       <- read.csv("data/combined_trial_level_data.csv")  %>%
+  mutate(influenced = as.logical(influenced))
 
 ```
 
-# Total participants after exclusions
+e3# Total participants after exclusions
 
 ```{r}
 
@@ -341,7 +344,7 @@ Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data r
 ```{r}
 
 formula <- as.formula("rating ~ prime_type * influenced + (1 | unique_id)")
-effect  <- "prime_typePositive:influenced"
+effect  <- "prime_typePositive:influencedTRUE"
 
 # apply models to individual experiments, extract results for key effect
 results_for_meta_analysis_2 <- rbind(
@@ -421,13 +424,19 @@ OR_to_d(OR) %>%
 ```{r fig.height=5, fig.width=5}
 
 # fit combined model
+data_for_mod_plot <- 
+  combined_trial_level_data %>%
+  mutate(influenced = as.numeric(influenced))
+
 model_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
                  family = binomial(link = "logit"),
-                 data = combined_trial_level_data)
+                 data = data_for_mod_plot)
 
 # predictions
 model_2_predicted_effects <- 
-  as.data.frame(effect("prime_type:influenced", model_2, xlevels = 101)) %>%
+  as.data.frame(effect(term    = "prime_type:influenced", 
+                       mod     = model_2, 
+                       xlevels = 101)) %>%
   round_df(2) %>%
   mutate(prime_type = fct_relevel(prime_type, "Negative", "Positive"))
 
@@ -459,6 +468,7 @@ save(p2, file = "data/p2.RData")
 ## add these probabilities back to the original data frame (omitting missing values) 
 predictions <- combined_trial_level_data %>%
   dplyr::select(prime_type, influenced, unique_id,  experiment) %>%
+  mutate(influenced = as.numeric(influenced)) %>%
   na.omit %>%
   mutate(prob = predict(model_2, type = c("response")),
          `Influence of prime\non evaluation of target` = dplyr::recode(influenced, 
@@ -607,7 +617,7 @@ Absolute AMP effects.
 
 ```{r}
 
-formula <- as.formula("AMP_effect ~ influence_rate")
+formula <- as.formula("abs(AMP_effect) ~ influence_rate")
 effect  <- "influence_rate"
 
 # apply models to individual experiments, extract results for key effect
@@ -695,7 +705,7 @@ Absolute AMP effects.
 
 ```{r}
 
-formula <- as.formula("AMP_effect ~ 1")
+formula <- as.formula("abs(AMP_effect) ~ 1")
 effect  <- "(Intercept)"
 
 # apply models to individual experiments, extract results for key effect
@@ -808,8 +818,11 @@ combined_participant_level_data %>%
 # get plot from exp 4
 load("../Experiment 4/analysis/p1.RData")
 
-library(patchwork)
-p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
+p_combined <- p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
+
+p_combined
+
+save(p_combined, file = "plots/p_combined.RData")
 
 ```
 
