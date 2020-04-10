@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Ian Hussey &amp; Jamie Cummins" />
@@ -86,8 +86,6 @@ overflow: auto;
 margin-left: 2%;
 position: fixed;
 border: 1px solid #ccc;
-webkit-border-radius: 6px;
-moz-border-radius: 6px;
 border-radius: 6px;
 }
 
@@ -115,9 +113,14 @@ font-size: 12px;
 .tocify-subheader .tocify-subheader {
 text-indent: 30px;
 }
-
 .tocify-subheader .tocify-subheader .tocify-subheader {
 text-indent: 40px;
+}
+.tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader {
+text-indent: 50px;
+}
+.tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader .tocify-subheader {
+text-indent: 60px;
 }
 
 .tocify .tocify-item > a, .tocify .nav-list .nav-header {
@@ -521,13 +524,13 @@ float: none;
 
           item.append($("<a/>", {
 
-            "text": self.text()
+            "html": self.html()
 
           }));
 
         } else {
 
-          item.text(self.text());
+          item.html(self.html());
 
         }
 
@@ -1302,7 +1305,7 @@ window.initializeCodeFolding = function(show) {
 
     // create a collapsable div to wrap the code in
     var div = $('<div class="collapse r-code-collapse"></div>');
-    if (show)
+    if (show || $(this)[0].classList.contains('fold-show'))
       div.addClass('in');
     var id = 'rcode-643E0F36' + currentIndex++;
     div.attr('id', id);
@@ -1422,7 +1425,7 @@ code span.wa { color: #008000; font-weight: bold; } /* Warning */
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -1479,7 +1482,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -1541,6 +1543,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -1553,56 +1556,12 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 <style type="text/css">
 .code-folding-btn { margin-bottom: 4px; }
 </style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
 
-
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <style type="text/css">
 
@@ -1616,6 +1575,12 @@ $(document).ready(function ()  {
 }
 }
 
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
 
 .toc-content {
   padding-left: 30px;
@@ -1651,8 +1616,6 @@ div.tocify {
 
 .tocify-subheader .tocify-item {
   font-size: 0.90em;
-  padding-left: 25px;
-  text-indent: 0;
 }
 
 .tocify .list-group-item {
@@ -1699,7 +1662,7 @@ div.tocify {
 <h1 class="title toc-ignore">Study 2</h1>
 <h3 class="subtitle">Processing</h3>
 <h4 class="author">Ian Hussey &amp; Jamie Cummins</h4>
-<h4 class="date">12 May, 2019</h4>
+<h4 class="date">10 April, 2020</h4>
 
 </div>
 
@@ -1804,9 +1767,7 @@ div.tocify {
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-25" data-line-number="25"><span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-26" data-line-number="26"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">AMP_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="st">  </span><span class="kw">select</span>(subject, AMP_effect_positive_negative) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">AMP_effect_positive_negative =</span> </a>
-<a class="sourceLine" id="cb3-29" data-line-number="29">           <span class="kw">abs</span>(AMP_effect_positive_negative))</a></code></pre></div>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="st">  </span><span class="kw">select</span>(subject, AMP_effect_positive_negative)</a></code></pre></div>
 </div>
 <div id="ia-amp-effects-and-influence-rates" class="section level1">
 <h1>IA AMP effects and influence rates</h1>
@@ -1840,31 +1801,27 @@ div.tocify {
 <a class="sourceLine" id="cb4-28" data-line-number="28"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-29" data-line-number="29"><span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-30" data-line-number="30"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_effect_positive_negative) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> </a>
-<a class="sourceLine" id="cb4-33" data-line-number="33">           <span class="kw">abs</span>(IA_AMP_effect_positive_negative))</a>
-<a class="sourceLine" id="cb4-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co"># score amp effect</span></a>
-<a class="sourceLine" id="cb4-36" data-line-number="36">IA_AMP_uninfluenced_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="st">  </span><span class="kw">filter</span>(influenced <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-38" data-line-number="38"><span class="st">  </span><span class="kw">group_by</span>(subject, prime_type) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-39" data-line-number="39"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">amp_effect =</span> <span class="kw">mean</span>(rating)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-40" data-line-number="40"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-41" data-line-number="41"><span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-42" data-line-number="42"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-43" data-line-number="43"><span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_uninfluenced_effect_positive_negative) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-44" data-line-number="44"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> </a>
-<a class="sourceLine" id="cb4-45" data-line-number="45">           <span class="kw">abs</span>(IA_AMP_uninfluenced_effect_positive_negative))</a>
-<a class="sourceLine" id="cb4-46" data-line-number="46"></a>
-<a class="sourceLine" id="cb4-47" data-line-number="47"><span class="co"># score influence rates</span></a>
-<a class="sourceLine" id="cb4-48" data-line-number="48">IA_AMP_influence_rate &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-49" data-line-number="49"><span class="st">  </span><span class="kw">group_by</span>(subject) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-50" data-line-number="50"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">influence_rate =</span> <span class="kw">round</span>(<span class="kw">mean</span>(influenced), <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-51" data-line-number="51"><span class="st">  </span><span class="kw">ungroup</span>()</a>
-<a class="sourceLine" id="cb4-52" data-line-number="52"></a>
-<a class="sourceLine" id="cb4-53" data-line-number="53">IA_AMP_data &lt;-<span class="st"> </span>IA_AMP_effect <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-54" data-line-number="54"><span class="st">  </span><span class="kw">full_join</span>(IA_AMP_uninfluenced_effect, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-55" data-line-number="55"><span class="st">  </span><span class="kw">full_join</span>(IA_AMP_influence_rate, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_effect_positive_negative) </a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co"># score amp effect</span></a>
+<a class="sourceLine" id="cb4-34" data-line-number="34">IA_AMP_uninfluenced_effect &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="st">  </span><span class="kw">filter</span>(influenced <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="st">  </span><span class="kw">group_by</span>(subject, prime_type) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">amp_effect =</span> <span class="kw">mean</span>(rating)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-38" data-line-number="38"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-39" data-line-number="39"><span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-40" data-line-number="40"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_uninfluenced_effect_positive_negative =</span> <span class="kw">round</span>(prime_type_A <span class="op">-</span><span class="st"> </span>prime_type_B, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-41" data-line-number="41"><span class="st">  </span><span class="kw">select</span>(subject, IA_AMP_uninfluenced_effect_positive_negative) </a>
+<a class="sourceLine" id="cb4-42" data-line-number="42"></a>
+<a class="sourceLine" id="cb4-43" data-line-number="43"><span class="co"># score influence rates</span></a>
+<a class="sourceLine" id="cb4-44" data-line-number="44">IA_AMP_influence_rate &lt;-<span class="st"> </span>IA_AMP_cleaned <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-45" data-line-number="45"><span class="st">  </span><span class="kw">group_by</span>(subject) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-46" data-line-number="46"><span class="st">  </span><span class="kw">summarize</span>(<span class="dt">influence_rate =</span> <span class="kw">round</span>(<span class="kw">mean</span>(influenced), <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-47" data-line-number="47"><span class="st">  </span><span class="kw">ungroup</span>()</a>
+<a class="sourceLine" id="cb4-48" data-line-number="48"></a>
+<a class="sourceLine" id="cb4-49" data-line-number="49">IA_AMP_data &lt;-<span class="st"> </span>IA_AMP_effect <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-50" data-line-number="50"><span class="st">  </span><span class="kw">full_join</span>(IA_AMP_uninfluenced_effect, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-51" data-line-number="51"><span class="st">  </span><span class="kw">full_join</span>(IA_AMP_influence_rate, <span class="dt">by =</span> <span class="st">&quot;subject&quot;</span>)</a></code></pre></div>
 </div>
 <div id="screen-for-complete-data" class="section level1">
 <h1>Screen for complete data</h1>
@@ -1931,6 +1888,54 @@ $(document).ready(function () {
 });
 
 
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
 </script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->

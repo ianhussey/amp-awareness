@@ -113,8 +113,6 @@ trial_level_ia_amp_data_exclusions %>%
 
 ## M1: Demonstate an AMP effect on the IA AMP
 
-### Fit model
-
 ```{r}
 
 # fit model
@@ -154,8 +152,6 @@ Does conscious awareness of influence of the prime on the target moderate the AM
 
 Key effect: influence*prime_type interaction
 
-#### Fit model
-
 ```{r}
 
 # model
@@ -191,16 +187,15 @@ Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
 
-#### Fit model
-
 ```{r}
 
 # model
-fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
-              data = task_level_data_exclusions)
+fit_h1b <- task_level_data_exclusions %>%
+  mutate(abs_IA_AMP_effect_positive_negative = abs(IA_AMP_effect_positive_negative)) %>%
+  lm(abs_IA_AMP_effect_positive_negative ~ influence_rate, data = .)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -217,8 +212,6 @@ tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 ## H2: Correlation between online and offline measures of influence
 
 Do the online measure of influence (i.e., pressing the spacebar after trials) correlate with typically-used offline measures of influence (i.e., the self-reports following completion of the task regarding how frequently the participant felt that they were influenced)?
-
-### Fit model
 
 ```{r}
 
@@ -241,8 +234,6 @@ tab_model(fit_h2, show.std = TRUE, emph.p = FALSE, ci.hyphen = ", ")
 ## H3: Contribution of offline and online measures in predicting AMP effect sizes
 
 Do the online measure of influence, the offline measure of influence, or both, predict AMP effect sizes?
-
-### Fit model
 
 ```{r}
 

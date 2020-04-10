@@ -119,8 +119,6 @@ trial_level_ia_amp_data_exclusions %>%
 
 ## M1: Demonstate an AMP effect on the AMP
 
-### Fit model
-
 ```{r}
 
 # fit model
@@ -151,8 +149,6 @@ m1_d <- c(exp(pull(coefficients_temp, Estimate)),
 OR converted to Cohen's d for familiarity: d = `r m1_d[1]`, 95% CI [`r m1_d[2]`, `r m1_d[3]`].
 
 ## M2: Demonstate an AMP effect on the IA AMP
-
-### Fit model
 
 ```{r}
 
@@ -194,8 +190,6 @@ Does conscious awareness of influence of the prime on the target moderate the AM
 
 Key effect: influence*prime_type interaction
 
-#### Fit model
-
 ```{r}
 
 # model
@@ -231,16 +225,15 @@ Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
 
-#### Fit model
-
 ```{r}
 
 # model
-fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
-              data = task_level_data_exclusions)
+fit_h1b <- task_level_data_exclusions %>%
+  mutate(abs_IA_AMP_effect_positive_negative = abs(IA_AMP_effect_positive_negative)) %>%
+  lm(abs_IA_AMP_effect_positive_negative ~ influence_rate, data = .)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -263,11 +256,12 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h2 <- lm(AMP_effect_positive_negative ~ influence_rate, 
-             data = task_level_data_exclusions)
+fit_h2 <- task_level_data_exclusions %>%
+  mutate(abs_AMP_effect_positive_negative = abs(AMP_effect_positive_negative)) %>%
+  lm(abs_AMP_effect_positive_negative ~ influence_rate, data = .)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -294,18 +288,19 @@ exp_2_df <- read_csv("../../experiment 2/data/processed/processed_data.csv") %>%
   dplyr::mutate(experiment = "exp_2") %>%
   select(subject, AMP_effect_positive_negative, influence_rate, experiment)
 
-# mutate eperiment column for exp 5 data
+# mutate experiment column for exp 5 data
 exp_5_df <- task_level_data_exclusions %>%
   dplyr::mutate(experiment = "exp_5") %>%
   select(subject, AMP_effect_positive_negative, influence_rate, experiment)
 
 # create new df combining experiment 2 and 5 data
-combined_exps_2_and_5 <- bind_rows(exp_2_df, exp_5_df)
+combined_exps_2_and_5 <- bind_rows(exp_2_df, exp_5_df) %>%
+  mutate(abs_AMP_effect_positive_negative = abs(AMP_effect_positive_negative))
 
 
 # model
-fit_comparison <- lm(AMP_effect_positive_negative ~ influence_rate * experiment, 
-                    data = combined_exps_2_and_5)
+fit_comparison <- lm(abs_AMP_effect_positive_negative ~ influence_rate * experiment, 
+                     data = combined_exps_2_and_5)
 
 # plot
 plot_model(fit_comparison, type = "int")
@@ -317,11 +312,14 @@ tab_model(fit_comparison, emph.p = FALSE,
 # Compute Bayes Factor
 
 # full model
-full_model <- BayesFactor::lmBF(AMP_effect_positive_negative ~ influence_rate + experiment + influence_rate:experiment, data = combined_exps_2_and_5)
+full_model <- 
+  BayesFactor::lmBF(abs_AMP_effect_positive_negative ~ influence_rate + experiment + influence_rate:experiment, 
+                    data = combined_exps_2_and_5)
 
 # model minus interaction
-no_interaction_model <- BayesFactor::lmBF(AMP_effect_positive_negative ~ influence_rate + experiment, data = combined_exps_2_and_5)
-
+no_interaction_model <- 
+  BayesFactor::lmBF(abs_AMP_effect_positive_negative ~ influence_rate + experiment, 
+                    data = combined_exps_2_and_5)
 
 # BF10
 full_model / no_interaction_model

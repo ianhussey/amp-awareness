@@ -40,6 +40,7 @@ library(kableExtra)
 # devtools::install_github("ianhussey/timesavers")  
 library(timesavers)  # for round_df()
 library(plotrix)
+library(Partiallyoverlapping)
 
 
 # get data 
@@ -125,8 +126,6 @@ trial_level_ia_amp_data_exclusions %>%
 
 ## M1: Demonstate an AMP effect on the AMP
 
-### Fit model
-
 ```{r}
 
 # fit model
@@ -157,8 +156,6 @@ m1_d <- c(exp(pull(coefficients_temp, Estimate)),
 OR converted to Cohen's d for familiarity: d = `r m1_d[1]`, 95% CI [`r m1_d[2]`, `r m1_d[3]`].
 
 ## M2: Demonstate an AMP effect on the IA-AMP
-
-### Fit model
 
 ```{r}
 
@@ -199,8 +196,6 @@ Does conscious awareness of influence of the prime on the target moderate the AM
 
 Key effect: influence*prime_type interaction
 
-#### Fit model
-
 ```{r}
 
 # model
@@ -236,16 +231,15 @@ Does rate of influence in the IA-AMP predict IA-AMP effects?
 
 If effects in the IA-AMP are driven by intentional responding, then the size of the effect in the IA-AMP should be moderated by the subset of participants who are more often influenced by the primes. 
 
-#### Fit model
-
 ```{r}
 
 # model
-fit_h1b <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
-              data = task_level_data_exclusions)
+fit_h1b <- task_level_data_exclusions %>%
+  mutate(abs_IA_AMP_effect_positive_negative = abs(IA_AMP_effect_positive_negative)) %>%
+  lm(abs_IA_AMP_effect_positive_negative ~ influence_rate, data = .)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, IA_AMP_effect_positive_negative)) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -268,11 +262,12 @@ Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate
 ```{r}
 
 # model
-fit_h2 <- lm(IA_AMP_effect_positive_negative ~ influence_rate, 
-             data = task_level_data_exclusions)
+fit_h2 <- task_level_data_exclusions %>%
+  mutate(abs_AMP_effect_positive_negative = abs(AMP_effect_positive_negative)) %>%
+  lm(abs_AMP_effect_positive_negative ~ influence_rate, data = .)
 
 # plot
-ggplot(task_level_data_exclusions, aes(influence_rate, AMP_effect_positive_negative)) + 
+ggplot(task_level_data_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
   geom_jitter(alpha = 0.3) +
   geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
@@ -285,7 +280,6 @@ ggplot(task_level_data_exclusions, aes(influence_rate, AMP_effect_positive_negat
 tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
 
 ```
-
 
 ## H3: Magnitude of Standard AMP effect compared to the IA-AMP effect (using noninfluenced trials only)
 
@@ -345,8 +339,6 @@ subset <- task_level_data_exclusions %>%
 # gather subset
 long_subset <- subset %>%
   gather(condition, score, AMP_effect_positive_negative:IA_AMP_uninfluenced_effect_positive_negative)
-
-library(Partiallyoverlapping)
 
 x1 <- subset %>%
   filter(is.na(IA_AMP_uninfluenced_effect_positive_negative)) %>%

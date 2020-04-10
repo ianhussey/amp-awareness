@@ -1,185 +1,185 @@
 subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,IA_AMP_uninfluenced_effect_positive_negative,influence_rate,awareness,influence_general,intentionality,self_exclusion_1,self_exclusion_1other,unintentionality,complete_data
-1630295,34,FEMALE,0.56,0.58,1,0.96,5,5,6,"Yes, use my data",,5,TRUE
-1841020,21,Female,0.44,0.25,0.13,0.17,7,3,2,"Yes, use my data",,2,TRUE
-3455531,41,Female,0.92,0.75,0.77,0.56,7,7,5,"Yes, use my data",,3,TRUE
-3983155,23,Male,0.56,0.81,0.48,0.76,7,6,4,"Yes, use my data",,3,TRUE
-6080319,20,Male,0.08,0.03,0.11,0.43,7,3,2,"Yes, use my data",,1,TRUE
-25737401,34 ,female,0.06,0.11,0.11,0.04,7,2,2,"Yes, use my data",,2,TRUE
-26378635,20,female,0.06,0.06,0.2,0.17,6,3,3,"Yes, use my data",,3,TRUE
-31170097,35,female,0.39,0.22,0.2,0.03,7,2,1,"Yes, use my data",,2,TRUE
-32435442,22,M,0.19,0.06,0.17,0.44,6,5,3,"Yes, use my data",,4,TRUE
-33872229,28 ,male,0.11,0.42,0.17,0.29,7,3,2,"Yes, use my data",,2,TRUE
+1630295,34,FEMALE,-0.56,-0.58,-1,0.96,5,5,6,"Yes, use my data",,5,TRUE
+1841020,21,Female,-0.44,-0.25,-0.13,0.17,7,3,2,"Yes, use my data",,2,TRUE
+3455531,41,Female,-0.92,-0.75,-0.77,0.56,7,7,5,"Yes, use my data",,3,TRUE
+3983155,23,Male,-0.56,-0.81,-0.48,0.76,7,6,4,"Yes, use my data",,3,TRUE
+6080319,20,Male,-0.08,0.03,0.11,0.43,7,3,2,"Yes, use my data",,1,TRUE
+25737401,34 ,female,0.06,-0.11,-0.11,0.04,7,2,2,"Yes, use my data",,2,TRUE
+26378635,20,female,-0.06,0.06,0.2,0.17,6,3,3,"Yes, use my data",,3,TRUE
+31170097,35,female,-0.39,-0.22,-0.2,0.03,7,2,1,"Yes, use my data",,2,TRUE
+32435442,22,M,0.19,-0.06,0.17,0.44,6,5,3,"Yes, use my data",,4,TRUE
+33872229,28 ,male,-0.11,-0.42,-0.17,0.29,7,3,2,"Yes, use my data",,2,TRUE
 33934685,30,Male,0.14,0.31,0.5,0.9,7,5,3,"Yes, use my data",,3,TRUE
 40414465,27,female,0.89,0.97,0.5,0.47,5,5,1,"Yes, use my data",,1,TRUE
-44174345,26,Female,0.14,0.06,0.05,0.54,5,5,6,"Yes, use my data",,2,TRUE
+44174345,26,Female,-0.14,-0.06,0.05,0.54,5,5,6,"Yes, use my data",,2,TRUE
 48944973,32,male,0.03,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
-54181250,23,Female,0.89,0.53,0.39,0.25,1,2,1,"Yes, use my data",,3,TRUE
+54181250,23,Female,-0.89,-0.53,-0.39,0.25,1,2,1,"Yes, use my data",,3,TRUE
 58666523,19,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-59842540,38,female,0.75,0.72,NA,0.97,7,7,7,"Yes, use my data",,7,TRUE
-64887535,30,Female,0.19,0.03,0.03,0,7,7,1,"Yes, use my data",,1,TRUE
+59842540,38,female,-0.75,-0.72,NA,0.97,7,7,7,"Yes, use my data",,7,TRUE
+64887535,30,Female,-0.19,-0.03,-0.03,0,7,7,1,"Yes, use my data",,1,TRUE
 91611240,34,Female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
 101733908,27,Male,0.08,0.31,0,0.96,7,6,6,"Yes, use my data",,7,TRUE
 104921735,50,Female,0.03,0.17,0.17,0,7,1,1,"Yes, use my data",,2,TRUE
-108998539,59,female,0.08,0.19,0.19,0,7,1,1,"Yes, use my data",,2,TRUE
-125640820,18,F,0.78,0.69,0.75,0.9,5,6,3,"Yes, use my data",,5,TRUE
-132548792,39,female,0.67,0.75,0.75,0,NA,NA,NA,NA,NA,NA,FALSE
-142604711,32,Female,0.06,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
+108998539,59,female,-0.08,0.19,0.19,0,7,1,1,"Yes, use my data",,2,TRUE
+125640820,18,F,-0.78,-0.69,-0.75,0.9,5,6,3,"Yes, use my data",,5,TRUE
+132548792,39,female,-0.67,-0.75,-0.75,0,NA,NA,NA,NA,NA,NA,FALSE
+142604711,32,Female,-0.06,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
 157172179,52,male,0.61,0.72,0.72,0,6,1,1,"Yes, use my data",,1,TRUE
-161771481,30,male,0.47,0.39,0.04,0.22,6,3,2,"Yes, use my data",,4,TRUE
+161771481,30,male,0.47,-0.39,-0.04,0.22,6,3,2,"Yes, use my data",,4,TRUE
 163889718,36,Female,0.42,0.36,0.02,0.47,7,5,5,"Yes, use my data",,4,TRUE
-168393599,47,Male,0.14,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+168393599,47,Male,-0.14,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 172756511,35,Male,0.75,0.14,0.1,0.14,7,4,7,"Yes, use my data",,4,TRUE
-176427757,19,female,0.78,0.22,0.29,0.81,5,4,4,"Yes, use my data",,5,TRUE
-177856627,23,male,0.11,0.25,0.04,0.32,7,2,2,"Yes, use my data",,2,TRUE
+176427757,19,female,-0.78,-0.22,-0.29,0.81,5,4,4,"Yes, use my data",,5,TRUE
+177856627,23,male,-0.11,-0.25,-0.04,0.32,7,2,2,"Yes, use my data",,2,TRUE
 180926818,31,female,0.36,0.81,0,0.97,7,7,6,"Yes, use my data",,1,TRUE
-181985090,45,male,0.33,0.5,0,0.86,6,6,6,"Yes, use my data",,6,TRUE
-187010750,44,female,0.53,0.56,0.46,0.57,6,4,1,"Yes, use my data",,5,TRUE
+181985090,45,male,-0.33,-0.5,0,0.86,6,6,6,"Yes, use my data",,6,TRUE
+187010750,44,female,-0.53,-0.56,-0.46,0.57,6,4,1,"Yes, use my data",,5,TRUE
 190841178,52,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-204268642,22,Female,0.08,0.03,0.06,0.11,7,2,1,"No, exclude my data (please specify why):","There weren't any distractions and I focused purely on the task, but I do have a weird feeling about shapes. There are some shapes which I like, and others which I don't and I tend to feel rather strongly about that. Having said that though, I don't know if this is how people normally feel about shapes so I may not really stand out. I think I could still have subconciously been influenced by the pictures, but I know that there were some shapes which I was going to respond to regardless of whether it was a positive or negative image in front of it.",2,TRUE
-226981072,28,Male,0.64,0.14,0.17,0.83,6,5,4,"Yes, use my data",,3,TRUE
+204268642,22,Female,-0.08,0.03,0.06,0.11,7,2,1,"No, exclude my data (please specify why):","There weren't any distractions and I focused purely on the task, but I do have a weird feeling about shapes. There are some shapes which I like, and others which I don't and I tend to feel rather strongly about that. Having said that though, I don't know if this is how people normally feel about shapes so I may not really stand out. I think I could still have subconciously been influenced by the pictures, but I know that there were some shapes which I was going to respond to regardless of whether it was a positive or negative image in front of it.",2,TRUE
+226981072,28,Male,0.64,-0.14,-0.17,0.83,6,5,4,"Yes, use my data",,3,TRUE
 231035127,50,female,0.33,0.25,0.09,0.21,7,4,5,"Yes, use my data",,2,TRUE
-231513913,18,Male,0.31,0.17,0.22,0.43,7,4,2,"Yes, use my data",,2,TRUE
-233265412,23,Male,0.14,0.47,NA,1,4,2,1,"Yes, use my data",,2,TRUE
-237392409,28,Male,0.19,0.58,0.13,0.35,7,4,2,"Yes, use my data",,5,TRUE
-241082593,28,Female,0.89,0.92,0.67,0.74,4,5,7,"Yes, use my data",,3,TRUE
-244105383,41,female,0.11,0.14,0.14,0,7,2,1,"Yes, use my data",,3,TRUE
-247890705,34,female,0.11,0.33,0.31,0.03,7,2,1,"Yes, use my data",,2,TRUE
-256587365,39,female,0.14,0.11,0.11,0,7,1,1,"Yes, use my data",,2,TRUE
-256654209,35,female,0.86,0.83,NA,0.99,NA,NA,NA,NA,NA,NA,FALSE
-256965497,32,Female,0.03,0.11,0.13,0.01,7,1,1,"Yes, use my data",,2,TRUE
-262187716,48,Male,0.06,0.06,0.2,0.18,7,3,2,"Yes, use my data",,3,TRUE
-263496132,22,Male,0.06,0.17,0.17,0,7,1,1,"Yes, use my data",,1,TRUE
-264118372,58,male,0.06,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
-264899398,32,Male,0.22,0.19,0.18,0.08,3,2,1,"Yes, use my data",,2,TRUE
-265191732,30,Male,0.19,0.25,0.01,0.21,7,3,2,"Yes, use my data",,2,TRUE
-266569838,40,Female,0.86,0.78,0.76,0.22,5,4,1,"Yes, use my data",,5,TRUE
-290603070,19,female,0.25,0.03,0.03,0,6,1,1,"Yes, use my data",,1,TRUE
-292746900,47,female,0.08,0.11,0.09,0.06,7,2,1,"Yes, use my data",,2,TRUE
+231513913,18,Male,0.31,-0.17,-0.22,0.43,7,4,2,"Yes, use my data",,2,TRUE
+233265412,23,Male,0.14,-0.47,NA,1,4,2,1,"Yes, use my data",,2,TRUE
+237392409,28,Male,-0.19,-0.58,-0.13,0.35,7,4,2,"Yes, use my data",,5,TRUE
+241082593,28,Female,-0.89,-0.92,-0.67,0.74,4,5,7,"Yes, use my data",,3,TRUE
+244105383,41,female,-0.11,0.14,0.14,0,7,2,1,"Yes, use my data",,3,TRUE
+247890705,34,female,-0.11,-0.33,-0.31,0.03,7,2,1,"Yes, use my data",,2,TRUE
+256587365,39,female,0.14,-0.11,-0.11,0,7,1,1,"Yes, use my data",,2,TRUE
+256654209,35,female,-0.86,-0.83,NA,0.99,NA,NA,NA,NA,NA,NA,FALSE
+256965497,32,Female,-0.03,0.11,0.13,0.01,7,1,1,"Yes, use my data",,2,TRUE
+262187716,48,Male,0.06,-0.06,0.2,0.18,7,3,2,"Yes, use my data",,3,TRUE
+263496132,22,Male,0.06,-0.17,-0.17,0,7,1,1,"Yes, use my data",,1,TRUE
+264118372,58,male,-0.06,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
+264899398,32,Male,-0.22,-0.19,-0.18,0.08,3,2,1,"Yes, use my data",,2,TRUE
+265191732,30,Male,0.19,-0.25,-0.01,0.21,7,3,2,"Yes, use my data",,2,TRUE
+266569838,40,Female,-0.86,-0.78,-0.76,0.22,5,4,1,"Yes, use my data",,5,TRUE
+290603070,19,female,-0.25,-0.03,-0.03,0,6,1,1,"Yes, use my data",,1,TRUE
+292746900,47,female,0.08,-0.11,-0.09,0.06,7,2,1,"Yes, use my data",,2,TRUE
 294991570,26,F,0,0.11,0.11,0,7,1,1,"Yes, use my data",,2,TRUE
-299397832,31,Male,0.11,0.44,0.28,0.28,3,3,3,"Yes, use my data",,3,TRUE
+299397832,31,Male,-0.11,-0.44,-0.28,0.28,3,3,3,"Yes, use my data",,3,TRUE
 301706853,38,female,0.61,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-307900444,21,Male,0.22,0.11,0,0.61,7,4,3,"Yes, use my data",,3,TRUE
+307900444,21,Male,0.22,-0.11,0,0.61,7,4,3,"Yes, use my data",,3,TRUE
 309931438,22,male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-316187377,32,Female,0.36,0.75,0.41,0.62,7,5,4,"Yes, use my data",,2,TRUE
-329904423,29,Lady :),0.08,0.06,0.03,0.01,7,2,2,"Yes, use my data",,1,TRUE
-331390964,20,female,0.83,0.17,0.03,0.22,7,4,2,"Yes, use my data",,5,TRUE
-337513661,30,male,0.06,0.53,0.39,0.18,7,4,1,"Yes, use my data",,3,TRUE
-355671407,23,female,0.25,0.06,0.02,0.1,1,2,1,"Yes, use my data",,2,TRUE
-366147815,52,female,0.67,0.83,0.85,0.07,3,2,1,"Yes, use my data",,2,TRUE
-375894219,22,female,0.22,0.22,0.18,0.07,7,3,1,"Yes, use my data",,3,TRUE
-377168445,40,Female,0.86,0.67,0.65,0.68,5,4,4,"Yes, use my data",,4,TRUE
+316187377,32,Female,-0.36,-0.75,-0.41,0.62,7,5,4,"Yes, use my data",,2,TRUE
+329904423,29,Lady :),-0.08,-0.06,-0.03,0.01,7,2,2,"Yes, use my data",,1,TRUE
+331390964,20,female,-0.83,-0.17,0.03,0.22,7,4,2,"Yes, use my data",,5,TRUE
+337513661,30,male,-0.06,-0.53,-0.39,0.18,7,4,1,"Yes, use my data",,3,TRUE
+355671407,23,female,-0.25,-0.06,-0.02,0.1,1,2,1,"Yes, use my data",,2,TRUE
+366147815,52,female,-0.67,-0.83,-0.85,0.07,3,2,1,"Yes, use my data",,2,TRUE
+375894219,22,female,-0.22,-0.22,-0.18,0.07,7,3,1,"Yes, use my data",,3,TRUE
+377168445,40,Female,-0.86,-0.67,-0.65,0.68,5,4,4,"Yes, use my data",,4,TRUE
 383876024,18,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-389586549,32,Male,0.03,0.11,0.11,0,7,7,1,"Yes, use my data",,1,TRUE
-396043905,24,female,0.08,0.03,0.02,0.01,7,2,1,"Yes, use my data",,2,TRUE
+389586549,32,Male,0.03,-0.11,-0.11,0,7,7,1,"Yes, use my data",,1,TRUE
+396043905,24,female,-0.08,0.03,0.02,0.01,7,2,1,"Yes, use my data",,2,TRUE
 397460714,20,male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-400552752,37,female,0.89,0.92,0.94,0.07,7,5,4,"Yes, use my data",,4,TRUE
-404662778,22,male,0.17,0.06,0.21,0.21,7,3,1,"Yes, use my data",,2,TRUE
+400552752,37,female,-0.89,-0.92,-0.94,0.07,7,5,4,"Yes, use my data",,4,TRUE
+404662778,22,male,0.17,-0.06,0.21,0.21,7,3,1,"Yes, use my data",,2,TRUE
 404695321,35,Female,0.81,0.69,0.63,0.36,7,4,1,"Yes, use my data",,2,TRUE
-412331690,43,female,0.06,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-412493991,24,Female,0.03,0.03,0.06,0.18,7,3,2,"Yes, use my data",,3,TRUE
-417315467,28,female,0.86,0.78,NA,1,7,6,7,"Yes, use my data",,7,TRUE
-420085544,34,Female,0.53,0.56,0.06,0.26,6,4,1,"Yes, use my data",,4,TRUE
-423455956,39,Female,0.39,0.47,0.46,0.08,4,3,2,"Yes, use my data",,4,TRUE
-434163311,45,female,0.33,0.14,0.04,0.22,6,3,4,"Yes, use my data",,4,TRUE
-440582805,18,Female,0.53,0.75,0.73,0.74,7,6,6,"Yes, use my data",,6,TRUE
-442771668,38,male,0.06,0.14,0.17,0.07,7,2,5,"Yes, use my data",,3,TRUE
-443860297,30,female,0.19,0.44,0.16,0.57,7,5,1,"Yes, use my data",,6,TRUE
-444858110,19,Male,0.11,0.06,0.05,0.04,7,3,2,"Yes, use my data",,3,TRUE
-451148831,23,female,0.89,0.08,0,0.04,5,2,2,"Yes, use my data",,2,TRUE
-451241954,24,Male,0.14,0.11,0.09,0.06,6,2,2,"Yes, use my data",,2,TRUE
-459632917,30,Female,0.33,0.08,0.11,0.14,7,4,3,"Yes, use my data",,3,TRUE
-475790417,36,male,0.25,0.28,0.47,0.89,2,7,6,"Yes, use my data",,3,TRUE
-479140766,25 ,female,0.78,0.67,0,0.78,7,5,7,"Yes, use my data",,2,TRUE
-493727402,20,Non Binary,0.06,0.08,0.05,0.03,7,2,1,"Yes, use my data",,2,TRUE
-494480318,57,female,0.08,0.06,0.06,0,4,1,1,"Yes, use my data",,1,TRUE
-497674009,37,Male,0.92,0.58,0.47,0.33,6,5,5,"Yes, use my data",,2,TRUE
+412331690,43,female,-0.06,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+412493991,24,Female,0.03,-0.03,0.06,0.18,7,3,2,"Yes, use my data",,3,TRUE
+417315467,28,female,-0.86,-0.78,NA,1,7,6,7,"Yes, use my data",,7,TRUE
+420085544,34,Female,-0.53,-0.56,-0.06,0.26,6,4,1,"Yes, use my data",,4,TRUE
+423455956,39,Female,-0.39,-0.47,-0.46,0.08,4,3,2,"Yes, use my data",,4,TRUE
+434163311,45,female,-0.33,-0.14,-0.04,0.22,6,3,4,"Yes, use my data",,4,TRUE
+440582805,18,Female,-0.53,-0.75,-0.73,0.74,7,6,6,"Yes, use my data",,6,TRUE
+442771668,38,male,-0.06,-0.14,-0.17,0.07,7,2,5,"Yes, use my data",,3,TRUE
+443860297,30,female,0.19,-0.44,-0.16,0.57,7,5,1,"Yes, use my data",,6,TRUE
+444858110,19,Male,-0.11,-0.06,-0.05,0.04,7,3,2,"Yes, use my data",,3,TRUE
+451148831,23,female,-0.89,-0.08,0,0.04,5,2,2,"Yes, use my data",,2,TRUE
+451241954,24,Male,-0.14,-0.11,-0.09,0.06,6,2,2,"Yes, use my data",,2,TRUE
+459632917,30,Female,-0.33,-0.08,0.11,0.14,7,4,3,"Yes, use my data",,3,TRUE
+475790417,36,male,-0.25,-0.28,0.47,0.89,2,7,6,"Yes, use my data",,3,TRUE
+479140766,25 ,female,-0.78,-0.67,0,0.78,7,5,7,"Yes, use my data",,2,TRUE
+493727402,20,Non Binary,-0.06,-0.08,-0.05,0.03,7,2,1,"Yes, use my data",,2,TRUE
+494480318,57,female,-0.08,-0.06,-0.06,0,4,1,1,"Yes, use my data",,1,TRUE
+497674009,37,Male,-0.92,-0.58,-0.47,0.33,6,5,5,"Yes, use my data",,2,TRUE
 507482707,27,Female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-515509239,23,Female,0.72,0.89,0.95,0.64,7,5,5,"Yes, use my data",,5,TRUE
-519606322,21,Male,0.67,0.69,0.65,0.58,4,4,3,"Yes, use my data",,6,TRUE
-519776923,22,Female,0.33,0.67,NA,0.99,7,6,2,"Yes, use my data",,6,TRUE
-521789528,43,Female,0.39,0.19,0.09,0.12,7,4,3,"Yes, use my data",,2,TRUE
-534903639,55,female,0.22,0.25,0.06,0.25,4,5,2,"Yes, use my data",,5,TRUE
-543242284,49,female,0.56,0.61,0.58,0.51,6,6,4,"No, exclude my data (please specify why):",my computer timed out and i couldn't re-enter the trial,5,TRUE
-543926415,27,female,0.47,0.72,0,0.94,7,7,6,"Yes, use my data",,7,TRUE
+515509239,23,Female,-0.72,-0.89,-0.95,0.64,7,5,5,"Yes, use my data",,5,TRUE
+519606322,21,Male,-0.67,-0.69,-0.65,0.58,4,4,3,"Yes, use my data",,6,TRUE
+519776923,22,Female,-0.33,-0.67,NA,0.99,7,6,2,"Yes, use my data",,6,TRUE
+521789528,43,Female,-0.39,-0.19,-0.09,0.12,7,4,3,"Yes, use my data",,2,TRUE
+534903639,55,female,-0.22,-0.25,-0.06,0.25,4,5,2,"Yes, use my data",,5,TRUE
+543242284,49,female,-0.56,-0.61,-0.58,0.51,6,6,4,"No, exclude my data (please specify why):",my computer timed out and i couldn't re-enter the trial,5,TRUE
+543926415,27,female,-0.47,-0.72,0,0.94,7,7,6,"Yes, use my data",,7,TRUE
 546207815,36,Male,0.06,0.03,0,0.89,4,3,4,"No, exclude my data (please specify why):",,4,TRUE
-549554979,55,female,0.22,0.25,0.18,0.11,7,5,2,"Yes, use my data",,4,TRUE
-570456235,29,female,0.31,0.17,0.17,0.22,6,3,2,"Yes, use my data",,2,TRUE
-578049515,45,female,0.22,0.11,0.07,0.04,7,2,1,"Yes, use my data",,2,TRUE
-578778494,29,Male,0.11,0.03,0.11,0.11,7,3,2,"Yes, use my data",,3,TRUE
-580624736,24 ,female,0.06,0.06,0.12,0.22,7,4,2,"Yes, use my data",,4,TRUE
-587890964,19,female,0.14,0.14,0.1,0.21,7,3,2,"Yes, use my data",,3,TRUE
-606117205,29,Female,0.03,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
-607594865,42,female,0.19,0,0,0.15,7,2,1,"No, exclude my data (please specify why):",pressing the space button didn't take me to the next character. Only pressing either the i or e button did which will have messed with the results. I think there is something wrong with ho the test has been programmed.,2,TRUE
-612737229,27,Female,0.22,0.31,0.12,0.17,7,3,2,"Yes, use my data",,5,TRUE
-613813814,27,Male,0.08,0.03,0.03,0.08,6,2,6,"Yes, use my data",,2,TRUE
-614509532,29,female,0.06,0.31,0.31,0,7,1,1,"Yes, use my data",,1,TRUE
-614816861,53,Male,0.03,0.03,0.03,0,7,1,1,"Yes, use my data",,3,TRUE
-618633380,35,Male,0.08,0.11,0.08,0.64,5,5,1,"Yes, use my data",,4,TRUE
-633068216,44,Male,0.17,0,0,0,1,1,1,"Yes, use my data",,1,TRUE
-641244452,47,Female,0.44,0.72,NA,0.96,4,7,7,"Yes, use my data",,6,TRUE
+549554979,55,female,-0.22,-0.25,-0.18,0.11,7,5,2,"Yes, use my data",,4,TRUE
+570456235,29,female,-0.31,-0.17,0.17,0.22,6,3,2,"Yes, use my data",,2,TRUE
+578049515,45,female,-0.22,-0.11,-0.07,0.04,7,2,1,"Yes, use my data",,2,TRUE
+578778494,29,Male,-0.11,0.03,0.11,0.11,7,3,2,"Yes, use my data",,3,TRUE
+580624736,24 ,female,0.06,-0.06,0.12,0.22,7,4,2,"Yes, use my data",,4,TRUE
+587890964,19,female,0.14,-0.14,0.1,0.21,7,3,2,"Yes, use my data",,3,TRUE
+606117205,29,Female,-0.03,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
+607594865,42,female,-0.19,0,0,0.15,7,2,1,"No, exclude my data (please specify why):",pressing the space button didn't take me to the next character. Only pressing either the i or e button did which will have messed with the results. I think there is something wrong with ho the test has been programmed.,2,TRUE
+612737229,27,Female,-0.22,-0.31,-0.12,0.17,7,3,2,"Yes, use my data",,5,TRUE
+613813814,27,Male,0.08,-0.03,0.03,0.08,6,2,6,"Yes, use my data",,2,TRUE
+614509532,29,female,0.06,-0.31,-0.31,0,7,1,1,"Yes, use my data",,1,TRUE
+614816861,53,Male,-0.03,0.03,0.03,0,7,1,1,"Yes, use my data",,3,TRUE
+618633380,35,Male,-0.08,-0.11,-0.08,0.64,5,5,1,"Yes, use my data",,4,TRUE
+633068216,44,Male,-0.17,0,0,0,1,1,1,"Yes, use my data",,1,TRUE
+641244452,47,Female,-0.44,-0.72,NA,0.96,4,7,7,"Yes, use my data",,6,TRUE
 645899775,53,Female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-646279482,31 ,female,0.25,0.11,0.11,0,1,1,1,"Yes, use my data",,1,TRUE
+646279482,31 ,female,-0.25,-0.11,-0.11,0,1,1,1,"Yes, use my data",,1,TRUE
 651705054,32,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-654363103,55,female,0.17,0.75,0.57,0.75,6,6,6,"Yes, use my data",,6,TRUE
-674344557,28,female,0.69,0.75,0.73,0.25,2,3,1,"No, exclude my data (please specify why):",im not entirely sure i responded correctly. Images were flashing on screen extremely fast and then a fuzzy black image appreared once i had to make a decision. ,1,TRUE
-678354314,20,female,0.08,0.22,0.16,0.18,7,3,2,"Yes, use my data",,3,TRUE
-701547885,30,non-binary,0.03,0.25,0.02,0.35,7,3,2,"Yes, use my data",,3,TRUE
-702019007,57,female,0.67,0.03,0.02,0.11,7,5,2,"Yes, use my data",,6,TRUE
-705319709,35,Male,0.03,0.14,0.14,0,7,1,1,"Yes, use my data",,2,TRUE
+654363103,55,female,-0.17,-0.75,-0.57,0.75,6,6,6,"Yes, use my data",,6,TRUE
+674344557,28,female,-0.69,-0.75,-0.73,0.25,2,3,1,"No, exclude my data (please specify why):",im not entirely sure i responded correctly. Images were flashing on screen extremely fast and then a fuzzy black image appreared once i had to make a decision. ,1,TRUE
+678354314,20,female,-0.08,-0.22,-0.16,0.18,7,3,2,"Yes, use my data",,3,TRUE
+701547885,30,non-binary,-0.03,-0.25,0.02,0.35,7,3,2,"Yes, use my data",,3,TRUE
+702019007,57,female,-0.67,0.03,0.02,0.11,7,5,2,"Yes, use my data",,6,TRUE
+705319709,35,Male,-0.03,0.14,0.14,0,7,1,1,"Yes, use my data",,2,TRUE
 706281989,27,Female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-714153786,42,Female,0.11,0.28,0.04,0.32,6,2,1,"Yes, use my data",,2,TRUE
-722013934,20,Female,0.58,0.06,0.06,0.32,7,4,5,"Yes, use my data",,6,TRUE
-723328040,18,female,0.19,0.42,0.04,0.39,7,4,3,"Yes, use my data",,4,TRUE
-727301907,18,female,0.81,0.47,0.52,0.14,6,2,1,"Yes, use my data",,2,TRUE
-734869675,30,male,0.56,0.14,0.05,0.18,6,5,3,"Yes, use my data",,4,TRUE
-740073869,52,female,0.14,0.58,0.18,0.29,7,7,2,"Yes, use my data",,6,TRUE
-747909973,30,Man,0.19,0.17,0.02,0.38,4,3,1,"Yes, use my data",,2,TRUE
-748426545,43,female,0.31,0.72,NA,0.93,6,6,6,"Yes, use my data",,1,TRUE
-749797574,28 ,Male,0.42,0.47,0.11,0.56,7,5,4,"Yes, use my data",,4,TRUE
-751390472,52,Male,0.03,0.25,0.23,0.01,7,2,1,"Yes, use my data",,2,TRUE
-754748258,56,female,0.44,0.36,0.01,0.64,7,6,5,"No, exclude my data (please specify why):","In the first trial,I don't remember seeing the Chinese characters.  In the second trial, they were so quick that it was difficult to make a judgement on the characters; rather my judgement was on how pleasing the pictures were to me.",3,TRUE
-762347576,25,Female,0.06,0.08,0.08,0.01,7,2,2,"Yes, use my data",,2,TRUE
-788034892,36,Male,0.25,0.08,0.01,0.08,6,3,3,"Yes, use my data",,4,TRUE
+714153786,42,Female,0.11,-0.28,0.04,0.32,6,2,1,"Yes, use my data",,2,TRUE
+722013934,20,Female,0.58,-0.06,0.06,0.32,7,4,5,"Yes, use my data",,6,TRUE
+723328040,18,female,-0.19,-0.42,-0.04,0.39,7,4,3,"Yes, use my data",,4,TRUE
+727301907,18,female,-0.81,-0.47,-0.52,0.14,6,2,1,"Yes, use my data",,2,TRUE
+734869675,30,male,0.56,-0.14,-0.05,0.18,6,5,3,"Yes, use my data",,4,TRUE
+740073869,52,female,-0.14,-0.58,-0.18,0.29,7,7,2,"Yes, use my data",,6,TRUE
+747909973,30,Man,-0.19,-0.17,0.02,0.38,4,3,1,"Yes, use my data",,2,TRUE
+748426545,43,female,-0.31,-0.72,NA,0.93,6,6,6,"Yes, use my data",,1,TRUE
+749797574,28 ,Male,-0.42,-0.47,-0.11,0.56,7,5,4,"Yes, use my data",,4,TRUE
+751390472,52,Male,0.03,-0.25,-0.23,0.01,7,2,1,"Yes, use my data",,2,TRUE
+754748258,56,female,-0.44,-0.36,0.01,0.64,7,6,5,"No, exclude my data (please specify why):","In the first trial,I don't remember seeing the Chinese characters.  In the second trial, they were so quick that it was difficult to make a judgement on the characters; rather my judgement was on how pleasing the pictures were to me.",3,TRUE
+762347576,25,Female,-0.06,0.08,0.08,0.01,7,2,2,"Yes, use my data",,2,TRUE
+788034892,36,Male,-0.25,-0.08,-0.01,0.08,6,3,3,"Yes, use my data",,4,TRUE
 789472107,32,Male,0.17,0.14,0.32,0.25,7,3,2,"Yes, use my data",,4,TRUE
-789988893,27,Male,0.36,0.44,0.02,0.54,7,4,2,"Yes, use my data",,2,TRUE
-790333779,28,Female,0.03,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+789988893,27,Male,-0.36,-0.44,-0.02,0.54,7,4,2,"Yes, use my data",,2,TRUE
+790333779,28,Female,-0.03,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 802428840,37,Male,0,0,0,0,7,1,1,"No, exclude my data (please specify why):",I thought this was a stupid task. I couldn't see the Chinese character for long enough to form a judgement so I simply hit Unpleasant every time,1,TRUE
-805286532,44,Female,0.19,0.19,0.07,0.19,7,3,3,"Yes, use my data",,4,TRUE
-812069835,33,female,0.92,0.42,0.34,0.35,5,3,3,"Yes, use my data",,4,TRUE
-820841853,53,male,0.58,0.64,0.17,0.76,5,5,3,"Yes, use my data",,5,TRUE
-821297833,23,Male,0.14,0.22,0.22,0,7,1,7,"Yes, use my data",,1,TRUE
-822019964,31,female,0.67,0.89,1,0.81,7,6,6,"Yes, use my data",,3,TRUE
-824074773,23,female,0.03,0.22,0.24,0.01,6,2,1,"Yes, use my data",,1,TRUE
-836843570,28,Female,0.89,0.31,0.94,0.51,5,1,1,"Yes, use my data",,3,TRUE
-840659829,21,Female,0.08,0.03,0.5,0.79,5,6,2,"Yes, use my data",,5,TRUE
-842998902,33,Female,0.75,0.75,0.58,0.78,7,6,2,"Yes, use my data",,5,TRUE
-848191386,22,Female,0.47,0.44,0.41,0.14,7,4,4,"Yes, use my data",,4,TRUE
+805286532,44,Female,-0.19,-0.19,-0.07,0.19,7,3,3,"Yes, use my data",,4,TRUE
+812069835,33,female,-0.92,-0.42,-0.34,0.35,5,3,3,"Yes, use my data",,4,TRUE
+820841853,53,male,-0.58,-0.64,-0.17,0.76,5,5,3,"Yes, use my data",,5,TRUE
+821297833,23,Male,-0.14,-0.22,-0.22,0,7,1,7,"Yes, use my data",,1,TRUE
+822019964,31,female,-0.67,-0.89,-1,0.81,7,6,6,"Yes, use my data",,3,TRUE
+824074773,23,female,-0.03,0.22,0.24,0.01,6,2,1,"Yes, use my data",,1,TRUE
+836843570,28,Female,-0.89,-0.31,-0.94,0.51,5,1,1,"Yes, use my data",,3,TRUE
+840659829,21,Female,0.08,-0.03,-0.5,0.79,5,6,2,"Yes, use my data",,5,TRUE
+842998902,33,Female,-0.75,-0.75,-0.58,0.78,7,6,2,"Yes, use my data",,5,TRUE
+848191386,22,Female,-0.47,-0.44,-0.41,0.14,7,4,4,"Yes, use my data",,4,TRUE
 848717023,22,male,0,0.11,0.11,0,7,1,1,"Yes, use my data",,1,TRUE
-858548903,28,Female,0.42,0.67,0.06,0.6,7,5,4,"Yes, use my data",,3,TRUE
-865431302,45,male,0.06,0,0.06,0.1,7,2,1,"Yes, use my data",,2,TRUE
-873644651,63,male,0.17,0.56,0.47,0.24,7,5,2,"Yes, use my data",,5,TRUE
-875800345,49,female,0.08,0.06,0.05,0.12,7,2,2,"Yes, use my data",,2,TRUE
-899686086,22,Male,0.19,0.5,0.17,0.54,5,5,3,"No, exclude my data (please specify why):",The images appeared and disapeared very rapidly - didnt really get much of a cnance to see the characters completely a lot of te time ,4,TRUE
-905803570,26,Female,0.11,0.33,0,0.64,7,5,2,"Yes, use my data",,6,TRUE
+858548903,28,Female,-0.42,-0.67,-0.06,0.6,7,5,4,"Yes, use my data",,3,TRUE
+865431302,45,male,-0.06,0,0.06,0.1,7,2,1,"Yes, use my data",,2,TRUE
+873644651,63,male,-0.17,-0.56,-0.47,0.24,7,5,2,"Yes, use my data",,5,TRUE
+875800345,49,female,0.08,-0.06,0.05,0.12,7,2,2,"Yes, use my data",,2,TRUE
+899686086,22,Male,-0.19,-0.5,-0.17,0.54,5,5,3,"No, exclude my data (please specify why):",The images appeared and disapeared very rapidly - didnt really get much of a cnance to see the characters completely a lot of te time ,4,TRUE
+905803570,26,Female,-0.11,-0.33,0,0.64,7,5,2,"Yes, use my data",,6,TRUE
 907104286,24,male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-918606882,32,Female,0.03,0.03,0.02,0.03,7,2,2,"Yes, use my data",,2,TRUE
-925038743,23,Female,0.14,0.22,0.19,0.1,5,2,2,"No, exclude my data (please specify why):",Someone walked in when I was taking this test and started a conversation with me and I became distracted. ,2,TRUE
-938723995,23,male,0.58,0.22,0.18,0.07,7,2,2,"Yes, use my data",,6,TRUE
+918606882,32,Female,0.03,-0.03,0.02,0.03,7,2,2,"Yes, use my data",,2,TRUE
+925038743,23,Female,0.14,-0.22,-0.19,0.1,5,2,2,"No, exclude my data (please specify why):",Someone walked in when I was taking this test and started a conversation with me and I became distracted. ,2,TRUE
+938723995,23,male,-0.58,-0.22,-0.18,0.07,7,2,2,"Yes, use my data",,6,TRUE
 946544815,52,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 947123552,31,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-947541640,23,female,0.83,0.72,0.57,0.54,6,3,3,"Yes, use my data",,5,TRUE
-948621894,48,Female,0.53,0.86,0.4,0.75,5,5,5,"Yes, use my data",,5,TRUE
-949629863,40 ,Male,0.06,0.08,0.07,0.28,3,4,5,"Yes, use my data",,3,TRUE
+947541640,23,female,-0.83,-0.72,-0.57,0.54,6,3,3,"Yes, use my data",,5,TRUE
+948621894,48,Female,-0.53,-0.86,-0.4,0.75,5,5,5,"Yes, use my data",,5,TRUE
+949629863,40 ,Male,0.06,-0.08,-0.07,0.28,3,4,5,"Yes, use my data",,3,TRUE
 952966724,30,male,0.17,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
-956581077,29,female,0.72,0.25,0.25,0.92,5,5,5,"Yes, use my data",,5,TRUE
-961395216,28 ,male,0.06,0.14,0.04,0.17,7,7,2,"Yes, use my data",,2,TRUE
-962919588,28,male,0.08,0.22,0.22,0,7,1,1,"Yes, use my data",,1,TRUE
+956581077,29,female,-0.72,-0.25,0.25,0.92,5,5,5,"Yes, use my data",,5,TRUE
+961395216,28 ,male,-0.06,-0.14,0.04,0.17,7,7,2,"Yes, use my data",,2,TRUE
+962919588,28,male,-0.08,0.22,0.22,0,7,1,1,"Yes, use my data",,1,TRUE
 965895774,35,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-973916649,18,Male,0.06,0.11,0.05,0.18,7,3,2,"Yes, use my data",,3,TRUE
-976702210,27,Male,0.17,0,0,0.03,7,1,2,"No, exclude my data (please specify why):",I feel this test was perhaps supposed to be more subliminal and my attention was focused on the chinese characters. The images did not sway my decision but I feel this may be because I am uneasily influenced by images etc.,1,TRUE
+973916649,18,Male,-0.06,-0.11,-0.05,0.18,7,3,2,"Yes, use my data",,3,TRUE
+976702210,27,Male,-0.17,0,0,0.03,7,1,2,"No, exclude my data (please specify why):",I feel this test was perhaps supposed to be more subliminal and my attention was focused on the chinese characters. The images did not sway my decision but I feel this may be because I am uneasily influenced by images etc.,1,TRUE
 981965007,21,female,0.81,0.75,NA,0.97,6,7,7,"Yes, use my data",,7,TRUE
 991030644,38,male,0.94,0.42,0.16,0.36,7,4,4,"Yes, use my data",,5,TRUE
-107450118,NA,NA,0.25,0.28,0.41,0.54,6,5,4,"Yes, use my data",,2,FALSE
-371427534,NA,NA,0.58,0.53,NA,1,3,3,3,"Yes, use my data",,4,FALSE
-766611210,NA,NA,0.22,0.33,0.3,0.47,6,7,2,"No, exclude my data (please specify why):",some of my answers weren’t thought through ,6,FALSE
+107450118,NA,NA,-0.25,-0.28,0.41,0.54,6,5,4,"Yes, use my data",,2,FALSE
+371427534,NA,NA,-0.58,-0.53,NA,1,3,3,3,"Yes, use my data",,4,FALSE
+766611210,NA,NA,-0.22,-0.33,-0.3,0.47,6,7,2,"No, exclude my data (please specify why):",some of my answers weren’t thought through ,6,FALSE
 314831908,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
