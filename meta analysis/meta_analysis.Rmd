@@ -54,6 +54,7 @@ zscore_to_p <- function(z){
 fit_lm_model_and_extract_effect <- function(data, experiment_n, formula, effect, 
                                             IA_AMP_domain_name = NULL,
                                             AMP_domain_name = NULL) {
+  
   require(tidyverse)
   
   if (!is.null(IA_AMP_domain_name)) {
@@ -99,13 +100,14 @@ fit_lm_model_and_extract_effect <- function(data, experiment_n, formula, effect,
 
 # fit models to individual experiments and extract an effect of interest
 fit_glmer_model_and_extract_effect <- function(data, experiment_n, formula, effect, domain_name = NULL) {
+  
   require(tidyverse)
   
   if (!is.null(domain_name)) {
     
     fit <- data %>%
       dplyr::filter(experiment == experiment_n & 
-                      domain == domain_name) %>%
+                      IA_AMP_domain == domain_name) %>%
       glmer(formula = formula, 
             family = binomial(link = "logit"),
             data = .)
@@ -143,8 +145,9 @@ fit_glmer_model_and_extract_effect <- function(data, experiment_n, formula, effe
 
 
 # get data
-combined_participant_level_data <- read.csv("data/combined_participant_level_data.csv") 
-combined_trial_level_data       <- read.csv("data/combined_trial_level_data.csv")  %>%
+combined_participant_level_data <- read.csv("data/data_combined_participant_level.csv") 
+
+combined_trial_level_data       <- read.csv("data/data_combined_trial_level.csv")  %>%
   mutate(influenced = as.logical(influenced))
 
 ```
@@ -208,6 +211,16 @@ results_for_meta_analysis_1 <- rbind(
                                   experiment_n = 5, 
                                   IA_AMP_domain_name = "Generic valence",
                                   formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 6, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 7, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
                                   effect = effect)
 )
 
@@ -224,7 +237,7 @@ fit <- rma.mv(yi     = yi,
               V      = V,
               random = ~ 1 | Experiment/IA_AMP_domain,
               data   = data_temp,
-              slab   = paste(Experiment, IA_AMP_domain))
+              slab   = paste("Exp", Experiment, IA_AMP_domain))
 
 # plot
 forest(fit,
@@ -248,7 +261,7 @@ temp_data <- combined_participant_level_data %>%
   select(experiment, IA_AMP_domain, IA_AMP_effect, influence_rate)
 
 ggplot(temp_data, 
-       aes(influence_rate, IA_AMP_effect, color = IA_AMP_domain)) +
+       aes(influence_rate, abs(IA_AMP_effect), color = IA_AMP_domain)) +
   geom_smooth(method = "lm") +
   scale_color_viridis_d(end = 0.7, begin = 0.3) +
   theme_classic() +
@@ -303,6 +316,16 @@ results_for_meta_analysis_1b <- rbind(
                                   experiment_n = 5, 
                                   IA_AMP_domain_name = "Generic valence",
                                   formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 6, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 7, 
+                                  IA_AMP_domain_name = "Generic valence",
+                                  formula = formula, 
                                   effect = effect)
 )
 
@@ -319,7 +342,7 @@ fitb <- rma.mv(yi     = yi,
                V      = V,
                random = ~ 1 | Experiment/IA_AMP_domain,
                data   = data_temp,
-               slab   = paste(Experiment, IA_AMP_domain))
+               slab   = paste("Exp", Experiment, IA_AMP_domain))
 
 # plot
 forest(fitb,
@@ -369,7 +392,22 @@ results_for_meta_analysis_2 <- rbind(
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 4, 
+                                     domain_name = "Politics",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 5, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 6, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 7, 
                                      domain_name = "Generic valence",
                                      formula = formula, 
                                      effect = effect)
@@ -388,13 +426,13 @@ fit <- rma.mv(yi     = yi,
               V      = V,
               random = ~ 1 | Experiment/domain,
               data   = data_temp,
-              slab   = paste(Experiment, domain))
+              slab   = paste("Exp", Experiment, domain))
 
 # plot
 forest(fit,
        xlab = "Odds Ratio",
        addcred = TRUE,
-       refline = 1,
+       refline = 0,
        atransf = exp)
 
 # convert to OR, show CR
@@ -418,21 +456,6 @@ OR_to_d(OR) %>%
   round_df(2)
 
 ```
-
-# Reviewer requested: Compute effects at each level of the moderator
-
-```{r}
-
-combined_trial_level_data %>%
-  filter(domain == "Generic valence") %>%
-  group_by(influenced) %>%
-  select(unique_id, prime_type, rating, influenced) %>%
-  group_by(prime_type, influenced) %>%
-  summarise(mean_rating = mean(rating),
-            sd_rating = sd(rating)) 
-
-```
-
 
 ##### Plot
 
@@ -538,6 +561,26 @@ plot_model(model_2,
 
 ```
 
+Reviewer requested: Compute effects at each level of the moderator including means and SDs. 
+
+Estimated marginal means can be found in the above plot. SDs are a property of the observed data rather than the model predictions, but I also return them below. NB these therefore ignore the hierarchical structure in the data.
+
+```{r}
+
+data_descriptives <- combined_trial_level_data %>%
+  filter(IA_AMP_domain == "Generic valence") %>%
+  group_by(influenced) %>%
+  select(unique_id, prime_type, rating, influenced) %>%
+  group_by(prime_type, influenced) %>%
+  summarise(mean_rating = mean(rating),
+            sd_rating = sd(rating)) %>%
+  round_df(2)
+
+data_descriptives %>%
+  kable()
+
+```
+
 #### Main effect
 
 Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
@@ -570,7 +613,22 @@ results_for_meta_analysis_2b <- rbind(
                                      formula = formula, 
                                      effect = effect),
   fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 4, 
+                                     domain_name = "Politics",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
                                      experiment_n = 5, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 6, 
+                                     domain_name = "Generic valence",
+                                     formula = formula, 
+                                     effect = effect),
+  fit_glmer_model_and_extract_effect(data = combined_trial_level_data, 
+                                     experiment_n = 7, 
                                      domain_name = "Generic valence",
                                      formula = formula, 
                                      effect = effect)
@@ -589,13 +647,13 @@ fitb <- rma.mv(yi     = yi,
                V      = V,
                random = ~ 1 | Experiment/domain,
                data   = data_temp,
-               slab   = paste(Experiment, domain))
+               slab   = paste("Exp", Experiment, domain))
 
 # plot
 forest(fitb,
        xlab = "Odds Ratio",
        addcred = TRUE,
-       refline = 1,
+       refline = 0,
        atransf = exp)
 
 # convert to OR, show CR
@@ -651,6 +709,16 @@ results_for_meta_analysis_3 <- rbind(
                                   experiment_n = 5, 
                                   AMP_domain_name = "Generic valence",
                                   formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 6, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 7, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
                                   effect = effect)
 ) 
 
@@ -667,7 +735,7 @@ fit <- rma.mv(yi     = yi,
               V      = V,
               random = ~ 1 | Experiment/AMP_domain,
               data   = data_temp,
-              slab   = paste(Experiment, AMP_domain))
+              slab   = paste("Exp", Experiment, AMP_domain))
 
 # plot
 forest(fit,
@@ -690,12 +758,14 @@ predict(fit) %>%
 temp_data <- combined_participant_level_data %>%
   filter((experiment == 2 & AMP_domain == "Generic valence") |
            (experiment == 3 & AMP_domain == "Politics") |
-           (experiment == 5 & AMP_domain == "Generic valence")) %>%
+           (experiment == 5 & AMP_domain == "Generic valence") |
+           (experiment == 6 & AMP_domain == "Generic valence") |
+           (experiment == 7 & AMP_domain == "Generic valence")) %>%
   select(experiment, AMP_domain, IA_AMP_domain, influence_rate, AMP_effect) %>%
   mutate(prediction_type = ifelse(AMP_domain == IA_AMP_domain, "Same domain", "Different domain"))
 
 p3 <- ggplot(temp_data, 
-             aes(influence_rate, AMP_effect, color = prediction_type)) +
+             aes(influence_rate, abs(AMP_effect), color = prediction_type)) +
   geom_smooth(method = "lm") +
   scale_color_viridis_d(end = 0.7, begin = 0.3) +
   theme_classic() +
@@ -739,6 +809,16 @@ results_for_meta_analysis_3b <- rbind(
                                   experiment_n = 5, 
                                   AMP_domain_name = "Generic valence",
                                   formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 6, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
+                                  effect = effect),
+  fit_lm_model_and_extract_effect(data = combined_participant_level_data, 
+                                  experiment_n = 7, 
+                                  AMP_domain_name = "Generic valence",
+                                  formula = formula, 
                                   effect = effect)
 ) 
 
@@ -755,7 +835,7 @@ fitb <- rma.mv(yi     = yi,
                V      = V,
                random = ~ 1 | Experiment/AMP_domain,
                data   = data_temp,
-               slab   = paste(Experiment, AMP_domain))
+               slab   = paste("Exp", Experiment, AMP_domain))
 
 # plot
 forest(fitb,
@@ -782,13 +862,13 @@ Participant level
 ```{r fig.height=5, fig.width=5}
 
 # Distribution
-p4 <- ggplot(combined_participant_level_data, aes(influence_rate)) +
-  geom_density(adjust = .4, fill = 1, alpha = .8) +
-  #geom_histogram(fill = 1, alpha = .8, bins = 30) +
-  #geom_histogram(fill = 1, alpha = .8, bins = 100) +
+p4 <- ggplot(combined_participant_level_data, aes(influence_rate, fill = "dummy")) +
+  geom_density(adjust = .4) +
   theme_classic() +
+  scale_fill_viridis_d(begin = 0.65) +
   xlab("Influence-awareness rate") +
-  ylab("Distribution density")
+  ylab("Distribution density") + 
+  theme(legend.position = "none")
 
 p4
 
@@ -828,7 +908,7 @@ combined_participant_level_data %>%
 
 # Combine plots
 
-```{r fig.height=4.5, fig.width=4}
+```{r fig.height=20, fig.width=7.15}
 
 # get plot from exp 4
 load("../Experiment 4/analysis/p1.RData")
@@ -837,7 +917,7 @@ p_combined <- p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
 
 p_combined
 
-save(p_combined, file = "plots/p_combined.RData")
+save(p_combined, file = "data/p_combined.RData")
 
 ```
 
