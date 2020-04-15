@@ -1,6 +1,6 @@
 ---
 title: "Structural validity analysis"
-subtitle: "How do AMP ratings between prime types correlate in influenced vs. uninfluenced trials?"
+subtitle: "Associations between ratings of prime types between influence aware vs. non influence aware trials"
 author: "Ian Hussey"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -11,16 +11,6 @@ output:
     toc: yes
     toc_float: yes
 ---
-
-The AMP score is traditionally calculated as the proportion of chinese characters that were preceeded by one prime type (e.g., positive images) and evaluated positively plus the proportion of chinese characters that were preceeded by the other prime type (e.g., negative images) and evaluated negatively. That is, it assumes that the two prime categories are of opposite valence in order to produce a strong effect. 
-
-As such, evaluations of stimuli preceeded by the positive vs negative primes should be negatively correlated: where one evaluates one positively, one should evaluate the other negatively. 
-
-Where the analyses thus far have examined the impact of influence-awareness on the AMP effect (evaluating the implicitness of the task), or on whether influence-aware vs unaware trials have greater predcitive utility (evaluating the validity of each trial type), this set of analyses evaluates the structural validity of aware vs unaware trials. That is, not merely whether the trials are implicit or usefully predictive, but what they measure at all and how well. 
-
-Negative correlations are required for structural valdiity in the AMP. Negative correlations are found only for the influence-aware trials. 
-
-This suggests that unaware trials are not merely non-implicit, but not a strong or structurally valid measure of (implicit or explciit) evaluations at all. 
 
 ```{r include=FALSE}
 
@@ -41,295 +31,72 @@ library(lme4)
 library(sjPlot)
 library(effects)
 
-```
-
-# Within participant analyses
-
-Correlation between ratings of stimuli by prime type between influenced and non-influenced trials
-
-I.e., correlations within the IA-AMP, using its trial level data.
-
-## Data
-
-```{r}
-
-# get data 
-data_ratings_1 <- read.csv("../Experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, influenced, prime_type) %>%
+# get data
+data_ratings <- 
+  read.csv("../meta analysis/data/data_combined_trial_level.csv")  %>%
+  mutate(influenced = as.logical(influenced)) %>%
+  dplyr::group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
   dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
   ungroup() %>%
-  dplyr::mutate(influenced = dplyr::recode(influenced,
-                                           "0" = "Non influence aware",
-                                           "1" = "Influence aware")) %>%
+  dplyr::mutate(influenced = dplyr::recode(as.numeric(influenced),
+                                           "0" = "Unaware",
+                                           "1" = "Aware")) %>%
   spread(prime_type, mean_rating) %>%
-  mutate(experiment = 1, 
-         domain = "posneg")
-
-data_ratings_2 <- read.csv("../Experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, influenced, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  dplyr::mutate(influenced = dplyr::recode(influenced,
-                                           "0" = "Non influence aware",
-                                           "1" = "Influence aware")) %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 2, 
-         domain = "posneg")
-
-data_ratings_3 <- read.csv("../Experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, influenced, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  dplyr::mutate(influenced = dplyr::recode(influenced,
-                                           "0" = "Non influence aware",
-                                           "1" = "Influence aware")) %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 3, 
-         domain = "posneg")
-
-data_ratings_4 <- read.csv("../Experiment 4/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, influenced, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  dplyr::mutate(influenced = dplyr::recode(influenced,
-                                           "0" = "Non influence aware",
-                                           "1" = "Influence aware")) %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 4, 
-         domain = "posneg")
-
-data_ratings_4_b <- read.csv("../Experiment 4/data/processed/trial_level_ia_amp_obama_trump_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, influenced, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  dplyr::mutate(influenced = dplyr::recode(influenced,
-                                           "0" = "Non influence aware",
-                                           "1" = "Influence aware")) %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 4, 
-         domain = "politics")
-
-data_ratings_5 <- read.csv("../Experiment 5/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, influenced, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  dplyr::mutate(influenced = dplyr::recode(influenced,
-                                           "0" = "Non influence aware",
-                                           "1" = "Influence aware")) %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 5, 
-         domain = "posneg")
-
-
-# combine data
-data_ratings <- bind_rows(data_ratings_1, 
-                          data_ratings_2,
-                          data_ratings_3,
-                          data_ratings_4,
-                          data_ratings_4_b,
-                          data_ratings_5) %>%
-  mutate(influenced = as.factor(influenced))
+  rename(rating_prime_type_B = Negative,
+         rating_prime_type_A = Positive,
+         domain = IA_AMP_domain) 
+  
 
 ```
 
-## Model
+# Structural validity of AMP effects between influence aware vs unaware trials
+
+The scored AMP effect is the proportion of trials on which the rating is congruent with the valence of the prime. This method of scoring is intuitive: it leverages the asssumption that the positive and negative primes exert opposite influence on the ratings; the more negatively participants rate on negative prime trials, the more positively they should rate on positive prime trials.
+
+This core feature of the scoring method therefore also provides a testable assumption of its structural validity: ratings on positive prime trials should be negatively correlated with ratings on negative prime trials. Importantly, this can be compared between the influence aware and non influence aware trials. 
+
+If responses on the AMP function as a valid measure of atttiudes, the association between the ratings of the two categories must be negative.
+
+Following Payne 2013, the non-influence aware trials can be defined as relatively "implicit" whereas the influence aware trials can be defined as relatively explicit. 
+
+Putting these two premises together, for the AMP to be a structurally valid implicit measure (i.e., both implicit and a valid measure), the association between ratings of the two trial types should be negative for the non infuence aware trials.
+
+These analyses test this.
 
 ```{r fig.height=5, fig.width=6.5}
 
 # fit model
-fit_meta <- lmer(prime_type_B ~ prime_type_A * influenced + (1 | experiment) + (1 | domain), 
-                 data = data_ratings)
+fit <- lmer(rating_prime_type_B ~ rating_prime_type_A * influenced + (1 | experiment) + (1 | domain), 
+            data = data_ratings)
 
 # plot
-plot_meta <- plot_model(fit_meta, type = "int")
-
-plot_meta +
-  xlab("Evaluation of stimuil\npreceeded by prime type A") +
-  ylab("Evaluation of stimuil\npreceeded by prime type B") +
+plot_model(fit, type = "int") +
+  xlab("Evaluation of targets\npreceeded by prime type A") +
+  ylab("Evaluation of targets\npreceeded by prime type B") +
   theme_classic() + 
-  labs(colour = "Influence-awareness") +
+  labs(colour = "Trials") +
   scale_color_viridis_d(begin = 0.3, end = 0.7) +
   scale_fill_viridis_d(begin = 0.3, end = 0.7) +
-  ggtitle("")
+  ggtitle("") +
+  xlim(0,1) +
+  ylim(0,1)
+
+# ggplot(data_ratings, aes(prime_type_A, prime_type_B, color = influenced)) +
+#   geom_smooth(method = "lm", fullrange = TRUE) +
+#   facet_wrap(~interaction(experiment, domain))
 
 # table
-tab_model(fit_meta, 
+tab_model(fit, 
           show.std = TRUE, 
           emph.p = FALSE, 
           digits.p = 52)
 
 ```
 
-Findings: 
 
-- Correlations between the evaluations of stimuli preceeded by prime type A vs B are expected to be negative. 
-- However, negative correlations are only found for influenced trials. 
-- Positive correlations are found for uninfluenced trials. 
-- Responses on influenced trials therefore show evidence of evaluation of the prime stimuli. Traditionally this would be referred to as misattribution of valence of the prime to the target, however, given that the evaluation was done in the context of awareness of influenced, it is more appropriate to say that the primes were evaluated.
-- Responses on uninfluenced trials therefore show no evidence of evaluation of influence of the prime stimuli. Evidence for misatribution would require that the evaluations of the two trial types are negatively correlated in the absence of influence-awareness.
+The desired negative correlations of ratings between the two prime type are only found for influence aware trials.
 
-# Between participants analyses
+The relatively implicit (non influence aware) trials were found to have positive associations.  
 
-Correlation between ratings of stimuli by prime type between high and low influence-aware groups 
-
-I.e., correlations within the AMP, using a median split on participant level influence-awareness rate from the IA-AMP.
-
-## Data
-
-```{r}
-
-data_influence_rate_2 <- read.csv("../experiment 2/data/processed/processed_data.csv") %>%
-  dplyr::select(subject, influence_rate, self_exclusion_1, complete_data) %>%
-  mutate(experiment = 2,
-         id = paste(subject, experiment, sep = "_"))
-
-data_influence_rate_3 <- read.csv("../experiment 3/data/processed/processed_data.csv") %>%
-  dplyr::select(subject, influence_rate, self_exclusion_1, complete_data) %>%
-  mutate(experiment = 3,
-         id = paste(subject, experiment, sep = "_"))
-
-data_influence_rate_5 <- read.csv("../experiment 5/data/processed/processed_data.csv") %>%
-  dplyr::select(subject, influence_rate, self_exclusion_1, complete_data) %>%
-  mutate(experiment = 2,
-         id = paste(subject, experiment, sep = "_"))
-
-data_influence_combined <- bind_rows(data_influence_rate_2,
-                                     data_influence_rate_3,
-                                     data_influence_rate_5) %>%
-  dplyr::mutate(median_influence_rate = median(influence_rate, na.rm = TRUE),
-                influence_rate_group = ifelse(influence_rate > median_influence_rate, "high", "low")) %>%
-  select(id, influence_rate_group, influence_rate)
-
-
-# get data 
-data_amp_ratings_2 <- read.csv("../Experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 2,
-         id = paste(subject, experiment, sep = "_"),
-         domain = "congruent - posneg")
-
-data_amp_ratings_3 <- read.csv("../Experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 3, 
-         id = paste(subject, experiment, sep = "_"),
-         domain = "incongruent - politics vs posneg")
-
-data_amp_ratings_5 <- read.csv("../Experiment 5/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced)) %>%
-  filter(self_exclusion_1 == "Yes, use my data" & complete_data == TRUE) %>%
-  dplyr::group_by(subject, prime_type) %>%
-  dplyr::summarize(mean_rating = mean(rating, na.rm = TRUE)) %>%
-  ungroup() %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(experiment = 5, 
-         id = paste(subject, experiment, sep = "_"),
-         domain = "congruent - posneg")
-
-
-# combine data
-data_amp_ratings <- bind_rows(data_amp_ratings_2,
-                          data_amp_ratings_3,
-                          data_amp_ratings_5) %>%
-  left_join(data_influence_combined, by = "id")
-
-```
-
-## Model
-
-```{r fig.height=5, fig.width=6.5}
-
-# fit model
-fit_meta_amp <- lmer(prime_type_B ~ prime_type_A * influence_rate + (1 | experiment) + (1 | domain), 
-                     data = data_amp_ratings)
-
-# plot
-predicted_amp <- 
-  as.data.frame(effect("prime_type_A:influence_rate", fit_meta_amp, xlevels = 101)) 
-
-ggplot(data = predicted_amp,
-       aes(x = prime_type_A, y = fit, colour = influence_rate, group = influence_rate)) +
-  geom_line() +
-  xlab("AMP evaluations of stimuil\npreceeded by prime type A") +
-  ylab("AMP evaluations of stimuil\npreceeded by prime type B") +
-  scale_colour_viridis_c(direction = -1) +
-  theme_classic() + 
-  labs(colour = "Influence-awareness\nrate on IA-AMP")
-
-# table
-tab_model(fit_meta_amp, 
-          show.std = TRUE, 
-          emph.p = FALSE, 
-          digits.p = 8)
-
-```
-
-## Define tipping point for negative correlations
-
-Values for the influence rate tipping point were manually explored to find the value at which the correlations between evaluations of the two prime types begin to be negative.
-
-```{r}
-
-# plot
-predicted_amp <- 
-  as.data.frame(effect("prime_type_A:influence_rate", 
-                       fit_meta_amp, 
-                       xlevels=list(influence_rate=c(.10, .66, .90), 
-                                    prime_type_A=c(.1, .2, .3, .4, .5, .6, .7, .8, .9))))
-
-ggplot(data = predicted_amp,
-       aes(x = prime_type_A, y = fit, colour = as.factor(influence_rate), group = as.factor(influence_rate))) +
-  geom_line() +
-  xlab("AMP evaluations of stimuil\npreceeded by prime type A") +
-  ylab("AMP evaluations of stimuil\npreceeded by prime type B") +
-  scale_colour_viridis_d(direction = -1) +
-  theme_classic() + 
-  labs(colour = "Influence-awareness\nrate on IA-AMP")
-
-```
-
-Tipping point was found to be influence awareness rates > 66%.
-
-## What % of sample is above this tipping point 
-
-I.e., in what % of participants does the AMP demonstrate this aspect of construct validity. 
-
-```{r}
-
-# get meta analysis combined data
-combined_participant_level_data <- read.csv("../meta analysis/data/combined_participant_level_data.csv") 
-
-tipping_point <- 0.66
-
-percent_of_participants <- combined_participant_level_data %>%
-  mutate(influence_rate_above_tipping_point = ifelse(influence_rate > tipping_point, TRUE, FALSE)) %>%
-  dplyr::summarize(percent_of_participants_with_influence_rate_above_tipping_point = 100 - sum(influence_rate_above_tipping_point)/n()*100) %>%
-  round_df(1) %>%
-  pull(percent_of_participants_with_influence_rate_above_tipping_point)
-
-```
-
-Percent of participants with influence rates below the tipping point, for whom the AMP does not demonstrate structural validity = `r percent_of_participants`%.
-
+Results suggest that the implicit trials are not a valid measure, whereas the valid trials are not implicit.
 
