@@ -1661,7 +1661,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Data processing for meta analysis</h1>
 <h4 class="author">Ian Hussey &amp; Jamie Cummins</h4>
-<h4 class="date">10 April, 2020</h4>
+<h4 class="date">11 April, 2020</h4>
 
 </div>
 
@@ -1847,18 +1847,28 @@ div.tocify {
 <a class="sourceLine" id="cb3-100" data-line-number="100"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarize</span>(<span class="dt">amp_effect =</span> <span class="kw">mean</span>(rating)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-101" data-line-number="101"><span class="st">  </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-102" data-line-number="102"><span class="st">  </span><span class="kw">spread</span>(prime_type, amp_effect) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-103" data-line-number="103"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> <span class="kw">round</span>(Positive <span class="op">-</span><span class="st"> </span>Negative, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-103" data-line-number="103"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">IA_AMP_effect_positive_negative =</span> <span class="kw">round</span>(Negative <span class="op">-</span><span class="st"> </span>Positive, <span class="dv">2</span>)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-104" data-line-number="104"><span class="st">  </span><span class="kw">select</span>(experiment, IA_AMP_domain, unique_id, influenced, IA_AMP_effect_positive_negative) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-105" data-line-number="105"><span class="st">  </span><span class="kw">spread</span>(influenced, IA_AMP_effect_positive_negative) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-106" data-line-number="106"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">IA_AMP_uninfluenced_effect =</span> <span class="st">`</span><span class="dt">0</span><span class="st">`</span>,</a>
 <a class="sourceLine" id="cb3-107" data-line-number="107">                <span class="dt">IA_AMP_influenced_effect =</span> <span class="st">`</span><span class="dt">1</span><span class="st">`</span>)</a>
 <a class="sourceLine" id="cb3-108" data-line-number="108"></a>
-<a class="sourceLine" id="cb3-109" data-line-number="109"><span class="co"># combine</span></a>
-<a class="sourceLine" id="cb3-110" data-line-number="110">data_combined_participant_level &lt;-<span class="st"> </span>data_combined_participant_level_temp <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-111" data-line-number="111"><span class="st">  </span><span class="kw">left_join</span>(data_IA_AMP_effects_by_influence, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;experiment&quot;</span>, <span class="st">&quot;unique_id&quot;</span>, <span class="st">&quot;IA_AMP_domain&quot;</span>))</a>
-<a class="sourceLine" id="cb3-112" data-line-number="112"></a>
-<a class="sourceLine" id="cb3-113" data-line-number="113"><span class="co"># write to disk </span></a>
-<a class="sourceLine" id="cb3-114" data-line-number="114"><span class="kw">write_csv</span>(data_combined_participant_level, <span class="st">&quot;data_combined_participant_level.csv&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-109" data-line-number="109"></a>
+<a class="sourceLine" id="cb3-110" data-line-number="110"><span class="co"># # double checking original scoring was done correctly</span></a>
+<a class="sourceLine" id="cb3-111" data-line-number="111"><span class="co"># data_IA_AMP_effects_new &lt;- data_combined_trial_level_data %&gt;%</span></a>
+<a class="sourceLine" id="cb3-112" data-line-number="112"><span class="co">#   group_by(experiment, IA_AMP_domain, unique_id, prime_type) %&gt;%</span></a>
+<a class="sourceLine" id="cb3-113" data-line-number="113"><span class="co">#   dplyr::summarize(amp_effect = mean(rating)) %&gt;%</span></a>
+<a class="sourceLine" id="cb3-114" data-line-number="114"><span class="co">#   ungroup() %&gt;%</span></a>
+<a class="sourceLine" id="cb3-115" data-line-number="115"><span class="co">#   spread(prime_type, amp_effect) %&gt;%</span></a>
+<a class="sourceLine" id="cb3-116" data-line-number="116"><span class="co">#   mutate(IA_AMP_effect_positive_negative_new = round(Negative - Positive, 2))</span></a>
+<a class="sourceLine" id="cb3-117" data-line-number="117"></a>
+<a class="sourceLine" id="cb3-118" data-line-number="118"><span class="co"># combine</span></a>
+<a class="sourceLine" id="cb3-119" data-line-number="119">data_combined_participant_level &lt;-<span class="st"> </span>data_combined_participant_level_temp <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-120" data-line-number="120"><span class="st">  </span><span class="kw">left_join</span>(data_IA_AMP_effects_by_influence, <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;experiment&quot;</span>, <span class="st">&quot;unique_id&quot;</span>, <span class="st">&quot;IA_AMP_domain&quot;</span>))</a>
+<a class="sourceLine" id="cb3-121" data-line-number="121">  <span class="co">#left_join(data_IA_AMP_effects_new, by = c(&quot;experiment&quot;, &quot;unique_id&quot;, &quot;IA_AMP_domain&quot;))</span></a>
+<a class="sourceLine" id="cb3-122" data-line-number="122"></a>
+<a class="sourceLine" id="cb3-123" data-line-number="123"><span class="co"># write to disk </span></a>
+<a class="sourceLine" id="cb3-124" data-line-number="124"><span class="kw">write_csv</span>(data_combined_participant_level, <span class="st">&quot;data_combined_participant_level.csv&quot;</span>)</a></code></pre></div>
 </div>
 
 
