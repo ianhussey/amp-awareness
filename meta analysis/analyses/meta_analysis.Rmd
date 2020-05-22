@@ -1,0 +1,982 @@
+---
+title: "Meta analysis"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+library(lme4)
+library(effects)
+library(metafor)
+library(patchwork)
+library(ggExtra)
+library(sjPlot)
+library(kableExtra)
+library(knitr)
+library(patchwork)
+library(ggridges)
+library(ciTools)
+
+# function to round all numerics in a data frame
+round_df <- function(df, n_digits = 3){
+  # dependencies
+  require(dplyr)
+  
+  df %>% mutate_if(is.numeric, round, digits = n_digits)
+}
+
+# source for raincloud plots
+source("geom_flat_violin.R")
+
+# disable scientific notation
+options(scipen = 999) 
+
+# knitr output for html
+options(knitr.table.format = "html")
+
+# get data
+data_participant_level <- 
+  read.csv("../data/data_combined_participant_level.csv") %>%
+  mutate(AMP_effect = AMP_effect*-1,
+         IA_AMP_effect = IA_AMP_effect*-1,
+         experiment = as.factor(experiment),
+         abs_AMP_effect = abs(AMP_effect),
+         abs_IA_AMP_effect = abs(IA_AMP_effect),
+         abs_IA_AMP_effect_uninfluenced_trials = abs(IA_AMP_uninfluenced_effect), 
+         abs_IA_AMP_effect_influenced_trials = abs(IA_AMP_influenced_effect))
+
+data_participant_level_valence_ia_amp <- 
+  data_participant_level %>%
+  filter(IA_AMP_domain == "Generic valence")
+
+data_trial_level  <- 
+  read.csv("../data/data_combined_trial_level.csv")  %>%
+  mutate(influenced = as.logical(influenced)) %>%
+  rownames_to_column(var = "unique_row_name") %>%
+  group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
+  mutate(trial_number = row_number(),
+         max_trials_per_block = max(trial_number)) %>%
+  ungroup()
+
+data_trial_level_valence_ia_amp <- 
+  data_trial_level %>%
+  filter(IA_AMP_domain == "Generic valence")
+
+```
+
+# Total participants after exclusions
+
+```{r}
+
+data_participant_level %>%
+  distinct(unique_id) %>%
+  dplyr::count() %>%
+  kable()
+
+```
+
+# Does influence rate predict the magnitude of (IA)AMP effects?
+
+## IA-AMP effect ~ IA-AMP influence_rate
+
+### Participant level
+
+IA-AMP effect ~ IA-AMP influence rate 
+
+Absolute IA-AMP effects.
+
+```{r}
+
+# fit model corrisponding to preregistered hypotheses
+fit_1 <- lmer(abs_IA_AMP_effect ~ influence_rate + (1 | experiment/IA_AMP_domain), 
+              data = data_participant_level)
+
+tab_model(fit_1, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          ci.hyphen = ", ")
+
+# plot_model(fit_1, 
+#            type = "pred", 
+#            show.data = TRUE,
+#            jitter = 0.005)$influence_rate + 
+#   theme_classic() +
+#   xlab("IA-AMP influence rate") +
+#   ylab("Absolute IA-AMP effect") +
+#   ggtitle("Relationahip between influence rate and valence IA-AMP effect") 
+
+data_participant_level %>%
+  mutate(label = paste("Exp", experiment, IA_AMP_domain)) %>%
+  ggplot(aes(influence_rate, abs_IA_AMP_effect, color = label)) +
+  geom_jitter(width = 0.005, alpha = 0.3) +
+  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
+  ylim(0,1) +
+  xlim(0,1) + 
+  theme_classic() +
+  xlab("Influence rate") +
+  ylab("Absolute magnitude of\nIA-AMP effect") +
+  ggtitle("Relationship between influence rate and IA-AMP effect") +
+  scale_color_viridis_d(begin = 0.3, end = 0.7)
+
+```
+
+### Trial level
+
+Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
+
+```{r fig.height=5, fig.width=6.5}
+
+# fit model
+fit_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
+               family = binomial(link = "logit"),
+               data = data_trial_level_valence_ia_amp)
+
+# estimates
+tab_model(fit_2, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          ci.hyphen = ", ")
+
+# plot
+predictions <- data_trial_level_valence_ia_amp %>%
+  mutate(prob = predict(fit_2, type = c("response")),
+         `Influence of prime\non evaluation of target` = dplyr::recode(as.character(influenced), 
+                                                                       "0" = "Non-influence aware trials",
+                                                                       "1" = "Influence aware trials"),
+         prime_type = fct_relevel(prime_type, "Negative", "Positive"))
+
+ggplot(data = predictions, 
+       aes(x = `Influence of prime\non evaluation of target`, 
+           y = prob,
+           fill = as.factor(prime_type),
+           color = as.factor(prime_type))) +
+  geom_flat_violin(position = position_nudge(x = .2, y = 0),
+                   adjust = 2,
+                   alpha = .8) +
+  geom_point(position = position_jitter(width = .15), 
+             size = 0.25, 
+             alpha = 0.8) +
+  scale_colour_viridis_d(begin = 0.3, end = 0.7) +
+  scale_fill_viridis_d(begin = 0.3, end = 0.7) +
+  coord_flip() +
+  theme_classic() +
+  xlab("Influence-awareness of prime on evaluation of target") +
+  ylab("Evaluation on IA-AMP") +
+  scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
+                     labels = c("0.00\n(Negative)", "0.25", "0.50", "0.75", "1.00\n(Positive)"), 
+                     limits = c(0, 1)) + 
+  labs(color = "Prime type") + 
+  labs(name = "Prime type") +
+  labs(fill = "Prime type")
+
+```
+
+#### Reviewer requested: Compute effects at each level of the moderator 
+
+##### Means & SDs of data
+
+Estimated marginal means can be found in the above plot. SDs are a property of the observed data rather than the model predictions, but I also return them below. NB these therefore ignore the hierarchical structure in the data and should not be used for interence.
+
+```{r}
+
+data_descriptives <- data_trial_level %>%
+  filter(IA_AMP_domain == "Generic valence") %>%
+  group_by(influenced) %>%
+  select(unique_id, prime_type, rating, influenced) %>%
+  group_by(influenced, prime_type) %>%
+  summarise(mean_rating = mean(rating),
+            sd_rating = sd(rating)) %>%
+  round_df(2)
+
+data_descriptives %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+```
+
+##### Estimated marginal means
+
+slow runtime
+
+```{r}
+
+# predictions based on model
+predictions <- 
+  data.frame(prime_type = c("Positive", 
+                            "Positive", 
+                            "Negative", 
+                            "Negative"), 
+             influenced = c(TRUE, 
+                            FALSE, 
+                            TRUE,
+                            FALSE)) %>%
+  add_ci(., 
+         fit_2, 
+         alpha = 0.05, 
+         type = "boot",
+         includeRanef = FALSE) %>%
+  rename(abs_AMP_effect = pred,
+         lower = LCB0.025,
+         upper = UCB0.975) %>%
+  select(awareness, abs_AMP_effect, lower, upper) %>%
+  round_df(2)
+
+predictions %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+```
+
+## AMP effect ~ IA-AMP influence rate
+
+AMP effect ~ IA-AMP influence rate
+
+Absolute AMP effects.
+
+```{r}
+
+# fit model corrisponding to preregistered hypotheses
+fit_3 <- lmer(abs_AMP_effect ~ influence_rate + (1 | experiment/IA_AMP_domain), 
+              data = data_participant_level)
+
+tab_model(fit_3, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          ci.hyphen = ", ")
+
+# plot_model(fit_3, 
+#            type = "pred", 
+#            show.data = TRUE,
+#            jitter = 0.005)$influence_rate + 
+#   theme_classic() +
+#   xlab("IA-AMP influence rate") +
+#   ylab("Absolute IA-AMP effect") +
+#   ggtitle("Relationahip between influence rate and valence IA-AMP effect") 
+
+data_participant_level %>%
+  mutate(label = paste("Exp", experiment, IA_AMP_domain)) %>%
+  filter(!experiment %in% c(1, 4)) %>%
+  ggplot(aes(influence_rate, abs_AMP_effect, color = label)) +
+  geom_jitter(width = 0.005, alpha = 0.3) +
+  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
+  ylim(0,1) +
+  xlim(0,1) + 
+  theme_classic() +
+  xlab("Influence rate") +
+  ylab("Absolute magnitude of\nAMP effect") +
+  ggtitle("Relationship between influence rate and AMP effect") +
+  scale_color_viridis_d(begin = 0.3, end = 0.7)
+
+```
+
+# Native magnitude of (IA)AMP effects
+
+WHY ARE THESE NEEDED AGAIN??
+
+At participant level 
+
+## AMP
+
+AMP effect ~ 1
+
+**Native** AMP effects. Generic Valence AMP only.
+
+```{r}
+
+data_temp <- data_participant_level_valence_ia_amp %>%
+  filter(AMP_domain == "Generic valence")
+
+fit_4 <- lmer(AMP_effect ~ 1 + (1 | experiment), 
+              data = data_temp)
+
+tab_model(fit_4, 
+          col.order = c("est", "ci", "p"),
+          ci.hyphen = ", ")
+
+```
+
+.21 [.17, .25]
+
+## IA-AMP
+
+IA-AMP effect ~ 1
+
+**Native** IA-AMP effects. Generic Valence AMP only.
+
+```{r}
+
+data_temp <- data_participant_level_valence_ia_amp %>%
+  filter(IA_AMP_domain == "Generic valence")
+
+fit_5 <- lmer(IA_AMP_effect ~ 1 + (1 | experiment), 
+              data = data_temp)
+
+tab_model(fit_5, 
+          col.order = c("est", "ci", "p"),
+          ci.hyphen = ", ")
+
+```
+
+.25 [.23, .28]
+
+## IA-AMP uninfluenced
+
+IA-AMP uninfluenced effect ~ 1
+
+**Native** IA-AMP uninfluenced effects. Generic Valence AMP only, uninfluenced trials only.
+
+```{r}
+
+data_temp <- data_participant_level_valence_ia_amp %>%
+  filter(!is.na(IA_AMP_uninfluenced_effect)) %>%
+  mutate(IA_AMP_uninfluenced_effect = IA_AMP_uninfluenced_effect*-1)
+
+fit_6 <- lmer(IA_AMP_uninfluenced_effect ~ 1 + (1 | experiment), 
+              data = data_temp)
+
+tab_model(fit_6, 
+          col.order = c("est", "ci", "p"),
+          ci.hyphen = ", ")
+
+```
+
+.10 [.08, .12]
+
+## IA-AMP influenced
+
+IA-AMP influenced effect ~ 1
+
+**Native** IA-AMP influenced effects. Generic Valence AMP only, influenced trials only.
+
+```{r}
+
+temp <- data_participant_level_valence_ia_amp %>%
+  filter(!is.na(IA_AMP_influenced_effect)) %>%
+  mutate(IA_AMP_influenced_effect = IA_AMP_influenced_effect*-1)
+
+fit_7 <- lmer(IA_AMP_influenced_effect ~ 1 + (1 | experiment), 
+              data = temp)
+
+tab_model(fit_7, 
+          col.order = c("est", "ci", "p"),
+          ci.hyphen = ", ")
+
+```
+
+.62 [.52, .72]
+
+### Compare
+
+```{r}
+
+dat <- tibble(type = c("AMP", 
+                       "IA-AMP all trials", 
+                       "IA-AMP uninfluenced trials only", 
+                       "IA-AMP influenced trials only"),
+              est = c(.21, .25, .10, .62),
+              ci_lower = c(.17, .23, .08, .52),
+              ci_upper = c(.25, .28, .12, .72))
+
+ggplot(dat, aes(type, est)) +
+  geom_linerange(aes(ymin = ci_lower, ymax = ci_upper)) +
+  geom_point() +
+  coord_flip() +
+  ylab("Meta analysed (IA)AMP effect") +
+  xlab("Task/subset of trials effect")
+
+```
+
+!!!
+
+- consider using a discussion of this plus replication results in dicussion - relate the ES of the uninf IA AMP trials to the skip AMP, and both to the AMP, to argue that skip and IA are comparable. 
+
+
+- also use this to power replication. sample_n() calls below suggest we need N = 250 to reliably find differences.
+
+```{r}
+
+data_temp3 <- 
+  bind_rows(
+    data_participant_level_valence_ia_amp %>%
+      filter(AMP_domain == "Generic valence") %>%
+      filter(!is.na(AMP_effect)) %>%
+      mutate(type = "AMP") %>%
+      select(effect = AMP_effect, type, experiment) %>%
+      drop_na() %>%
+      sample_n(250),
+    
+    data_participant_level_valence_ia_amp %>%
+      filter(IA_AMP_domain == "Generic valence") %>%
+      filter(!is.na(IA_AMP_uninfluenced_effect)) %>%
+      mutate(IA_AMP_uninfluenced_effect = IA_AMP_uninfluenced_effect*-1) %>%
+      mutate(type = "IAAMP uninfluenced") %>%
+      select(effect = IA_AMP_uninfluenced_effect, type, experiment) %>%
+      drop_na() %>%
+      sample_n(250)
+  )
+
+fit_8 <- lmer(effect ~ 1 + type + (1 | experiment), 
+              data = data_temp3)
+
+tab_model(fit_8, 
+          col.order = c("est", "ci", "p"),
+          ci.hyphen = ", ")
+
+plot_model(fit_8, type = "pred")
+    
+```
+
+# IA-AMP influence rate
+
+Combination analysis due to severe bimodality.
+
+Participant level
+
+## Distribution
+
+```{r fig.height=5, fig.width=5}
+
+# Distribution
+p4 <- ggplot(data_participant_level, aes(influence_rate, fill = "dummy")) +
+  geom_density(adjust = .4) +
+  theme_classic() +
+  scale_fill_viridis_d(begin = 0.65) +
+  xlab("Influence-awareness rate") +
+  ylab("Distribution density") + 
+  theme(legend.position = "none")
+
+p4
+
+save(p4, file = "../data/p4.RData")
+
+```
+
+```{r}
+
+N <- nrow(data_participant_level)
+
+data_participant_level %>%
+  mutate(influence_rate_quintiles = ifelse(influence_rate <= .20, 1, 
+                                           ifelse(influence_rate <= .40, 2, 
+                                                  ifelse(influence_rate <= .60, 3, 
+                                                         ifelse(influence_rate <= .80, 4, 
+                                                                ifelse(influence_rate <= 1.00, 5, NA))))),
+         influence_rate_quintiles = as.factor(influence_rate_quintiles)) %>%
+  dplyr::count(influence_rate_quintiles) %>%
+  mutate(percent = round(n/N, 2)) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+data_participant_level %>%
+  mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
+                                            ifelse(influence_rate >= 0.95, "almost all", "some")),
+         influence_rate_categories = as.factor(influence_rate_categories)) %>%
+  dplyr::count(influence_rate_categories) %>%
+  mutate(percent = round(n/N, 2)) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+data_participant_level %>%
+  summarize(median_influence_rate = median(influence_rate),
+            mad_influence_rate = mad(influence_rate)) %>%
+  round_df(2) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+```
+
+# Internal consistency
+
+## Estimating $\alpha$ for infuence-aware vs non-influence-aware trials
+
+Using permuted split-half Spearman-Brown coorected correlations. I.e., an estimate of $\alpha$ through large number number of random half splits (see Parsons, Kruijt, & Fox. 2019).
+
+```{r}
+
+# slow runtime - circa 10 minutes, so check if there's saved results already first
+if (file.exists("models/data_ic_trials.RData")) {
+  
+  load("models/data_ic_trials.RData")
+  
+} else {
+  
+  # function for sb correction
+  spearman_brown_correction <- function(r_pearson) {
+    inversion <- ifelse(r_pearson < 0, -1, 1)
+    val <- 2*abs(r_pearson)/(1 + abs(r_pearson))
+    return(val*inversion)
+  }
+  
+  # n iterations
+  n_iterations <- 500
+  
+  # create a temp list
+  data_internal_consistency_list = list()
+  
+  # define progress bar
+  step_i <- 0
+  pb = txtProgressBar(min = 0, max = n_iterations, initial = 0)
+  
+  # apply workflow and append results to list
+  for(i in 1:n_iterations){
+    
+    # sample exactly half of the data and label as subset 'a' vs 'b'
+    data_trial_subset_a <- 
+      data_trial_level %>%
+      group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
+      sample_frac(size = 0.5) %>%
+      ungroup() %>%
+      pull(unique_row_name)
+    
+    data_trial_level_with_subsets <- 
+      data_trial_level %>%
+      mutate(subset = ifelse(unique_row_name %in% data_trial_subset_a, "a", "b")) %>%
+      arrange(experiment, IA_AMP_domain, unique_id, influenced, prime_type, trial_number)
+    
+    # then calculate AMP scores for each subset
+    data_amp_effect_by_subset <- 
+      data_trial_level_with_subsets %>%
+      group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type, subset) %>%
+      dplyr::summarize(amp_effect = mean(rating)) %>%
+      ungroup() %>%
+      spread(prime_type, amp_effect) %>%
+      mutate(IA_AMP_effect = round(Negative - Positive, 2)) %>%
+      select(experiment, IA_AMP_domain, unique_id, influenced, subset, IA_AMP_effect) %>%
+      spread(subset, IA_AMP_effect) %>%
+      dplyr::rename(IA_AMP_effect_a = `a`,
+                    IA_AMP_effect_b = `b`)
+    
+    data_internal_consistency <- 
+      data_amp_effect_by_subset %>%
+      drop_na() %>%
+      # calculate correlations between subsets
+      group_by(experiment, IA_AMP_domain, influenced) %>%
+      summarize(r_pearson = cor(IA_AMP_effect_a, IA_AMP_effect_b)) %>%
+      ungroup() %>%
+      # apply spearman brown correction
+      mutate(r_sb = spearman_brown_correction(r_pearson)) %>%
+      # add iteration
+      mutate(iteration = i)
+    
+    data_internal_consistency_list[[i]] <- data_internal_consistency
+    
+    # update progress bar
+    step_i = step_i + 1
+    setTxtProgressBar(pb, step_i)
+    
+  }
+  
+  # flatten list and parse results
+  data_ic_trials <- 
+    dplyr::bind_rows(data_internal_consistency_list) %>%
+    arrange(experiment, IA_AMP_domain, influenced)
+  
+  # save
+  save(data_ic_trials, 
+       file = "models/data_ic_trials.RData")
+  
+}
+
+```
+
+### Valence IA-AMP
+
+```{r}
+
+# data reshaping
+data_n_per_domain <- 
+  data_trial_level %>%
+  distinct(experiment, IA_AMP_domain, unique_id) %>%
+  count(experiment, IA_AMP_domain) 
+
+data_alpha <- 
+  data_ic_trials %>%
+  mutate(influenced = dplyr::recode(as.numeric(influenced), 
+                                    "1" = "_yes", 
+                                    "0" = "_no"),
+         influenced = fct_relevel(as.factor(influenced), "_yes", "_no")) %>%
+  group_by(experiment, IA_AMP_domain, influenced) %>%
+  summarize(alpha = mean(r_sb)) %>%
+  ungroup() %>%
+  left_join(data_n_per_domain, by = c("experiment", "IA_AMP_domain")) %>%
+  mutate(parts = 2) %>%
+  escalc(measure = "ABT", 
+         ai = alpha, 
+         mi = parts, 
+         ni = n,
+         data = .)
+
+# fit
+fit_influenced <- 
+  data_alpha %>%
+  filter(influenced == "_yes" & IA_AMP_domain == "Generic valence") %>%
+  rma(yi   = yi, 
+      vi   = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_uninfluenced <- 
+  data_alpha %>%
+  filter(influenced == "_no" & IA_AMP_domain == "Generic valence") %>%
+  rma(yi   = yi, 
+      vi   = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_moderator <- 
+  data_alpha %>%
+  filter(IA_AMP_domain == "Generic valence") %>%
+  rma.mv(yi   = yi, 
+         V    = vi, 
+         mods = ~ influenced,
+         random = ~ 1 | experiment,
+         data = .,
+         slab = paste("Exp", experiment, influenced))
+
+# plot
+forest(fit_uninfluenced,
+       addcred = FALSE,
+       refline = NULL,
+       xlab = bquote(paste("Cronbach's ", alpha)),
+       at = c(.5, .6, .7, .8, .9, 1.0),
+       xlim = c(.1, 1.3),
+       transf = transf.iabt)
+text(.1, 10, "Influence-unaware trials", pos = 4)
+text(1.3, 10, bquote(paste(alpha, " [95% CI]")), pos = 2)
+
+forest(fit_influenced,
+       addcred = FALSE,
+       refline = NULL,
+       xlab = bquote(paste("Cronbach's ", alpha)),
+       at = c(.5, .6, .7, .8, .9, 1.0),
+       xlim = c(.1, 1.3),
+       transf = transf.iabt)
+text(.1, 10, "Influence-aware trials", pos = 4)
+text(1.3, 10, bquote(paste(alpha, " [95% CI]")), pos = 2)
+
+```
+
+moderation test p = `r summary(fit_moderator)$QMp`
+
+### Politics IA-AMP
+
+```{r}
+
+# fit
+fit_influenced <- 
+  data_alpha %>%
+  filter(influenced == "_yes" & IA_AMP_domain == "Politics") %>%
+  rma(yi   = yi, 
+      vi   = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_uninfluenced <- 
+  data_alpha %>%
+  filter(influenced == "_no" & IA_AMP_domain == "Politics") %>%
+  rma(yi   = yi, 
+      vi   = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_moderator <- 
+  data_alpha %>%
+  filter(IA_AMP_domain == "Politics") %>%
+  rma.mv(yi   = yi, 
+         V    = vi, 
+         mods = ~ influenced,
+         random = ~ 1 | experiment,
+         data = .,
+         slab = paste("Exp", experiment, influenced))
+
+# plot
+forest(fit_moderator,
+       addcred = FALSE,
+       refline = NULL,
+       xlab = bquote(paste("Cronbach's ", alpha)),
+       at = c(.5, .6, .7, .8, .9, 1.0),
+       xlim = c(.1, 1.3),
+       transf = transf.iabt)
+
+```
+
+moderation test p = `r summary(fit_moderator)$QMp`
+
+## Estimating $\alpha$ between high vs low influence aware participants
+
+Using permuted split-half Spearman-Brown coorected correlations. I.e., an estimate of $\alpha$ through large number number of random half splits (see Parsons, Kruijt, & Fox. 2019).
+
+Taking low and high quintiles of influence rate.
+
+```{r}
+
+# find low and high influence participants by quintiles
+data_trial_level %>%
+  group_by(experiment, IA_AMP_domain, unique_id) %>%
+  summarize(influence_rate = mean(influenced)) %>%
+  ungroup() %>%
+  summarize(cutoff_low = quantile(influence_rate, 0.2),
+            cutoff_high = quantile(influence_rate, 0.8))
+
+data_trial_level_subset <- 
+  data_trial_level %>%
+  group_by(experiment, IA_AMP_domain, unique_id) %>%
+  summarize(influence_rate = mean(influenced)) %>%
+  ungroup() %>%
+  mutate(group = ifelse(influence_rate <= quantile(influence_rate, 0.2), "low", 
+                        ifelse(influence_rate >= quantile(influence_rate, 0.8), "high", "drop"))) %>%
+  right_join(data_trial_level, by = c("experiment", "IA_AMP_domain", "unique_id")) %>%
+  filter(group != "drop")
+
+# slow runtime - circa 10 minutes, so check if there's saved results already first
+if (file.exists("models/data_ic_participants.RData")) {
+  
+  load("models/data_ic_participants.RData")
+  
+} else {
+  
+  # function for sb correction
+  spearman_brown_correction <- function(r_pearson) {
+    inversion <- ifelse(r_pearson < 0, -1, 1)
+    val <- 2*abs(r_pearson)/(1 + abs(r_pearson))
+    return(val*inversion)
+  }
+  
+  # n iterations
+  n_iterations <- 500
+  
+  # create a temp list
+  data_internal_consistency_list = list()
+  
+  # define progress bar
+  step_i <- 0
+  pb = txtProgressBar(min = 0, max = n_iterations, initial = 0)
+
+  # apply workflow and append results to list
+  for(i in 1:n_iterations){
+    
+    # sample exactly half of the data and label as subset 'a' vs 'b'
+    data_trial_subset_a <- 
+      data_trial_level_subset %>%
+      group_by(experiment, IA_AMP_domain, group, unique_id, prime_type) %>%
+      sample_frac(size = 0.5) %>%
+      ungroup() %>%
+      pull(unique_row_name)
+    
+    data_trial_level_with_subsets <- 
+      data_trial_level_subset %>%
+      mutate(subset = ifelse(unique_row_name %in% data_trial_subset_a, "a", "b")) %>%
+      arrange(experiment, IA_AMP_domain, group, unique_id, prime_type, trial_number)
+    
+    # then calculate AMP scores for each subset
+    data_amp_effect_by_subset <- 
+      data_trial_level_with_subsets %>%
+      group_by(experiment, IA_AMP_domain, group, unique_id, prime_type, subset) %>%
+      dplyr::summarize(amp_effect = mean(rating)) %>%
+      ungroup() %>%
+      spread(prime_type, amp_effect) %>%
+      mutate(IA_AMP_effect = round(Negative - Positive, 2)) %>%
+      select(experiment, IA_AMP_domain, group, unique_id, subset, IA_AMP_effect) %>%
+      spread(subset, IA_AMP_effect) %>%
+      dplyr::rename(IA_AMP_effect_a = `a`,
+                    IA_AMP_effect_b = `b`)
+    
+    data_internal_consistency <- 
+      data_amp_effect_by_subset %>%
+      drop_na() %>%
+      # calculate correlations between subsets
+      group_by(experiment, group, IA_AMP_domain) %>%
+      summarize(r_pearson = cor(IA_AMP_effect_a, IA_AMP_effect_b)) %>%
+      ungroup() %>%
+      # apply spearman brown correction
+      mutate(r_sb = spearman_brown_correction(r_pearson)) %>%
+      # add iteration
+      mutate(iteration = i)
+    
+    data_internal_consistency_list[[i]] <- data_internal_consistency
+    
+    # update progress bar
+    step_i = step_i + 1
+    setTxtProgressBar(pb, step_i)
+    
+  }
+  
+  # flatten list and parse results
+  data_ic_participants <- 
+    dplyr::bind_rows(data_internal_consistency_list) %>%
+    arrange(experiment, group, IA_AMP_domain)
+  
+  # save
+  save(data_ic_participants, 
+       file = "models/data_ic_participants.RData")
+  
+}
+
+```
+
+### Valence IA-AMP
+
+```{r}
+
+# data reshaping
+data_n_per_domain_groups <- 
+  data_trial_level_subset %>%
+  distinct(experiment, group, IA_AMP_domain, unique_id) %>%
+  count(experiment, group, IA_AMP_domain) 
+
+data_alpha_groups <- 
+  data_ic_participants %>%
+  mutate(group = fct_relevel(as.factor(group), "high", "low")) %>%
+  group_by(experiment, IA_AMP_domain, group) %>%
+  summarize(alpha = mean(r_sb)) %>%
+  ungroup() %>%
+  left_join(data_n_per_domain_groups, by = c("experiment", "IA_AMP_domain", "group")) %>%
+  mutate(parts = 2) %>%
+  escalc(measure = "ABT", 
+         ai = alpha, 
+         mi = parts, 
+         ni = n,
+         data = .)
+
+# fit
+fit_influence_high <- 
+  data_alpha_groups %>%
+  filter(group == "high" & IA_AMP_domain == "Generic valence") %>%
+  rma(yi   = yi, 
+      vi    = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_uninfluence_low <- 
+  data_alpha_groups %>%
+  filter(group == "low" & IA_AMP_domain == "Generic valence") %>%
+  rma(yi   = yi, 
+      vi    = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_moderator_groups <- 
+  data_alpha_groups %>%
+  filter(IA_AMP_domain == "Generic valence") %>%
+  rma.mv(yi   = yi, 
+         V    = vi, 
+         mods = ~ group,
+         random = ~ 1 | experiment,
+         data = .,
+         slab = paste("Exp", experiment, group))
+
+# plot
+forest(fit_uninfluence_low,
+       addcred = FALSE,
+       refline = NULL,
+       xlab = bquote(paste("Cronbach's ", alpha)),
+       at = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0),
+       xlim = c(-.4, 1.4),
+       transf = transf.iabt)
+text(-.4, 10, "Low influence-rate participants", pos = 4)
+text(1.4, 10, bquote(paste(alpha, " [95% CI]")), pos = 2)
+
+forest(fit_influence_high,
+       addcred = FALSE,
+       refline = NULL,
+       xlab = bquote(paste("Cronbach's ", alpha)),
+       at = c(.1, .2, .3, .4, .5, .6, .7, .8, .9, 1.0),
+       xlim = c(-.4, 1.4),
+       transf = transf.iabt)
+text(-.4, 10, "High influence-rate participants", pos = 4)
+text(1.4, 10, bquote(paste(alpha, " [95% CI]")), pos = 2)
+
+```
+
+moderation test p = `r summary(fit_moderator_groups)$QMp`
+
+### Politics IA-AMP
+
+```{r}
+
+# fit
+fit_influence_high <- 
+  data_alpha_groups %>%
+  filter(group == "high" & IA_AMP_domain == "Politics") %>%
+  rma(yi   = yi, 
+      vi    = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_uninfluence_low <- 
+  data_alpha_groups %>%
+  filter(group == "low" & IA_AMP_domain == "Politics") %>%
+  rma(yi   = yi, 
+      vi    = vi, 
+      data = .,
+      slab = paste("Exp", experiment))
+
+fit_moderator_groups <- 
+  data_alpha_groups %>%
+  filter(IA_AMP_domain == "Politics") %>%
+  rma.mv(yi   = yi, 
+         V    = vi, 
+         mods = ~ group,
+         random = ~ 1 | experiment,
+         data = .,
+         slab = paste("Exp", experiment, group))
+
+# plot
+forest(fit_moderator_groups,
+       addcred = FALSE,
+       refline = NULL,
+       xlab = bquote(paste("Cronbach's ", alpha)),
+       at = c(.5, .6, .7, .8, .9, 1.0),
+       xlim = c(.1, 1.3),
+       transf = transf.iabt)
+
+```
+
+moderation test p = `r summary(fit_moderator_groups)$QMp`
+
+## Summary
+
+The IA-AMP's internal consistency was lower both when comparing scores calculated from uninfluenced trials ($\alpha$ = .75, 95% CI [.71, .79]) compared to influenced trials ($\alpha$ = .83, 95% CI [.77, .88], difference *p* < .000001), and also when comparing participants with a low influence rate ($\alpha$ = .83, 95% CI [.76, .88]) compared to a high influence rate ($\alpha$ = .95, 95% CI [.92, .97], difference *p* < .0000000000001). 
+
+NB it's not possible to assess the interaction between group and trial level awareness becuase the upperbound of the lower quintile of awareness rates is still awareness rate = 0. That is, there are no aware trials to calculate AMP scores from here. This could be restated as "the low awareness rate group is also the uninfluenced trials group". 
+
+# Combine plots
+
+```{r fig.height=20, fig.width=7.15}
+
+# get plot from exp 4
+load("../Experiment 4/analysis/p1.RData")
+
+p_combined <- p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
+
+p_combined
+
+save(p_combined, file = "../data/p_combined.RData")
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
+
