@@ -1,0 +1,169 @@
+---
+title: "Study 0 - replication"
+subtitle: "Analyses"
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+```
+
+```{r setup, message=FALSE, warning=FALSE}
+
+# dependencies
+library(tidyverse)
+library(sjPlot)
+library(effsize)
+library(psych)
+library(knitr)
+library(kableExtra)
+library(plotrix)
+library(Partiallyoverlapping)
+
+# function to round all numeric vars in a data frame
+round_df <- function(df, n_digits = 3) {
+  # dependencies
+  require(dplyr)
+  
+  df %>% mutate_if(is.numeric, round, digits = n_digits)
+}
+
+
+# get data 
+data_processed <- read_csv("../data/processed/processed_data.csv")
+
+# exclusions
+data_processed_exclusions <- data_processed %>%
+  filter(complete_data == TRUE)
+
+```
+
+# Demographics
+
+Analytic sample after exclusions.
+
+```{r age and gender}
+
+# Gender
+data_processed_exclusions %>%
+  mutate(gender = tolower(gender)) %>%
+  dplyr::count(gender) %>%
+  kable() %>%  # print nicer looking table
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+# Age mean and SD
+data_processed_exclusions %>%
+  mutate(age = as.numeric(as.character(age))) %>%
+  summarise("age (mean)" = mean(age), "age (standard deviation)" = sd(age)) %>%
+  round_df(2) %>%
+  kable() %>%  # print nicer looking table
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+```
+
+# Hypothesis tests
+
+## H1 (replication): Magnitude of Standard AMP effect compared to the skip-AMP effect
+
+If intentional responding drives the AMP effect, then the effect size in the skip AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
+
+Very high influence rates will result in some participants having no score for the skip AMP. While they could simply be excluded in order to run a paired samples t-test, these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion wpuld distorts results. 
+
+In order to overcome this, we employed a "partially overlapping t test". Specifically, Derrick, Toher & White (2017) developed a method to assess partially overlapping samples. That is, neither a dependent nor independent t test, but a mixed t test containing some independent and some dependent data. Participants who demonstrated an influence rate of close to 100% have missing skip AMP effects. Their corresponding AMP effects are entered as independent data. Participants that have both AMP and skip AMP data are entered as dependent.
+
+```{r}
+
+# subset data
+data_subset <- data_processed_exclusions %>%
+  select(AMP_effect_positive_negative, skip_AMP_effect_positive_negative) 
+
+Partover.test(x1 = pull(filter(data_subset, is.na(skip_AMP_effect_positive_negative)), AMP_effect_positive_negative),
+              x2 = pull(filter(data_subset, is.na(AMP_effect_positive_negative)), skip_AMP_effect_positive_negative),
+              x3 = pull(na.omit(data_subset), AMP_effect_positive_negative), 
+              x4 = pull(na.omit(data_subset), skip_AMP_effect_positive_negative),
+              var.equal = FALSE)
+
+```
+
+NB Cohen's d estimates are imperfect as data either treat as independent when this is not the case. No partial overlap version of Cohen's d exists to our knowledge. This estimate, and its CIs, is therefore likely to be biased and should be interpreted with caution. The hypothesis is tested using partially overlapping test, not the CIs on the effect size.
+
+Between subjects cohen's d:
+
+```{r}
+
+# gather subset
+long_subset <- data_subset %>%
+  gather(condition, score, c(AMP_effect_positive_negative, skip_AMP_effect_positive_negative))
+
+effsize::cohen.d(score ~ condition,
+                 paired = FALSE,
+                 data = long_subset)
+
+```
+
+## H2: skip AMP influence rate predicts the absolute magnitude of the skip AMP effect
+
+Does rate of influence in the skip AMP predict skip AMP effects?
+
+If effects in the skip AMP are driven by intentional responding, then the size of the effect in the skip AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+
+```{r}
+
+# model
+fit_h2 <- data_processed_exclusions %>%
+  mutate(abs_skip_AMP_effect_positive_negative = abs(skip_AMP_effect_positive_negative)) %>%
+  lm(abs_skip_AMP_effect_positive_negative ~ influence_rate, data = .)
+
+# plot
+ggplot(data_processed_exclusions, aes(influence_rate, abs(skip_AMP_effect_positive_negative))) + 
+  geom_jitter(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Proportion of influenced trials and skip AMP effect", 
+       x = "Proportion of influenced trials", 
+       y = "skip AMP effect") +
+  theme_classic()
+
+# results table
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+
+```
+
+## H3: skip AMP influence rate predicts the absolute magnitude of the standard AMP effect
+
+If effects in the standard AMP, as well as the skip AMP, are driven by participants who are more often influenced, then rate of influence in the skip AMP should predict effect sizes in the standard AMP. 
+
+Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate predicts the (previously completed) AMP's effect then this implies that 1) measuring the influence rate does not perturb the IA AMP effect, and 2) that the rate of influence is reliable within participants across AMP/IA AMPs.
+
+```{r}
+
+# model
+fit_h3 <- data_processed_exclusions %>%
+  mutate(abs_AMP_effect_positive_negative = abs(AMP_effect_positive_negative)) %>%
+  lm(abs_AMP_effect_positive_negative ~ influence_rate, data = .)
+
+# plot
+ggplot(data_processed_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
+  geom_jitter(alpha = 0.3) +
+  geom_rug(position = "jitter") +
+  geom_smooth(method = lm) +
+  labs(title = "Rate of influence and Standard AMP effect size", 
+       x = "Rate of influence", 
+       y = "Standard AMP effect size") +
+  theme_classic()
+
+# table
+tab_model(fit_h3, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+
+```

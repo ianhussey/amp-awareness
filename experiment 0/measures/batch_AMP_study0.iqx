@@ -1,0 +1,12 @@
+﻿************************************************
+Batch script for TMT variants
+************************************************
+Jamie Cummins (jamie.cummins@ugent.be)
+GPLv3+ license
+************************************************
+<batch>
+/ groupassignment = subjectnumber
+/ file="demographics.iqx"
+/ file = "standard_AMP.iqx"
+/ file = "skip_AMP.iqx"
+</batch>

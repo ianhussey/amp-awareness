@@ -1,0 +1,168 @@
+---
+title: "Study 0 - replication"
+subtitle: "Processing"
+author: "Ian Hussey & Jamie Cummins"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE, 
+                      warning = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+
+# get data
+data_demographics <- read.csv("raw/demographics.csv")
+data_skip_amp     <- read.csv("raw/skip_amp.csv")
+data_amp          <- read.csv("raw/standard_amp.csv")
+
+```
+
+# Demographics and self reports
+
+```{r}
+
+# match Prolific IDs to subject numbers (for payment processing)
+prolificid_df <- data_demographics %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode == "ProlificCode") %>%
+  dplyr::select(subject, response) 
+
+data_demographics_processed <- data_demographics %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>%
+  filter(trialcode != "ProlificCode") %>%
+  select(subject, trialcode, response) %>%
+  spread(trialcode, response) %>%
+  mutate(subject = as.character(subject))
+
+```
+
+# AMP effects and influence rates
+
+```{r}
+
+data_amp_cleaned <- data_amp %>%
+
+  # keep only test blocks and ratings trials
+  filter(blockcode == "test") %>%
+  
+  # mutate some vars
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
+         subject = as.character(subject),
+         rating = as.numeric(as.character(correct))) %>%
+  
+  # exclude participants without the right number of AMP trials
+  group_by(subject) %>% 
+  filter(n() == 72) %>%
+  ungroup() %>%
+  select(subject, prime_type, rating) 
+
+# score amp effect
+data_amp_processed <- data_amp_cleaned %>%
+  group_by(subject, prime_type) %>%
+  summarize(amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, amp_effect) %>%
+  mutate(AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, AMP_effect_positive_negative)
+
+```
+
+# IA AMP effects and influence rates
+
+```{r}
+
+data_skip_amp_cleaned <- data_skip_amp %>%
+  
+  # recode vars
+  mutate(response = dplyr::recode(response,
+                                  "18" = "negative",
+                                  "23" = "positive",
+                                  "57" = "skip")) %>%
+  
+  # keep only test blocks and ratings trials
+  filter(blockcode == "test") %>%
+  
+  # mutate some vars
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
+         subject = as.character(subject),
+         rating = ifelse(response != "skip", as.numeric(as.character(correct)), NA),
+         skipped = ifelse(response == "skip", 1, 0)) %>%
+  
+  # exclude participants without the right number of AMP trials
+  group_by(subject) %>% 
+  filter(n() == 72) %>%
+  ungroup() %>%
+  select(subject, prime_type, rating, skipped)
+
+skip_amp_effect <- data_skip_amp_cleaned %>%
+  filter(skipped == 0) %>%
+  group_by(subject, prime_type) %>%
+  summarize(skip_amp_effect = mean(rating)) %>%
+  ungroup() %>%
+  spread(prime_type, skip_amp_effect) %>%
+  mutate(skip_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  select(subject, skip_AMP_effect_positive_negative) 
+
+# score influence rates
+skip_amp_influence_rate <- data_skip_amp_cleaned %>%
+  group_by(subject) %>%
+  summarize(influence_rate = round(mean(skipped), 2)) %>%
+  ungroup()
+
+data_skip_amp_processed <- skip_amp_effect %>%
+  full_join(skip_amp_influence_rate, by = "subject")
+
+```
+
+# Screen for complete data
+
+```{r}
+
+complete_demographics_data <- data_demographics_processed %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_amp_data <- data_amp_processed %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_skip_amp_data <- data_skip_amp_processed %>%
+  na.omit() %>%
+  distinct(subject)
+
+complete_data <- complete_demographics_data %>%
+  semi_join(complete_amp_data, by = "subject") %>%
+  semi_join(complete_skip_amp_data, by = "subject") %>%
+  mutate(complete_data = TRUE)
+
+```
+
+# Write to disk
+
+```{r}
+
+# combine
+data_processed <- data_demographics_processed %>%
+  full_join(data_amp_processed, by = "subject") %>%
+  full_join(data_skip_amp_processed, by = "subject") %>%
+  full_join(complete_data, by = "subject") %>%
+  mutate(complete_data = ifelse(is.na(complete_data), FALSE, complete_data))
+
+# write to disk
+write_csv(data_processed, "processed/processed_data.csv")
+
+```

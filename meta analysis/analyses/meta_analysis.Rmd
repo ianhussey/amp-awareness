@@ -412,13 +412,39 @@ ggplot(dat, aes(type, est)) +
 
 ```{r}
 
+x <- full_join(
+  data_participant_level_valence_ia_amp %>%
+    filter(AMP_domain == "Generic valence") %>%
+    filter(!is.na(AMP_effect)) %>%
+    select(unique_id, AMP_effect) %>%
+    drop_na(),
+  data_participant_level_valence_ia_amp %>%
+    filter(IA_AMP_domain == "Generic valence") %>%
+    filter(!is.na(IA_AMP_uninfluenced_effect)) %>%
+    mutate(IA_AMP_uninfluenced_effect = IA_AMP_uninfluenced_effect*-1) %>%
+    select(unique_id, IA_AMP_uninfluenced_effect) %>%
+    drop_na(),
+  by = "unique_id"
+  ) 
+
+x %>%
+  select(-unique_id) %>%
+  cor(use = "pairwise.complete.obs")
+
+ggplot(x, aes(IA_AMP_uninfluenced_effect, AMP_effect)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+
+
+
 data_temp3 <- 
   bind_rows(
     data_participant_level_valence_ia_amp %>%
       filter(AMP_domain == "Generic valence") %>%
       filter(!is.na(AMP_effect)) %>%
       mutate(type = "AMP") %>%
-      select(effect = AMP_effect, type, experiment) %>%
+      select(unique_id, effect = AMP_effect, type, experiment) %>%
       drop_na() %>%
       sample_n(250),
     
@@ -427,10 +453,19 @@ data_temp3 <-
       filter(!is.na(IA_AMP_uninfluenced_effect)) %>%
       mutate(IA_AMP_uninfluenced_effect = IA_AMP_uninfluenced_effect*-1) %>%
       mutate(type = "IAAMP uninfluenced") %>%
-      select(effect = IA_AMP_uninfluenced_effect, type, experiment) %>%
+      select(unique_id, effect = IA_AMP_uninfluenced_effect, type, experiment) %>%
       drop_na() %>%
       sample_n(250)
   )
+
+
+
+data_temp3 %>%
+  group_by(type) %>%
+  summarize(mean = mean(effect),
+            sd = sd(effect))
+
+0.21920049 - 0.09991071 / 
 
 fit_8 <- lmer(effect ~ 1 + type + (1 | experiment), 
               data = data_temp3)
