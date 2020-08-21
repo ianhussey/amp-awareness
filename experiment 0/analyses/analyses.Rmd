@@ -76,9 +76,9 @@ data_processed_exclusions %>%
 
 ## H1 (replication): Magnitude of Standard AMP effect compared to the skip-AMP effect
 
-If intentional responding drives the AMP effect, then the effect size in the skip AMP when only accounting for trials registered as 'unintentional' should be smaller than the effect size in the standard AMP.
+Payne et al. hypothesised that, if participants are influence-aware in the AMP, then AMP effects in the standard AMP should be larger than those of the skip AMP.
 
-Very high influence rates will result in some participants having no score for the skip AMP. While they could simply be excluded in order to run a paired samples t-test, these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion wpuld distorts results. 
+Some participants may skip all trials of the skip AMP, and thus have no scire. While they could simply be excluded in order to run a paired samples t-test, these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion would distort results. 
 
 In order to overcome this, we employed a "partially overlapping t test". Specifically, Derrick, Toher & White (2017) developed a method to assess partially overlapping samples. That is, neither a dependent nor independent t test, but a mixed t test containing some independent and some dependent data. Participants who demonstrated an influence rate of close to 100% have missing skip AMP effects. Their corresponding AMP effects are entered as independent data. Participants that have both AMP and skip AMP data are entered as dependent.
 
@@ -87,6 +87,12 @@ In order to overcome this, we employed a "partially overlapping t test". Specifi
 # subset data
 data_subset <- data_processed_exclusions %>%
   select(AMP_effect_positive_negative, skip_AMP_effect_positive_negative) 
+
+data_subset %>%
+  summarise(mean_standard_effect = mean(AMP_effect_positive_negative),
+            sd_standard_effect = sd(AMP_effect_positive_negative),
+            mean_skip_effect = mean(skip_AMP_effect_positive_negative),
+            sd_skip_effect = sd(skip_AMP_effect_positive_negative))
 
 Partover.test(x1 = pull(filter(data_subset, is.na(skip_AMP_effect_positive_negative)), AMP_effect_positive_negative),
               x2 = pull(filter(data_subset, is.na(AMP_effect_positive_negative)), skip_AMP_effect_positive_negative),
@@ -112,58 +118,16 @@ effsize::cohen.d(score ~ condition,
 
 ```
 
-## H2: skip AMP influence rate predicts the absolute magnitude of the skip AMP effect
-
-Does rate of influence in the skip AMP predict skip AMP effects?
-
-If effects in the skip AMP are driven by intentional responding, then the size of the effect in the skip AMP should be moderated by the subset of participants who are more often influenced by the primes. 
+# H2: Does rate of skipping in the skip AMP predict standard AMP effects?
 
 ```{r}
 
-# model
-fit_h2 <- data_processed_exclusions %>%
-  mutate(abs_skip_AMP_effect_positive_negative = abs(skip_AMP_effect_positive_negative)) %>%
-  lm(abs_skip_AMP_effect_positive_negative ~ influence_rate, data = .)
-
-# plot
-ggplot(data_processed_exclusions, aes(influence_rate, abs(skip_AMP_effect_positive_negative))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
-  geom_smooth(method = lm) +
-  labs(title = "Proportion of influenced trials and skip AMP effect", 
-       x = "Proportion of influenced trials", 
-       y = "skip AMP effect") +
-  theme_classic()
-
-# results table
-tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+h2_fit <- data_processed_exclusions %>%
+  lm(AMP_effect_positive_negative ~ influence_rate,
+     data = .)
+tab_model(h2_fit, show.std = TRUE)
+plot_model(h2_fit, type = "pred")
 
 ```
 
-## H3: skip AMP influence rate predicts the absolute magnitude of the standard AMP effect
 
-If effects in the standard AMP, as well as the skip AMP, are driven by participants who are more often influenced, then rate of influence in the skip AMP should predict effect sizes in the standard AMP. 
-
-Because the AMP is completed prior to the IA AMP, if the IA AMP's influence rate predicts the (previously completed) AMP's effect then this implies that 1) measuring the influence rate does not perturb the IA AMP effect, and 2) that the rate of influence is reliable within participants across AMP/IA AMPs.
-
-```{r}
-
-# model
-fit_h3 <- data_processed_exclusions %>%
-  mutate(abs_AMP_effect_positive_negative = abs(AMP_effect_positive_negative)) %>%
-  lm(abs_AMP_effect_positive_negative ~ influence_rate, data = .)
-
-# plot
-ggplot(data_processed_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
-  geom_smooth(method = lm) +
-  labs(title = "Rate of influence and Standard AMP effect size", 
-       x = "Rate of influence", 
-       y = "Standard AMP effect size") +
-  theme_classic()
-
-# table
-tab_model(fit_h3, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
-
-```

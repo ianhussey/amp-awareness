@@ -60,7 +60,7 @@ data_amp_cleaned <- data_amp %>%
   filter(blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
          subject = as.character(subject),
          rating = as.numeric(as.character(correct))) %>%
   
@@ -97,7 +97,7 @@ data_skip_amp_cleaned <- data_skip_amp %>%
   filter(blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
          subject = as.character(subject),
          rating = ifelse(response != "skip", as.numeric(as.character(correct)), NA),
          skipped = ifelse(response == "skip", 1, 0)) %>%
