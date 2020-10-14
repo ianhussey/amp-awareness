@@ -43,11 +43,11 @@ prolificid_df <- demographics_df %>%
   dplyr::select(subject, response) 
 
 demographics_data <- demographics_df %>%
-  distinct(subject, trialcode, .keep_all = TRUE) %>%
-  filter(trialcode != "ProlificCode") %>%
+  distinct(subject, trialcode, .keep_all = TRUE) %>% 
+  filter(trialcode != "ProlificCode") %>% 
   select(subject, trialcode, response) %>%
   spread(trialcode, response) %>%
-  mutate(subject = as.character(subject))
+  mutate(subject = as.character(subject)) 
 
 
 allowed_response_options <- c("none", "a few", "less than half", "about half", "more than half", "most", "all")
@@ -55,12 +55,12 @@ allowed_response_options <- c("none", "a few", "less than half", "about half", "
 self_report_data <- questions_df %>%
   distinct(subject, trialcode, .keep_all = TRUE) %>%
   select(subject, trialcode, response) %>%
-  group_by(subject) %>%
   spread(trialcode, response) %>%
-  ungroup %>% 
   mutate(subject = as.character(subject)) %>%
+  
+  
   # some pilot data that used alternative reponse options made it into the data. exclude this.
-  mutate(awareness = ifelse(!(influence_general %in% allowed_response_options), NA, as.character(awareness)),
+  mutate(awareness = ifelse(!(awareness %in% allowed_response_options), NA, as.character(awareness)),
          influence_general = ifelse(!(influence_general %in% allowed_response_options), NA, as.character(influence_general)),
          intentionality    = ifelse(!(intentionality %in% allowed_response_options), NA, as.character(intentionality)),
          unintentionality  = ifelse(!(unintentionality %in% allowed_response_options), NA, as.character(unintentionality)),
