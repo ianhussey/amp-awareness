@@ -86,7 +86,7 @@ task_level_data_exclusions %>%
 
 # overall IA-AMP effect size
 task_level_data_exclusions %>%
-  select(subject, IA_AMP_effect_positive_negative) %>%
+  select(subject, IA_AMP_effect_positive_negative, AMP_effect_obama_trump) %>%
   summarise(amp_effect = mean(AMP_effect_obama_trump),
             amp_sd = sd(AMP_effect_obama_trump),
             ia_amp_effect = mean(IA_AMP_effect_positive_negative),
