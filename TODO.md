@@ -1,0 +1,1 @@
+some experiments amp scripts call it the intentionality AMP - remove all references to intentionality and call it awareness
