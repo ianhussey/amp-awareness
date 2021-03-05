@@ -27,69 +27,73 @@ library(tidyverse)
 
 # Trial level data
 
+NB the replication is labeled experiment 0 in the data files and not relevant to the meta analysis 
+
+Labelling of the studies after reading in here is converted to how they are labelled in the manuscript.
+
 ```{r}
 
 # get data and do exclusions
 
-exp_1_trial_level <- read.csv("../../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 1,
-         IA_AMP_domain = "Generic valence") %>%
-  filter(complete_data == TRUE & 
-           self_exclusion_1 == "Yes, use my data")
-
-exp_2_trial_level <- read.csv("../../experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+exp_2_trial_level <- read.csv("../../experiment 1/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
   mutate(experiment = 2,
          IA_AMP_domain = "Generic valence") %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data")
 
-exp_3_trial_level <- read.csv("../../experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+exp_3_trial_level <- read.csv("../../experiment 2/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
   mutate(experiment = 3,
+         IA_AMP_domain = "Generic valence") %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
+
+exp_4_trial_level <- read.csv("../../experiment 3/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 4,
          IA_AMP_domain = "Generic valence") %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data" &
            party == "democrat")
 
-exp_4_trial_level <- read.csv("../../experiment 4/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 4,
+exp_5_trial_level <- read.csv("../../experiment 4/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 5,
          IA_AMP_domain = "Generic valence") %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data" &
            party %in% c("democrat", "republican"))
 
-exp_4_trial_level_politics <- read.csv("../../experiment 4/data/processed/trial_level_ia_amp_obama_trump_data.csv") %>%
-  mutate(experiment = 4,
+exp_5_trial_level_politics <- read.csv("../../experiment 4/data/processed/trial_level_ia_amp_obama_trump_data.csv") %>%
+  mutate(experiment = 5,
          IA_AMP_domain = "Politics") %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data" &
            party %in% c("democrat", "republican"))
 
-exp_5_trial_level <- read.csv("../../experiment 5/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(experiment = 5,
-         IA_AMP_domain = "Generic valence") %>%
-  filter(complete_data == TRUE & 
-           self_exclusion_1 == "Yes, use my data")
-
-exp_6_trial_level <- read.csv("../../experiment 6/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+exp_6_trial_level <- read.csv("../../experiment 5/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
   mutate(experiment = 6,
          IA_AMP_domain = "Generic valence") %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data")
 
-exp_7_trial_level <- read.csv("../../experiment 7/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+exp_7_trial_level <- read.csv("../../experiment 6/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
   mutate(experiment = 7,
          IA_AMP_domain = "Generic valence") %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data")
 
-data_combined_trial_level_data <- bind_rows(exp_1_trial_level, 
-                                            exp_2_trial_level,
+exp_8_trial_level <- read.csv("../../experiment 7/data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
+  mutate(experiment = 8,
+         IA_AMP_domain = "Generic valence") %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data")
+
+data_combined_trial_level_data <- bind_rows(exp_2_trial_level,
                                             exp_3_trial_level,
                                             exp_4_trial_level,
-                                            exp_4_trial_level_politics,
                                             exp_5_trial_level,
+                                            exp_5_trial_level_politics,
                                             exp_6_trial_level,
-                                            exp_7_trial_level) %>%
+                                            exp_7_trial_level,
+                                            exp_8_trial_level) %>%
   mutate(unique_id = paste(experiment, subject, sep = "_"),
          prime_type = dplyr::recode(prime_type,
                                     "prime_type_B" = "Positive",
@@ -108,22 +112,22 @@ write_csv(data_combined_trial_level_data, "data_combined_trial_level.csv")
 
 ```{r}
 
-exp_1 <- read.csv("../../experiment 1/data/processed/processed_data.csv") %>%
-  mutate(experiment = 1,
+exp_2 <- read.csv("../../experiment 1/data/processed/processed_data.csv") %>%
+  mutate(experiment = 2,
          IA_AMP_domain = "Generic valence",
          age = as.numeric(age)) %>%
   dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative)
 
-exp_2 <- read.csv("../../experiment 2/data/processed/processed_data.csv") %>%
-  mutate(experiment = 2,
+exp_3 <- read.csv("../../experiment 2/data/processed/processed_data.csv") %>%
+  mutate(experiment = 3,
          IA_AMP_domain = "Generic valence",
          AMP_domain = "Generic valence",
          age = as.numeric(age)) %>%
   dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative,
                 AMP_effect = AMP_effect_positive_negative)
 
-exp_3 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
-  mutate(experiment = 3,
+exp_4 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
+  mutate(experiment = 4,
          IA_AMP_domain = "Generic valence",
          AMP_domain = "Politics",
          age = as.numeric(age)) %>%
@@ -133,8 +137,8 @@ exp_3 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
   dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative,
                 AMP_effect = AMP_effect_obama_trump)
 
-exp_4 <- read.csv("../../experiment 4/data/processed/processed_data.csv") %>%
-  mutate(experiment = 4,
+exp_5 <- read.csv("../../experiment 4/data/processed/processed_data.csv") %>%
+  mutate(experiment = 5,
          influence_rate = influence_rate_positive_negative,
          IA_AMP_domain = "Generic valence",
          age = as.numeric(age)) %>%
@@ -142,8 +146,8 @@ exp_4 <- read.csv("../../experiment 4/data/processed/processed_data.csv") %>%
   select(-IA_AMP_effect_obama_trump, -influence_rate_obama_trump) %>%
   dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative)
 
-exp_4_politics <- read.csv("../../experiment 4/data/processed/processed_data.csv") %>%
-  mutate(experiment = 4,
+exp_5_politics <- read.csv("../../experiment 4/data/processed/processed_data.csv") %>%
+  mutate(experiment = 5,
          influence_rate = influence_rate_obama_trump,
          IA_AMP_domain = "Politics",
          age = as.numeric(age)) %>%
@@ -151,15 +155,7 @@ exp_4_politics <- read.csv("../../experiment 4/data/processed/processed_data.csv
   dplyr::select(-IA_AMP_effect_positive_negative, -influence_rate_positive_negative) %>%
   dplyr::rename(IA_AMP_effect = IA_AMP_effect_obama_trump) 
   
-exp_5 <- read.csv("../../experiment 5/data/processed/processed_data.csv") %>%
-  mutate(experiment = 5,
-         IA_AMP_domain = "Generic valence",
-         AMP_domain = "Generic valence",
-         age = as.numeric(age)) %>%
-  dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative,
-                AMP_effect = AMP_effect_positive_negative) 
-
-exp_6 <- read.csv("../../experiment 6/data/processed/processed_data.csv") %>%
+exp_6 <- read.csv("../../experiment 5/data/processed/processed_data.csv") %>%
   mutate(experiment = 6,
          IA_AMP_domain = "Generic valence",
          AMP_domain = "Generic valence",
@@ -167,8 +163,16 @@ exp_6 <- read.csv("../../experiment 6/data/processed/processed_data.csv") %>%
   dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative,
                 AMP_effect = AMP_effect_positive_negative) 
 
-exp_7 <- read.csv("../../experiment 7/data/processed/processed_data.csv") %>%
+exp_7 <- read.csv("../../experiment 6/data/processed/processed_data.csv") %>%
   mutate(experiment = 7,
+         IA_AMP_domain = "Generic valence",
+         AMP_domain = "Generic valence",
+         age = as.numeric(age)) %>%
+  dplyr::rename(IA_AMP_effect = IA_AMP_effect_positive_negative,
+                AMP_effect = AMP_effect_positive_negative) 
+
+exp_8 <- read.csv("../../experiment 7/data/processed/processed_data.csv") %>%
+  mutate(experiment = 8,
          IA_AMP_domain = "Generic valence",
          AMP_domain = "Generic valence",
          age = as.numeric(age)) %>%
@@ -176,14 +180,14 @@ exp_7 <- read.csv("../../experiment 7/data/processed/processed_data.csv") %>%
                 AMP_effect = AMP_effect_positive_negative)
 
 data_combined_participant_level_temp <- 
-  bind_rows(exp_1, 
-            exp_2, 
+  bind_rows(exp_2, 
             exp_3, 
             exp_4, 
-            exp_4_politics, 
             exp_5,
+            exp_5_politics, 
             exp_6,
-            exp_7) %>%
+            exp_7,
+            exp_8) %>%
   dplyr::select(sort(names(.))) %>%
   filter(complete_data == TRUE & 
            self_exclusion_1 == "Yes, use my data") %>%
