@@ -60,7 +60,7 @@ data_amp_cleaned <- data_amp %>%
   filter(blockcode == "test") %>%
   
   # mutate some vars
-  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_A", "prime_type_B"),
+  mutate(prime_type = ifelse(trialcode %in% c("prime_obama", "prime_positive"), "prime_type_B", "prime_type_A"),
          subject = as.character(subject),
          rating = as.numeric(as.character(correct))) %>%
   
@@ -76,7 +76,7 @@ data_amp_processed <- data_amp_cleaned %>%
   summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  mutate(AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(AMP_effect_positive_negative = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, AMP_effect_positive_negative)
 
 ```
@@ -114,7 +114,7 @@ skip_amp_effect <- data_skip_amp_cleaned %>%
   summarize(skip_amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, skip_amp_effect) %>%
-  mutate(skip_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(skip_AMP_effect_positive_negative = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, skip_AMP_effect_positive_negative) 
 
 # score influence rates

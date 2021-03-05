@@ -1,414 +1,414 @@
 subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,IA_AMP_uninfluenced_effect_positive_negative,influence_rate,awareness,influence_general,intentionality,self_exclusion_1,self_exclusion_1other,unintentionality,complete_data
-5244407,32,male,-0.7,-0.8,-0.8,0.67,6,5,1,"Yes, use my data",,4,TRUE
-5951467,28,Male,-0.37,-0.3,0.02,0.53,7,6,6,"Yes, use my data",,5,TRUE
+5244407,32,male,0.7,0.8,0.8,0.67,6,5,1,"Yes, use my data",,4,TRUE
+5951467,28,Male,0.37,0.3,-0.02,0.53,7,6,6,"Yes, use my data",,5,TRUE
 6073319,25,Female,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 6953868,34,Female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-10805941,48,Female,-0.03,0,0,0,6,1,1,"No, exclude my data (please specify why):","The images appeared so quickly that it wasn't possible to make any judgement onthe images, especically the painitngs. The black/grey image after the two images were shown was unpleasant and distractig.",1,TRUE
-13788805,51,f,-0.07,-0.07,-0.07,0.08,7,2,1,"Yes, use my data",,3,TRUE
-14264635,32,male,-0.3,-0.5,-0.26,0.45,6,5,5,"Yes, use my data",,2,TRUE
-14728127,29,Female,0.13,-0.2,-0.17,0.02,7,2,1,"Yes, use my data",,2,TRUE
-14778563,29,female,0.13,-0.03,0.05,0.07,6,2,1,"Yes, use my data",,3,TRUE
-15397527,28,male,-0.53,-0.57,-0.5,0.77,7,6,4,"Yes, use my data",,6,TRUE
-20982844,57,male,-0.63,-0.1,0.01,0.13,7,2,2,"Yes, use my data",,2,TRUE
-21378310,39,Male,-0.57,-0.6,-0.6,0,7,2,1,"Yes, use my data",,2,TRUE
-21890092,50,Female,0.2,-0.23,-0.13,0.12,7,2,1,"Yes, use my data",,2,TRUE
-22764964,43,female,0.27,-0.03,0.01,0.05,3,2,1,"Yes, use my data",,3,TRUE
-25200793,41,m,-0.03,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-26976226,19,female,-0.33,-0.6,0,0.92,7,6,6,"Yes, use my data",,1,TRUE
-28516307,51,Male,-0.1,-0.9,-0.5,0.88,7,6,6,"Yes, use my data",,2,TRUE
-28751330,32,Male,-0.73,-0.8,-0.8,0.48,7,5,2,"Yes, use my data",,3,TRUE
-35152324,50,female,-0.13,-0.4,-0.04,0.63,7,3,3,"Yes, use my data",,4,TRUE
-35944137,21,male,-0.87,-0.73,0.17,0.87,7,6,6,"Yes, use my data",,2,TRUE
-39270211,52,male,-0.8,-0.4,0,0.82,3,3,2,"Yes, use my data",,2,TRUE
-41889064,24,Male,-0.97,-0.93,-0.93,0,7,4,3,"Yes, use my data",,2,TRUE
-42944478,30,Male,-0.73,-0.8,-0.89,0.4,7,4,1,"Yes, use my data",,4,TRUE
-43454799,33,female,-0.8,-0.4,-0.33,0.08,NA,3,2,"No, exclude my data (please specify why):",Answers made during the first part were mostly influnced by the real life pictures. Answers during the second part I attempted very much to base only on the paintings. The image speed was difficult for me. ,2,FALSE
-44041616,39,female,-0.17,-0.17,-0.17,0,7,1,1,"Yes, use my data",,1,TRUE
-46229633,24,Male,0,-0.03,0.06,0.1,5,2,2,"Yes, use my data",,2,TRUE
-50018756,24,female,-0.73,-0.03,-0.05,0.08,5,2,6,"Yes, use my data",,3,TRUE
-51351075,47,Male,-0.23,-0.1,-0.05,0.05,7,2,1,"Yes, use my data",,3,TRUE
-52924881,53,female,0.03,-0.63,0.2,0.83,7,6,7,"Yes, use my data",,7,TRUE
-53126276,34,f,-0.67,-0.93,-0.95,0.48,6,6,6,"Yes, use my data",,5,TRUE
-55212494,19,Male,0.03,-0.07,0,0.07,7,2,1,"Yes, use my data",,2,TRUE
-59625716,18,Female,0.1,-0.23,-0.12,0.28,7,4,3,"Yes, use my data",,2,TRUE
+10805941,48,Female,0.03,0,0,0,6,1,1,"No, exclude my data (please specify why):","The images appeared so quickly that it wasn't possible to make any judgement onthe images, especically the painitngs. The black/grey image after the two images were shown was unpleasant and distractig.",1,TRUE
+13788805,51,f,0.07,0.07,0.07,0.08,7,2,1,"Yes, use my data",,3,TRUE
+14264635,32,male,0.3,0.5,0.26,0.45,6,5,5,"Yes, use my data",,2,TRUE
+14728127,29,Female,-0.13,0.2,0.17,0.02,7,2,1,"Yes, use my data",,2,TRUE
+14778563,29,female,-0.13,0.03,-0.05,0.07,6,2,1,"Yes, use my data",,3,TRUE
+15397527,28,male,0.53,0.57,0.5,0.77,7,6,4,"Yes, use my data",,6,TRUE
+20982844,57,male,0.63,0.1,-0.01,0.13,7,2,2,"Yes, use my data",,2,TRUE
+21378310,39,Male,0.57,0.6,0.6,0,7,2,1,"Yes, use my data",,2,TRUE
+21890092,50,Female,-0.2,0.23,0.13,0.12,7,2,1,"Yes, use my data",,2,TRUE
+22764964,43,female,-0.27,0.03,-0.01,0.05,3,2,1,"Yes, use my data",,3,TRUE
+25200793,41,m,0.03,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+26976226,19,female,0.33,0.6,0,0.92,7,6,6,"Yes, use my data",,1,TRUE
+28516307,51,Male,0.1,0.9,0.5,0.88,7,6,6,"Yes, use my data",,2,TRUE
+28751330,32,Male,0.73,0.8,0.8,0.48,7,5,2,"Yes, use my data",,3,TRUE
+35152324,50,female,0.13,0.4,0.04,0.63,7,3,3,"Yes, use my data",,4,TRUE
+35944137,21,male,0.87,0.73,-0.17,0.87,7,6,6,"Yes, use my data",,2,TRUE
+39270211,52,male,0.8,0.4,0,0.82,3,3,2,"Yes, use my data",,2,TRUE
+41889064,24,Male,0.97,0.93,0.93,0,7,4,3,"Yes, use my data",,2,TRUE
+42944478,30,Male,0.73,0.8,0.89,0.4,7,4,1,"Yes, use my data",,4,TRUE
+43454799,33,female,0.8,0.4,0.33,0.08,NA,3,2,"No, exclude my data (please specify why):",Answers made during the first part were mostly influnced by the real life pictures. Answers during the second part I attempted very much to base only on the paintings. The image speed was difficult for me. ,2,FALSE
+44041616,39,female,0.17,0.17,0.17,0,7,1,1,"Yes, use my data",,1,TRUE
+46229633,24,Male,0,0.03,-0.06,0.1,5,2,2,"Yes, use my data",,2,TRUE
+50018756,24,female,0.73,0.03,0.05,0.08,5,2,6,"Yes, use my data",,3,TRUE
+51351075,47,Male,0.23,0.1,0.05,0.05,7,2,1,"Yes, use my data",,3,TRUE
+52924881,53,female,-0.03,0.63,-0.2,0.83,7,6,7,"Yes, use my data",,7,TRUE
+53126276,34,f,0.67,0.93,0.95,0.48,6,6,6,"Yes, use my data",,5,TRUE
+55212494,19,Male,-0.03,0.07,0,0.07,7,2,1,"Yes, use my data",,2,TRUE
+59625716,18,Female,-0.1,0.23,0.12,0.28,7,4,3,"Yes, use my data",,2,TRUE
 59674939,22,Female,0,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
 60875287,35,M,0,NA,NA,NA,7,2,2,"Yes, use my data",,2,FALSE
-61259196,43,Male,-0.47,-0.43,0.1,0.48,5,4,3,"Yes, use my data",,2,TRUE
-61801502,28,female,-0.57,-0.73,-0.5,0.87,7,7,1,"Yes, use my data",,7,TRUE
-62542558,28,Male,-0.03,-0.17,0.09,0.3,7,3,3,"Yes, use my data",,3,TRUE
-63335408,27,Agender,-0.83,-0.33,-0.11,0.25,7,4,3,"Yes, use my data",,5,TRUE
+61259196,43,Male,0.47,0.43,-0.1,0.48,5,4,3,"Yes, use my data",,2,TRUE
+61801502,28,female,0.57,0.73,0.5,0.87,7,7,1,"Yes, use my data",,7,TRUE
+62542558,28,Male,0.03,0.17,-0.09,0.3,7,3,3,"Yes, use my data",,3,TRUE
+63335408,27,Agender,0.83,0.33,0.11,0.25,7,4,3,"Yes, use my data",,5,TRUE
 65768348,52,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-65902677,34,female,-0.13,0.2,0.08,0.22,6,3,2,"Yes, use my data",,6,TRUE
+65902677,34,female,0.13,-0.2,-0.08,0.22,6,3,2,"Yes, use my data",,6,TRUE
 67840148,22,Female,0,0,0,0.02,7,1,1,"Yes, use my data",,1,TRUE
-68090154,59,Female,-0.57,-0.37,-0.34,0.05,3,2,1,"Yes, use my data",,2,TRUE
-68993172,18 ,Male,-0.1,-0.1,0,0.1,7,2,1,"Yes, use my data",,2,TRUE
-76153849,18,Male,-0.7,-0.73,-0.73,0.12,6,4,2,"Yes, use my data",,2,TRUE
-78011892,27,male,0,-0.13,0.17,0.35,5,4,5,"Yes, use my data",,4,TRUE
-79039533,20,male,0.07,-0.67,1,0.97,6,6,3,"Yes, use my data",,6,TRUE
-80083886,51,f,-0.83,-0.9,-0.5,0.93,7,6,6,"Yes, use my data",,2,TRUE
-80364900,50,female,-0.1,-0.63,-0.41,0.3,1,4,4,"No, exclude my data (please specify why):",i could see the real life pictures but the paintings were just pixels if this was how they were meant to be then use the data if not dont,2,TRUE
-81381063,42,female,-0.8,-0.13,-0.12,0.55,6,2,5,"Yes, use my data",,4,TRUE
-84530807,39,male,-0.03,-0.07,NA,0.98,2,3,2,"Yes, use my data",,2,TRUE
-85949621,27,Male,0.13,NA,NA,NA,7,2,1,"No, exclude my data (please specify why):","No paintings displayed at any point, there were simply black and white random images.",2,FALSE
-88137704,50,FEMALE,-0.63,-0.5,NA,0.98,7,6,6,"Yes, use my data",,5,TRUE
-88827637,63,Male,-0.03,0.03,0.03,0.03,6,2,1,"Yes, use my data",,2,TRUE
-91440333,34,female,-0.23,-0.2,-0.17,0.07,7,2,1,"Yes, use my data",,4,TRUE
-91454182,26,Male,-0.4,-0.53,-0.25,0.57,7,6,5,"Yes, use my data",,3,TRUE
+68090154,59,Female,0.57,0.37,0.34,0.05,3,2,1,"Yes, use my data",,2,TRUE
+68993172,18 ,Male,0.1,0.1,0,0.1,7,2,1,"Yes, use my data",,2,TRUE
+76153849,18,Male,0.7,0.73,0.73,0.12,6,4,2,"Yes, use my data",,2,TRUE
+78011892,27,male,0,0.13,-0.17,0.35,5,4,5,"Yes, use my data",,4,TRUE
+79039533,20,male,-0.07,0.67,-1,0.97,6,6,3,"Yes, use my data",,6,TRUE
+80083886,51,f,0.83,0.9,0.5,0.93,7,6,6,"Yes, use my data",,2,TRUE
+80364900,50,female,0.1,0.63,0.41,0.3,1,4,4,"No, exclude my data (please specify why):",i could see the real life pictures but the paintings were just pixels if this was how they were meant to be then use the data if not dont,2,TRUE
+81381063,42,female,0.8,0.13,0.12,0.55,6,2,5,"Yes, use my data",,4,TRUE
+84530807,39,male,0.03,0.07,NA,0.98,2,3,2,"Yes, use my data",,2,TRUE
+85949621,27,Male,-0.13,NA,NA,NA,7,2,1,"No, exclude my data (please specify why):","No paintings displayed at any point, there were simply black and white random images.",2,FALSE
+88137704,50,FEMALE,0.63,0.5,NA,0.98,7,6,6,"Yes, use my data",,5,TRUE
+88827637,63,Male,0.03,-0.03,-0.03,0.03,6,2,1,"Yes, use my data",,2,TRUE
+91440333,34,female,0.23,0.2,0.17,0.07,7,2,1,"Yes, use my data",,4,TRUE
+91454182,26,Male,0.4,0.53,0.25,0.57,7,6,5,"Yes, use my data",,3,TRUE
 93940251,40,Female,0,0,0,0,4,1,1,"No, exclude my data (please specify why):","My test didn't work properly. I only saw the second picture for a fraction of a second before I got a white and black fuzzy screen, so I was unable to evaluate the second picture. This happened on both parts of the test and as such, my data will not be useful.",1,TRUE
-101239836,36,female,-0.17,-0.23,-0.12,0.12,7,3,2,"Yes, use my data",,3,TRUE
-101590179,55,female,-0.87,-0.73,-0.73,0,2,1,1,"Yes, use my data",,1,TRUE
-101836780,36,Male,-0.87,0.17,0.17,0,7,2,2,"No, exclude my data (please specify why):","The paintings that were displayed after the pictures looked the same - a pattern of black and white pixels. I think probably the paintings weren't loaded properly, not even once. All the paintings displayed throughout the study was the same black and white pixel pattern.",2,TRUE
-107619858,23,female,0.03,-0.13,0.24,0.35,7,3,2,"Yes, use my data",,3,TRUE
-115650521,31,female,0.1,-0.13,-0.13,0,7,1,1,"Yes, use my data",,2,TRUE
-118919930,38,Male,0,-0.2,0.24,0.42,5,4,3,"Yes, use my data",,2,TRUE
-121240443,20,male,-0.47,-0.17,-0.11,0.05,4,5,5,"Yes, use my data",,5,TRUE
+101239836,36,female,0.17,0.23,0.12,0.12,7,3,2,"Yes, use my data",,3,TRUE
+101590179,55,female,0.87,0.73,0.73,0,2,1,1,"Yes, use my data",,1,TRUE
+101836780,36,Male,0.87,-0.17,-0.17,0,7,2,2,"No, exclude my data (please specify why):","The paintings that were displayed after the pictures looked the same - a pattern of black and white pixels. I think probably the paintings weren't loaded properly, not even once. All the paintings displayed throughout the study was the same black and white pixel pattern.",2,TRUE
+107619858,23,female,-0.03,0.13,-0.24,0.35,7,3,2,"Yes, use my data",,3,TRUE
+115650521,31,female,-0.1,0.13,0.13,0,7,1,1,"Yes, use my data",,2,TRUE
+118919930,38,Male,0,0.2,-0.24,0.42,5,4,3,"Yes, use my data",,2,TRUE
+121240443,20,male,0.47,0.17,0.11,0.05,4,5,5,"Yes, use my data",,5,TRUE
 124435026,32,male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-133777865,54,male,-0.7,-0.17,-0.03,0.22,3,3,3,"Yes, use my data",,5,TRUE
-134015798,37,Female,NA,-0.3,-0.06,0.52,7,5,3,"Yes, use my data",,3,FALSE
-134459794,47,female,-0.03,-0.1,-0.1,0,7,1,1,"Yes, use my data",,2,TRUE
-136995162,39,male,-0.73,-0.03,0.21,0.2,6,3,6,"Yes, use my data",,3,TRUE
-144535166,31,Male,0.13,-0.03,-0.05,0.02,7,2,1,"Yes, use my data",,2,TRUE
-145645844,19,female,-0.07,-0.03,0.12,0.18,7,4,2,"Yes, use my data",,6,TRUE
-149002102,63,female,0.03,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-150007497,38,female,0,-0.17,-0.12,0.05,7,2,1,"Yes, use my data",,3,TRUE
-151559558,29,Female,-0.37,-0.47,-0.07,0.52,7,5,4,"Yes, use my data",,5,TRUE
-153154931,34,f,-0.73,-0.83,-0.83,0.02,5,2,1,"Yes, use my data",,3,TRUE
-156713829,47,Male,0.07,-0.17,-0.13,0.03,7,2,1,"Yes, use my data",,2,TRUE
+133777865,54,male,0.7,0.17,0.03,0.22,3,3,3,"Yes, use my data",,5,TRUE
+134015798,37,Female,NA,0.3,0.06,0.52,7,5,3,"Yes, use my data",,3,FALSE
+134459794,47,female,0.03,0.1,0.1,0,7,1,1,"Yes, use my data",,2,TRUE
+136995162,39,male,0.73,0.03,-0.21,0.2,6,3,6,"Yes, use my data",,3,TRUE
+144535166,31,Male,-0.13,0.03,0.05,0.02,7,2,1,"Yes, use my data",,2,TRUE
+145645844,19,female,0.07,0.03,-0.12,0.18,7,4,2,"Yes, use my data",,6,TRUE
+149002102,63,female,-0.03,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+150007497,38,female,0,0.17,0.12,0.05,7,2,1,"Yes, use my data",,3,TRUE
+151559558,29,Female,0.37,0.47,0.07,0.52,7,5,4,"Yes, use my data",,5,TRUE
+153154931,34,f,0.73,0.83,0.83,0.02,5,2,1,"Yes, use my data",,3,TRUE
+156713829,47,Male,-0.07,0.17,0.13,0.03,7,2,1,"Yes, use my data",,2,TRUE
 157903390,32,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-161180637,21,female,-0.73,-0.07,-0.02,0.23,7,4,2,"Yes, use my data",,5,TRUE
-168180141,27,Female,-0.03,-0.03,0.06,0.12,7,2,1,"Yes, use my data",,3,TRUE
-169689902,25,Male,-0.87,-0.7,-0.5,0.47,7,6,6,"Yes, use my data",,5,TRUE
-170237285,45,Male,-0.13,-0.13,-0.09,0.05,7,2,1,"Yes, use my data",,5,TRUE
+161180637,21,female,0.73,0.07,0.02,0.23,7,4,2,"Yes, use my data",,5,TRUE
+168180141,27,Female,0.03,0.03,-0.06,0.12,7,2,1,"Yes, use my data",,3,TRUE
+169689902,25,Male,0.87,0.7,0.5,0.47,7,6,6,"Yes, use my data",,5,TRUE
+170237285,45,Male,0.13,0.13,0.09,0.05,7,2,1,"Yes, use my data",,5,TRUE
 171053919,41,Female,0,0,0,0,7,1,7,"Yes, use my data",,1,TRUE
-172480377,38,Female,-0.07,NA,NA,NA,7,2,1,"No, exclude my data (please specify why):",I don't think the .exe was working properly.,1,FALSE
+172480377,38,Female,0.07,NA,NA,NA,7,2,1,"No, exclude my data (please specify why):",I don't think the .exe was working properly.,1,FALSE
 173195330,32,male ,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-173604659,28  ,Female,-0.1,-0.5,-0.28,0.38,7,5,2,"Yes, use my data",,3,TRUE
-178900360,22,female,-0.17,-0.47,-0.36,0.18,7,3,2,"Yes, use my data",,2,TRUE
-179050802,43,male,-0.07,0.1,0.1,0,7,1,1,"Yes, use my data",,1,TRUE
+173604659,28  ,Female,0.1,0.5,0.28,0.38,7,5,2,"Yes, use my data",,3,TRUE
+178900360,22,female,0.17,0.47,0.36,0.18,7,3,2,"Yes, use my data",,2,TRUE
+179050802,43,male,0.07,-0.1,-0.1,0,7,1,1,"Yes, use my data",,1,TRUE
 179832241,23,Female,0,0,0,0.2,7,3,3,"Yes, use my data",,1,TRUE
-181865586,18,Male,-0.63,-0.77,-0.77,0.37,7,3,5,"Yes, use my data",,5,TRUE
-182270409,39,male,0.03,0,0,0,7,1,1,"No, exclude my data (please specify why):",there were no paintings just black and whte dots,1,TRUE
-185143784,26,Female,-0.17,0.13,0.13,0,7,1,1,"Yes, use my data",,2,TRUE
-187304078,21,Female,0,-0.4,-0.23,0.45,7,2,1,"Yes, use my data",,3,TRUE
-190080177,35,male,0,-0.07,0,0.05,7,2,2,"Yes, use my data",,2,TRUE
-193363352,32,Female,-0.1,-0.1,-0.04,0.07,5,2,1,"Yes, use my data",,2,TRUE
-198618418,40,Male,-0.33,-0.23,-0.13,0.13,7,2,2,"Yes, use my data",,2,TRUE
-202158371,32,FEMALE,-0.83,-0.83,-1,0.93,4,4,4,"Yes, use my data",,4,TRUE
-202902210,21,Male,-0.13,-0.23,0,0.27,7,4,1,"Yes, use my data",,4,TRUE
-203399137,32,m,-0.67,-0.33,-0.21,0.13,7,6,7,"Yes, use my data",,1,TRUE
+181865586,18,Male,0.63,0.77,0.77,0.37,7,3,5,"Yes, use my data",,5,TRUE
+182270409,39,male,-0.03,0,0,0,7,1,1,"No, exclude my data (please specify why):",there were no paintings just black and whte dots,1,TRUE
+185143784,26,Female,0.17,-0.13,-0.13,0,7,1,1,"Yes, use my data",,2,TRUE
+187304078,21,Female,0,0.4,0.23,0.45,7,2,1,"Yes, use my data",,3,TRUE
+190080177,35,male,0,0.07,0,0.05,7,2,2,"Yes, use my data",,2,TRUE
+193363352,32,Female,0.1,0.1,0.04,0.07,5,2,1,"Yes, use my data",,2,TRUE
+198618418,40,Male,0.33,0.23,0.13,0.13,7,2,2,"Yes, use my data",,2,TRUE
+202158371,32,FEMALE,0.83,0.83,1,0.93,4,4,4,"Yes, use my data",,4,TRUE
+202902210,21,Male,0.13,0.23,0,0.27,7,4,1,"Yes, use my data",,4,TRUE
+203399137,32,m,0.67,0.33,0.21,0.13,7,6,7,"Yes, use my data",,1,TRUE
 205571831,54,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-206333542,50,Female,-0.37,0.1,0.32,0.42,7,5,4,"Yes, use my data",,3,TRUE
-207341466,23,F,-0.03,-0.33,-0.09,0.48,7,5,2,"No, exclude my data (please specify why):",I was tired and took slightly longer than I would normally have eond so in responding. ,5,TRUE
-211933365,30,Female,-0.3,-0.33,-0.27,0.52,7,4,3,"Yes, use my data",,4,TRUE
-213984031,21,male,-0.47,-0.33,-0.4,0.63,5,5,7,"Yes, use my data",,6,TRUE
-214091782,20,Male,-0.77,-0.57,-0.58,0.18,4,4,4,"Yes, use my data",,2,TRUE
-221319752,27,Male,0.23,-0.1,-0.1,0,7,1,1,"Yes, use my data",,2,TRUE
-223125515,27,Male,-0.1,-0.1,-0.05,0.03,7,2,1,"Yes, use my data",,2,TRUE
+206333542,50,Female,0.37,-0.1,-0.32,0.42,7,5,4,"Yes, use my data",,3,TRUE
+207341466,23,F,0.03,0.33,0.09,0.48,7,5,2,"No, exclude my data (please specify why):",I was tired and took slightly longer than I would normally have eond so in responding. ,5,TRUE
+211933365,30,Female,0.3,0.33,0.27,0.52,7,4,3,"Yes, use my data",,4,TRUE
+213984031,21,male,0.47,0.33,0.4,0.63,5,5,7,"Yes, use my data",,6,TRUE
+214091782,20,Male,0.77,0.57,0.58,0.18,4,4,4,"Yes, use my data",,2,TRUE
+221319752,27,Male,-0.23,0.1,0.1,0,7,1,1,"Yes, use my data",,2,TRUE
+223125515,27,Male,0.1,0.1,0.05,0.03,7,2,1,"Yes, use my data",,2,TRUE
 224764451,39,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","I find all the paintings completely ugly. I do not understand this experiment. Is the average painting a Van Gogh, or what? This is ugly stripes in ugly colors on an ugly background. All completely below average to me.",1,TRUE
-229354629,38,female,0.1,-0.03,-0.02,0.03,7,2,1,"Yes, use my data",,2,TRUE
+229354629,38,female,-0.1,0.03,0.02,0.03,7,2,1,"Yes, use my data",,2,TRUE
 229366395,24,male,0,0,0,0,6,1,1,"No, exclude my data (please specify why):",I did not see a painting desplayed only the pictures before it and the painting was displayed as black and white blocks.,1,TRUE
-229679013,40,female,-0.73,-0.43,0.06,0.48,7,4,2,"Yes, use my data",,3,TRUE
-235220356,19,male,-0.5,-0.3,-0.02,0.42,6,5,4,"Yes, use my data",,5,TRUE
-238880482,49,Female,-0.87,NA,NA,NA,6,5,4,"Yes, use my data",,4,FALSE
-240483984,18,female,-0.7,-0.7,NA,1,6,6,6,"Yes, use my data",,6,TRUE
-240806961,27,MALE,-0.4,-0.1,-0.2,0.75,4,4,3,"Yes, use my data",,2,TRUE
-242901184,28,Female,-0.77,-0.57,-1,0.97,6,6,6,"Yes, use my data",,4,TRUE
-244458478,21,female,-0.5,-0.53,0,0.97,1,5,1,"Yes, use my data",,4,TRUE
-244489507,22,female,0,-0.2,-0.17,0.18,7,2,2,"Yes, use my data",,2,TRUE
+229679013,40,female,0.73,0.43,-0.06,0.48,7,4,2,"Yes, use my data",,3,TRUE
+235220356,19,male,0.5,0.3,0.02,0.42,6,5,4,"Yes, use my data",,5,TRUE
+238880482,49,Female,0.87,NA,NA,NA,6,5,4,"Yes, use my data",,4,FALSE
+240483984,18,female,0.7,0.7,NA,1,6,6,6,"Yes, use my data",,6,TRUE
+240806961,27,MALE,0.4,0.1,0.2,0.75,4,4,3,"Yes, use my data",,2,TRUE
+242901184,28,Female,0.77,0.57,1,0.97,6,6,6,"Yes, use my data",,4,TRUE
+244458478,21,female,0.5,0.53,0,0.97,1,5,1,"Yes, use my data",,4,TRUE
+244489507,22,female,0,0.2,0.17,0.18,7,2,2,"Yes, use my data",,2,TRUE
 246714095,51,Female,0,NA,NA,NA,4,1,1,"No, exclude my data (please specify why):","I'm not sure my data will be of much use in this study - I basically dislike abstract images/paintings with clashing colours in a modern art format and therefore any pictures like that I saw (I presume those are the pictures referred to rather than the black and white pixellated screen) were just dismissed as unpleasant.  I'm fairly sure I'd have dismissed them all as unpleasant anyway, but being aware that there were other images that may or may not influence my opinion probably absolutely guaranteed that my opinion would NOT be influenced as I have a tendency to resist outside influence like that.",1,FALSE
-254304666,38,female ,-0.4,-0.33,-0.05,0.57,7,6,5,"Yes, use my data",,6,TRUE
-256370170,20,female,-0.1,-0.23,0.31,0.47,7,4,3,"Yes, use my data",,2,TRUE
+254304666,38,female ,0.4,0.33,0.05,0.57,7,6,5,"Yes, use my data",,6,TRUE
+256370170,20,female,0.1,0.23,-0.31,0.47,7,4,3,"Yes, use my data",,2,TRUE
 258819137,39,Female,NA,0,0,0.2,7,2,1,"Yes, use my data",,2,FALSE
 259414919,28,Female,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-263543853,25,Male,0.2,0,0.33,0.32,7,3,2,"Yes, use my data",,2,TRUE
-263862381,40,male,0.1,-0.2,-0.04,0.32,7,3,1,"Yes, use my data",,5,TRUE
+263543853,25,Male,-0.2,0,-0.33,0.32,7,3,2,"Yes, use my data",,2,TRUE
+263862381,40,male,-0.1,0.2,0.04,0.32,7,3,1,"Yes, use my data",,5,TRUE
 266416097,40,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-268732042,25,female,-0.03,0.03,0.01,0.02,7,1,1,"Yes, use my data",,2,TRUE
-268889768,29,woman,0.03,0.13,0.13,0,1,1,1,"No, exclude my data (please specify why):",No paintings populaed the screen at any time.  Only photos followed by a scarambled image of black and white.  Your program may need fixed.,1,TRUE
-270259321,31,Male,-0.13,-0.07,-0.04,0.13,7,3,2,"Yes, use my data",,4,TRUE
-272574749,31,Female,-0.53,0,0.2,0.17,7,3,1,"Yes, use my data",,2,TRUE
-273783824,37,female,-0.03,-0.37,0.01,0.65,7,5,2,"Yes, use my data",,5,TRUE
-276330115,50,Male,-0.73,-0.83,-0.82,0.05,6,2,1,"Yes, use my data",,2,TRUE
-276646504,30,male,-0.6,-0.73,-0.88,0.58,7,5,1,"Yes, use my data",,3,TRUE
-284084985,27,female,-0.73,-0.17,-0.09,0.07,7,2,5,"Yes, use my data",,4,TRUE
+268732042,25,female,0.03,-0.03,-0.01,0.02,7,1,1,"Yes, use my data",,2,TRUE
+268889768,29,woman,-0.03,-0.13,-0.13,0,1,1,1,"No, exclude my data (please specify why):",No paintings populaed the screen at any time.  Only photos followed by a scarambled image of black and white.  Your program may need fixed.,1,TRUE
+270259321,31,Male,0.13,0.07,0.04,0.13,7,3,2,"Yes, use my data",,4,TRUE
+272574749,31,Female,0.53,0,-0.2,0.17,7,3,1,"Yes, use my data",,2,TRUE
+273783824,37,female,0.03,0.37,-0.01,0.65,7,5,2,"Yes, use my data",,5,TRUE
+276330115,50,Male,0.73,0.83,0.82,0.05,6,2,1,"Yes, use my data",,2,TRUE
+276646504,30,male,0.6,0.73,0.88,0.58,7,5,1,"Yes, use my data",,3,TRUE
+284084985,27,female,0.73,0.17,0.09,0.07,7,2,5,"Yes, use my data",,4,TRUE
 293852761,47,male,0,0,0,0,7,1,1,"No, exclude my data (please specify why):",The speed of the survey gave me little time to see/acknwoledge the painting. I would have liked to have examined the painting and given myself time to formulate an opinion in cosideration.,1,TRUE
 299435067,61,Male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-302720478,25,male,-0.13,-0.3,0.17,0.52,6,3,3,"Yes, use my data",,2,TRUE
+302720478,25,male,0.13,0.3,-0.17,0.52,6,3,3,"Yes, use my data",,2,TRUE
 303100394,28,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-304929990,29,Female,-0.17,-0.33,-0.02,0.32,6,3,1,"Yes, use my data",,2,TRUE
-306727422,48,Female,-0.6,-0.83,-0.5,0.95,7,7,1,"No, exclude my data (please specify why):","I did not ever see a painting clearly enough to make any type of judgement about it.  I saw photo images because I recognized there were human subjects or the fact it was a photo was obvious.   I did not get to see any of the paintings long enough for me to even register mentally that I had seen a painting, let alone seen it well enough to form an opinion.  The program just went too fast for me, period.",7,TRUE
-312029553,46,Male,0.27,0.6,0.38,0.67,7,6,3,"Yes, use my data",,5,TRUE
+304929990,29,Female,0.17,0.33,0.02,0.32,6,3,1,"Yes, use my data",,2,TRUE
+306727422,48,Female,0.6,0.83,0.5,0.95,7,7,1,"No, exclude my data (please specify why):","I did not ever see a painting clearly enough to make any type of judgement about it.  I saw photo images because I recognized there were human subjects or the fact it was a photo was obvious.   I did not get to see any of the paintings long enough for me to even register mentally that I had seen a painting, let alone seen it well enough to form an opinion.  The program just went too fast for me, period.",7,TRUE
+312029553,46,Male,-0.27,-0.6,-0.38,0.67,7,6,3,"Yes, use my data",,5,TRUE
 321184028,41,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-324574186,21,Male,-0.1,-0.33,0.35,0.62,7,4,3,"Yes, use my data",,5,TRUE
-325816439,21,female,-0.5,-0.37,-0.36,0.27,NA,NA,NA,NA,NA,NA,FALSE
-327781808,31,Female,-0.6,-0.27,0.17,0.5,7,5,2,"Yes, use my data",,2,TRUE
-328096299,51,f,-0.93,-0.87,NA,1,7,7,1,"Yes, use my data",,7,TRUE
-328544281,21,male,-0.8,-0.9,NA,0.98,7,7,7,"Yes, use my data",,7,TRUE
-331844090,27,Male,-0.03,-0.2,-0.2,0,7,1,7,"Yes, use my data",,4,TRUE
-334808505,51,female,-0.4,NA,NA,NA,4,3,4,"Yes, use my data",,5,FALSE
-335342488,49,Female,0,-0.03,0,0.03,7,2,2,"Yes, use my data",,2,TRUE
+324574186,21,Male,0.1,0.33,-0.35,0.62,7,4,3,"Yes, use my data",,5,TRUE
+325816439,21,female,0.5,0.37,0.36,0.27,NA,NA,NA,NA,NA,NA,FALSE
+327781808,31,Female,0.6,0.27,-0.17,0.5,7,5,2,"Yes, use my data",,2,TRUE
+328096299,51,f,0.93,0.87,NA,1,7,7,1,"Yes, use my data",,7,TRUE
+328544281,21,male,0.8,0.9,NA,0.98,7,7,7,"Yes, use my data",,7,TRUE
+331844090,27,Male,0.03,0.2,0.2,0,7,1,7,"Yes, use my data",,4,TRUE
+334808505,51,female,0.4,NA,NA,NA,4,3,4,"Yes, use my data",,5,FALSE
+335342488,49,Female,0,0.03,0,0.03,7,2,2,"Yes, use my data",,2,TRUE
 336164387,45,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-336456457,30,female,0.07,-0.13,-0.12,0.07,7,2,2,"Yes, use my data",,2,TRUE
+336456457,30,female,-0.07,0.13,0.12,0.07,7,2,2,"Yes, use my data",,2,TRUE
 341393671,46,female,NA,NA,NA,NA,4,4,NA,NA,NA,NA,FALSE
-343371048,26,Male,-0.47,-0.17,-0.33,0.87,4,4,1,"Yes, use my data",,2,TRUE
-347375007,35,Male,0.23,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
-350698819,18,female,0.07,-0.07,0.02,0.35,4,3,3,"Yes, use my data",,5,TRUE
-351047144,24,Male,-0.17,-0.43,-0.34,0.22,7,4,3,"Yes, use my data",,4,TRUE
-352333029,37,male,-0.03,0.07,0.07,0,7,1,1,"Yes, use my data",,2,TRUE
-354072186,39,female,-0.83,-0.8,-0.5,0.73,7,5,4,"Yes, use my data",,4,TRUE
-355994924,27,female,-0.7,-0.77,-0.86,0.25,7,4,3,"Yes, use my data",,6,TRUE
+343371048,26,Male,0.47,0.17,0.33,0.87,4,4,1,"Yes, use my data",,2,TRUE
+347375007,35,Male,-0.23,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
+350698819,18,female,-0.07,0.07,-0.02,0.35,4,3,3,"Yes, use my data",,5,TRUE
+351047144,24,Male,0.17,0.43,0.34,0.22,7,4,3,"Yes, use my data",,4,TRUE
+352333029,37,male,0.03,-0.07,-0.07,0,7,1,1,"Yes, use my data",,2,TRUE
+354072186,39,female,0.83,0.8,0.5,0.73,7,5,4,"Yes, use my data",,4,TRUE
+355994924,27,female,0.7,0.77,0.86,0.25,7,4,3,"Yes, use my data",,6,TRUE
 360891929,38,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-362590961,27,Female,-0.73,-0.6,-0.51,0.1,7,3,1,"Yes, use my data",,2,TRUE
-363039574,19,Female,-0.2,0.1,0.4,0.28,7,3,1,"Yes, use my data",,5,TRUE
-365200288,20,male,-0.87,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-365327585,24,Male,-0.23,-0.1,-0.02,0.08,7,3,2,"Yes, use my data",,3,TRUE
+362590961,27,Female,0.73,0.6,0.51,0.1,7,3,1,"Yes, use my data",,2,TRUE
+363039574,19,Female,0.2,-0.1,-0.4,0.28,7,3,1,"Yes, use my data",,5,TRUE
+365200288,20,male,0.87,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+365327585,24,Male,0.23,0.1,0.02,0.08,7,3,2,"Yes, use my data",,3,TRUE
 365764444,29,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","I didnt see any paintings, just the same pixelated image after each photograph so Im not sure if mine worked properly. It may effect your results and give an incorrect outcome",1,TRUE
-371804331,20,female,-0.1,-0.3,-0.6,0.83,2,2,2,"No, exclude my data (please specify why):",,2,TRUE
+371804331,20,female,0.1,0.3,0.6,0.83,2,2,2,"No, exclude my data (please specify why):",,2,TRUE
 372079030,38,Female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-375637928,21,Male,-0.13,-0.03,0.06,0.12,7,2,1,"Yes, use my data",,3,TRUE
+375637928,21,Male,0.13,0.03,-0.06,0.12,7,2,1,"Yes, use my data",,3,TRUE
 379969016,46,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-383313835,26,Female,-0.63,-0.6,-0.5,0.8,7,7,6,"No, exclude my data (please specify why):","The paintings were going way to quickly, my eyes were only really able to see the picture before the painting. I did not get as good of a look at the paintings compared to the pictures before so could only really judge on the pictures ",1,TRUE
-383794676,19,male,-0.2,-0.53,-0.12,0.67,7,5,5,"Yes, use my data",,6,TRUE
-386743179,24,Male,0.07,-0.1,-0.09,0.02,7,2,1,"Yes, use my data",,6,TRUE
-389457417,39,male,-0.07,-0.2,-0.04,0.37,7,3,2,"Yes, use my data",,1,TRUE
-391771971,22,female,-0.63,-0.17,-0.17,0.05,6,2,2,"Yes, use my data",,3,TRUE
-392074517,33,female,0,0.07,0.04,0.07,7,2,2,"Yes, use my data",,2,TRUE
-394191388,59,Female,-0.47,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-402720245,30,Female,0,0,0.1,0.22,7,4,1,"Yes, use my data",,4,TRUE
-405682077,23,Male,0,-0.07,-0.06,0.02,7,2,1,"Yes, use my data",,2,TRUE
-405820804,45,female,-0.53,-0.43,-0.4,0.03,7,6,5,"Yes, use my data",,6,TRUE
-409579681,44,Female,-0.63,-0.8,NA,0.98,3,5,1,"Yes, use my data",,2,TRUE
-410769485,20,Female,-0.1,0,0.16,0.17,7,3,1,"Yes, use my data",,3,TRUE
-412274892,37,female,-0.67,-0.67,-0.67,0.87,5,4,4,"Yes, use my data",,4,TRUE
-413385331,25,Female,-0.77,NA,NA,NA,5,5,4,"Yes, use my data",,2,FALSE
-413698088,19,male,0,-0.03,NA,0.95,7,1,1,"No, exclude my data (please specify why):","While I have completed fast paced research before with relative ease, the paintings were not up for long enough for to register at all. I think the static placeholder image distracts the mind too much. that could just be me though",1,TRUE
-414168999,27,female,-0.53,-0.8,NA,1,7,6,6,"Yes, use my data",,4,TRUE
-419194294,35,male,0,-0.13,0.13,0.87,6,7,7,"Yes, use my data",,1,TRUE
-421808539,29,female,-0.8,-0.97,-1,0.15,3,3,3,"Yes, use my data",,2,TRUE
-428694346,21,male,0.03,-0.03,-0.03,0.05,7,1,2,"No, exclude my data (please specify why):","I was never shown any paintings, I imagine this is part of the study. Instead I was shown the same pixelated image. I initially thought there was a glitch and tried to use D, K and spacebat throughout in an attempt to 'fix' the problem by selecting different answers.",1,TRUE
-431389013,19,Male,0.57,0.63,0.67,0.92,5,5,2,"Yes, use my data",,4,TRUE
+383313835,26,Female,0.63,0.6,0.5,0.8,7,7,6,"No, exclude my data (please specify why):","The paintings were going way to quickly, my eyes were only really able to see the picture before the painting. I did not get as good of a look at the paintings compared to the pictures before so could only really judge on the pictures ",1,TRUE
+383794676,19,male,0.2,0.53,0.12,0.67,7,5,5,"Yes, use my data",,6,TRUE
+386743179,24,Male,-0.07,0.1,0.09,0.02,7,2,1,"Yes, use my data",,6,TRUE
+389457417,39,male,0.07,0.2,0.04,0.37,7,3,2,"Yes, use my data",,1,TRUE
+391771971,22,female,0.63,0.17,0.17,0.05,6,2,2,"Yes, use my data",,3,TRUE
+392074517,33,female,0,-0.07,-0.04,0.07,7,2,2,"Yes, use my data",,2,TRUE
+394191388,59,Female,0.47,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+402720245,30,Female,0,0,-0.1,0.22,7,4,1,"Yes, use my data",,4,TRUE
+405682077,23,Male,0,0.07,0.06,0.02,7,2,1,"Yes, use my data",,2,TRUE
+405820804,45,female,0.53,0.43,0.4,0.03,7,6,5,"Yes, use my data",,6,TRUE
+409579681,44,Female,0.63,0.8,NA,0.98,3,5,1,"Yes, use my data",,2,TRUE
+410769485,20,Female,0.1,0,-0.16,0.17,7,3,1,"Yes, use my data",,3,TRUE
+412274892,37,female,0.67,0.67,0.67,0.87,5,4,4,"Yes, use my data",,4,TRUE
+413385331,25,Female,0.77,NA,NA,NA,5,5,4,"Yes, use my data",,2,FALSE
+413698088,19,male,0,0.03,NA,0.95,7,1,1,"No, exclude my data (please specify why):","While I have completed fast paced research before with relative ease, the paintings were not up for long enough for to register at all. I think the static placeholder image distracts the mind too much. that could just be me though",1,TRUE
+414168999,27,female,0.53,0.8,NA,1,7,6,6,"Yes, use my data",,4,TRUE
+419194294,35,male,0,0.13,-0.13,0.87,6,7,7,"Yes, use my data",,1,TRUE
+421808539,29,female,0.8,0.97,1,0.15,3,3,3,"Yes, use my data",,2,TRUE
+428694346,21,male,-0.03,0.03,0.03,0.05,7,1,2,"No, exclude my data (please specify why):","I was never shown any paintings, I imagine this is part of the study. Instead I was shown the same pixelated image. I initially thought there was a glitch and tried to use D, K and spacebat throughout in an attempt to 'fix' the problem by selecting different answers.",1,TRUE
+431389013,19,Male,-0.57,-0.63,-0.67,0.92,5,5,2,"Yes, use my data",,4,TRUE
 438458371,54,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-444841700,36,female,0.03,0.1,0.1,0,7,1,1,"Yes, use my data",,1,TRUE
-445559065,42,FEMALE,0,-0.27,-0.07,0.25,7,5,1,"Yes, use my data",,4,TRUE
-445981678,29,female,-0.2,-0.4,0.25,0.8,6,7,6,"Yes, use my data",,2,TRUE
-449282783,49,female,0.63,-0.8,NA,0.97,7,7,6,"Yes, use my data",,7,TRUE
-451795364,41,female,-0.33,-0.13,0.08,0.15,7,4,2,"Yes, use my data",,2,TRUE
-456211157,30,Male,-0.13,-0.37,-0.24,0.18,7,4,2,"Yes, use my data",,3,TRUE
-465192354,46,female,-0.1,-0.27,0.06,0.32,7,5,1,"Yes, use my data",,5,TRUE
+444841700,36,female,-0.03,-0.1,-0.1,0,7,1,1,"Yes, use my data",,1,TRUE
+445559065,42,FEMALE,0,0.27,0.07,0.25,7,5,1,"Yes, use my data",,4,TRUE
+445981678,29,female,0.2,0.4,-0.25,0.8,6,7,6,"Yes, use my data",,2,TRUE
+449282783,49,female,-0.63,0.8,NA,0.97,7,7,6,"Yes, use my data",,7,TRUE
+451795364,41,female,0.33,0.13,-0.08,0.15,7,4,2,"Yes, use my data",,2,TRUE
+456211157,30,Male,0.13,0.37,0.24,0.18,7,4,2,"Yes, use my data",,3,TRUE
+465192354,46,female,0.1,0.27,-0.06,0.32,7,5,1,"Yes, use my data",,5,TRUE
 465246862,47,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-470587717,28,FEMALE,-0.1,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
-472200928,39,female,0.03,-0.7,0,0.82,7,6,6,"Yes, use my data",,2,TRUE
-473097294,30,Male,-0.23,-0.27,-0.08,0.25,4,3,3,"Yes, use my data",,4,TRUE
-474005291,34,female,0.07,0.13,0.19,0.08,7,2,1,"Yes, use my data",,3,TRUE
-478250718,19,Male,-0.7,-0.43,-0.15,0.38,6,4,4,"Yes, use my data",,2,TRUE
-479317863,64,male,-0.23,0,0,0.02,7,2,1,"Yes, use my data",,2,TRUE
-480638985,30,female,-0.27,-0.63,-0.54,0.33,7,5,4,"Yes, use my data",,3,TRUE
-482502282,28,female,-0.57,-0.57,-0.51,0.67,6,5,6,"Yes, use my data",,6,TRUE
-484534075,29,Male,-0.17,-0.23,0.13,0.35,6,3,1,"Yes, use my data",,2,TRUE
-486257201,31,male,-0.1,-0.03,-0.06,0.07,7,2,2,"Yes, use my data",,2,TRUE
-489767949,31,Male,0,-0.07,0.12,0.23,7,3,1,"Yes, use my data",,2,TRUE
-491919221,31,male,-0.7,-0.6,-0.6,0,7,1,1,"Yes, use my data",,3,TRUE
-497780199,35,male,0.03,0.1,0.08,0.07,3,5,2,"Yes, use my data",,5,TRUE
-498867305,60,Female,-0.23,-0.47,0.5,0.95,4,4,4,"Yes, use my data",,4,TRUE
-503333808,23,Male,-0.87,-0.9,-0.93,0.07,2,2,1,"Yes, use my data",,2,TRUE
-503351129,40,female,0.63,-0.2,-0.02,0.25,7,2,2,"Yes, use my data",,2,TRUE
-504257496,34,Male,0.17,-0.27,0.01,0.62,6,4,2,"Yes, use my data",,4,TRUE
+470587717,28,FEMALE,0.1,-0.03,-0.03,0,7,1,1,"Yes, use my data",,1,TRUE
+472200928,39,female,-0.03,0.7,0,0.82,7,6,6,"Yes, use my data",,2,TRUE
+473097294,30,Male,0.23,0.27,0.08,0.25,4,3,3,"Yes, use my data",,4,TRUE
+474005291,34,female,-0.07,-0.13,-0.19,0.08,7,2,1,"Yes, use my data",,3,TRUE
+478250718,19,Male,0.7,0.43,0.15,0.38,6,4,4,"Yes, use my data",,2,TRUE
+479317863,64,male,0.23,0,0,0.02,7,2,1,"Yes, use my data",,2,TRUE
+480638985,30,female,0.27,0.63,0.54,0.33,7,5,4,"Yes, use my data",,3,TRUE
+482502282,28,female,0.57,0.57,0.51,0.67,6,5,6,"Yes, use my data",,6,TRUE
+484534075,29,Male,0.17,0.23,-0.13,0.35,6,3,1,"Yes, use my data",,2,TRUE
+486257201,31,male,0.1,0.03,0.06,0.07,7,2,2,"Yes, use my data",,2,TRUE
+489767949,31,Male,0,0.07,-0.12,0.23,7,3,1,"Yes, use my data",,2,TRUE
+491919221,31,male,0.7,0.6,0.6,0,7,1,1,"Yes, use my data",,3,TRUE
+497780199,35,male,-0.03,-0.1,-0.08,0.07,3,5,2,"Yes, use my data",,5,TRUE
+498867305,60,Female,0.23,0.47,-0.5,0.95,4,4,4,"Yes, use my data",,4,TRUE
+503333808,23,Male,0.87,0.9,0.93,0.07,2,2,1,"Yes, use my data",,2,TRUE
+503351129,40,female,-0.63,0.2,0.02,0.25,7,2,2,"Yes, use my data",,2,TRUE
+504257496,34,Male,-0.17,0.27,-0.01,0.62,6,4,2,"Yes, use my data",,4,TRUE
 505162654,27,FEMALE,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-506054133,47,Male,0.03,0.13,0.13,0,7,2,1,"Yes, use my data",,2,TRUE
-510795046,22,male,0,-0.1,-0.03,0.07,7,2,1,"No, exclude my data (please specify why):","I would say use the second half, however for the first half I was almost getting a basis on what to compare the paintings too, as I thought none of them were appealing but in the second half I based it on whether they were appealing relative to each other.",2,TRUE
-512550463,21,male ,-0.1,-0.1,-0.09,0.02,7,2,1,"Yes, use my data",,2,TRUE
-512611727,19,Male,-0.7,-0.23,-0.23,0.47,3,3,1,"Yes, use my data",,3,TRUE
-517293315,33,male,0.03,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-527301308,28,male,-0.83,-0.9,NA,0.98,7,6,7,"Yes, use my data",,5,TRUE
-527618037,47,Male,-0.1,-0.2,-0.21,0.1,7,2,1,"Yes, use my data",,6,TRUE
+506054133,47,Male,-0.03,-0.13,-0.13,0,7,2,1,"Yes, use my data",,2,TRUE
+510795046,22,male,0,0.1,0.03,0.07,7,2,1,"No, exclude my data (please specify why):","I would say use the second half, however for the first half I was almost getting a basis on what to compare the paintings too, as I thought none of them were appealing but in the second half I based it on whether they were appealing relative to each other.",2,TRUE
+512550463,21,male ,0.1,0.1,0.09,0.02,7,2,1,"Yes, use my data",,2,TRUE
+512611727,19,Male,0.7,0.23,0.23,0.47,3,3,1,"Yes, use my data",,3,TRUE
+517293315,33,male,-0.03,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+527301308,28,male,0.83,0.9,NA,0.98,7,6,7,"Yes, use my data",,5,TRUE
+527618037,47,Male,0.1,0.2,0.21,0.1,7,2,1,"Yes, use my data",,6,TRUE
 527767466,35,Female,0,0,0,0,6,1,1,"Yes, use my data",,1,TRUE
-529534103,22,female,-0.03,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
-530705107,26,Female,-0.07,-0.13,-0.1,0.2,7,2,2,"Yes, use my data",,3,TRUE
-531437207,19,female,-0.8,-0.73,-1,0.95,5,5,6,"Yes, use my data",,6,TRUE
-539439858,32,Male,-0.33,-0.2,0,0.18,7,3,2,"Yes, use my data",,3,TRUE
-540633250,21,Female,0,-0.5,-0.08,0.52,7,2,1,"Yes, use my data",,3,TRUE
-542372835,46,Female,-0.43,-0.57,-0.6,0.27,5,4,3,"Yes, use my data",,4,TRUE
-542530557,21,female,-0.07,-0.2,-0.17,0.03,6,2,1,"Yes, use my data",,2,TRUE
-544587117,36,female,-0.07,0.07,0.04,0.08,7,2,1,"Yes, use my data",,2,TRUE
-550698544,49,female,-0.6,-0.9,-0.75,0.87,6,5,2,"Yes, use my data",,6,TRUE
-551032787,24,male,-0.7,-0.7,-0.55,0.78,6,4,4,"Yes, use my data",,5,TRUE
+529534103,22,female,0.03,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
+530705107,26,Female,0.07,0.13,0.1,0.2,7,2,2,"Yes, use my data",,3,TRUE
+531437207,19,female,0.8,0.73,1,0.95,5,5,6,"Yes, use my data",,6,TRUE
+539439858,32,Male,0.33,0.2,0,0.18,7,3,2,"Yes, use my data",,3,TRUE
+540633250,21,Female,0,0.5,0.08,0.52,7,2,1,"Yes, use my data",,3,TRUE
+542372835,46,Female,0.43,0.57,0.6,0.27,5,4,3,"Yes, use my data",,4,TRUE
+542530557,21,female,0.07,0.2,0.17,0.03,6,2,1,"Yes, use my data",,2,TRUE
+544587117,36,female,0.07,-0.07,-0.04,0.08,7,2,1,"Yes, use my data",,2,TRUE
+550698544,49,female,0.6,0.9,0.75,0.87,6,5,2,"Yes, use my data",,6,TRUE
+551032787,24,male,0.7,0.7,0.55,0.78,6,4,4,"Yes, use my data",,5,TRUE
 554294865,35,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-558953516,21,female,-0.63,-0.9,-0.25,0.9,7,6,3,"Yes, use my data",,6,TRUE
+558953516,21,female,0.63,0.9,0.25,0.9,7,6,3,"Yes, use my data",,6,TRUE
 559200334,64,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","I did not get images after the paintings... in each trial, all I could see after each picture, was a different black and white pixellated pattern.  I did follow all instructions very carefully indeed.",1,TRUE
-559558041,20,Male,-0.47,-0.6,-0.56,0.1,7,4,5,"Yes, use my data",,2,TRUE
-562497132,24,Male,-0.1,0.03,0.38,0.25,7,2,1,"Yes, use my data",,2,TRUE
-562700758,41,Male,-0.87,-0.13,-0.04,0.1,7,5,5,"Yes, use my data",,5,TRUE
-565402374,41,female,0.17,-0.27,-0.15,0.32,7,3,1,"Yes, use my data",,2,TRUE
-565618261,26,Male,-0.83,-0.8,-0.59,0.75,7,6,3,"Yes, use my data",,6,TRUE
-570870348,26,female,-0.13,-0.1,0,0.15,7,3,2,"Yes, use my data",,2,TRUE
-576529618,29,female,-0.03,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
-577757899,33,male,-0.63,-0.63,-0.66,0.22,3,3,3,"Yes, use my data",,2,TRUE
-577758862,38,F,-0.17,-0.2,-0.05,0.22,7,4,1,"Yes, use my data",,2,TRUE
-580168797,44,Male,-0.73,-0.73,-0.56,0.38,4,3,5,"Yes, use my data",,4,TRUE
-580386458,25,Female,-0.13,-0.17,0.01,0.37,4,4,4,"Yes, use my data",,4,TRUE
-580932903,27,Female,0.07,-0.07,-0.06,0.03,7,6,2,"Yes, use my data",,2,TRUE
-582727002,50,f,-0.57,-0.37,-0.17,0.92,7,7,7,"Yes, use my data",,7,TRUE
-589257682,34,female,0,0.07,0.07,0,7,1,1,"Yes, use my data",,1,TRUE
-590813284,52,Male,-0.03,0.1,0.2,0.2,6,3,1,"Yes, use my data",,2,TRUE
-591922197,37,female,-0.67,-0.77,-0.77,0,1,1,1,"Yes, use my data",,1,TRUE
-593263598,26,Female,-0.17,0.13,0.28,0.15,7,4,1,"Yes, use my data",,4,TRUE
-594636730,31,female,0.07,0.03,0.07,0.12,7,2,2,"Yes, use my data",,2,TRUE
+559558041,20,Male,0.47,0.6,0.56,0.1,7,4,5,"Yes, use my data",,2,TRUE
+562497132,24,Male,0.1,-0.03,-0.38,0.25,7,2,1,"Yes, use my data",,2,TRUE
+562700758,41,Male,0.87,0.13,0.04,0.1,7,5,5,"Yes, use my data",,5,TRUE
+565402374,41,female,-0.17,0.27,0.15,0.32,7,3,1,"Yes, use my data",,2,TRUE
+565618261,26,Male,0.83,0.8,0.59,0.75,7,6,3,"Yes, use my data",,6,TRUE
+570870348,26,female,0.13,0.1,0,0.15,7,3,2,"Yes, use my data",,2,TRUE
+576529618,29,female,0.03,0,0,0,7,1,1,"Yes, use my data",,2,TRUE
+577757899,33,male,0.63,0.63,0.66,0.22,3,3,3,"Yes, use my data",,2,TRUE
+577758862,38,F,0.17,0.2,0.05,0.22,7,4,1,"Yes, use my data",,2,TRUE
+580168797,44,Male,0.73,0.73,0.56,0.38,4,3,5,"Yes, use my data",,4,TRUE
+580386458,25,Female,0.13,0.17,-0.01,0.37,4,4,4,"Yes, use my data",,4,TRUE
+580932903,27,Female,-0.07,0.07,0.06,0.03,7,6,2,"Yes, use my data",,2,TRUE
+582727002,50,f,0.57,0.37,0.17,0.92,7,7,7,"Yes, use my data",,7,TRUE
+589257682,34,female,0,-0.07,-0.07,0,7,1,1,"Yes, use my data",,1,TRUE
+590813284,52,Male,0.03,-0.1,-0.2,0.2,6,3,1,"Yes, use my data",,2,TRUE
+591922197,37,female,0.67,0.77,0.77,0,1,1,1,"Yes, use my data",,1,TRUE
+593263598,26,Female,0.17,-0.13,-0.28,0.15,7,4,1,"Yes, use my data",,4,TRUE
+594636730,31,female,-0.07,-0.03,-0.07,0.12,7,2,2,"Yes, use my data",,2,TRUE
 602548494,46,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-603431960,21,Male,0.07,0,0.39,0.42,7,4,2,"Yes, use my data",,4,TRUE
-611666838,32,female,-0.03,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-613037481,26,female,-0.17,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-617319702,25,Male,-0.7,-0.37,-0.34,0.13,7,3,2,"Yes, use my data",,2,TRUE
-618053587,55,male,-0.27,-0.4,-0.11,0.47,7,3,2,"No, exclude my data (please specify why):","Started second guessing the process. Sometimes it felt that I was not going on my gut. Often, I was getting annoyed at looking at the same black and white image over and over again and this goverened  my responses.",4,TRUE
-618473921,24,Female,0.07,-0.2,0.2,0.33,7,3,2,"Yes, use my data",,3,TRUE
+603431960,21,Male,-0.07,0,-0.39,0.42,7,4,2,"Yes, use my data",,4,TRUE
+611666838,32,female,0.03,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+613037481,26,female,0.17,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+617319702,25,Male,0.7,0.37,0.34,0.13,7,3,2,"Yes, use my data",,2,TRUE
+618053587,55,male,0.27,0.4,0.11,0.47,7,3,2,"No, exclude my data (please specify why):","Started second guessing the process. Sometimes it felt that I was not going on my gut. Often, I was getting annoyed at looking at the same black and white image over and over again and this goverened  my responses.",4,TRUE
+618473921,24,Female,-0.07,0.2,-0.2,0.33,7,3,2,"Yes, use my data",,3,TRUE
 619817464,34,Male,NA,NA,NA,NA,3,3,1,"Yes, use my data",,1,FALSE
 624776678,23,female,0,0,0,0.87,7,6,6,"No, exclude my data (please specify why):","Didnt think the study presented itself well, it was hard and i believe everyone would judge base on the image, is wasnt clear and from the picture to the painting. the images flicked way to fast for me to image the actual paintings themselves",2,TRUE
-625329770,53,Male,0.1,-0.23,-0.07,0.25,3,3,2,"Yes, use my data",,3,TRUE
-626117628,35,female,0.07,0,0,0,7,1,1,"No, exclude my data (please specify why):",i couldn't always see the full painting as it went so fast.,2,TRUE
+625329770,53,Male,-0.1,0.23,0.07,0.25,3,3,2,"Yes, use my data",,3,TRUE
+626117628,35,female,-0.07,0,0,0,7,1,1,"No, exclude my data (please specify why):",i couldn't always see the full painting as it went so fast.,2,TRUE
 631499240,24,male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-633351257,23,Male,-0.17,-0.17,0.05,0.37,7,4,4,"No, exclude my data (please specify why):","I really couldn't meaningfully differentiate between the paintings, because they all looked unlike anything in particular so I was always erring towards rating them all as unpleasant.  I ultimately started judging them based on how well they reflected the image that came before instead, as I was very confused about what I was looking at with the paintings that seemed to never change or really resemble anything.",5,TRUE
+633351257,23,Male,0.17,0.17,-0.05,0.37,7,4,4,"No, exclude my data (please specify why):","I really couldn't meaningfully differentiate between the paintings, because they all looked unlike anything in particular so I was always erring towards rating them all as unpleasant.  I ultimately started judging them based on how well they reflected the image that came before instead, as I was very confused about what I was looking at with the paintings that seemed to never change or really resemble anything.",5,TRUE
 637506975,47,Female,0,0,NA,0.95,3,1,1,"No, exclude my data (please specify why):","Because it was not working properly - the image flashed, then a painting flashed and then I was left looking at a blackand white image - this didn't work and was a total waste of my time and energy!",1,TRUE
-639900562,49,male,-0.93,-0.77,NA,0.95,3,5,1,"Yes, use my data",,5,TRUE
-640382841,25,Female,-0.07,0,0.21,0.27,7,4,1,"Yes, use my data",,4,TRUE
-641691918,23,male,0.03,-0.47,-0.25,0.6,3,6,3,"Yes, use my data",,5,TRUE
-649971045,30,Male,-0.03,-0.37,-0.33,0.9,4,3,3,"Yes, use my data",,3,TRUE
+639900562,49,male,0.93,0.77,NA,0.95,3,5,1,"Yes, use my data",,5,TRUE
+640382841,25,Female,0.07,0,-0.21,0.27,7,4,1,"Yes, use my data",,4,TRUE
+641691918,23,male,-0.03,0.47,0.25,0.6,3,6,3,"Yes, use my data",,5,TRUE
+649971045,30,Male,0.03,0.37,0.33,0.9,4,3,3,"Yes, use my data",,3,TRUE
 651366022,44,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","Whilst I saw all of the pictures none of the paintings appeared.  All I saw was a box with pixellated dots, and it was the same every time.  I did not like the dotty picture and so selected dislike and this was the same for all - hence I could not be influenced by what went before.",1,TRUE
-652253420,30,Female,-0.07,0,0,0,1,1,1,"Yes, use my data",,1,TRUE
-653157631,19,male,-0.67,-0.83,NA,1,7,7,6,"Yes, use my data",,7,TRUE
-659185310,31,male,0.37,0.57,NA,0.95,7,6,6,"Yes, use my data",,6,TRUE
-659802904,28,female,-0.7,-0.6,-0.42,0.83,7,6,5,"Yes, use my data",,3,TRUE
-663590307,30,female,-0.57,-0.37,-1,0.97,7,6,2,"Yes, use my data",,4,TRUE
-663722728,55,Female,-0.33,-0.43,0,0.27,7,2,2,"Yes, use my data",,4,TRUE
-670738183,44,female,0,0.07,0.07,0,7,1,1,"Yes, use my data",,1,TRUE
-673158967,20,Male,-0.1,-0.03,0.22,0.27,6,3,1,"Yes, use my data",,4,TRUE
-674354661,36,female,-0.13,-0.3,0,0.18,7,2,1,"Yes, use my data",,2,TRUE
+652253420,30,Female,0.07,0,0,0,1,1,1,"Yes, use my data",,1,TRUE
+653157631,19,male,0.67,0.83,NA,1,7,7,6,"Yes, use my data",,7,TRUE
+659185310,31,male,-0.37,-0.57,NA,0.95,7,6,6,"Yes, use my data",,6,TRUE
+659802904,28,female,0.7,0.6,0.42,0.83,7,6,5,"Yes, use my data",,3,TRUE
+663590307,30,female,0.57,0.37,1,0.97,7,6,2,"Yes, use my data",,4,TRUE
+663722728,55,Female,0.33,0.43,0,0.27,7,2,2,"Yes, use my data",,4,TRUE
+670738183,44,female,0,-0.07,-0.07,0,7,1,1,"Yes, use my data",,1,TRUE
+673158967,20,Male,0.1,0.03,-0.22,0.27,6,3,1,"Yes, use my data",,4,TRUE
+674354661,36,female,0.13,0.3,0,0.18,7,2,1,"Yes, use my data",,2,TRUE
 675361479,36,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
 684939008,47,Female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","All of the 'paintings' were a monochrome pixelated mess. It was unpleaseant so I just chose 'D' everytime because, regardless of the cute bunny/baby, nasty gun or neutral astonaut, I didn't like it. As it was unchanging (except for the preceeding images) I just pressed the left key.  If the picture was intentionally th esame, please use my data but I assumed that something had gone wrong with the pictures which would nullify my results.",1,TRUE
-685225112,25,female,0.03,-0.07,-0.07,0,7,1,1,"Yes, use my data",,1,TRUE
-685423578,30,Female,-0.7,-0.73,-0.72,0.15,7,3,1,"Yes, use my data",,5,TRUE
-689331768,53,female,-0.4,-0.53,-0.41,0.18,7,4,3,"Yes, use my data",,3,TRUE
-694368279,39,F,-0.2,0.07,0.18,0.15,7,2,2,"Yes, use my data",,3,TRUE
-697556235,31,Female,-0.27,-0.2,-0.16,0.05,7,2,1,"Yes, use my data",,5,TRUE
-698743276,25,Female,-0.07,-0.27,0.12,0.28,7,3,2,"Yes, use my data",,3,TRUE
-700296587,56,female,0.07,-0.5,-0.3,0.28,7,3,2,"Yes, use my data",,3,TRUE
+685225112,25,female,-0.03,0.07,0.07,0,7,1,1,"Yes, use my data",,1,TRUE
+685423578,30,Female,0.7,0.73,0.72,0.15,7,3,1,"Yes, use my data",,5,TRUE
+689331768,53,female,0.4,0.53,0.41,0.18,7,4,3,"Yes, use my data",,3,TRUE
+694368279,39,F,0.2,-0.07,-0.18,0.15,7,2,2,"Yes, use my data",,3,TRUE
+697556235,31,Female,0.27,0.2,0.16,0.05,7,2,1,"Yes, use my data",,5,TRUE
+698743276,25,Female,0.07,0.27,-0.12,0.28,7,3,2,"Yes, use my data",,3,TRUE
+700296587,56,female,-0.07,0.5,0.3,0.28,7,3,2,"Yes, use my data",,3,TRUE
 702090064,25,Female,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-702411223,34,Female,-0.17,-0.07,0.05,0.17,7,2,1,"Yes, use my data",,2,TRUE
-702752991,27,male,-0.4,-0.63,-0.64,0.22,7,3,2,"Yes, use my data",,2,TRUE
-706947568,22,Female,-0.7,-0.57,-0.32,0.7,5,4,2,"Yes, use my data",,3,TRUE
-707709361,30,Male,-0.23,0.03,0.07,0.03,7,2,1,"Yes, use my data",,2,TRUE
-711959696,45,female,-0.3,-0.03,-0.03,0.02,5,2,2,"No, exclude my data (please specify why):",I think there was some malfunction-  the images and pics just were shown v quicky- a lot of the time i didnt see the art,2,TRUE
-712739175,31,female,-0.07,-0.4,-0.41,0.03,2,3,2,"Yes, use my data",,4,TRUE
-718021052,29,female,-0.03,0.1,0.09,0.02,7,1,1,"Yes, use my data",,1,TRUE
-718587244,28,male ,-0.07,0,0,0.02,7,1,1,"No, exclude my data (please specify why):",The paintings didn't load correctly so I couldn't rate them effectively.,1,TRUE
+702411223,34,Female,0.17,0.07,-0.05,0.17,7,2,1,"Yes, use my data",,2,TRUE
+702752991,27,male,0.4,0.63,0.64,0.22,7,3,2,"Yes, use my data",,2,TRUE
+706947568,22,Female,0.7,0.57,0.32,0.7,5,4,2,"Yes, use my data",,3,TRUE
+707709361,30,Male,0.23,-0.03,-0.07,0.03,7,2,1,"Yes, use my data",,2,TRUE
+711959696,45,female,0.3,0.03,0.03,0.02,5,2,2,"No, exclude my data (please specify why):",I think there was some malfunction-  the images and pics just were shown v quicky- a lot of the time i didnt see the art,2,TRUE
+712739175,31,female,0.07,0.4,0.41,0.03,2,3,2,"Yes, use my data",,4,TRUE
+718021052,29,female,0.03,-0.1,-0.09,0.02,7,1,1,"Yes, use my data",,1,TRUE
+718587244,28,male ,0.07,0,0,0.02,7,1,1,"No, exclude my data (please specify why):",The paintings didn't load correctly so I couldn't rate them effectively.,1,TRUE
 719182058,37,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-723869894,40,male,-0.9,-0.93,NA,0.98,7,7,7,"Yes, use my data",,1,TRUE
-724120034,62,Male,-0.1,-0.07,0.15,0.23,7,3,3,"Yes, use my data",,4,TRUE
-724384632,25,Male,0.07,-0.13,-0.04,0.1,7,2,1,"Yes, use my data",,2,TRUE
-728740624,35,Male,-0.33,-0.37,0.15,0.55,6,5,4,"Yes, use my data",,6,TRUE
-729193027,25,male,-0.27,-0.37,-0.39,0.13,7,2,6,"Yes, use my data",,5,TRUE
-734143895,40,male,0.1,0,0.07,0.03,7,2,1,"Yes, use my data",,2,TRUE
-734893857,30,male,-0.8,-0.7,-0.83,0.83,6,6,6,"Yes, use my data",,6,TRUE
-737917623,52,male,-0.07,-0.03,-0.03,0,7,1,1,"Yes, use my data",,1,TRUE
-742682526,30,female,-0.3,-0.17,-0.14,0.27,4,4,2,"Yes, use my data",,2,TRUE
+723869894,40,male,0.9,0.93,NA,0.98,7,7,7,"Yes, use my data",,1,TRUE
+724120034,62,Male,0.1,0.07,-0.15,0.23,7,3,3,"Yes, use my data",,4,TRUE
+724384632,25,Male,-0.07,0.13,0.04,0.1,7,2,1,"Yes, use my data",,2,TRUE
+728740624,35,Male,0.33,0.37,-0.15,0.55,6,5,4,"Yes, use my data",,6,TRUE
+729193027,25,male,0.27,0.37,0.39,0.13,7,2,6,"Yes, use my data",,5,TRUE
+734143895,40,male,-0.1,0,-0.07,0.03,7,2,1,"Yes, use my data",,2,TRUE
+734893857,30,male,0.8,0.7,0.83,0.83,6,6,6,"Yes, use my data",,6,TRUE
+737917623,52,male,0.07,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
+742682526,30,female,0.3,0.17,0.14,0.27,4,4,2,"Yes, use my data",,2,TRUE
 744893120,64,FEMALE,0,0,0,0,7,1,1,"No, exclude my data (please specify why):",THIS IS THE SECOND SURVEY FOR YOU TODAY AND I'M CONCERNED BECAUSE THE SECOND IMAGES WERE ALWAYS JUST BLACK AND WHITE PIXELLATED PATTERNS.   I AM HAPPY TO DO THE ACTIVITIES BUT AM NOT SURE THAT THE SOFTWARE/SURVEY IS OPERATING CORRECTLY,1,TRUE
-745800901,28,male,0.03,0,0,0.03,7,1,1,"Yes, use my data",,1,TRUE
+745800901,28,male,-0.03,0,0,0.03,7,1,1,"Yes, use my data",,1,TRUE
 746598446,40,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","because none of the 'paintings' actually worked, each one showed up just as white pixels on a black background, no actual paintings to see ",1,TRUE
-747774911,46,Male,0.13,-0.63,-0.05,0.62,7,6,6,"Yes, use my data",,6,TRUE
-752576015,18,female,-0.73,-0.43,-0.38,0.77,4,5,6,"Yes, use my data",,5,TRUE
-755818443,38,female,-0.07,-0.03,0.29,0.25,7,3,1,"Yes, use my data",,2,TRUE
-761790772,23,female,-0.03,-0.77,NA,0.98,7,6,5,"Yes, use my data",,6,TRUE
-762328347,31,Male,-0.23,0.1,0.13,0.12,7,3,2,"Yes, use my data",,6,TRUE
+747774911,46,Male,-0.13,0.63,0.05,0.62,7,6,6,"Yes, use my data",,6,TRUE
+752576015,18,female,0.73,0.43,0.38,0.77,4,5,6,"Yes, use my data",,5,TRUE
+755818443,38,female,0.07,0.03,-0.29,0.25,7,3,1,"Yes, use my data",,2,TRUE
+761790772,23,female,0.03,0.77,NA,0.98,7,6,5,"Yes, use my data",,6,TRUE
+762328347,31,Male,0.23,-0.1,-0.13,0.12,7,3,2,"Yes, use my data",,6,TRUE
 762697877,26,Female,NA,NA,NA,NA,1,1,1,"No, exclude my data (please specify why):",The program did not work properly and most of the pictures were blank for me,1,FALSE
-769145415,34,Male,-0.1,-0.07,-0.6,0.88,6,6,2,"Yes, use my data",,2,TRUE
-770187176,20,FEMALE,-0.3,0.07,0.43,0.48,7,4,2,"Yes, use my data",,4,TRUE
-771393402,33,Male,-0.6,-0.2,0.38,0.78,4,4,3,"Yes, use my data",,5,TRUE
-773867391,62,Male,-0.23,-0.2,0.07,0.28,7,3,1,"Yes, use my data",,2,TRUE
-774679626,49,Male,NA,-0.9,-0.8,0.82,7,7,7,"Yes, use my data",,2,FALSE
+769145415,34,Male,0.1,0.07,0.6,0.88,6,6,2,"Yes, use my data",,2,TRUE
+770187176,20,FEMALE,0.3,-0.07,-0.43,0.48,7,4,2,"Yes, use my data",,4,TRUE
+771393402,33,Male,0.6,0.2,-0.38,0.78,4,4,3,"Yes, use my data",,5,TRUE
+773867391,62,Male,0.23,0.2,-0.07,0.28,7,3,1,"Yes, use my data",,2,TRUE
+774679626,49,Male,NA,0.9,0.8,0.82,7,7,7,"Yes, use my data",,2,FALSE
 774797699,29,Female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-776944350,29,Male,-0.1,-0.23,0.08,0.42,7,4,4,"No, exclude my data (please specify why):","Unfortunately, I did not understand what the painting was in the first set of images in the first round! I thought the paintings I had to rate were the black and white dots (where I had to select pleasant/unpleasant), so I selected unpleasant for most of them because they were all the same. It wasn't until near the end of the set of questions that I realised where the paintings were - they appeared so quickly! The second round you should use my data, but not the first round. Maybe it would be good to include a practice session for future studies?",5,TRUE
-777022764,31,Female,-0.47,-0.23,-0.06,0.22,7,4,3,"Yes, use my data",,3,TRUE
-777312037,33,Female,-0.27,-0.47,-0.47,0,7,1,1,"Yes, use my data",,3,TRUE
-785761984,26,male,0.07,-0.1,0.03,0.55,4,4,4,"No, exclude my data (please specify why):","The images were not presenting clearly. They were on the screen for about 0.1seconds, and then was followed by a black square with white dots. So I was unable to do the test. ",4,TRUE
+776944350,29,Male,0.1,0.23,-0.08,0.42,7,4,4,"No, exclude my data (please specify why):","Unfortunately, I did not understand what the painting was in the first set of images in the first round! I thought the paintings I had to rate were the black and white dots (where I had to select pleasant/unpleasant), so I selected unpleasant for most of them because they were all the same. It wasn't until near the end of the set of questions that I realised where the paintings were - they appeared so quickly! The second round you should use my data, but not the first round. Maybe it would be good to include a practice session for future studies?",5,TRUE
+777022764,31,Female,0.47,0.23,0.06,0.22,7,4,3,"Yes, use my data",,3,TRUE
+777312037,33,Female,0.27,0.47,0.47,0,7,1,1,"Yes, use my data",,3,TRUE
+785761984,26,male,-0.07,0.1,-0.03,0.55,4,4,4,"No, exclude my data (please specify why):","The images were not presenting clearly. They were on the screen for about 0.1seconds, and then was followed by a black square with white dots. So I was unable to do the test. ",4,TRUE
 788517091,37,Male,0,0,0,0,1,1,1,"No, exclude my data (please specify why):",Something must have gone wrong here. I was just seeing black and white noise patterns with no visual appeal at all. I rated every single picture unappealing and the preceding picture had no influence at all. There was a momentary flash of a picture with a navy blue background and coloured stripes. Perhaps this was supposed to be displayed instead of the noise pattern.,1,TRUE
-788801514,32,female,0.1,-0.53,-0.43,0.12,7,2,1,"Yes, use my data",,2,TRUE
-792625375,39 ,female,-0.2,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-793290647,39,Male,-0.33,-0.07,-0.06,0.08,7,2,1,"Yes, use my data",,2,TRUE
-794375296,18,Male,-0.43,-0.53,-0.75,0.85,7,6,1,"No, exclude my data (please specify why):",I just felt like every single image presented before the painting meant I was not able to view the paintings nuetrally. The paintings were far harder to actually process mentally than the images presented before them. Even though I tried extremely hard to focus on the paintings I felt each image clouded my impression unintentionally,5,TRUE
+788801514,32,female,-0.1,0.53,0.43,0.12,7,2,1,"Yes, use my data",,2,TRUE
+792625375,39 ,female,0.2,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+793290647,39,Male,0.33,0.07,0.06,0.08,7,2,1,"Yes, use my data",,2,TRUE
+794375296,18,Male,0.43,0.53,0.75,0.85,7,6,1,"No, exclude my data (please specify why):",I just felt like every single image presented before the painting meant I was not able to view the paintings nuetrally. The paintings were far harder to actually process mentally than the images presented before them. Even though I tried extremely hard to focus on the paintings I felt each image clouded my impression unintentionally,5,TRUE
 798288819,20,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-798304334,24,Male,-0.07,-0.37,0.35,0.48,7,5,2,"Yes, use my data",,5,TRUE
-804690348,37,female,-0.67,-0.83,-0.83,0,1,1,1,"Yes, use my data",,1,TRUE
-804926324,30,Male,-0.07,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-806189096,26,male,-0.83,-0.63,-0.32,0.42,7,5,4,"Yes, use my data",,2,TRUE
+798304334,24,Male,0.07,0.37,-0.35,0.48,7,5,2,"Yes, use my data",,5,TRUE
+804690348,37,female,0.67,0.83,0.83,0,1,1,1,"Yes, use my data",,1,TRUE
+804926324,30,Male,0.07,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+806189096,26,male,0.83,0.63,0.32,0.42,7,5,4,"Yes, use my data",,2,TRUE
 816100564,29,Female,0,0,0,0.58,6,4,3,"Yes, use my data",,3,TRUE
-818950202,38,Female,-0.13,-0.07,-0.07,0,7,1,1,"Yes, use my data",,1,TRUE
-819177542,50,male,-0.07,-0.47,-0.09,0.42,7,3,2,"Yes, use my data",,2,TRUE
+818950202,38,Female,0.13,0.07,0.07,0,7,1,1,"Yes, use my data",,1,TRUE
+819177542,50,male,0.07,0.47,0.09,0.42,7,3,2,"Yes, use my data",,2,TRUE
 823502382,50,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","I never saw a painting, just pixellated black and white image, which seemed to be the same throughout both trials.  This was not a 'pleasant' image but since it was not really an image at all, I am not sure if the trial was working properly...",1,TRUE
-824288176,40,Male,-0.03,-0.43,-0.26,0.23,4,3,2,"Yes, use my data",,2,TRUE
+824288176,40,Male,0.03,0.43,0.26,0.23,4,3,2,"Yes, use my data",,2,TRUE
 824444440,53,male,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-824619681,23,female,-0.67,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-825327997,24,Male,-0.07,-0.1,0,0.05,7,2,2,"Yes, use my data",,1,TRUE
-833363030,37 ,Male,0.03,0.13,0,0.87,4,3,4,"Yes, use my data",,4,TRUE
-834362450,30,female,-0.9,-0.9,-1,0.87,7,6,6,"Yes, use my data",,6,TRUE
-835934101,32,Male,0.03,-0.23,-0.09,0.17,7,3,3,"Yes, use my data",,3,TRUE
-836810172,42,female,-0.1,0.07,0.16,0.25,6,2,2,"Yes, use my data",,4,TRUE
-838378230,30,Female,-0.17,-0.13,-0.09,0.05,7,2,2,"Yes, use my data",,3,TRUE
-839923697,28,Male,0.37,0.03,0.07,0.22,7,3,2,"Yes, use my data",,2,TRUE
-847325847,39,Female,-0.03,-0.3,-0.01,0.28,7,2,2,"Yes, use my data",,4,TRUE
-848279411,27,Male,-0.4,-0.97,NA,0.63,7,4,4,"Yes, use my data",,4,TRUE
-848279434,47,Female,-0.3,-0.27,0,0.38,7,4,2,"Yes, use my data",,3,TRUE
-850835713,54,male,0,-0.43,0,0.42,7,4,2,"Yes, use my data",,2,TRUE
-850846837,25,female,-0.83,-0.7,-0.7,0,7,1,1,"Yes, use my data",,1,TRUE
-851893964,19,male,-0.67,-0.73,0,0.95,7,7,7,"No, exclude my data (please specify why):","the only time the paintings were different for me was the mickey mouse picture and teh picture of the two dolphins playing. i tried to just focus on the painting, but it all looked the same other than those two",2,TRUE
-852658454,21,Male,-0.77,-0.83,NA,1,6,7,1,"Yes, use my data",,7,TRUE
-857911484,46,Female,-0.73,-0.8,-0.83,0.42,5,4,2,"No, exclude my data (please specify why):",Very hard to separate the two images and my reaction to the second,4,TRUE
+824619681,23,female,0.67,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+825327997,24,Male,0.07,0.1,0,0.05,7,2,2,"Yes, use my data",,1,TRUE
+833363030,37 ,Male,-0.03,-0.13,0,0.87,4,3,4,"Yes, use my data",,4,TRUE
+834362450,30,female,0.9,0.9,1,0.87,7,6,6,"Yes, use my data",,6,TRUE
+835934101,32,Male,-0.03,0.23,0.09,0.17,7,3,3,"Yes, use my data",,3,TRUE
+836810172,42,female,0.1,-0.07,-0.16,0.25,6,2,2,"Yes, use my data",,4,TRUE
+838378230,30,Female,0.17,0.13,0.09,0.05,7,2,2,"Yes, use my data",,3,TRUE
+839923697,28,Male,-0.37,-0.03,-0.07,0.22,7,3,2,"Yes, use my data",,2,TRUE
+847325847,39,Female,0.03,0.3,0.01,0.28,7,2,2,"Yes, use my data",,4,TRUE
+848279411,27,Male,0.4,0.97,NA,0.63,7,4,4,"Yes, use my data",,4,TRUE
+848279434,47,Female,0.3,0.27,0,0.38,7,4,2,"Yes, use my data",,3,TRUE
+850835713,54,male,0,0.43,0,0.42,7,4,2,"Yes, use my data",,2,TRUE
+850846837,25,female,0.83,0.7,0.7,0,7,1,1,"Yes, use my data",,1,TRUE
+851893964,19,male,0.67,0.73,0,0.95,7,7,7,"No, exclude my data (please specify why):","the only time the paintings were different for me was the mickey mouse picture and teh picture of the two dolphins playing. i tried to just focus on the painting, but it all looked the same other than those two",2,TRUE
+852658454,21,Male,0.77,0.83,NA,1,6,7,1,"Yes, use my data",,7,TRUE
+857911484,46,Female,0.73,0.8,0.83,0.42,5,4,2,"No, exclude my data (please specify why):",Very hard to separate the two images and my reaction to the second,4,TRUE
 863080510,39,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-864516972,49,male,0.03,-0.03,-0.03,0,7,1,1,"Yes, use my data",,1,TRUE
-869860297,52,Male,-0.13,0.1,0.1,0,6,2,3,"No, exclude my data (please specify why):",I felt that the images came and went so quiclly that by the time that I had recognised the picture the painiting had been and gone without me even spotting it let along having time to make a judgemnet on its qualities.,3,TRUE
-870019599,38,Male,-0.7,-0.13,0.02,0.2,7,4,3,"Yes, use my data",,4,TRUE
-872187172,48,Female,0,0.07,0.16,0.08,2,2,1,"Yes, use my data",,3,TRUE
-873934556,48,male,-0.1,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-874439829,30,Male,-0.07,0.03,0.1,0.07,7,2,1,"Yes, use my data",,3,TRUE
+864516972,49,male,-0.03,0.03,0.03,0,7,1,1,"Yes, use my data",,1,TRUE
+869860297,52,Male,0.13,-0.1,-0.1,0,6,2,3,"No, exclude my data (please specify why):",I felt that the images came and went so quiclly that by the time that I had recognised the picture the painiting had been and gone without me even spotting it let along having time to make a judgemnet on its qualities.,3,TRUE
+870019599,38,Male,0.7,0.13,-0.02,0.2,7,4,3,"Yes, use my data",,4,TRUE
+872187172,48,Female,0,-0.07,-0.16,0.08,2,2,1,"Yes, use my data",,3,TRUE
+873934556,48,male,0.1,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+874439829,30,Male,0.07,-0.03,-0.1,0.07,7,2,1,"Yes, use my data",,3,TRUE
 878658015,50,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","This is the second of these studies I have done and this time (unlike last time), I think I saw some 'paintings' but they were just slashes of colour not pictures so a flashed up image was not long enough to form a positive opinion, therefore I marked all as negative.  Maybe that is the point?  ",1,TRUE
-888089443,39,female,-0.03,-0.27,-0.04,0.23,7,2,4,"Yes, use my data",,2,TRUE
-890408292,26,male,-0.43,-0.57,-0.04,0.7,7,6,6,"Yes, use my data",,2,TRUE
-891572260,34,male,0.07,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-893323259,20,Female,-0.77,-0.17,-0.1,0.07,7,2,2,"Yes, use my data",,2,TRUE
-895346667,29,Male,-0.5,-0.77,-0.71,0.18,3,3,3,"Yes, use my data",,1,TRUE
-898452413,50,female,0.13,-0.03,0.19,0.22,7,2,2,"No, exclude my data (please specify why):",because to be honest the painting was the same throughout the survey so once i had decided upon m feeling for the painting there seamed little point to the trying to state how i felt about it ,2,TRUE
-898699104,21,male,-0.17,-0.3,0.13,0.55,7,6,6,"Yes, use my data",,6,TRUE
+888089443,39,female,0.03,0.27,0.04,0.23,7,2,4,"Yes, use my data",,2,TRUE
+890408292,26,male,0.43,0.57,0.04,0.7,7,6,6,"Yes, use my data",,2,TRUE
+891572260,34,male,-0.07,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+893323259,20,Female,0.77,0.17,0.1,0.07,7,2,2,"Yes, use my data",,2,TRUE
+895346667,29,Male,0.5,0.77,0.71,0.18,3,3,3,"Yes, use my data",,1,TRUE
+898452413,50,female,-0.13,0.03,-0.19,0.22,7,2,2,"No, exclude my data (please specify why):",because to be honest the painting was the same throughout the survey so once i had decided upon m feeling for the painting there seamed little point to the trying to state how i felt about it ,2,TRUE
+898699104,21,male,0.17,0.3,-0.13,0.55,7,6,6,"Yes, use my data",,6,TRUE
 898951393,efe,fefe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-900653247,28,Male,0,-0.23,0.33,0.93,7,5,4,"Yes, use my data",,4,TRUE
+900653247,28,Male,0,0.23,-0.33,0.93,7,5,4,"Yes, use my data",,4,TRUE
 904062037,52,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-904151564,33,female,0,-0.2,-0.2,0,7,1,7,"Yes, use my data",,1,TRUE
+904151564,33,female,0,0.2,0.2,0,7,1,7,"Yes, use my data",,1,TRUE
 907583841,34,female,0,0,0,0.95,NA,NA,NA,NA,NA,NA,FALSE
-908462411,40,Female,-0.33,-0.13,-0.04,0.35,7,5,3,"Yes, use my data",,3,TRUE
-913143616,20,Male,-0.1,-0.5,-0.15,0.48,7,5,3,"Yes, use my data",,6,TRUE
-915057176,54,female,-0.47,-0.2,-0.2,0,7,1,1,"Yes, use my data",,3,TRUE
-918295972,24,Male,-0.03,-0.2,-0.17,0.07,2,2,2,"Yes, use my data",,3,TRUE
-921869582,29,Female,-0.17,-0.3,0,0.15,7,3,3,"No, exclude my data (please specify why):",Because I don't think I actually saw the image (painting) I was supposed to see each time - I just saw a weird black and wide jumbled mess.,1,TRUE
+908462411,40,Female,0.33,0.13,0.04,0.35,7,5,3,"Yes, use my data",,3,TRUE
+913143616,20,Male,0.1,0.5,0.15,0.48,7,5,3,"Yes, use my data",,6,TRUE
+915057176,54,female,0.47,0.2,0.2,0,7,1,1,"Yes, use my data",,3,TRUE
+918295972,24,Male,0.03,0.2,0.17,0.07,2,2,2,"Yes, use my data",,3,TRUE
+921869582,29,Female,0.17,0.3,0,0.15,7,3,3,"No, exclude my data (please specify why):",Because I don't think I actually saw the image (painting) I was supposed to see each time - I just saw a weird black and wide jumbled mess.,1,TRUE
 924884559,38,female,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-925409847,34,male,-0.1,-0.07,-0.04,0.02,7,2,1,"Yes, use my data",,2,TRUE
-926115461,22,Male,-0.97,-0.03,0.03,0.05,6,2,2,"Yes, use my data",,4,TRUE
-929309769,26,Female,-0.17,-0.33,-0.17,0.17,7,3,1,"Yes, use my data",,3,TRUE
-936257094,45,female,-0.27,-0.27,0.31,0.53,7,5,2,"No, exclude my data (please specify why):",The 'painting' remained the same (a b/w pixelated image) - tried to notice differences but am pretty sure it was either not displaying correctly or is a part of the trial!,2,TRUE
+925409847,34,male,0.1,0.07,0.04,0.02,7,2,1,"Yes, use my data",,2,TRUE
+926115461,22,Male,0.97,0.03,-0.03,0.05,6,2,2,"Yes, use my data",,4,TRUE
+929309769,26,Female,0.17,0.33,0.17,0.17,7,3,1,"Yes, use my data",,3,TRUE
+936257094,45,female,0.27,0.27,-0.31,0.53,7,5,2,"No, exclude my data (please specify why):",The 'painting' remained the same (a b/w pixelated image) - tried to notice differences but am pretty sure it was either not displaying correctly or is a part of the trial!,2,TRUE
 939987414,62,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-942420014,44,male,-0.07,0.1,0.09,0.02,7,2,1,"Yes, use my data",,2,TRUE
-942896505,20,Male,-0.5,-0.53,-0.33,0.7,1,5,1,"Yes, use my data",,3,TRUE
-943454472,21,Male,0,-0.07,-0.01,0.05,7,2,1,"Yes, use my data",,2,TRUE
+942420014,44,male,0.07,-0.1,-0.09,0.02,7,2,1,"Yes, use my data",,2,TRUE
+942896505,20,Male,0.5,0.53,0.33,0.7,1,5,1,"Yes, use my data",,3,TRUE
+943454472,21,Male,0,0.07,0.01,0.05,7,2,1,"Yes, use my data",,2,TRUE
 945428108,65,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-945540243,27,male,-0.1,-0.2,-0.08,0.13,7,2,1,"Yes, use my data",,3,TRUE
-947925477,29,female,0,-0.4,-0.43,0.02,7,1,1,"Yes, use my data",,1,TRUE
-967257877,20,Male,-0.5,-0.43,-0.21,0.52,7,5,4,"Yes, use my data",,3,TRUE
-969948633,35,female,-1,-0.97,-1,0.2,6,4,4,"Yes, use my data",,5,TRUE
+945540243,27,male,0.1,0.2,0.08,0.13,7,2,1,"Yes, use my data",,3,TRUE
+947925477,29,female,0,0.4,0.43,0.02,7,1,1,"Yes, use my data",,1,TRUE
+967257877,20,Male,0.5,0.43,0.21,0.52,7,5,4,"Yes, use my data",,3,TRUE
+969948633,35,female,1,0.97,1,0.2,6,4,4,"Yes, use my data",,5,TRUE
 971704584,47,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-977944306,31,Female,-0.73,-0.87,-1,0.9,7,6,3,"Yes, use my data",,5,TRUE
-978625298,32,Female,-0.03,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-980601162,57,female,-0.07,-0.03,-0.01,0.02,2,2,1,"Yes, use my data",,1,TRUE
-981832325,26,female,0.17,0.03,0.07,0.03,7,2,1,"Yes, use my data",,3,TRUE
+977944306,31,Female,0.73,0.87,1,0.9,7,6,3,"Yes, use my data",,5,TRUE
+978625298,32,Female,0.03,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+980601162,57,female,0.07,0.03,0.01,0.02,2,2,1,"Yes, use my data",,1,TRUE
+981832325,26,female,-0.17,-0.03,-0.07,0.03,7,2,1,"Yes, use my data",,3,TRUE
 982971467,18,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-987889691,21,female,-0.63,-0.8,-0.67,0.92,7,6,6,"Yes, use my data",,6,TRUE
-990004073,19,Male,-0.27,-0.37,-0.2,0.18,7,3,2,"Yes, use my data",,2,TRUE
-992543226,28,female,-0.17,0,0,0,7,1,1,"No, exclude my data (please specify why):","For the first couple of pictures in the first section i thought the black and white picture was the ""painting"" and I marked it as unpleasant.   Then my eyes adjusted to see the actual paintings. All my answers from then on were the same - pleasant - as I really didn't have any preference for the different colour combinations of background and paint streaks found in the paintings - they were all fine.",1,TRUE
+987889691,21,female,0.63,0.8,0.67,0.92,7,6,6,"Yes, use my data",,6,TRUE
+990004073,19,Male,0.27,0.37,0.2,0.18,7,3,2,"Yes, use my data",,2,TRUE
+992543226,28,female,0.17,0,0,0,7,1,1,"No, exclude my data (please specify why):","For the first couple of pictures in the first section i thought the black and white picture was the ""painting"" and I marked it as unpleasant.   Then my eyes adjusted to see the actual paintings. All my answers from then on were the same - pleasant - as I really didn't have any preference for the different colour combinations of background and paint streaks found in the paintings - they were all fine.",1,TRUE
 999172017,46,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-259858603,NA,NA,-0.07,0,0.29,0.3,7,4,2,"Yes, use my data",,3,FALSE
+259858603,NA,NA,0.07,0,-0.29,0.3,7,4,2,"Yes, use my data",,3,FALSE
 135418330,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 870500023,NA,NA,NA,NA,NA,NA,1,1,1,"No, exclude my data (please specify why):",hk,1,FALSE

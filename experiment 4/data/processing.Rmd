@@ -167,7 +167,7 @@ politics_IA_AMP_effect <- politics_IA_AMP_cleaned %>%
   summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  mutate(IA_AMP_effect_obama_trump = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(IA_AMP_effect_obama_trump = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, IA_AMP_effect_obama_trump) 
 
 # score amp effect for influenced trials
@@ -177,7 +177,7 @@ politics_IA_AMP_effect_influenced <- politics_IA_AMP_cleaned %>%
   summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  mutate(IA_AMP_effect_obama_trump_influenced = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(IA_AMP_effect_obama_trump_influenced = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, IA_AMP_effect_obama_trump_influenced) 
 
 # score amp effect for uninfluenced trials
@@ -187,7 +187,7 @@ politics_IA_AMP_effect_uninfluenced <- politics_IA_AMP_cleaned %>%
   summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  mutate(IA_AMP_effect_obama_trump_uninfluenced = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(IA_AMP_effect_obama_trump_uninfluenced = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, IA_AMP_effect_obama_trump_uninfluenced) 
 
 # score influence rates
@@ -238,7 +238,7 @@ posneg_IA_AMP_effect <- posneg_IA_AMP_cleaned %>%
   summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  mutate(IA_AMP_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(IA_AMP_effect_positive_negative = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, IA_AMP_effect_positive_negative)
 
 # score amp effect
@@ -248,7 +248,7 @@ posneg_IA_AMP_uninfluenced_effect <- posneg_IA_AMP_cleaned %>%
   dplyr::summarize(amp_effect = mean(rating)) %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
-  mutate(IA_AMP_uninfluenced_effect_positive_negative = round(prime_type_A - prime_type_B, 2)) %>%
+  mutate(IA_AMP_uninfluenced_effect_positive_negative = round(prime_type_B - prime_type_A, 2)) %>%
   select(subject, IA_AMP_uninfluenced_effect_positive_negative)
 
 # score influence rates
