@@ -31,8 +31,6 @@ library(sjPlot)
 library(kableExtra)
 library(knitr)
 library(patchwork)
-library(ggridges)
-library(ciTools)
 
 # function to round all numerics in a data frame
 round_df <- function(df, n_digits = 3){
@@ -41,9 +39,6 @@ round_df <- function(df, n_digits = 3){
   
   df %>% mutate_if(is.numeric, round, digits = n_digits)
 }
-
-# source for raincloud plots
-source("geom_flat_violin.R")
 
 # disable scientific notation
 options(scipen = 999) 
@@ -94,9 +89,9 @@ data_participant_level %>%
 
 # Does influence rate predict the magnitude of (IA)AMP effects?
 
-## IA-AMP effect ~ IA-AMP influence_rate
+## Participant level
 
-### Participant level
+### IA-AMP effect ~ IA-AMP influence_rate
 
 IA-AMP effect ~ IA-AMP influence rate 
 
@@ -105,7 +100,7 @@ Absolute IA-AMP effects.
 ```{r}
 
 # fit model corresponding to preregistered hypotheses
-fit_1 <- lmer(abs_IA_AMP_effect ~ influence_rate + (1 | experiment/IA_AMP_domain), 
+fit_1 <- lmer(abs_IA_AMP_effect ~ influence_rate + (1 | experiment), 
               data = data_participant_level)
 
 tab_model(fit_1, 
@@ -113,31 +108,68 @@ tab_model(fit_1,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
           ci.hyphen = ", ")
 
-# plot_model(fit_1, 
-#            type = "pred", 
-#            show.data = TRUE,
-#            jitter = 0.005)$influence_rate + 
-#   theme_classic() +
-#   xlab("IA-AMP influence rate") +
-#   ylab("Absolute IA-AMP effect") +
-#   ggtitle("Relationship between influence rate and valence IA-AMP effect") 
+```
 
-data_participant_level %>%
-  mutate(Experiment = paste(experiment, IA_AMP_domain)) %>%
-  ggplot(aes(influence_rate, abs_IA_AMP_effect, color = Experiment)) +
-  #geom_jitter(width = 0.005, alpha = 0.3) +
+
+### AMP effect ~ IA-AMP influence rate
+
+AMP effect ~ IA-AMP influence rate
+
+Absolute AMP effects.
+
+```{r}
+
+# fit model corresponding to preregistered hypotheses
+fit_3 <- lmer(abs_AMP_effect ~ influence_rate + (1 | experiment), 
+              data = data_participant_level)
+
+tab_model(fit_3, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          ci.hyphen = ", ")
+
+```
+
+### Combined plots
+
+```{r fig.height=8.5, fig.width=6}
+
+plot_ia_amp <- 
+  data_participant_level %>%  
+  mutate(IA_AMP_domain = fct_rev(ifelse(IA_AMP_domain == "Generic valence", "Valence", IA_AMP_domain))) %>% 
+  ggplot(aes(influence_rate, abs_IA_AMP_effect, color = experiment, linetype = IA_AMP_domain)) +
   geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
   ylim(0,1) +
   xlim(0,1) + 
   theme_classic() +
-  xlab("Influence rate") +
-  ylab("Absolute magnitude of\nIA-AMP effect") +
-  ggtitle("Relationship between influence rate and IA-AMP effect") +
-  scale_color_viridis_d(begin = 0.1, end = 0.9)
+  xlab("Influence rate on IA-AMP") +
+  ylab("Absolute IA-AMP effect") +
+  scale_color_viridis_d(begin = 0.1, end = 0.9) +
+  guides(color = guide_legend(title = "Experiment"),
+         linetype = guide_legend(title = "Domain"))
+
+
+plot_amp <- 
+  data_participant_level %>%
+  mutate(AMP_domain = fct_rev(ifelse(AMP_domain == "Generic valence", "Valence", AMP_domain))) %>%
+  ggplot(aes(influence_rate, abs_AMP_effect, color = experiment, linetype = AMP_domain)) +
+  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
+  ylim(0,1) +
+  xlim(0,1) + 
+  theme_classic() +
+  xlab("Influence rate on IA-AMP") +
+  ylab("Absolute AMP effect") +
+  scale_color_viridis_d(begin = 0.1, end = 0.9) +
+  guides(color = guide_legend(title = "Experiment"),
+         linetype = guide_legend(title = "Domain"))
+
+plot_ia_amp / plot_amp
 
 ```
 
-### Trial level
+
+
+## Trial level
 
 Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
 
@@ -153,6 +185,8 @@ tab_model(fit_2,
           show.std = TRUE,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
           ci.hyphen = ", ")
+
+plot_model(fit_2, type = "int")
 
 # plot
 predictions <- data_trial_level_valence_ia_amp %>%
@@ -211,94 +245,15 @@ data_descriptives %>%
 
 ```
 
-##### Estimated marginal means
-
-slow runtime
-
-```{r}
-
-# predictions based on model
-predictions <- 
-  data.frame(prime_type = c("Positive", 
-                            "Positive", 
-                            "Negative", 
-                            "Negative"), 
-             influenced = c(TRUE, 
-                            FALSE, 
-                            TRUE,
-                            FALSE)) %>%
-  add_ci(., 
-         fit_2, 
-         alpha = 0.05, 
-         type = "boot",
-         includeRanef = FALSE) %>%
-  rename(abs_AMP_effect = pred,
-         lower = LCB0.025,
-         upper = UCB0.975) %>%
-  select(awareness, abs_AMP_effect, lower, upper) %>%
-  round_df(2)
-
-predictions %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-```
-
-## AMP effect ~ IA-AMP influence rate
-
-AMP effect ~ IA-AMP influence rate
-
-Absolute AMP effects.
-
-```{r}
-
-# fit model corresponding to preregistered hypotheses
-fit_3 <- lmer(abs_AMP_effect ~ influence_rate + (1 | experiment/IA_AMP_domain), 
-              data = data_participant_level)
-
-tab_model(fit_3, 
-          show.std = TRUE,
-          col.order = c("est", "ci", "std.est", "std.ci", "p"),
-          ci.hyphen = ", ")
-
-# plot_model(fit_3, 
-#            type = "pred", 
-#            show.data = TRUE,
-#            jitter = 0.005)$influence_rate + 
-#   theme_classic() +
-#   xlab("IA-AMP influence rate") +
-#   ylab("Absolute IA-AMP effect") +
-#   ggtitle("Relationship between influence rate and valence IA-AMP effect") 
-
-data_participant_level %>%
-  mutate(label = paste("Exp", experiment, IA_AMP_domain)) %>%
-  filter(!experiment %in% c(1, 4)) %>%
-  ggplot(aes(influence_rate, abs_AMP_effect, color = label)) +
-  geom_jitter(width = 0.005, alpha = 0.3) +
-  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
-  ylim(0,1) +
-  xlim(0,1) + 
-  theme_classic() +
-  xlab("Influence rate") +
-  ylab("Absolute magnitude of\nAMP effect") +
-  ggtitle("Relationship between influence rate and AMP effect") +
-  scale_color_viridis_d(begin = 0.3, end = 0.7)
-
-```
-
 # IA-AMP influence rate
 
 Combination analysis due to severe bimodality.
 
-Participant level
-
-## Distribution
-
-```{r fig.height=5, fig.width=5}
+```{r fig.height=2.5, fig.width=5}
 
 # Distribution
 p4 <- ggplot(data_participant_level, aes(influence_rate, fill = "dummy")) +
-  geom_density(adjust = .4) +
+  geom_density(adjust = .5) +
   theme_classic() +
   scale_fill_viridis_d(begin = 0.65) +
   xlab("Influence-awareness rate") +
@@ -349,14 +304,14 @@ data_participant_level %>%
 
 ```{r fig.height=20, fig.width=7.15}
 
-# get plot from exp 4
-load("../Experiment 4/analysis/p1.RData")
-
-p_combined <- p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
-
-p_combined
-
-save(p_combined, file = "../data/p_combined.RData")
+# # get plot from exp 4
+# load("../Experiment 4/analysis/p1.RData")
+# 
+# p_combined <- p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
+# 
+# p_combined
+# 
+# save(p_combined, file = "../data/p_combined.RData")
 
 ```
 
