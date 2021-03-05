@@ -2,4 +2,5 @@ some experiments amp scripts call it the intentionality AMP - remove all referen
 
 
 
-change github repo name to amp-awareness 
+we got email records of keith's claims - are they any use, should they be cited?
+
