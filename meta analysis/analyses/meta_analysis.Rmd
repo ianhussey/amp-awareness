@@ -51,7 +51,8 @@ data_participant_level <-
 
 data_trial_level_valence_ia_amp  <- 
   read.csv("../data/data_combined_trial_level.csv")  %>%
-  mutate(influenced = as.logical(influenced)) %>%
+  mutate(Awareness = ifelse(influenced == 0, "Non-influence aware trials", ifelse(influenced == 1, "Influence aware trials", NA)),
+         prime_type = as.factor(prime_type)) %>%
   rownames_to_column(var = "unique_row_name") %>%
   group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
   mutate(trial_number = row_number(),
@@ -262,7 +263,7 @@ data_participant_level %>%
 
 Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
 
-```{r fig.height=5, fig.width=6.5}
+```{r fig.height=3, fig.width=7}
 
 # fit model
 if(file.exists("models/fit_trial_level.rds")){
@@ -272,11 +273,12 @@ if(file.exists("models/fit_trial_level.rds")){
 }else{
   
   fit_trial_level <- 
-    glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
+    glmer(rating ~ Awareness * prime_type + (1 | experiment/unique_id),
           family = binomial(link = "logit"),
           data = data_trial_level_valence_ia_amp)
   
-  write_rds(fit_trial_level, path = "models/fit_trial_level.rds", compress = "gz")
+  dir.create("models")
+  write_rds(fit_trial_level, file = "models/fit_trial_level.rds", compress = "gz")
   
 }
 
@@ -284,41 +286,20 @@ if(file.exists("models/fit_trial_level.rds")){
 tab_model(fit_trial_level, 
           show.std = TRUE,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          string.est = "B",
+          string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "Std.Beta CI",
+          emph.p = FALSE,
           ci.hyphen = ", ")
 
-plot_model(fit_trial_level, type = "int")
-
-# plot
-predictions <- data_trial_level_valence_ia_amp %>%
-  mutate(prob = predict(fit_trial_level, type = c("response")),
-         `Influence of prime\non evaluation of target` = dplyr::recode(as.character(influenced), 
-                                                                       "0" = "Non-influence aware trials",
-                                                                       "1" = "Influence aware trials"),
-         prime_type = fct_relevel(prime_type, "Negative", "Positive"))
-
-ggplot(data = predictions, 
-       aes(x = `Influence of prime\non evaluation of target`, 
-           y = prob,
-           fill = as.factor(prime_type),
-           color = as.factor(prime_type))) +
-  geom_flat_violin(position = position_nudge(x = .2, y = 0),
-                   adjust = 2,
-                   alpha = .8) +
-  geom_point(position = position_jitter(width = .15), 
-             size = 0.25, 
-             alpha = 0.8) +
-  scale_colour_viridis_d(begin = 0.3, end = 0.7) +
-  scale_fill_viridis_d(begin = 0.3, end = 0.7) +
-  coord_flip() +
+plot_model(fit_trial_level, type = "int") +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
   theme_classic() +
-  xlab("Influence-awareness of prime on evaluation of target") +
-  ylab("Evaluation on IA-AMP") +
-  scale_y_continuous(breaks = c(0, 0.25, 0.50, 0.75, 1.00), 
-                     labels = c("0.00\n(Negative)", "0.25", "0.50", "0.75", "1.00\n(Positive)"), 
-                     limits = c(0, 1)) + 
-  labs(color = "Prime type") + 
-  labs(name = "Prime type") +
-  labs(fill = "Prime type")
+  ggtitle("") +
+  xlab("Awareness") +
+  ylab("Rating") +#
+  coord_flip()
 
 ```
 
