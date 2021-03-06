@@ -51,7 +51,7 @@ data_participant_level <-
 
 data_trial_level_valence_ia_amp  <- 
   read.csv("../data/data_combined_trial_level.csv")  %>%
-  mutate(Awareness = ifelse(influenced == 0, "Non-influence aware trials", ifelse(influenced == 1, "Influence aware trials", NA)),
+  mutate(Awareness = ifelse(influenced == 0, "Non-aware trials", ifelse(influenced == 1, "Aware trials", NA)),
          prime_type = as.factor(prime_type)) %>%
   rownames_to_column(var = "unique_row_name") %>%
   group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
@@ -125,7 +125,7 @@ tab_model(fit_participant_level_amp,
 
 ```
 
-### Combined plots
+### Combined plot
 
 ```{r fig.height=8.5, fig.width=6}
 
@@ -158,7 +158,14 @@ plot_amp <-
   guides(color = guide_legend(title = "Experiment"),
          linetype = guide_legend(title = "Domain"))
 
-plot_ia_amp / plot_amp
+# combine
+plot_participant_level <- plot_ia_amp / plot_amp
+
+# print 
+plot_participant_level
+
+# save
+write_rds(plot_participant_level, "models/plot_participant_level.rds", compress = "gz")
 
 ```
 
@@ -270,7 +277,7 @@ if(file.exists("models/fit_trial_level.rds")){
   
   fit_trial_level <- read_rds("models/fit_trial_level.rds")
   
-}else{
+} else {
   
   fit_trial_level <- 
     glmer(rating ~ Awareness * prime_type + (1 | experiment/unique_id),
@@ -282,7 +289,7 @@ if(file.exists("models/fit_trial_level.rds")){
   
 }
 
-# estimates
+# table
 tab_model(fit_trial_level, 
           show.std = TRUE,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
@@ -293,13 +300,21 @@ tab_model(fit_trial_level,
           emph.p = FALSE,
           ci.hyphen = ", ")
 
-plot_model(fit_trial_level, type = "int") +
+# plot
+plot_trial_level <- 
+  plot_model(fit_trial_level, type = "int") +
   scale_color_viridis_d(begin = 0.3, end = 0.7) +
   theme_classic() +
   ggtitle("") +
-  xlab("Awareness") +
-  ylab("Rating") +#
-  coord_flip()
+  xlab("Awareness of influence of the prime") +
+  ylab("Rating") +
+  scale_y_continuous(limits = c(0, 1)) +
+  coord_flip() + 
+  labs(color = "Prime type") +
+  guides(color = guide_legend(reverse = TRUE))
+
+# save
+write_rds(plot_trial_level, "models/plot_trial_level.rds", compress = "gz")
 
 ```
 
