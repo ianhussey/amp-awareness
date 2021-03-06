@@ -32,14 +32,6 @@ library(kableExtra)
 library(knitr)
 library(patchwork)
 
-# function to round all numerics in a data frame
-round_df <- function(df, n_digits = 3){
-  # dependencies
-  require(dplyr)
-  
-  df %>% mutate_if(is.numeric, round, digits = n_digits)
-}
-
 # disable scientific notation
 options(scipen = 999) 
 
@@ -57,22 +49,15 @@ data_participant_level <-
          abs_IA_AMP_effect_uninfluenced_trials = abs(IA_AMP_uninfluenced_effect), 
          abs_IA_AMP_effect_influenced_trials = abs(IA_AMP_influenced_effect))
 
-data_participant_level_valence_ia_amp <- 
-  data_participant_level %>%
-  filter(IA_AMP_domain == "Generic valence")
-
-data_trial_level  <- 
+data_trial_level_valence_ia_amp  <- 
   read.csv("../data/data_combined_trial_level.csv")  %>%
   mutate(influenced = as.logical(influenced)) %>%
   rownames_to_column(var = "unique_row_name") %>%
   group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
   mutate(trial_number = row_number(),
          max_trials_per_block = max(trial_number)) %>%
-  ungroup()
-
-data_trial_level_valence_ia_amp <- 
-  data_trial_level %>%
-  filter(IA_AMP_domain == "Generic valence")
+  ungroup() %>%
+  filter(IA_AMP_domain == "Valence")
 
 ```
 
@@ -93,39 +78,48 @@ data_participant_level %>%
 
 ### IA-AMP effect ~ IA-AMP influence_rate
 
-IA-AMP effect ~ IA-AMP influence rate 
+IA-AMP effect ~ IA-AMP influence rate
 
-Absolute IA-AMP effects.
+Absolute IA-AMP effects
 
 ```{r}
 
-# fit model corresponding to preregistered hypotheses
-fit_1 <- lmer(abs_IA_AMP_effect ~ influence_rate + (1 | experiment), 
-              data = data_participant_level)
+fit_participant_level_ia_amp <- 
+  lmer(abs_IA_AMP_effect ~ influence_rate + (1 | experiment), 
+       data = data_participant_level)
 
-tab_model(fit_1, 
+tab_model(fit_participant_level_ia_amp, 
           show.std = TRUE,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          string.est = "B",
+          string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "Std.Beta CI",
+          emph.p = FALSE,
           ci.hyphen = ", ")
 
 ```
-
 
 ### AMP effect ~ IA-AMP influence rate
 
 AMP effect ~ IA-AMP influence rate
 
-Absolute AMP effects.
+Absolute AMP effects
 
 ```{r}
 
-# fit model corresponding to preregistered hypotheses
-fit_3 <- lmer(abs_AMP_effect ~ influence_rate + (1 | experiment), 
-              data = data_participant_level)
+fit_participant_level_amp <- 
+  lmer(abs_AMP_effect ~ influence_rate + (1 | experiment), 
+       data = data_participant_level)
 
-tab_model(fit_3, 
+tab_model(fit_participant_level_amp, 
           show.std = TRUE,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          string.est = "B",
+          string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "Std.Beta CI",
+          emph.p = FALSE,
           ci.hyphen = ", ")
 
 ```
@@ -136,14 +130,14 @@ tab_model(fit_3,
 
 plot_ia_amp <- 
   data_participant_level %>%  
-  mutate(IA_AMP_domain = fct_rev(ifelse(IA_AMP_domain == "Generic valence", "Valence", IA_AMP_domain))) %>% 
+  mutate(IA_AMP_domain = fct_rev(IA_AMP_domain)) %>% 
   ggplot(aes(influence_rate, abs_IA_AMP_effect, color = experiment, linetype = IA_AMP_domain)) +
   geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
   ylim(0,1) +
   xlim(0,1) + 
   theme_classic() +
-  xlab("Influence rate on IA-AMP") +
-  ylab("Absolute IA-AMP effect") +
+  xlab("Awareness rate") +
+  ylab("IA-AMP effect") +
   scale_color_viridis_d(begin = 0.1, end = 0.9) +
   guides(color = guide_legend(title = "Experiment"),
          linetype = guide_legend(title = "Domain"))
@@ -151,14 +145,14 @@ plot_ia_amp <-
 
 plot_amp <- 
   data_participant_level %>%
-  mutate(AMP_domain = fct_rev(ifelse(AMP_domain == "Generic valence", "Valence", AMP_domain))) %>%
+  mutate(AMP_domain = fct_rev(AMP_domain)) %>% 
   ggplot(aes(influence_rate, abs_AMP_effect, color = experiment, linetype = AMP_domain)) +
   geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
   ylim(0,1) +
   xlim(0,1) + 
   theme_classic() +
-  xlab("Influence rate on IA-AMP") +
-  ylab("Absolute AMP effect") +
+  xlab("Awareness rate") +
+  ylab("AMP effect") +
   scale_color_viridis_d(begin = 0.1, end = 0.9) +
   guides(color = guide_legend(title = "Experiment"),
          linetype = guide_legend(title = "Domain"))
@@ -167,7 +161,102 @@ plot_ia_amp / plot_amp
 
 ```
 
+### Awareness rate
 
+Combination analysis due to severe bimodality.
+
+Mann et al. (2019) specifically argued that their modifications should reduce the bimodality of AMP effects, i.e., that there should be distributional differences between the two samples (IA-AMPs employing the standard stimuli and task format vs a Mann et all IA-AMP).
+
+#### Visual inspection
+
+```{r fig.height=2.5, fig.width=5}
+
+data_IA_AMP_types <- data_participant_level %>%
+  mutate(IA_AMP_type = ifelse(experiment == 6, "Mann et al. (2019) modifications", "Standard")) %>%
+  select(IA_AMP_type, influence_rate)
+
+plot_influence_rate <- 
+  ggplot(data_IA_AMP_types, aes(influence_rate, fill = IA_AMP_type)) +
+  geom_density(adjust = .5, alpha = 0.5) +
+  theme_classic() +
+  scale_fill_viridis_d(begin = 0.3, end = 0.7) +
+  xlab("Awareness rate") +
+  ylab("Distribution density") +
+  guides(fill = guide_legend(title = "IA-AMP type")) + 
+  theme(legend.position = c(0.8, 0.8))
+
+plot_influence_rate
+
+```
+
+#### Test of unimodality
+
+Hartigans' Dip Tests (H0 = unimodality)
+
+##### All data 
+
+```{r}
+
+dip.test(data_IA_AMP_types %>% 
+           pull(influence_rate)) 
+
+```
+
+##### Subset of standard (non Mann et al) IA-AMPs 
+
+```{r}
+
+dip.test(data_IA_AMP_types %>% 
+           filter(IA_AMP_type == "Standard") %>% 
+           pull(influence_rate)) 
+
+```
+
+##### Subset of Mann et al. IA-AMPs 
+
+```{r}
+
+dip.test(data_IA_AMP_types %>% 
+           filter(IA_AMP_type == "Mann et al. (2019) modifications") %>% 
+           pull(influence_rate)) 
+
+```
+
+#### Descriptive stats
+
+```{r}
+
+N <- nrow(data_participant_level)
+
+data_participant_level %>%
+  mutate(influence_rate_bins = ifelse(influence_rate <= .20, 1, 
+                                           ifelse(influence_rate <= .40, 2, 
+                                                  ifelse(influence_rate <= .60, 3, 
+                                                         ifelse(influence_rate <= .80, 4, 
+                                                                ifelse(influence_rate <= 1.00, 5, NA))))),
+         influence_rate_bins = as.factor(influence_rate_bins)) %>%
+  dplyr::count(influence_rate_bins) %>%
+  mutate(percent = round(n/N, 2)) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+data_participant_level %>%
+  mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
+                                            ifelse(influence_rate >= 0.95, "almost all", "some")),
+         influence_rate_categories = as.factor(influence_rate_categories)) %>%
+  dplyr::count(influence_rate_categories) %>%
+  mutate(percent = round(n/N, 2)) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+data_participant_level %>%
+  summarize(median_influence_rate = median(influence_rate),
+            mad_influence_rate = mad(influence_rate)) %>%
+  mutate_if(is.numeric, round, digits = 2) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+```
 
 ## Trial level
 
@@ -176,21 +265,32 @@ Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data r
 ```{r fig.height=5, fig.width=6.5}
 
 # fit model
-fit_2 <- glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
-               family = binomial(link = "logit"),
-               data = data_trial_level_valence_ia_amp)
+if(file.exists("models/fit_trial_level.rds")){
+  
+  fit_trial_level <- read_rds("models/fit_trial_level.rds")
+  
+}else{
+  
+  fit_trial_level <- 
+    glmer(rating ~ prime_type * influenced + (1 | experiment/unique_id),
+          family = binomial(link = "logit"),
+          data = data_trial_level_valence_ia_amp)
+  
+  write_rds(fit_trial_level, path = "models/fit_trial_level.rds", compress = "gz")
+  
+}
 
 # estimates
-tab_model(fit_2, 
+tab_model(fit_trial_level, 
           show.std = TRUE,
           col.order = c("est", "ci", "std.est", "std.ci", "p"),
           ci.hyphen = ", ")
 
-plot_model(fit_2, type = "int")
+plot_model(fit_trial_level, type = "int")
 
 # plot
 predictions <- data_trial_level_valence_ia_amp %>%
-  mutate(prob = predict(fit_2, type = c("response")),
+  mutate(prob = predict(fit_trial_level, type = c("response")),
          `Influence of prime\non evaluation of target` = dplyr::recode(as.character(influenced), 
                                                                        "0" = "Non-influence aware trials",
                                                                        "1" = "Influence aware trials"),
@@ -219,99 +319,6 @@ ggplot(data = predictions,
   labs(color = "Prime type") + 
   labs(name = "Prime type") +
   labs(fill = "Prime type")
-
-```
-
-#### Reviewer requested: Compute effects at each level of the moderator 
-
-##### Means & SDs of data
-
-Estimated marginal means can be found in the above plot. SDs are a property of the observed data rather than the model predictions, but I also return them below. NB these therefore ignore the hierarchical structure in the data and should not be used for inference.
-
-```{r}
-
-data_descriptives <- data_trial_level %>%
-  filter(IA_AMP_domain == "Generic valence") %>%
-  group_by(influenced) %>%
-  select(unique_id, prime_type, rating, influenced) %>%
-  group_by(influenced, prime_type) %>%
-  summarise(mean_rating = mean(rating),
-            sd_rating = sd(rating)) %>%
-  round_df(2)
-
-data_descriptives %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-```
-
-# IA-AMP influence rate
-
-Combination analysis due to severe bimodality.
-
-```{r fig.height=2.5, fig.width=5}
-
-# Distribution
-p4 <- ggplot(data_participant_level, aes(influence_rate, fill = "dummy")) +
-  geom_density(adjust = .5) +
-  theme_classic() +
-  scale_fill_viridis_d(begin = 0.65) +
-  xlab("Influence-awareness rate") +
-  ylab("Distribution density") + 
-  theme(legend.position = "none")
-
-p4
-
-save(p4, file = "../data/p4.RData")
-
-```
-
-```{r}
-
-N <- nrow(data_participant_level)
-
-data_participant_level %>%
-  mutate(influence_rate_quintiles = ifelse(influence_rate <= .20, 1, 
-                                           ifelse(influence_rate <= .40, 2, 
-                                                  ifelse(influence_rate <= .60, 3, 
-                                                         ifelse(influence_rate <= .80, 4, 
-                                                                ifelse(influence_rate <= 1.00, 5, NA))))),
-         influence_rate_quintiles = as.factor(influence_rate_quintiles)) %>%
-  dplyr::count(influence_rate_quintiles) %>%
-  mutate(percent = round(n/N, 2)) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-data_participant_level %>%
-  mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
-                                            ifelse(influence_rate >= 0.95, "almost all", "some")),
-         influence_rate_categories = as.factor(influence_rate_categories)) %>%
-  dplyr::count(influence_rate_categories) %>%
-  mutate(percent = round(n/N, 2)) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-data_participant_level %>%
-  summarize(median_influence_rate = median(influence_rate),
-            mad_influence_rate = mad(influence_rate)) %>%
-  round_df(2) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-```
-
-# Combine plots
-
-```{r fig.height=20, fig.width=7.15}
-
-# # get plot from exp 4
-# load("../Experiment 4/analysis/p1.RData")
-# 
-# p_combined <- p1 + p2 + p3 + p4 + plot_layout(ncol = 1)
-# 
-# p_combined
-# 
-# save(p_combined, file = "../data/p_combined.RData")
 
 ```
 
