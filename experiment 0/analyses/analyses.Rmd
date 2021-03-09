@@ -1,6 +1,6 @@
 ---
-title: "Study 0 - replication"
-subtitle: "Analyses"
+title: "Study 0 (replication) Analyses"
+subtitle: "NB referred to as Study 1 in manuscript"
 author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -76,7 +76,7 @@ data_processed_exclusions %>%
 
 ## H1 (replication): Magnitude of Standard AMP effect compared to the skip-AMP effect
 
-Payne et al. hypothesised that, if participants are influence-aware in the AMP, then AMP effects in the standard AMP should be larger than those of the skip AMP.
+Payne et al. hypothesized that, if participants are influence-aware in the AMP, then AMP effects in the standard AMP should be larger than those of the skip AMP.
 
 Some participants may skip all trials of the skip AMP, and thus have no scire. While they could simply be excluded in order to run a paired samples t-test, these values are Missing Not At Random - indeed, they are missing because of their extremely high influence rate. As such, their exclusion would distort results. 
 
@@ -94,10 +94,14 @@ data_subset %>%
             mean_skip_effect = mean(skip_AMP_effect_positive_negative),
             sd_skip_effect = sd(skip_AMP_effect_positive_negative))
 
-Partover.test(x1 = pull(filter(data_subset, is.na(skip_AMP_effect_positive_negative)), AMP_effect_positive_negative),
-              x2 = pull(filter(data_subset, is.na(AMP_effect_positive_negative)), skip_AMP_effect_positive_negative),
-              x3 = pull(na.omit(data_subset), AMP_effect_positive_negative), 
-              x4 = pull(na.omit(data_subset), skip_AMP_effect_positive_negative),
+Partover.test(x1 = pull(filter(data_subset, is.na(skip_AMP_effect_positive_negative)),
+                        AMP_effect_positive_negative),
+              x2 = pull(filter(data_subset, is.na(AMP_effect_positive_negative)),
+                        skip_AMP_effect_positive_negative),
+              x3 = pull(na.omit(data_subset), 
+                        AMP_effect_positive_negative), 
+              x4 = pull(na.omit(data_subset), 
+                        skip_AMP_effect_positive_negative),
               var.equal = FALSE)
 
 ```
@@ -122,10 +126,12 @@ effsize::cohen.d(score ~ condition,
 
 ```{r}
 
-h2_fit <- data_processed_exclusions %>%
+h2_fit <- 
   lm(AMP_effect_positive_negative ~ influence_rate,
-     data = .)
+     data = data_processed_exclusions)
+
 tab_model(h2_fit, show.std = TRUE)
+
 plot_model(h2_fit, type = "pred")
 
 ```

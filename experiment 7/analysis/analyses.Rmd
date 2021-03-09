@@ -1,6 +1,6 @@
 ---
-title: "Study 7"
-subtitle: "Analyses"
+title: "Study 7 Analyses"
+subtitle: "NB referred to as Study 8 in manuscript"
 author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -48,7 +48,7 @@ task_level_data <- read.csv("../data/processed/processed_data.csv")
 trial_level_amp_data <- read.csv("../data/processed/trial_level_amp_positive_negative_data.csv")
 
 trial_level_ia_amp_data <- read.csv("../data/processed/trial_level_ia_amp_positive_negative_data.csv") %>%
-  mutate(influenced = as.numeric(influenced))
+  mutate(influenced = as.factor(influenced))
 
 
 # exclusions
@@ -84,44 +84,6 @@ task_level_data_exclusions %>%
 
 # Manipulation checks
 
-## Descriptives - Asked for inclusion by Reviewer 1
-
-```{r}
-
-# overall IA-AMP effect size
-task_level_data_exclusions %>%
-  select(subject, IA_AMP_effect_positive_negative) %>%
-  summarise(effect = mean(IA_AMP_effect_positive_negative),
-            sd = sd(IA_AMP_effect_positive_negative))
-
-# specific effects
-trial_level_ia_amp_data_exclusions %>%
-  group_by(subject, prime_type, influenced) %>%
-  dplyr::summarise(mean_rating = mean(rating)) %>%
-  spread(prime_type, mean_rating) %>%
-  mutate(prime_type_A = ifelse(is.na(prime_type_A), .5, prime_type_A),
-         prime_type_B = ifelse(is.na(prime_type_B), .5, prime_type_B)) %>%
-  mutate(amp_effect = prime_type_B - prime_type_A) %>%
-  select(subject, influenced, amp_effect) %>%
-  spread(influenced, amp_effect) %>%
-  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
-         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
-  summarise(mean_uninfluenced = mean(`0`),
-            sd_uninfluenced = sd(`0`),
-            mean_influenced = mean(`1`),
-            sd_influenced = sd(`1`))
-
-# How many influence-aware trials?
-trial_level_ia_amp_data_exclusions %>%
-  dplyr::count(subject, influenced) %>%
-  spread(influenced, n) %>%
-  mutate(`0` = ifelse(is.na(`0`), 0, `0`),
-         `1` = ifelse(is.na(`1`), 0, `1`)) %>%
-  summarise(mean_influenced = mean(`1`),
-            sd = sd(`1`))
-  
-```
-
 ## M1: Demonstate an AMP effect on the AMP
 
 ```{r}
@@ -137,21 +99,7 @@ plot_model(model_m1, type = "pred", terms = c("prime_type"))
 # results table
 tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
-coefficients_temp <- summary(model_m1)$coefficients %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "effect") %>%
-  filter(effect == "prime_typeprime_type_B")
-
-m1_d <- c(exp(pull(coefficients_temp, Estimate)), 
-          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
-  timesavers::OR_to_d(.) %>%
-  round(2)
-
 ```
-
-OR converted to Cohen's d for familiarity: d = `r m1_d[1]`, 95% CI [`r m1_d[2]`, `r m1_d[3]`].
 
 ## M2: Demonstate an AMP effect on the IA-AMP
 
@@ -168,21 +116,7 @@ plot_model(model_m2, type = "pred", terms = c("prime_type"))
 # results table
 tab_model(model_m2, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
-coefficients_temp <- summary(model_m2)$coefficients %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "effect") %>%
-  filter(effect == "prime_typeprime_type_B")
-
-m2_d <- c(exp(pull(coefficients_temp, Estimate)), 
-          exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-          exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
-  timesavers::OR_to_d(.) %>%
-  round(2)
-
 ```
-
-OR converted to Cohen's d for familiarity: d = `r m2_d[1]`, 95% CI [`r m2_d[2]`, `r m2_d[3]`].
 
 # Hypothesis tests
 
@@ -207,21 +141,7 @@ plot_model(model_h1a, type = "pred", terms = c("influenced", "prime_type"))
 # results table
 tab_model(model_h1a, emph.p = FALSE, ci.hyphen = ", ")
 
-# extract OR and convert to d using the method proposed by Hasselblad & Hedges (1995, Equation 5, p. 170): d = log(OR)*(sqrt(3)/pi). See also Sánchez-Meca, Marín-Martínez & Chacón-Moscoso's (2003).
-coefficients_temp <- summary(model_h1a)$coefficients %>%
-  as.data.frame() %>%
-  rownames_to_column(var = "effect") %>%
-  filter(effect == "influenced:prime_typeprime_type_B")
-
-h1a_d <- c(exp(pull(coefficients_temp, Estimate)), 
-           exp(pull(coefficients_temp, Estimate) - pull(coefficients_temp, "Std. Error")*1.96),
-           exp(pull(coefficients_temp, Estimate) + pull(coefficients_temp, "Std. Error")*1.96)) %>%
-  timesavers::OR_to_d(.) %>%
-  round(2)
-
 ```
-
-OR converted to Cohen's d for familiarity: d = `r h1a_d[1]`, 95% CI [`r h1a_d[2]`, `r h1a_d[3]`].
 
 ### H1b: at the participant level
 
@@ -238,8 +158,6 @@ fit_h1b <- task_level_data_exclusions %>%
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positive_negative))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
   labs(title = "Proportion of influenced trials and IA-AMP effect", 
        x = "Proportion of influenced trials", 
@@ -247,7 +165,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate, abs(IA_AMP_effect_positiv
   theme_classic()
 
 # results table
-tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+tab_model(fit_h1b, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE, col.order = c("est", "ci", "std.est", "std.ci", "p"))
 
 ```
 
@@ -266,8 +184,6 @@ fit_h2 <- task_level_data_exclusions %>%
 
 # plot
 ggplot(task_level_data_exclusions, aes(influence_rate, abs(AMP_effect_positive_negative))) + 
-  geom_jitter(alpha = 0.3) +
-  geom_rug(position = "jitter") +
   geom_smooth(method = lm) +
   labs(title = "Rate of influence and Standard AMP effect size", 
        x = "Rate of influence", 
@@ -275,6 +191,6 @@ ggplot(task_level_data_exclusions, aes(influence_rate, abs(AMP_effect_positive_n
   theme_classic()
 
 # table
-tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE)
+tab_model(fit_h2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE, col.order = c("est", "ci", "std.est", "std.ci", "p"))
 
 ```
