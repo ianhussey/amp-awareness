@@ -32,6 +32,8 @@ library(kableExtra)
 library(knitr)
 library(patchwork)
 library(diptest)
+library(multimode)
+library(performance)
 
 # disable scientific notation
 options(scipen = 999) 
@@ -74,6 +76,45 @@ data_participant_level %>%
 
 ```
 
+# Descriptive stats 
+
+## AMP effects
+
+```{r}
+
+data_participant_level %>%
+  select(experiment,
+         AMP_domain, 
+         AMP_effect) %>%
+  filter(AMP_domain == "Valence") %>%
+  group_by(experiment, 
+           AMP_domain) %>%
+  dplyr::summarize(M_absolute_AMP_effect = mean(abs(AMP_effect), na.rm = TRUE),
+                   SD_absolute_AMP_effect = sd(abs(AMP_effect), na.rm = TRUE)) %>%
+  drop_na() %>%
+  mutate_if(is.numeric, round, digits = 2)
+
+```
+
+## IA-AMP effects
+
+```{r}
+
+data_participant_level %>%
+  select(experiment,
+         IA_AMP_domain, 
+         IA_AMP_effect, 
+         IA_AMP_uninfluenced_effect, 
+         IA_AMP_influenced_effect) %>%
+  filter(IA_AMP_domain == "Valence") %>%
+  gather(effect_type, IA_AMP_effect, c(IA_AMP_effect, IA_AMP_uninfluenced_effect, IA_AMP_influenced_effect)) %>%
+  group_by(experiment, IA_AMP_domain, effect_type) %>%
+  dplyr::summarize(M_absolute_AMP_effect = mean(abs(IA_AMP_effect), na.rm = TRUE),
+                   SD_absolute_AMP_effect = sd(abs(IA_AMP_effect), na.rm = TRUE)) %>%
+  mutate_if(is.numeric, round, digits = 2)
+
+```
+
 # Does influence rate predict the magnitude of (IA)AMP effects?
 
 ## Participant level
@@ -92,13 +133,13 @@ fit_participant_level_ia_amp <-
 
 tab_model(fit_participant_level_ia_amp, 
           show.std = TRUE,
-          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          col.order = c("est", "ci", "p"),
           string.est = "B",
           string.ci = "CI",
-          string.std = "Std.Beta",
-          string.std_ci = "Std.Beta CI",
           emph.p = FALSE,
           ci.hyphen = ", ")
+
+r2_nakagawa(fit_participant_level_ia_amp, by_group = TRUE)
 
 ```
 
@@ -116,13 +157,13 @@ fit_participant_level_amp <-
 
 tab_model(fit_participant_level_amp, 
           show.std = TRUE,
-          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          col.order = c("est", "ci", "p"),
           string.est = "B",
           string.ci = "CI",
-          string.std = "Std.Beta",
-          string.std_ci = "Std.Beta CI",
           emph.p = FALSE,
           ci.hyphen = ", ")
+
+r2_nakagawa(fit_participant_level_amp, by_group = TRUE)
 
 ```
 
@@ -143,7 +184,6 @@ plot_ia_amp <-
   scale_color_viridis_d(begin = 0.1, end = 0.9) +
   guides(color = guide_legend(title = "Experiment"),
          linetype = guide_legend(title = "Domain"))
-
 
 plot_amp <- 
   data_participant_level %>%
@@ -170,13 +210,69 @@ write_rds(plot_participant_level, "models/plot_participant_level.rds", compress 
 
 ```
 
-### Awareness rate
+## Trial level
+
+Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
+
+```{r}
+
+#fig.height=3, fig.width=7
+
+# fit model
+if(file.exists("models/fit_trial_level.rds")){
+  
+  fit_trial_level <- read_rds("models/fit_trial_level.rds")
+  
+} else {
+  
+  fit_trial_level <- 
+    glmer(rating ~ Awareness * prime_type + (1 | unique_id) + (1 | experiment),
+          family = binomial(link = "logit"),
+          data = data_trial_level_valence_ia_amp)
+  
+  dir.create("models")
+  write_rds(fit_trial_level, file = "models/fit_trial_level.rds", compress = "gz")
+  
+}
+
+# table
+tab_model(fit_trial_level, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "p"),
+          string.ci = "CI",
+          emph.p = FALSE,
+          ci.hyphen = ", ")
+
+r2_nakagawa(fit_trial_level, by_group = TRUE)
+
+# plot
+plot_trial_level <- 
+  plot_model(fit_trial_level, type = "int") +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
+  theme_classic() +
+  ggtitle("") +
+  xlab("Awareness of influence of the prime") +
+  ylab("Evaluation") +
+  scale_y_continuous(limits = c(0, 1)) +
+  #coord_flip() + 
+  labs(color = "Prime type") +
+  guides(color = guide_legend(reverse = TRUE))
+
+# print
+plot_trial_level
+
+# save
+write_rds(plot_trial_level, "models/plot_trial_level.rds", compress = "gz")
+
+```
+
+# Awareness rate
 
 Combination analysis due to severe bimodality.
 
 Mann et al. (2019) specifically argued that their modifications should reduce the bimodality of AMP effects, i.e., that there should be distributional differences between the two samples (IA-AMPs employing the standard stimuli and task format vs a Mann et all IA-AMP).
 
-#### Visual inspection
+## Visual inspection
 
 ```{r fig.height=2.5, fig.width=5}
 
@@ -198,11 +294,11 @@ plot_influence_rate
 
 ```
 
-#### Test of unimodality
+## Test of unimodality
 
 Hartigans' Dip Tests (H0 = unimodality)
 
-##### All data 
+### All data 
 
 ```{r}
 
@@ -211,7 +307,7 @@ dip.test(data_IA_AMP_types %>%
 
 ```
 
-##### Subset of standard (non Mann et al) IA-AMPs 
+### Subset of standard (non Mann et al) IA-AMPs 
 
 ```{r}
 
@@ -221,7 +317,7 @@ dip.test(data_IA_AMP_types %>%
 
 ```
 
-##### Subset of Mann et al. IA-AMPs 
+### Subset of Mann et al. IA-AMPs 
 
 ```{r}
 
@@ -231,91 +327,11 @@ dip.test(data_IA_AMP_types %>%
 
 ```
 
-#### Descriptive stats
+## Estimate location of modes
 
 ```{r}
 
-N <- nrow(data_participant_level)
-
-data_participant_level %>%
-  mutate(influence_rate_bins = ifelse(influence_rate <= .20, 1, 
-                                           ifelse(influence_rate <= .40, 2, 
-                                                  ifelse(influence_rate <= .60, 3, 
-                                                         ifelse(influence_rate <= .80, 4, 
-                                                                ifelse(influence_rate <= 1.00, 5, NA))))),
-         influence_rate_bins = as.factor(influence_rate_bins)) %>%
-  dplyr::count(influence_rate_bins) %>%
-  mutate(percent = round(n/N, 2)) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-data_participant_level %>%
-  mutate(influence_rate_categories = ifelse(influence_rate <= .05, "almost none", 
-                                            ifelse(influence_rate >= 0.95, "almost all", "some")),
-         influence_rate_categories = as.factor(influence_rate_categories)) %>%
-  dplyr::count(influence_rate_categories) %>%
-  mutate(percent = round(n/N, 2)) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-data_participant_level %>%
-  summarize(median_influence_rate = median(influence_rate),
-            mad_influence_rate = mad(influence_rate)) %>%
-  mutate_if(is.numeric, round, digits = 2) %>%
-  kable() %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
-
-```
-
-## Trial level
-
-Positive-negative IA-AMPs only (i.e., no Politics IA-AMP), as trial level data reveals the magnitude of the AMP effect but not the absolute magnitude. When there are meaningful individual differences between the positive and negative category (i.e., the Politics IA-AMP but not the positive-negative IA-AMP), the native trial level AMP effects between groups conceal the absolute magnitudes. As such, it is only meaningful to meta analyze the positive-negative IA-AMP effects.  
-
-```{r fig.height=3, fig.width=7}
-
-# fit model
-if(file.exists("models/fit_trial_level.rds")){
-  
-  fit_trial_level <- read_rds("models/fit_trial_level.rds")
-  
-} else {
-  
-  fit_trial_level <- 
-    glmer(rating ~ Awareness * prime_type + (1 | experiment/unique_id),
-          family = binomial(link = "logit"),
-          data = data_trial_level_valence_ia_amp)
-  
-  dir.create("models")
-  write_rds(fit_trial_level, file = "models/fit_trial_level.rds", compress = "gz")
-  
-}
-
-# table
-tab_model(fit_trial_level, 
-          show.std = TRUE,
-          col.order = c("est", "ci", "std.est", "std.ci", "p"),
-          string.est = "B",
-          string.ci = "CI",
-          string.std = "Std.Beta",
-          string.std_ci = "Std.Beta CI",
-          emph.p = FALSE,
-          ci.hyphen = ", ")
-
-# plot
-plot_trial_level <- 
-  plot_model(fit_trial_level, type = "int") +
-  scale_color_viridis_d(begin = 0.3, end = 0.7) +
-  theme_classic() +
-  ggtitle("") +
-  xlab("Awareness of influence of the prime") +
-  ylab("Rating") +
-  scale_y_continuous(limits = c(0, 1)) +
-  coord_flip() + 
-  labs(color = "Prime type") +
-  guides(color = guide_legend(reverse = TRUE))
-
-# save
-write_rds(plot_trial_level, "models/plot_trial_level.rds", compress = "gz")
+locmodes(data_IA_AMP_types$influence_rate, mod0 = 2)
 
 ```
 
