@@ -92,7 +92,10 @@ data_subset %>%
   summarise(mean_standard_effect = mean(AMP_effect_positive_negative),
             sd_standard_effect = sd(AMP_effect_positive_negative),
             mean_skip_effect = mean(skip_AMP_effect_positive_negative),
-            sd_skip_effect = sd(skip_AMP_effect_positive_negative))
+            sd_skip_effect = sd(skip_AMP_effect_positive_negative)) %>%
+  round_df(2) %>%
+  kable() %>%  # print nicer looking table
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 
 Partover.test(x1 = pull(filter(data_subset, is.na(skip_AMP_effect_positive_negative)),
                         AMP_effect_positive_negative),
@@ -102,7 +105,15 @@ Partover.test(x1 = pull(filter(data_subset, is.na(skip_AMP_effect_positive_negat
                         AMP_effect_positive_negative), 
               x4 = pull(na.omit(data_subset), 
                         skip_AMP_effect_positive_negative),
-              var.equal = FALSE)
+              var.equal = FALSE) %>%
+  unlist(.) %>%
+  data.frame(value = .) %>%
+  rownames_to_column(var = "key") %>%
+  spread(key, value) %>%
+  mutate(t = round(statistic, 2),
+         df = round(parameter, 2),
+         diff_in_means = round(estimate, 2)) %>%
+  select(t, df, p = p.value, diff_in_means) 
 
 ```
 
@@ -122,7 +133,7 @@ effsize::cohen.d(score ~ condition,
 
 ```
 
-# H2: Does rate of skipping in the skip AMP predict standard AMP effects?
+## H2: Does rate of skipping in the skip AMP predict standard AMP effects?
 
 ```{r}
 
