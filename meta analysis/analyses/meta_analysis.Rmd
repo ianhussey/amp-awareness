@@ -26,10 +26,9 @@ library(lme4)
 library(effects)
 library(metafor)
 library(patchwork)
-library(ggExtra)
 library(sjPlot)
-library(kableExtra)
 library(knitr)
+library(kableExtra)
 library(patchwork)
 library(diptest)
 library(multimode)
@@ -55,6 +54,7 @@ data_participant_level <-
 data_trial_level_valence_ia_amp  <- 
   read.csv("../data/data_combined_trial_level.csv")  %>%
   mutate(Awareness = ifelse(influenced == 0, "Non-aware trials", ifelse(influenced == 1, "Aware trials", NA)),
+         Awareness = fct_relevel(Awareness, "Non-aware trials", "Aware trials"),
          prime_type = as.factor(prime_type)) %>%
   rownames_to_column(var = "unique_row_name") %>%
   group_by(experiment, IA_AMP_domain, unique_id, influenced, prime_type) %>%
@@ -92,7 +92,9 @@ data_participant_level %>%
   dplyr::summarize(M_absolute_AMP_effect = mean(abs(AMP_effect), na.rm = TRUE),
                    SD_absolute_AMP_effect = sd(abs(AMP_effect), na.rm = TRUE)) %>%
   drop_na() %>%
-  mutate_if(is.numeric, round, digits = 2)
+  mutate_if(is.numeric, round, digits = 2) %>%
+  kable() %>%  # print nicer looking table
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 
 ```
 
@@ -111,7 +113,9 @@ data_participant_level %>%
   group_by(experiment, IA_AMP_domain, effect_type) %>%
   dplyr::summarize(M_absolute_AMP_effect = mean(abs(IA_AMP_effect), na.rm = TRUE),
                    SD_absolute_AMP_effect = sd(abs(IA_AMP_effect), na.rm = TRUE)) %>%
-  mutate_if(is.numeric, round, digits = 2)
+  mutate_if(is.numeric, round, digits = 2) %>%
+  kable() %>%  # print nicer looking table
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 
 ```
 
@@ -133,9 +137,11 @@ fit_participant_level_ia_amp <-
 
 tab_model(fit_participant_level_ia_amp, 
           show.std = TRUE,
-          col.order = c("est", "ci", "p"),
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
           string.est = "B",
           string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "CI",
           emph.p = FALSE,
           ci.hyphen = ", ")
 
@@ -157,9 +163,11 @@ fit_participant_level_amp <-
 
 tab_model(fit_participant_level_amp, 
           show.std = TRUE,
-          col.order = c("est", "ci", "p"),
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
           string.est = "B",
           string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "CI",
           emph.p = FALSE,
           ci.hyphen = ", ")
 
@@ -231,14 +239,14 @@ if(file.exists("models/fit_trial_level.rds")){
           data = data_trial_level_valence_ia_amp)
   
   dir.create("models")
-  write_rds(fit_trial_level, file = "models/fit_trial_level.rds", compress = "gz")
+  write_rds(fit_trial_level, path = "models/fit_trial_level.rds", compress = "gz")
   
 }
 
 # table
 tab_model(fit_trial_level, 
-          show.std = TRUE,
           col.order = c("est", "ci", "p"),
+          string.est = "OR",
           string.ci = "CI",
           emph.p = FALSE,
           ci.hyphen = ", ")
