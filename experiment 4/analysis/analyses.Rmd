@@ -393,64 +393,47 @@ summary(fit, digits = 7)
 
 ```{r}
 
-data_plotting <- 
-  task_level_data_exclusions %>%
-  dplyr::rename("Influence\naware\ntrials" = IA_AMP_effect_obama_trump_influenced,
-                "Non-influence\naware\ntrials" = IA_AMP_effect_obama_trump_uninfluenced) %>%
-  mutate(party = dplyr::recode(party,
+fit <- task_level_data_exclusions %>%
+  mutate(Party = dplyr::recode(party,
                                "democrat" = "Democrat",
                                "republican" = "Republican")) %>%
-  gather(influence, 
-         IA_AMP_effect, 
-         c("Influence\naware\ntrials", "Non-influence\naware\ntrials"))
+  dplyr::rename("Aware trials" = IA_AMP_effect_obama_trump_influenced,
+                "Non-aware trials" = IA_AMP_effect_obama_trump_uninfluenced) %>%
+  gather(Awareness, 
+         Evaluation, 
+         c("Aware trials", "Non-aware trials")) %>%
+  mutate(Awareness = fct_rev(Awareness)) %>%
+  lm(data = .,
+     Evaluation ~ Awareness * Party)
 
-data_summary_plotting <- data_plotting %>%
-  group_by(party, influence) %>%
-  dplyr::summarize(IA_AMP_effect_mean = mean(IA_AMP_effect, na.rm = TRUE),
-                   IA_AMP_effect_se = plotrix::std.error(IA_AMP_effect, na.rm = TRUE)) %>%
-  ungroup()
-
-p1 <- ggplot() +
-  stat_density_ridges(data = data_plotting,
-                      aes(x = IA_AMP_effect,
-                          y = influence, 
-                          fill = as.factor(party),
-                          color = as.factor(party)),
-                      geom = "density_ridges_gradient",
-                      bandwidth = 0.35,
-                      jittered_points = TRUE, 
-                      scale = 0.95, 
-                      rel_min_height = 0.05,
-                      point_shape = "|", 
-                      point_size = 3, 
-                      size = 0.25,
-                      position = position_points_jitter(height = 0, width = 0, yoffset = -0.05)) +
-  geom_errorbarh(data = data_summary_plotting,
-                 aes(xmin = IA_AMP_effect_mean - IA_AMP_effect_se*1.96,
-                     xmax = IA_AMP_effect_mean + IA_AMP_effect_se*1.96,
-                     y = influence,
-                     color = as.factor(party)),
-                 height = 0.1,
-                 position = position_nudge(y = -0.16, x = 0)) +
-  geom_point(data = data_summary_plotting,
-             aes(x = IA_AMP_effect_mean,
-                 y = influence,
-                 fill = as.factor(party),
-                 color = as.factor(party)),
-             position = position_nudge(y = -0.16, x = 0)) +
-  scale_colour_viridis_d(begin = 0.3, end = 0.7, alpha = 1) +
-  scale_fill_viridis_d(begin = 0.3, end = 0.7, alpha = 0.5) +
+plot_predictive_valdity <- 
+  plot_model(fit, type = "int") +
+  scale_color_viridis_d(begin = 0.3, end = 0.7) +
   theme_classic() +
-  scale_x_continuous(breaks = c(-1.0, -0.5, 0.0, 0.5, 1.0),
-                     labels = c("-1.0\n(Obama-good/Trump-bad)", "-0.5", "0.0", "0.5", "1.0\n(Obama-bad/Trump-good)")) +
-  ylab("Influence-awareness\n") +
-  xlab("\nEvaluation on IA-AMP") +
-  labs(color = "Political party") + 
-  labs(name = "Political party") +
-  labs(fill = "Political party")
+  ggtitle("") +
+  scale_y_continuous(breaks = c(-.25, -.5, -.75, 0, .25, .5, .75, 1)) +
+  #coord_flip() + 
+  labs(color = "Party") +
+  guides(color = guide_legend(reverse = TRUE)) + 
+  scale_x_discrete(limits = c("Non-aware trials", "Aware trials"), 
+                   expand = expand_scale(add = 0.65))
 
-p1
+# print
+plot_predictive_valdity
 
-save(p1, file = "p1.RData")
+# save object
+write_rds(plot_predictive_valdity, "plot_predictive_valdity.rds", compress = "gz")
+
+# save pdf
+ggsave(filename  = "plot_predictive_valdity.pdf",
+       plot      = plot_predictive_valdity,
+       device    = "pdf",
+       # path      = NULL,
+       # dpi       = 300,
+       units     = "in",
+       width     = 4.75,
+       height    = 3.75,
+       limitsize = TRUE)
 
 ```
+

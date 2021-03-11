@@ -208,13 +208,24 @@ plot_amp <-
          linetype = guide_legend(title = "Domain"))
 
 # combine
-plot_participant_level <- plot_ia_amp / plot_amp
+plot_participant_level <- plot_amp / plot_ia_amp
 
 # print 
 plot_participant_level
 
-# save
+# save object
 write_rds(plot_participant_level, "models/plot_participant_level.rds", compress = "gz")
+
+# save pdf
+ggsave(filename  = "plot_participant_level.pdf",
+       plot      = plot_participant_level,
+       device    = "pdf",
+       # path      = NULL,
+       # dpi       = 300,
+       units     = "in",
+       width     = 5.0,
+       height    = 7.25,
+       limitsize = TRUE)
 
 ```
 
@@ -259,18 +270,31 @@ plot_trial_level <-
   scale_color_viridis_d(begin = 0.3, end = 0.7) +
   theme_classic() +
   ggtitle("") +
-  xlab("Awareness of influence of the prime") +
+  xlab("Awareness") +
   ylab("Evaluation") +
   scale_y_continuous(limits = c(0, 1)) +
   #coord_flip() + 
   labs(color = "Prime type") +
-  guides(color = guide_legend(reverse = TRUE))
+  guides(color = guide_legend(reverse = TRUE)) + 
+  scale_x_discrete(limits = c("Non-aware trials", "Aware trials"), 
+                   expand = expand_scale(add = 0.65))
 
 # print
 plot_trial_level
 
-# save
+# save object
 write_rds(plot_trial_level, "models/plot_trial_level.rds", compress = "gz")
+
+# save pdf
+ggsave(filename  = "plot_trial_level.pdf",
+       plot      = plot_trial_level,
+       device    = "pdf",
+       # path      = NULL,
+       # dpi       = 300,
+       units     = "in",
+       width     = 4.75,
+       height    = 3.75,
+       limitsize = TRUE)
 
 ```
 
