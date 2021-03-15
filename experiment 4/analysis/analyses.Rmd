@@ -186,7 +186,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate_obama_trump, abs(IA_AMP_ef
   theme_classic()
 
 # results table
-tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE, col.order = c("est", "ci", "std.est", "std.ci", "p"))
 
 ```
 
@@ -237,7 +237,7 @@ ggplot(task_level_data_exclusions, aes(influence_rate_positive_negative,
   theme_classic()
 
 # results table
-tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ")
+tab_model(fit_h1b_2, emph.p = FALSE, ci.hyphen = ", ", show.std = TRUE, col.order = c("est", "ci", "std.est", "std.ci", "p"))
 
 ```
 
