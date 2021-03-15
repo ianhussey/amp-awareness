@@ -1,1 +1,0 @@
-Influence awareness AMP modified so that the prime and mask is presented, then the influence question, then the target and a second mask, then the opportunity to evaluate. ie, it preempts overt evaluations of the prime.

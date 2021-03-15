@@ -378,6 +378,122 @@ locmodes(data_IA_AMP_types$influence_rate, mod0 = 2)
 
 ```
 
+# robustness
+
+## Participant level
+
+### IA-AMP effect ~ IA-AMP influence_rate
+
+IA-AMP effect ~ IA-AMP influence rate
+
+Absolute IA-AMP effects
+
+```{r}
+
+fit_participant_level_ia_amp <- 
+  data_participant_level %>%
+  group_by(experiment) %>%
+  mutate(abs_IA_AMP_effect = rank(abs_IA_AMP_effect),
+         influence_rate = rank(influence_rate)) %>%
+  lmer(abs_IA_AMP_effect ~ influence_rate + (1 | experiment), 
+       data = .)
+
+tab_model(fit_participant_level_ia_amp, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          string.est = "B",
+          string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "CI",
+          emph.p = FALSE,
+          ci.hyphen = ", ")
+
+r2_nakagawa(fit_participant_level_ia_amp, by_group = TRUE)
+
+```
+
+### AMP effect ~ IA-AMP influence rate
+
+AMP effect ~ IA-AMP influence rate
+
+Absolute AMP effects
+
+```{r}
+
+fit_participant_level_amp <- 
+  lmer(abs_AMP_effect ~ influence_rate + (1 | experiment), 
+       data = data_participant_level)
+
+tab_model(fit_participant_level_amp, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          string.est = "B",
+          string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "CI",
+          emph.p = FALSE,
+          ci.hyphen = ", ")
+
+r2_nakagawa(fit_participant_level_amp, by_group = TRUE)
+
+```
+
+### Combined plot
+
+```{r fig.height=8.5, fig.width=6}
+
+plot_ia_amp <- 
+  data_participant_level %>%  
+  mutate(IA_AMP_domain = fct_rev(IA_AMP_domain)) %>% 
+  ggplot(aes(influence_rate, abs_IA_AMP_effect, color = experiment, linetype = IA_AMP_domain)) +
+  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
+  ylim(0,1) +
+  xlim(0,1) + 
+  theme_classic() +
+  xlab("Awareness rate") +
+  ylab("IA-AMP effect") +
+  scale_color_viridis_d(begin = 0.1, end = 0.9) +
+  guides(color = guide_legend(title = "Experiment"),
+         linetype = guide_legend(title = "Domain"))
+
+plot_amp <- 
+  data_participant_level %>%
+  mutate(AMP_domain = fct_rev(AMP_domain)) %>% 
+  ggplot(aes(influence_rate, abs_AMP_effect, color = experiment, linetype = AMP_domain)) +
+  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
+  ylim(0,1) +
+  xlim(0,1) + 
+  theme_classic() +
+  xlab("Awareness rate") +
+  ylab("AMP effect") +
+  scale_color_viridis_d(begin = 0.1, end = 0.9) +
+  guides(color = guide_legend(title = "Experiment"),
+         linetype = guide_legend(title = "Domain"))
+
+# combine
+plot_participant_level <- plot_amp / plot_ia_amp
+
+# print 
+plot_participant_level
+
+# save object
+write_rds(plot_participant_level, "models/plot_participant_level.rds", compress = "gz")
+
+# save pdf
+ggsave(filename  = "plot_participant_level.pdf",
+       plot      = plot_participant_level,
+       device    = "pdf",
+       # path      = NULL,
+       # dpi       = 300,
+       units     = "in",
+       width     = 5.0,
+       height    = 7.25,
+       limitsize = TRUE)
+
+```
+
+
+
 # Session info
 
 ```{r}

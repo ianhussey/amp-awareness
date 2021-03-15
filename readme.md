@@ -1,6 +1,4 @@
-# Awareness of the influence of prime stimuli within the Affect Misattribution Procedure
-
-A series of studies that revisit the evidence for the AMP being an implicit measure.
+# Effects on the Affect Misattribution Procedure are strongly moderated by awareness
 
 Development is done in this github. Archived files for distribution available on the OSF: [osf.io/gv7cm](https://www.osf.io/gv7cm)
 
@@ -14,4 +12,4 @@ All code is licensed as GPL3+: You may reuse it as you wish as long as you ackno
 
 ## Citation & preprint
 
-Cummins, Hussey, & Hughes. (2019). The AMPeror’s New Clothes: Performance on the Affect Misattribution Procedure is Mainly Driven by Awareness of Prime Influence. Preprint: psyarxiv.com/XXX, data and materials: [osf.io/gv7cm](https://www.osf.io/gv7cm)
+Hughes, Cummins, & Hussey (2021). Effects on the Affect Misattribution Procedure are strongly moderated by awareness. Preprint: [psyarxiv.com/d5zn8](https://psyarxiv.com/d5zn8/), data and materials: [osf.io/gv7cm](https://www.osf.io/gv7cm)
