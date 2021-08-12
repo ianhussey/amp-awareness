@@ -408,9 +408,12 @@ locmodes(data_IA_AMP_types$influence_rate, mod0 = 2)
 
 data_trial_level_valence_ia_amp %>%
   filter(IA_AMP_domain == "Valence") %>%
-  select(rating, influenced, experiment) %>%
+  mutate(consistent_rating = case_when(prime_type == "Negative" & rating == 0 ~ 1,
+                                       prime_type == "Positive" & rating == 1 ~ 1,
+                                       TRUE ~ 0)) %>%
+  select(consistent_rating, influenced, experiment) %>%
   table()
-  
+   
 ```
 
 # Session info
