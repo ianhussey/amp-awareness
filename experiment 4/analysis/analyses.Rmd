@@ -322,6 +322,28 @@ ggplot(task_level_data_exclusions,
 
 ## H4: The politics IA-AMPs ability to predict political affiliation is driven by the subset of trials on which participants reporting being influenced
 
+### Reviewer requested: Group membership predicting AMP effect from overall AMP effect 
+
+```{r}
+
+refactored_overall_effect <- task_level_data_exclusions %>% 
+  select(IA_AMP_effect_obama_trump, party) %>%
+  na.omit() %>%
+  mutate(party = as.factor(as.character(party))) # need to refactor party as it thought it had 3 levels
+
+# test
+t.test(IA_AMP_effect_obama_trump ~ party,
+       data = refactored_overall_effect, 
+       var.equal = TRUE)
+
+# Cohen's d
+d_overall <- effsize::cohen.d(IA_AMP_effect_obama_trump ~ party,
+                          data = refactored_overall_effect)
+
+d_overall
+
+```
+
 ### Group membership predicting AMP effect from influenced trials
 
 ```{r}
