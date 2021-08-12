@@ -402,6 +402,17 @@ locmodes(data_IA_AMP_types$influence_rate, mod0 = 2)
 
 ```
 
+## Reviewer Request: awareness vs. response confusion matrix 
+
+```{r}
+
+data_trial_level_valence_ia_amp %>%
+  filter(IA_AMP_domain == "Valence") %>%
+  select(rating, influenced, experiment) %>%
+  table()
+  
+```
+
 # Session info
 
 ```{r}
