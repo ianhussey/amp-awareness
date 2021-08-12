@@ -310,7 +310,7 @@ Mann et al. (2019) specifically argued that their modifications should reduce th
 
 data_IA_AMP_types <- data_participant_level %>%
   mutate(IA_AMP_type = ifelse(experiment == 6, "Mann et al. (2019) modifications", "Standard IA-AMP")) %>%
-  select(IA_AMP_type, influence_rate)
+  select(IA_AMP_type, experiment, influence_rate)
 
 plot_influence_rate <- 
   ggplot(data_IA_AMP_types, aes(influence_rate, fill = fct_rev(IA_AMP_type))) +
@@ -327,6 +327,30 @@ plot_influence_rate
 # save pdf
 ggsave(filename  = "plot_influence_rate.pdf",
        plot      = plot_influence_rate,
+       device    = "pdf",
+       # path      = NULL,
+       # dpi       = 300,
+       units     = "in",
+       width     = 5,
+       height    = 3,
+       limitsize = TRUE)
+
+# faceted by experiment
+plot_influence_rate_by_experiment <- 
+  ggplot(data_IA_AMP_types, aes(influence_rate)) +
+  geom_density(adjust = .5, alpha = 0.5) +
+  theme_classic() +
+  scale_fill_viridis_d(begin = 0.3, end = 0.7) +
+  xlab("Awareness") +
+  ylab("Distribution density") +
+  theme(legend.position = c(0.7, 0.8)) +
+  facet_wrap(~experiment)
+
+plot_influence_rate_by_experiment
+
+# save pdf
+ggsave(filename  = "plot_influence_rate_by_experiment.pdf",
+       plot      = plot_influence_rate_by_experiment,
        device    = "pdf",
        # path      = NULL,
        # dpi       = 300,
