@@ -94,7 +94,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 193363352,32,Female,0.1,0.1,0.04,0.07,5,2,1,"Yes, use my data",,2,TRUE
 198618418,40,Male,0.33,0.23,0.13,0.13,7,2,2,"Yes, use my data",,2,TRUE
 202158371,32,FEMALE,0.83,0.83,1,0.93,4,4,4,"Yes, use my data",,4,TRUE
-202902210,21,Male,0.13,0.23,0,0.27,7,4,1,"Yes, use my data",,4,TRUE
+202902210,21,Male,0.13,0.23,-0,0.27,7,4,1,"Yes, use my data",,4,TRUE
 203399137,32,m,0.67,0.33,0.21,0.13,7,6,7,"Yes, use my data",,1,TRUE
 205571831,54,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
 206333542,50,Female,0.37,-0.1,-0.32,0.42,7,5,4,"Yes, use my data",,3,TRUE
@@ -206,7 +206,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 482502282,28,female,0.57,0.57,0.51,0.67,6,5,6,"Yes, use my data",,6,TRUE
 484534075,29,Male,0.17,0.23,-0.13,0.35,6,3,1,"Yes, use my data",,2,TRUE
 486257201,31,male,0.1,0.03,0.06,0.07,7,2,2,"Yes, use my data",,2,TRUE
-489767949,31,Male,0,0.07,-0.12,0.23,7,3,1,"Yes, use my data",,2,TRUE
+489767949,31,Male,-0,0.07,-0.12,0.23,7,3,1,"Yes, use my data",,2,TRUE
 491919221,31,male,0.7,0.6,0.6,0,7,1,1,"Yes, use my data",,3,TRUE
 497780199,35,male,-0.03,-0.1,-0.08,0.07,3,5,2,"Yes, use my data",,5,TRUE
 498867305,60,Female,0.23,0.47,-0.5,0.95,4,4,4,"Yes, use my data",,4,TRUE
@@ -232,7 +232,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 544587117,36,female,0.07,-0.07,-0.04,0.08,7,2,1,"Yes, use my data",,2,TRUE
 550698544,49,female,0.6,0.9,0.75,0.87,6,5,2,"Yes, use my data",,6,TRUE
 551032787,24,male,0.7,0.7,0.55,0.78,6,4,4,"Yes, use my data",,5,TRUE
-554294865,35,male,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+554294865,35,male,-0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
 558953516,21,female,0.63,0.9,0.25,0.9,7,6,3,"Yes, use my data",,6,TRUE
 559200334,64,female,0,0,0,0,7,1,1,"No, exclude my data (please specify why):","I did not get images after the paintings... in each trial, all I could see after each picture, was a different black and white pixellated pattern.  I did follow all instructions very carefully indeed.",1,TRUE
 559558041,20,Male,0.47,0.6,0.56,0.1,7,4,5,"Yes, use my data",,2,TRUE
@@ -409,6 +409,6 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 990004073,19,Male,0.27,0.37,0.2,0.18,7,3,2,"Yes, use my data",,2,TRUE
 992543226,28,female,0.17,0,0,0,7,1,1,"No, exclude my data (please specify why):","For the first couple of pictures in the first section i thought the black and white picture was the ""painting"" and I marked it as unpleasant.   Then my eyes adjusted to see the actual paintings. All my answers from then on were the same - pleasant - as I really didn't have any preference for the different colour combinations of background and paint streaks found in the paintings - they were all fine.",1,TRUE
 999172017,46,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
-259858603,NA,NA,0.07,0,-0.29,0.3,7,4,2,"Yes, use my data",,3,FALSE
+259858603,NA,NA,0.07,-0,-0.29,0.3,7,4,2,"Yes, use my data",,3,FALSE
 135418330,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 870500023,NA,NA,NA,NA,NA,NA,1,1,1,"No, exclude my data (please specify why):",hk,1,FALSE

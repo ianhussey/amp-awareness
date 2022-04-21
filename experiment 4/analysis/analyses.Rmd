@@ -125,7 +125,7 @@ tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 ```{r}
 
 # fit model
-model_m2 <- glmer(rating ~ prime_type * party + (1 | subject), 
+model_m2 <- glmer(rating ~ prime_type * party + (prime_type | subject) + (1 | prime_identity), 
                   family = binomial(link = "logit"),
                   data = trial_level_politics_ia_amp_data_exclusions)
 
@@ -152,7 +152,7 @@ Key effect: influence:prime_type:party interaction
 ```{r}
 
 # model
-model_h1a_1 <- glmer(rating ~ influenced * prime_type * party + (1 | subject), 
+model_h1a_1 <- glmer(rating ~ influenced * prime_type * party + (prime_type | subject) + (1 | prime_identity), 
                      family = binomial(link = "logit"),
                      data = trial_level_politics_ia_amp_data_exclusions)
 
@@ -202,7 +202,7 @@ Key effect: influence*prime_type interaction
 ```{r}
 
 # model
-model_h1b_1 <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h1b_1 <- glmer(rating ~ influenced * prime_type + (prime_type | subject) + (1 | prime_identity), 
                      family = binomial(link = "logit"),
                      data = trial_level_posneg_ia_amp_data_exclusions)
 

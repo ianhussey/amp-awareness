@@ -1,6 +1,6 @@
 ---
 title: "Meta analysis"
-author: "Ian Hussey"
+author: "Ian Hussey & Jamie Cummins"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   html_document:
@@ -245,7 +245,7 @@ if(file.exists("models/fit_trial_level.rds")){
 } else {
   
   fit_trial_level <- 
-    glmer(rating ~ Awareness * prime_type + (1 | unique_id) + (1 | experiment),
+    glmer(rating ~ Awareness * prime_type + (prime_type | unique_id) + (1 | prime_identity) + (1 | experiment),
           family = binomial(link = "logit"),
           data = data_trial_level_valence_ia_amp)
   

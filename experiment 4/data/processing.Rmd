@@ -156,7 +156,7 @@ politics_IA_AMP_cleaned <- politics_IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 72) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, prime_identity = values.primestim) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -227,7 +227,7 @@ posneg_IA_AMP_cleaned <- posneg_IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 72) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, prime_identity = values.primestim) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -305,13 +305,13 @@ processed_data <- demographics_data %>%
 trial_level_politics_ia_amp_data <- processed_data %>%
   right_join(politics_IA_AMP_cleaned, by = "subject") %>%
   dplyr::select(subject, party, 
-                prime_type, rating, influenced, self_exclusion_1, complete_data)
+                prime_type, rating, influenced, self_exclusion_1, complete_data, prime_identity)
 
 # long format posneg IA AMP data
 trial_level_posneg_ia_amp_data <- processed_data %>%
   right_join(posneg_IA_AMP_cleaned, by = "subject") %>%
   dplyr::select(subject, party, 
-                prime_type, rating, influenced, self_exclusion_1, complete_data)
+                prime_type, rating, influenced, self_exclusion_1, complete_data, prime_identity)
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")

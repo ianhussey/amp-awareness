@@ -12,7 +12,7 @@ subject,age,gender,IA_AMP_effect_positive_negative,IA_AMP_uninfluenced_effect_po
 55027911,40,m,0.9,0.5,0.98,6,6,6,"Yes, use my data",,6,TRUE
 57535045,62,Male,0.6,0.21,0.44,3,5,2,"Yes, use my data",,5,TRUE
 58343219,30,female,-0.13,-0.13,0,4,2,6,"Yes, use my data",,2,TRUE
-63553405,42,female,0,-0.09,0.12,4,3,2,"Yes, use my data",,3,TRUE
+63553405,42,female,-0,-0.09,0.12,4,3,2,"Yes, use my data",,3,TRUE
 64892823,40,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 68261646,56,Female,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 70441581,21,Male,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
@@ -113,7 +113,7 @@ subject,age,gender,IA_AMP_effect_positive_negative,IA_AMP_uninfluenced_effect_po
 526328031,39,female,0.18,0.09,0.09,3,2,1,"Yes, use my data",,2,TRUE
 530427812,40,m,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 532616537,18,male,0.33,0.13,0.7,5,6,5,"Yes, use my data",,5,TRUE
-538746433,25,Male,-0.08,-0.09,0.02,2,7,7,"Yes, use my data",,2,TRUE
+538746433,25,Male,-0.08,-0.09,0.03,2,7,7,"Yes, use my data",,2,TRUE
 540518491,27,Female,0.22,0.1,0.13,2,2,1,"Yes, use my data",,3,TRUE
 542521283,20,female,0.12,-0.03,0.14,4,3,2,"Yes, use my data",,2,TRUE
 545637406,28,male,0.75,0.24,0.87,3,6,6,"No, exclude my data (please specify why):","I missed some of the images before the chinese characters, and so just entered a random response",2,TRUE
@@ -133,7 +133,7 @@ subject,age,gender,IA_AMP_effect_positive_negative,IA_AMP_uninfluenced_effect_po
 602920235,22,female,0.03,-0.07,0.16,4,2,1,"Yes, use my data",,3,TRUE
 604742078,28,Female,-0.02,-0.02,0,7,1,1,"Yes, use my data",,2,TRUE
 606586116,28,Female,0.08,-0,0.08,6,3,2,"Yes, use my data",,4,TRUE
-610671551,52,Male,0,0,0.22,6,6,1,"Yes, use my data",,1,TRUE
+610671551,52,Male,0,0,0.23,6,6,1,"Yes, use my data",,1,TRUE
 624910305,39,female,0.1,0.1,0,6,1,1,"Yes, use my data",,2,TRUE
 628094308,40,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 638642545,27,female,0.5,-0.11,0.78,2,6,4,"Yes, use my data",,6,TRUE
