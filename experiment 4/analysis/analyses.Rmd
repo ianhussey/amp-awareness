@@ -108,7 +108,7 @@ task_level_data_exclusions %>%
 ```{r}
 
 # fit model
-model_m1 <- glmer(rating ~ prime_type + (1 | subject), 
+model_m1 <- glmer(rating ~ prime_type + (prime_type | subject) + (1 | prime_identity), 
                   family = binomial(link = "logit"),
                   data = trial_level_posneg_ia_amp_data_exclusions)
 
@@ -162,7 +162,7 @@ plot_model(model_h1a_1, type = "int")
 # results table
 tab_model(model_h1a_1, emph.p = FALSE, ci.hyphen = ", ", digits = 5)
 
-```
+1```
 
 #### 2: at the participant level
 

@@ -98,7 +98,6 @@ plot_model(model_m1, type = "pred", terms = c("prime_type"))
 
 # results table
 tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
-
 ```
 
 ## M2: Demonstate an AMP effect on the IA-AMP
