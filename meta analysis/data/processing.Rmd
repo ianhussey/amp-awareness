@@ -100,7 +100,9 @@ data_combined_trial_level_data <- bind_rows(exp_2_trial_level,
                                     "prime_type_A" = "Negative"),
          prime_type = fct_relevel(prime_type,
                                   "Negative",
-                                  "Positive")) %>%
+                                  "Positive"),
+         prime_identity = case_when(IA_AMP_domain == "Valence" ~ paste0(prime_identity, "_v"),
+                                    IA_AMP_domain == "Politics" ~ paste0(prime_identity, "_p"))) %>%
   dplyr::select(-subject)
 
 # write to disk 

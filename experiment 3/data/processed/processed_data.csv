@@ -5,7 +5,7 @@ subject,age,gender,AMP_effect_obama_trump,IA_AMP_effect_positive_negative,IA_AMP
 17703893,31,F,0.81,0.67,0.6,0.72,7,I'm not sure or don't know why I responded the way I did,5,4,very democratic,"No, exclude my data (please specify why):","I guess I'm not 100% sure what you're measuring, but I had a hard time even seeing the Chinese symbol in between the recognizable image and the static. It was hard to judge a character I'd barely even seen, so I'm sure I just voted for cute seals and Obama and against guns and house fires and Trump most of the time.",5,democrat,TRUE
 23704276,19,female,0.25,0.33,0.02,0.22,7,My responses were genuinely based on whether I was influenced or not,3,1,very democratic,"Yes, use my data",,3,democrat,TRUE
 24223154,23,Cis Female,0.14,0.14,0.01,0.15,7,My responses were genuinely based on whether I was influenced or not,3,2,very democratic,"Yes, use my data",,2,democrat,TRUE
-35252637,26,Male,0,0,0,0,7,My responses were genuinely based on whether I was influenced or not,3,3,very democratic,"Yes, use my data",,3,democrat,TRUE
+35252637,26,Male,-0,0,0,0,7,My responses were genuinely based on whether I was influenced or not,3,3,very democratic,"Yes, use my data",,3,democrat,TRUE
 36800426,53,female,0.06,-0.03,-0.35,0.26,7,My responses were genuinely based on whether I was influenced or not,3,1,very democratic,"Yes, use my data",,3,democrat,TRUE
 36971546,28,Male,0.42,0.31,-0.07,0.43,7,My responses were genuinely based on whether I was influenced or not,4,4,a little democratic,"Yes, use my data",,2,democrat,TRUE
 37441758,33,female,0.97,0.81,0,0.96,7,My responses were genuinely based on whether I was influenced or not,7,6,very democratic,"Yes, use my data",,1,democrat,TRUE
@@ -82,7 +82,7 @@ subject,age,gender,AMP_effect_obama_trump,IA_AMP_effect_positive_negative,IA_AMP
 384312783,33,Male,0.11,-0.03,-0.03,0,6,My responses were genuinely based on whether I was influenced or not,1,1,very democratic,"Yes, use my data",,2,democrat,TRUE
 387510502,28,male,0.08,0.11,0.01,0.74,5,My responses were genuinely based on whether I was influenced or not,5,5,neither/moderate,"Yes, use my data",,4,neither/moderate,TRUE
 388821475,19,Female,0.14,0.47,0.27,0.43,7,My responses were genuinely based on whether I was influenced or not,5,2,somewhat democratic,"Yes, use my data",,4,democrat,TRUE
-398176801,33,Male,0,0.19,0.13,0.14,7,My responses were genuinely based on whether I was influenced or not,3,1,somewhat democratic,"Yes, use my data",,3,democrat,TRUE
+398176801,33,Male,-0,0.19,0.13,0.14,7,My responses were genuinely based on whether I was influenced or not,3,1,somewhat democratic,"Yes, use my data",,3,democrat,TRUE
 404330801,38,male,0.33,0.78,NA,1,7,My responses were genuinely based on whether I was influenced or not,7,7,very democratic,"Yes, use my data",,7,democrat,FALSE
 408892577,27,Male,0.08,-0.03,-0.09,0.06,7,I'm not sure or don't know why I responded the way I did,2,2,very democratic,"Yes, use my data",,2,democrat,TRUE
 414118202,19,female,-0.08,0.19,-0.11,0.28,7,My responses were genuinely based on whether I was influenced or not,4,2,very democratic,"Yes, use my data",,3,democrat,TRUE

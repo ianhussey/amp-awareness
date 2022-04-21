@@ -34,7 +34,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 180926818,31,female,-0.36,-0.81,0,0.97,7,7,6,"Yes, use my data",,1,TRUE
 181985090,45,male,0.33,0.5,0,0.86,6,6,6,"Yes, use my data",,6,TRUE
 187010750,44,female,0.53,0.56,0.46,0.57,6,4,1,"Yes, use my data",,5,TRUE
-190841178,52,female,0,0,0,0,7,1,1,"Yes, use my data",,1,TRUE
+190841178,52,female,0,-0,-0,0,7,1,1,"Yes, use my data",,1,TRUE
 204268642,22,Female,0.08,-0.03,-0.06,0.11,7,2,1,"No, exclude my data (please specify why):","There weren't any distractions and I focused purely on the task, but I do have a weird feeling about shapes. There are some shapes which I like, and others which I don't and I tend to feel rather strongly about that. Having said that though, I don't know if this is how people normally feel about shapes so I may not really stand out. I think I could still have subconciously been influenced by the pictures, but I know that there were some shapes which I was going to respond to regardless of whether it was a positive or negative image in front of it.",2,TRUE
 226981072,28,Male,-0.64,0.14,0.17,0.83,6,5,4,"Yes, use my data",,3,TRUE
 231035127,50,female,-0.33,-0.25,-0.09,0.21,7,4,5,"Yes, use my data",,2,TRUE
@@ -120,7 +120,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 645899775,53,Female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 646279482,31 ,female,0.25,0.11,0.11,0,1,1,1,"Yes, use my data",,1,TRUE
 651705054,32,female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
-654363103,55,female,0.17,0.75,0.57,0.75,6,6,6,"Yes, use my data",,6,TRUE
+654363103,55,female,0.17,0.75,0.58,0.75,6,6,6,"Yes, use my data",,6,TRUE
 674344557,28,female,0.69,0.75,0.73,0.25,2,3,1,"No, exclude my data (please specify why):",im not entirely sure i responded correctly. Images were flashing on screen extremely fast and then a fuzzy black image appreared once i had to make a decision. ,1,TRUE
 678354314,20,female,0.08,0.22,0.16,0.18,7,3,2,"Yes, use my data",,3,TRUE
 701547885,30,non-binary,0.03,0.25,-0.02,0.35,7,3,2,"Yes, use my data",,3,TRUE

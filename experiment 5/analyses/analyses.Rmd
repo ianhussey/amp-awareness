@@ -83,7 +83,7 @@ task_level_data_exclusions %>%
 ```{r}
 
 # fit model
-model_m1 <- glmer(rating ~ prime_type + (1 | subject), 
+model_m1 <- glmer(rating ~ prime_type + (prime_type | subject) + (1 | prime_identity), 
                   family = binomial(link = "logit"),
                   data = trial_level_amp_data_exclusions)
 
@@ -100,7 +100,7 @@ tab_model(model_m1, emph.p = FALSE, ci.hyphen = ", ")
 ```{r}
 
 # fit model
-model_m2 <- glmer(rating ~ prime_type + (1 | subject), 
+model_m2 <- glmer(rating ~ prime_type + (prime_type | subject) + (1 | prime_identity), 
                   family = binomial(link = "logit"),
                   data = trial_level_ia_amp_data_exclusions)
 
@@ -125,7 +125,7 @@ Key effect: influence*prime_type interaction
 ```{r}
 
 # model
-model_h1a <- glmer(rating ~ influenced * prime_type + (1 | subject), 
+model_h1a <- glmer(rating ~ influenced * prime_type + (prime_type | subject) + (1 | prime_identity), 
                    family = binomial(link = "logit"),
                    data = trial_level_ia_amp_data_exclusions)
 

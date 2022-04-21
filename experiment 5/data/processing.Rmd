@@ -118,7 +118,7 @@ AMP_cleaned <- AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 60) %>%
   ungroup() %>%
-  select(subject, prime_type, rating) %>%
+  select(subject, prime_type, rating, prime_identity = values.primestim) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -156,7 +156,7 @@ IA_AMP_cleaned <- IA_AMP_df %>%
   group_by(subject) %>% 
   filter(n() == 60) %>%
   ungroup() %>%
-  select(subject, prime_type, rating, influenced) %>%
+  select(subject, prime_type, rating, influenced, prime_identity = values.primestim) %>%
   
   # exclude those who didn't have the right number of trials on the screener
   mutate(subject = as.character(subject))
@@ -232,12 +232,12 @@ processed_data <- demographics_data %>%
 # long format AMP data
 trial_level_amp_data <- processed_data %>%
   right_join(AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, self_exclusion_1, complete_data)
+  select(subject, prime_type, rating, self_exclusion_1, complete_data, prime_identity)
 
 # long format IA AMP data
 trial_level_ia_amp_data <- processed_data %>%
   right_join(IA_AMP_cleaned, by = "subject") %>%
-  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data)
+  select(subject, prime_type, rating, influenced, self_exclusion_1, complete_data, prime_identity)
 
 # write to disk
 write_csv(processed_data, "processed/processed_data.csv")

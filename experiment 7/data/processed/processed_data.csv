@@ -30,7 +30,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 148535595,22,male,0.72,0.53,NA,1,7,6,7,"Yes, use my data",,7,TRUE
 155035399,30,Female,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 155431522,27,Female,0.14,-0.17,-0.15,0.28,7,3,2,"Yes, use my data",,2,TRUE
-172893383,23,female,0.22,0,-0,0.01,7,2,1,"Yes, use my data",,2,TRUE
+172893383,23,female,0.22,-0,-0,0.01,7,2,1,"Yes, use my data",,2,TRUE
 174014356,21,Male,-0.11,0.03,0.48,0.68,7,4,2,"Yes, use my data",,4,TRUE
 176684558,52,female,0.33,0.28,0.07,0.62,7,6,4,"Yes, use my data",,2,TRUE
 184556628,26,Male,0.67,0.69,0.66,0.11,2,1,1,"No, exclude my data (please specify why):",The second part of the study went on for longer than it was indicated. I was unsure if the program was stuck in a loop and I pressed the incorrect keys on the other half of it. I think it would have been more coherent if had a timer of some sort to indicate when it would have been done. On a few slides I pressed the wrong prompt to see if anything would change - therefore creating a bias in the study. For the first part and half of the second part my answers would've been usable.,1,TRUE
@@ -102,7 +102,7 @@ subject,age,gender,AMP_effect_positive_negative,IA_AMP_effect_positive_negative,
 485422375,36,Male,0.31,-0.06,-0.05,0.01,7,2,2,"Yes, use my data",,3,TRUE
 489604722,21,Male,0.11,-0.22,-0.24,0.01,7,2,2,"Yes, use my data",,2,TRUE
 501249961,20,Female,0.31,0.36,0.17,0.65,6,6,3,"Yes, use my data",,6,TRUE
-509665323,30,female,0.17,0,-0.02,0.08,7,2,1,"Yes, use my data",,1,TRUE
+509665323,30,female,0.17,-0,-0.02,0.08,7,2,1,"Yes, use my data",,1,TRUE
 509858806,34,female,0.11,0.69,0.06,0.51,7,6,4,"Yes, use my data",,4,TRUE
 513865277,27,Male,0.56,0.25,0.25,0,7,5,5,"Yes, use my data",,5,TRUE
 514045724,31,F,0.64,0.03,-0.07,0.28,7,3,4,"Yes, use my data",,2,TRUE

@@ -41,7 +41,7 @@ subject,age,gender,IA_AMP_effect_obama_trump,IA_AMP_effect_obama_trump_influence
 111182536,48,female,0.44,1,0.38,0.1,0.03,-0.1,0.22,7,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,4,NA,1,1,very democratic,"Yes, use my data",,1,2,democrat,FALSE
 111322780,38,female,0.33,NA,0.32,0.03,0.03,-0.06,0.07,7,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,2,2,1,1,a little republican,"Yes, use my data",,2,3,republican,TRUE
 112147283,35,male,0.03,NA,-0,0.06,-0.25,-0.25,0,NA,My responses were genuinely based on whether I was influenced or not,My responses were based on what I thought the researcher wanted me to say,NA,2,1,NA,a little republican,"Yes, use my data",,1,3,republican,FALSE
-112920454,44,male,0,NA,0,0,0.06,0.06,0,7,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,1,1,1,1,very democratic,"Yes, use my data",,1,1,democrat,TRUE
+112920454,44,male,-0,NA,-0,0,0.06,0.06,0,7,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,1,1,1,1,very democratic,"Yes, use my data",,1,1,democrat,TRUE
 115209706,29,male,0.08,NA,0.08,0,-0.17,-0.18,0.01,7,My responses were genuinely based on whether I was influenced or not,I'm not sure or don't know why I responded the way I did,2,2,1,1,a little republican,"Yes, use my data",,1,3,republican,TRUE
 123168415,22,Female,0.72,0.76,0.5,0.93,0.94,NA,1,4,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,4,5,4,5,somewhat democratic,"Yes, use my data",,4,4,democrat,TRUE
 123750149,37,female,0.39,NA,0.35,0.04,0.06,-0.02,0.11,7,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,3,3,1,1,somewhat democratic,"Yes, use my data",,2,2,democrat,TRUE
@@ -308,7 +308,7 @@ subject,age,gender,IA_AMP_effect_obama_trump,IA_AMP_effect_obama_trump_influence
 914332662,35,maschio,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 914741672,31,male,0.14,0,0.06,0.08,0.06,0.05,0.01,7,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,2,3,2,2,very democratic,"Yes, use my data",,NA,NA,democrat,FALSE
 915512731,61,female,0,NA,0,0,0.75,0.75,0,5,My responses were genuinely based on whether I was influenced or not,My responses were genuinely based on whether I was influenced or not,5,3,1,1,very republican,"Yes, use my data",,3,3,republican,TRUE
-918487572,22,female,0.31,0.73,-0.18,0.61,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
+918487572,22,female,0.31,0.73,-0.17,0.61,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 921355337,37,male,-0.11,NA,-0.11,0,0.97,NA,0.97,7,My responses were genuinely based on whether I was influenced or not,My responses were based on what I thought the researcher wanted me to say,6,1,6,1,very republican,"Yes, use my data",,6,2,republican,TRUE
 924093666,28,female,0.03,NA,0.03,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
 927907945,45,male,-0.22,-0.24,NA,0.99,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,FALSE
