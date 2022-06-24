@@ -1,0 +1,181 @@
+---
+title: "Meta analysis"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+library(lme4)
+library(effects)
+library(metafor)
+library(patchwork)
+library(sjPlot)
+library(knitr)
+library(kableExtra)
+library(patchwork)
+library(diptest)
+library(multimode)
+library(performance)
+
+# disable scientific notation
+options(scipen = 999) 
+
+# knitr output for html
+options(knitr.table.format = "html")
+
+# get data
+data_participant_level <- 
+  read.csv("../data/data_combined_participant_level_standard_amp.csv") %>%
+  mutate(
+    #AMP_effect = AMP_effect*-1,
+    experiment = as.factor(experiment),
+    abs_AMP_effect = abs(AMP_effect)
+  )
+
+```
+
+# Total participants after exclusions
+
+```{r}
+
+data_participant_level %>%
+  distinct(unique_id) %>%
+  dplyr::count() %>%
+  kable()
+
+```
+
+# Descriptive stats 
+
+## Distributions
+
+```{r}
+
+ggplot(data_participant_level, aes(AMP_effect, fill = AMP_domain)) +
+  geom_density(adjust = 2, alpha = 0.3) +
+  facet_wrap( ~ experiment, scales = "free_y")
+
+ggplot(data_participant_level, aes(abs_AMP_effect, fill = AMP_domain)) +
+  geom_density(adjust = 2, alpha = 0.3) +
+  facet_wrap( ~ experiment, scales = "free_y")
+
+```
+
+```{r}
+
+ggplot(data_participant_level, aes(AMP_mean_response, fill = AMP_domain)) +
+  geom_density(alpha = 0.2) 
+
+data_participant_level |>
+  group_by(AMP_domain) |>
+  summarize(proportion_extreme = round(mean(AMP_mean_response > .975 | 
+                                              AMP_mean_response < 0.025), 3))
+
+data_participant_level |>
+  mutate(abs_AMP_mean_response = ifelse(AMP_mean_response < 0.5, 
+                                        1 - AMP_mean_response,
+                                        AMP_mean_response)) |>
+  select(AMP_effect, 
+         abs_AMP_effect, 
+         AMP_mean_response, 
+         abs_AMP_mean_response,
+         IAAMP_influence_rate) |>
+  cor(method = "spearman") |>
+  round(2)
+
+```
+
+## AMP effects
+
+```{r}
+
+data_participant_level %>%
+  select(experiment,
+         AMP_domain, 
+         AMP_effect) %>%
+  filter(AMP_domain == "Valence") %>%
+  group_by(experiment, 
+           AMP_domain) %>%
+  dplyr::summarize(M_absolute_AMP_effect = mean(abs(AMP_effect), na.rm = TRUE),
+                   SD_absolute_AMP_effect = sd(abs(AMP_effect), na.rm = TRUE)) %>%
+  drop_na() %>%
+  mutate_if(is.numeric, round, digits = 2) %>%
+  kable() %>%  # print nicer looking table
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+
+```
+
+# Does influence rate predict the magnitude of AMP effects?
+
+## Participant level
+
+### AMP effect ~ IA-AMP influence rate
+
+AMP effect ~ IA-AMP influence rate
+
+Absolute AMP effects
+
+```{r}
+
+fit_participant_level_amp <- 
+  lmer(abs_AMP_effect ~ IAAMP_influence_rate + (1 | experiment), 
+       data = data_participant_level)
+
+tab_model(fit_participant_level_amp, 
+          show.std = TRUE,
+          col.order = c("est", "ci", "std.est", "std.ci", "p"),
+          string.est = "B",
+          string.ci = "CI",
+          string.std = "Std.Beta",
+          string.std_ci = "CI",
+          emph.p = FALSE,
+          ci.hyphen = ", ")
+
+r2_nakagawa(fit_participant_level_amp, by_group = TRUE)
+
+```
+
+### Combined plot
+
+```{r fig.height=4.25, fig.width=6}
+
+data_participant_level %>%
+  mutate(AMP_domain = fct_rev(AMP_domain)) %>% 
+  ggplot(aes(IAAMP_influence_rate, abs_AMP_effect, color = experiment, linetype = AMP_domain)) +
+  geom_smooth(method = "lm", alpha = 0.0, fullrange = TRUE) +
+  ylim(0,1) +
+  xlim(0,1) + 
+  theme_classic() +
+  xlab("Awareness rate") +
+  ylab("AMP effect") +
+  scale_color_viridis_d(begin = 0.1, end = 0.9) +
+  guides(color = guide_legend(title = "Experiment"),
+         linetype = guide_legend(title = "Domain"))
+
+```
+
+# Session info
+
+```{r}
+
+sessionInfo()
+
+```
+

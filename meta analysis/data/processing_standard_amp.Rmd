@@ -30,7 +30,7 @@ library(tidyverse)
 ```{r}
 
 exp_1 <- read.csv("../../experiment 0/data/processed/processed_data.csv") %>%
-  mutate(experiment = 0,
+  mutate(experiment = 1,
          AMP_domain = "Valence",
          age = as.numeric(age)) %>%
   dplyr::rename(AMP_effect = AMP_effect_positive_negative,
@@ -75,7 +75,8 @@ data_combined_participant_level <-
             exp_8) %>%
   dplyr::select(sort(names(.))) %>%
   filter(complete_data == TRUE & 
-           self_exclusion_1 == "Yes, use my data") %>%
+           (self_exclusion_1 == "Yes, use my data" |
+              is.na(self_exclusion_1))) %>%
   mutate(unique_id = paste(experiment, subject, sep = "_"),
          age = as.numeric(age),
          gender = case_when(str_detect(tolower(gender), "f") ~ "female",
