@@ -70,6 +70,13 @@ data_amp_cleaned <- data_amp %>%
   ungroup() %>%
   select(subject, prime_type, rating) 
 
+# bias
+data_amp_processed_bias <- data_amp_cleaned %>%
+  group_by(subject) %>%
+  summarize(mean_response_amp_posneg = round(mean(rating), 3)) %>%
+  ungroup() %>%
+  select(subject, mean_response_amp_posneg)
+
 # score amp effect
 data_amp_processed <- data_amp_cleaned %>%
   group_by(subject, prime_type) %>%
@@ -77,7 +84,8 @@ data_amp_processed <- data_amp_cleaned %>%
   ungroup() %>%
   spread(prime_type, amp_effect) %>%
   mutate(AMP_effect_positive_negative = round(prime_type_B - prime_type_A, 2)) %>%
-  select(subject, AMP_effect_positive_negative)
+  select(subject, AMP_effect_positive_negative) |>
+  left_join(data_amp_processed_bias, by = "subject")
 
 ```
 
