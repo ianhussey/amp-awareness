@@ -1,0 +1,99 @@
+---
+title: "Data processing for meta analysis"
+author: "Ian Hussey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r, include=FALSE}
+
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+
+```
+
+```{r}
+
+# dependencies
+library(tidyverse)
+
+```
+
+# Participant level standard AMP data
+
+```{r}
+
+exp_1 <- read.csv("../../experiment 0/data/processed/processed_data.csv") %>%
+  mutate(experiment = 0,
+         AMP_domain = "Valence",
+         age = as.numeric(age)) %>%
+  dplyr::rename(AMP_effect = AMP_effect_positive_negative,
+                AMP_mean_response = mean_response_amp_posneg)
+
+exp_3 <- read.csv("../../experiment 2/data/processed/processed_data.csv") %>%
+  mutate(experiment = 3,
+         AMP_domain = "Valence",
+         age = as.numeric(age)) %>%
+  dplyr::rename(AMP_effect = AMP_effect_positive_negative,
+                AMP_mean_response = mean_response_amp_posneg)
+
+exp_4 <- read.csv("../../experiment 3/data/processed/processed_data.csv") %>%
+  mutate(experiment = 4,
+         AMP_domain = "Politics",
+         age = as.numeric(age)) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data" &
+           party == "democrat") %>%
+  dplyr::rename(AMP_effect = AMP_effect_obama_trump,
+                AMP_mean_response = mean_response_amp_obamatrump)
+
+exp_7 <- read.csv("../../experiment 6/data/processed/processed_data.csv") %>%
+  mutate(experiment = 7,
+         AMP_domain = "Valence",
+         age = as.numeric(age)) %>%
+  dplyr::rename(AMP_effect = AMP_effect_positive_negative,
+                AMP_mean_response = mean_response_amp_posneg)
+
+exp_8 <- read.csv("../../experiment 7/data/processed/processed_data.csv") %>%
+  mutate(experiment = 8,
+         AMP_domain = "Valence",
+         age = as.numeric(age)) %>%
+  dplyr::rename(AMP_effect = AMP_effect_positive_negative,
+                AMP_mean_response = mean_response_amp_posneg)
+
+data_combined_participant_level <- 
+  bind_rows(exp_1, 
+            exp_3, 
+            exp_4, 
+            exp_7,
+            exp_8) %>%
+  dplyr::select(sort(names(.))) %>%
+  filter(complete_data == TRUE & 
+           self_exclusion_1 == "Yes, use my data") %>%
+  mutate(unique_id = paste(experiment, subject, sep = "_"),
+         age = as.numeric(age),
+         gender = case_when(str_detect(tolower(gender), "f") ~ "female",
+                            str_detect(tolower(gender), "w") ~ "female",
+                            str_detect(tolower(gender), "m") ~ "male",
+                            TRUE ~ "other")) %>%
+  dplyr::select(unique_id, 
+                experiment, 
+                age, 
+                gender, 
+                AMP_domain, 
+                AMP_mean_response,
+                AMP_effect,
+                IAAMP_influence_rate = influence_rate)
+
+# write to disk 
+write_csv(data_combined_participant_level,
+          "data_combined_participant_level_standard_amp.csv")
+
+```
+
